@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../content/site.json';
+---
+<BaseLayout meta={{...site.meta, title: `شكرًا لتواصلك | ${site.meta.title}`}}>
+  <main class="ref-wrap" style="min-height:100svh;display:grid;place-items:center;">
+    <section class="ref-section" style="width:100%;max-width:760px;text-align:center;">
+      <div class="ref-card" style="padding:clamp(1.5rem,5vw,3.5rem);">
+        <div class="about-badge-icon" style="margin:0 auto 1rem;--card-accent:var(--brand-olive);"><i class="bi bi-check2" aria-hidden="true"></i></div>
+        <h1 class="ref-section-title" style="font-size:clamp(2rem,4vw,3rem);">وصلتنا رسالتك</h1>
+        <p class="ref-section-subtitle">شكرًا لتواصلك مع مؤسسة هدايات. سنراجع رسالتك ونتواصل معك عند الحاجة.</p>
+        <a class="btn-cta-primary" href="/" style="margin-top:1.4rem;">العودة إلى الصفحة الرئيسية</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
