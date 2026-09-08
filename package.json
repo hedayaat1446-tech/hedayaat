@@ -1,14 +1,15 @@
 {
-  "name": "hedayat-astro",
+  "name": "hedayaat",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
+    "dev": "node prepare-structure.mjs && astro dev",
+    "build": "node prepare-structure.mjs && astro build",
+    "preview": "node server.mjs",
+    "start": "node server.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.16"
+    "astro": "5.16.16"
   }
 }

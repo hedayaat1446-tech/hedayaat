@@ -112,3 +112,12 @@ This build follows the supplied Hedayaat identity guide for the parts that apply
 - The supplied identity decorative geometry is included as `public/identity-corner.png` and `public/identity-grid.png` and used only as supporting decoration.
 - Identity font family names are declared first (`OYMandisa`, `The Year of Handicrafts`). Cairo/Amiri remain fallbacks because the supplied PDF does not include installable font files.
 - The sub-program lockup rule in the identity guide should be applied when an actual sub-program logo/name is introduced; the current site scope does not contain a sub-program section.
+
+## Railway deployment (flat-upload safe)
+هذه النسخة مصممة خصيصًا لتجنب مشكلة رفع المجلدات في GitHub. كل الملفات المهمة موجودة في الجذر، و`prepare-structure.mjs` يعيد إنشاء بنية `src/` و`public/` تلقائيًا أثناء البناء.
+
+Railway:
+- Build Command: `npm run build`
+- Start Command: `npm start`
+
+لا تستخدم `astro preview` على Railway في هذه النسخة. الخادم `server.mjs` يخدم مجلد `dist` مباشرة على `0.0.0.0:$PORT`، لذلك لا توجد مشكلة `Blocked request / allowedHosts`.
