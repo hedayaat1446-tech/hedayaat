@@ -3,9 +3,29 @@ import { constants } from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
+const preservedUploads = path.join(root, '.hedayaat-preserved-uploads');
 
-// The repository is intentionally flat for easy GitHub upload.
-// Before every Astro build we recreate the exact runtime structure required by the project report.
+async function copyTree(fromDir, toDir) {
+  try {
+    const entries = await readdir(fromDir, { withFileTypes: true });
+    await mkdir(toDir, { recursive: true });
+    for (const entry of entries) {
+      const from = path.join(fromDir, entry.name);
+      const to = path.join(toDir, entry.name);
+      if (entry.isDirectory()) await copyTree(from, to);
+      else if (entry.isFile()) await copyFile(from, to);
+    }
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+}
+
+// The ZIP is intentionally flat for easy GitHub upload, while the build recreates
+// the exact Astro/public structure documented in the Hedayaat technical report.
+// Preserve any files that Decap CMS may already have committed to public/uploads.
+await rm(preservedUploads, { recursive: true, force: true });
+await copyTree(path.join(root, 'public', 'uploads'), preservedUploads);
+
 await rm(path.join(root, 'src'), { recursive: true, force: true });
 await rm(path.join(root, 'public'), { recursive: true, force: true });
 
@@ -43,23 +63,10 @@ for (const [from, to] of mappings) {
   await copyFile(src, dest);
 }
 
-async function copyTree(fromDir, toDir) {
-  try {
-    const entries = await readdir(fromDir, { withFileTypes: true });
-    await mkdir(toDir, { recursive: true });
-    for (const entry of entries) {
-      const from = path.join(fromDir, entry.name);
-      const to = path.join(toDir, entry.name);
-      if (entry.isDirectory()) await copyTree(from, to);
-      else if (entry.isFile()) await copyFile(from, to);
-    }
-  } catch (error) {
-    if (error?.code !== 'ENOENT') throw error;
-  }
-}
-
-// Decap CMS stores uploaded PDFs/images in root /uploads in the flat repository.
-// Copy them to public/uploads so /uploads/... URLs work in the built site.
+// Restore CMS uploads in the report-required public/uploads path.
+await copyTree(preservedUploads, path.join(root, 'public', 'uploads'));
+// Backward compatibility with earlier flat versions that stored uploads at /uploads.
 await copyTree(path.join(root, 'uploads'), path.join(root, 'public', 'uploads'));
+await rm(preservedUploads, { recursive: true, force: true });
 
 console.log('Hedayaat project structure prepared for Astro build.');

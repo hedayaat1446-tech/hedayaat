@@ -9,15 +9,18 @@ const validSocial = (site.contact.social || []).filter((s) => s.url && s.url !==
 const hasIban = Boolean(site.contact.iban && !/SA00\s*0000/i.test(site.contact.iban));
 const boardReady = Boolean(site.docs?.board?.published && site.docs.board.fileHref);
 const reportItems = (site.docs?.reports?.items || []);
+const year = new Date().getFullYear();
+const copyright = (site.footer?.copyrightText || 'جميع الحقوق محفوظة © {year} هدايات').replace('{year}', String(year));
 ---
 
 <BaseLayout meta={site.meta}>
   <a class="skip-link visually-hidden-focusable" href="#main-content">تجاوز إلى المحتوى الرئيسي</a>
 
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
-    <div class="container-fluid identity-nav-shell">
-      <a class="navbar-brand" href="#home" aria-label="هدايات - بداية الصفحة">
-        <img src="/logo-black.png" alt="هدايات" width="110" height="67" />
+    <div class="container nav-shell">
+      <a class="navbar-brand brand-stack" href="#home" aria-label="هدايات - بداية الصفحة">
+        <img class="brand-logo brand-logo-light" src="/logo1.png" alt="هدايات" width="76" height="76" />
+        <img class="brand-logo brand-logo-dark" src="/1.png" alt="هدايات" width="76" height="76" />
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="إظهار القائمة">
@@ -28,58 +31,47 @@ const reportItems = (site.docs?.reports?.items || []);
         <ul class="navbar-nav nav-rtl mx-auto">
           {nav.map((item) => <li class="nav-item"><a class="nav-link" href={item.href}>{item.label}</a></li>)}
         </ul>
-        {waLink && <a class="nav-contact" href={waLink} target="_blank" rel="noopener noreferrer">تواصل معنا</a>}
+        {waLink && (
+          <a class="whatsapp-btn" href={waLink} target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب">
+            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          </a>
+        )}
       </div>
     </div>
   </nav>
 
   <main id="main-content">
-    <section id="home" class="identity-cover" aria-labelledby="hero-title">
-      <div class="identity-cover-inner">
-        <img src="/identity-lockup.png" alt="هدايات - محاضرات - ورش عمل - برامج" class="identity-lockup" fetchpriority="high" />
-        <h1 id="hero-title" class="sr-only">{site.hero.headline}</h1>
-
-        <div class="identity-swatches" aria-label="ألوان هوية هدايات">
-          <span class="olive"></span><span class="gold"></span><span class="peach"></span><span class="salmon"></span><span class="dusty"></span><span class="blue"></span>
-        </div>
-
-        <img src="/logo-black.png" alt="" class="cover-corner" aria-hidden="true" />
+    <section id="home" class="hero-section" style={`--hero-bg:url('${site.assets.heroBackground}')`} aria-labelledby="hero-title">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="identity-accent identity-accent-hero" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
-    </section>
-
-    <section class="statement-section" aria-label="رسالة هدايات">
-      <div class="statement-grid">
-        <div class="statement-mark">هدايات</div>
-        <div class="statement-copy">
-          <p class="section-label">منارة هدى لتعميق الوعي المجتمعي</p>
-          <h2>{site.hero.headline}</h2>
-          <p>{site.hero.lead}</p>
-          <div class="statement-actions">
-            {site.hero.cta.map((b) => <a href={b.href} class={b.variant === 'secondary' ? 'identity-link secondary' : 'identity-link'}>{b.label}</a>)}
-          </div>
+      <div class="container hero-content">
+        <img src="/logo1.png" alt="هدايات" class="hero-logo-img" fetchpriority="high" />
+        <h1 id="hero-title" class="hero-title">{site.hero.headline}</h1>
+        <p class="hero-lead">{site.hero.lead}</p>
+        <div class="hero-actions">
+          {site.hero.cta.map((b) => (
+            <a class={b.variant === 'secondary' ? 'btn-cta-secondary' : 'btn-cta-primary'} href={b.href}>{b.label}</a>
+          ))}
         </div>
       </div>
     </section>
 
-    <section class="identity-photo-section" aria-label="نموذج بصري من هوية هدايات">
-      <img src="/identity-photo-layout.jpg" alt="محاضرة ضمن الأنشطة التعليمية لهدايات" class="identity-photo-layout" loading="lazy" />
-    </section>
+    <section id="about" class="ref-wrap">
+      <div class="ref-section about-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.about.title}</h2>
+          <p class="ref-section-subtitle">{site.about.subtitle}</p>
+        </div>
 
-    <section id="about" class="editorial-section corner-section">
-      <img src="/identity-corner.png" alt="" class="side-corner" aria-hidden="true" />
-      <div class="editorial-shell">
-        <header class="identity-heading">
-          <span>هدايات</span>
-          <h2>{site.about.title}</h2>
-          <p>{site.about.subtitle}</p>
-        </header>
-
-        <div class="editorial-columns">
-          <article class="editorial-block emphasis">
+        <div class="about-card ref-card reveal-on-scroll">
+          <article class="about-highlight">
+            <div class="icon-box accent-gold"><i class="bi bi-patch-check-fill" aria-hidden="true"></i></div>
             <h3>{site.about.cardTitle}</h3>
             <p>{site.about.cardText}</p>
           </article>
-          <article class="editorial-block">
+          <article class="about-copy">
             <h3>{site.about.textTitle}</h3>
             <p>{site.about.p1}</p>
             <p>{site.about.p2}</p>
@@ -88,19 +80,16 @@ const reportItems = (site.docs?.reports?.items || []);
       </div>
     </section>
 
-    <div class="identity-grid-band" aria-hidden="true"></div>
-
-    <section id="vision" class="editorial-section">
-      <div class="editorial-shell">
-        <header class="identity-heading">
-          <span>وجهتنا</span>
-          <h2>{site.vision.title}</h2>
-          <p>{site.vision.subtitle}</p>
-        </header>
-        <div class="vision-columns">
-          {site.vision.items.map((x) => (
-            <article class="vision-item">
-              <div class="vision-number" aria-hidden="true">◆</div>
+    <section id="vision" class="ref-wrap section-with-motif">
+      <div class="ref-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.vision.title}</h2>
+          <p class="ref-section-subtitle">{site.vision.subtitle}</p>
+        </div>
+        <div class="ref-grid-2">
+          {site.vision.items.map((x, i) => (
+            <article class="ref-card ref-feature reveal-on-scroll">
+              <div class={`icon-box ${i % 2 === 0 ? 'accent-peach' : 'accent-dusty'}`}><i class={x.icon} aria-hidden="true"></i></div>
               <h3>{x.title}</h3>
               <p>{x.text}</p>
             </article>
@@ -109,99 +98,110 @@ const reportItems = (site.docs?.reports?.items || []);
       </div>
     </section>
 
-    <section id="goals" class="editorial-section soft-section">
-      <div class="editorial-shell">
-        <header class="identity-heading">
-          <span>مسارات الأثر</span>
-          <h2>{site.goals.title}</h2>
-          <p>{site.goals.subtitle}</p>
-        </header>
-        <div class="lined-list goals-list">
+    <section id="goals" class="ref-wrap">
+      <div class="ref-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.goals.title}</h2>
+          <p class="ref-section-subtitle">{site.goals.subtitle}</p>
+        </div>
+        <div class="ref-grid-4 goals-grid">
           {site.goals.items.map((g, i) => (
-            <article class="lined-item">
-              <span class="item-index">0{i + 1}</span>
-              <div><h3>{g.title}</h3><p>{g.text}</p></div>
+            <article class="ref-card ref-feature goal-card reveal-on-scroll">
+              <div class={`icon-box goal-accent accent-${['olive','gold','salmon','blue'][i % 4]}`}><i class={g.icon} aria-hidden="true"></i></div>
+              <h3>{g.title}</h3>
+              <p>{g.text}</p>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="values" class="editorial-section">
-      <div class="editorial-shell">
-        <header class="identity-heading">
-          <span>ما نؤمن به</span>
-          <h2>{site.values.title}</h2>
-          <p>{site.values.subtitle}</p>
-        </header>
+    <section id="values" class="ref-wrap section-with-motif values-section">
+      <div class="ref-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.values.title}</h2>
+          <p class="ref-section-subtitle">{site.values.subtitle}</p>
+        </div>
         <div class="values-grid">
-          {site.values.items.map((v) => (
-            <article class="value-item"><h3>{v.title}</h3><p>{v.text}</p></article>
+          {site.values.items.map((v, i) => (
+            <article class={`ref-card ref-feature value-card value-${i + 1} reveal-on-scroll`}>
+              <div class={`icon-box accent-${['gold','dusty','peach','salmon','olive'][i % 5]}`}><i class={v.icon} aria-hidden="true"></i></div>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <div class="identity-grid-panel" aria-hidden="true"></div>
-
-    <section id="board" class="editorial-section docs-section">
-      <div class="editorial-shell narrow-shell">
-        <header class="identity-heading">
-          <span>الحوكمة</span>
-          <h2>{site.docs.board.title}</h2>
-          {site.docs.board.subtitle && <p>{site.docs.board.subtitle}</p>}
-        </header>
-        {boardReady ? (
-          <a href={site.docs.board.fileHref} download class="document-row"><span>{site.docs.board.buttonLabel}</span><strong>تحميل PDF</strong></a>
-        ) : (
-          <div class="document-row disabled"><span>{site.docs.board.buttonLabel}</span><strong>قريبًا</strong></div>
-        )}
-      </div>
-    </section>
-
-    <section id="reports" class="editorial-section soft-section docs-section">
-      <div class="editorial-shell narrow-shell">
-        <header class="identity-heading">
-          <span>الشفافية</span>
-          <h2>{site.docs.reports.title}</h2>
-          {site.docs.reports.subtitle && <p>{site.docs.reports.subtitle}</p>}
-        </header>
-        <div class="document-list">
-          {reportItems.length ? reportItems.map((r) => r.published && r.fileHref ? (
-            <a href={r.fileHref} download class="document-row"><span>{r.buttonLabel}</span><strong>تحميل PDF</strong></a>
+    <section id="board" class="ref-wrap docs-wrap">
+      <div class="ref-section docs-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.docs.board.title}</h2>
+          {site.docs.board.subtitle && <p class="ref-section-subtitle">{site.docs.board.subtitle}</p>}
+        </div>
+        <div class="docs-list reveal-on-scroll">
+          {boardReady ? (
+            <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
+              <div class="doc-main"><div class="icon-box accent-gold"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div><div><strong>{site.docs.board.buttonLabel}</strong>{site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}</div></div>
+              <i class="bi bi-download" aria-hidden="true"></i>
+            </a>
           ) : (
-            <div class="document-row disabled"><span>{r.buttonLabel}</span><strong>قريبًا</strong></div>
-          )) : <div class="document-row disabled"><span>لا توجد تقارير منشورة حاليًا.</span><strong>—</strong></div>}
+            <div class="ref-card ref-link-card is-disabled">
+              <div class="doc-main"><div class="icon-box accent-gold"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div><div><strong>{site.docs.board.buttonLabel}</strong>{site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}</div></div>
+              <span class="status-pill">قريبًا</span>
+            </div>
+          )}
         </div>
       </div>
     </section>
 
-    <section id="contact" class="editorial-section contact-section corner-section">
-      <img src="/identity-corner.png" alt="" class="side-corner contact-corner" aria-hidden="true" />
-      <div class="editorial-shell">
-        <header class="identity-heading">
-          <span>نرحب بتواصلكم</span>
-          <h2>{site.contact.title}</h2>
-          <p>{site.contact.subtitle}</p>
-        </header>
+    <section id="reports" class="ref-wrap docs-wrap reports-wrap">
+      <div class="ref-section docs-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.docs.reports.title}</h2>
+          {site.docs.reports.subtitle && <p class="ref-section-subtitle">{site.docs.reports.subtitle}</p>}
+        </div>
+        <div class="docs-list">
+          {reportItems.length ? reportItems.map((r) => r.published && r.fileHref ? (
+            <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
+              <div class="doc-main"><div class="icon-box accent-peach"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i></div><div><strong>{r.buttonLabel}</strong>{r.buttonHint && <small>{r.buttonHint}</small>}</div></div>
+              <i class="bi bi-download" aria-hidden="true"></i>
+            </a>
+          ) : (
+            <div class="ref-card ref-link-card is-disabled reveal-on-scroll">
+              <div class="doc-main"><div class="icon-box accent-peach"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i></div><div><strong>{r.buttonLabel}</strong>{r.buttonHint && <small>{r.buttonHint}</small>}</div></div>
+              <span class="status-pill">قريبًا</span>
+            </div>
+          )) : <div class="ref-card ref-link-card is-disabled"><div class="doc-main"><span>لا توجد تقارير منشورة حاليًا.</span></div></div>}
+        </div>
+      </div>
+    </section>
 
-        <div class="contact-layout">
-          <form class="identity-form" id="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank">
+    <section id="contact" class="ref-wrap contact-wrap">
+      <div class="ref-section contact-section">
+        <div class="ref-section-header reveal-on-scroll">
+          <h2 class="ref-section-title">{site.contact.title}</h2>
+          <p class="ref-section-subtitle">{site.contact.subtitle}</p>
+        </div>
+
+        <div class="contact-container">
+          <form class="contact-form ref-card reveal-on-scroll" id="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank">
             <input type="hidden" name="form-name" value="contact" />
             <p hidden><label>اترك هذا الحقل فارغًا: <input name="bot-field" /></label></p>
-            <label>الاسم الكامل<input name="fullName" type="text" autocomplete="name" required /></label>
-            <label>البريد الإلكتروني<input name="email" type="email" autocomplete="email" required /></label>
-            <label>موضوع الرسالة<input name="subject" type="text" /></label>
-            <label>نص الرسالة<textarea name="message" required></textarea></label>
-            <button type="submit">إرسال الرسالة</button>
+            <div class="form-group"><label for="fullName">الاسم الكامل</label><input id="fullName" name="fullName" type="text" autocomplete="name" required /></div>
+            <div class="form-group"><label for="email">البريد الإلكتروني</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="form-group"><label for="subject">موضوع الرسالة</label><input id="subject" name="subject" type="text" /></div>
+            <div class="form-group"><label for="message">نص الرسالة</label><textarea id="message" name="message" required></textarea></div>
+            <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
           </form>
 
-          <aside class="contact-details-panel">
-            <div><span>البريد الإلكتروني</span><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></div>
-            <div><span>رقم الهاتف / واتساب</span><a href={`tel:${waDigits}`}>{site.contact.phone}</a></div>
-            <div><span>العنوان</span><p>{site.contact.address}</p></div>
-            {hasIban && <div><span>الآيبان</span><p dir="ltr">{site.contact.iban}</p></div>}
-            {validSocial.length > 0 && <div class="social-row">{validSocial.map((s) => <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label}><i class={s.icon}></i></a>)}</div>}
+          <aside class="contact-info">
+            <div class="contact-item ref-card reveal-on-scroll"><div class="contact-icon accent-gold"><i class="bi bi-envelope"></i></div><div><h3>البريد الإلكتروني</h3><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></div></div>
+            <div class="contact-item ref-card reveal-on-scroll"><div class="contact-icon accent-dusty"><i class="bi bi-telephone"></i></div><div><h3>رقم الهاتف / واتساب</h3><a href={`tel:${waDigits}`}>{site.contact.phone}</a></div></div>
+            <div class="contact-item ref-card reveal-on-scroll"><div class="contact-icon accent-peach"><i class="bi bi-geo-alt"></i></div><div><h3>العنوان</h3><p>{site.contact.address}</p></div></div>
+            {hasIban && <div class="contact-item ref-card reveal-on-scroll"><div class="contact-icon accent-salmon"><i class="bi bi-bank"></i></div><div><h3>الآيبان</h3><p dir="ltr">{site.contact.iban}</p></div></div>}
+            {validSocial.length > 0 && <div class="contact-item ref-card social-contact reveal-on-scroll"><div class="contact-icon accent-blue"><i class="bi bi-share"></i></div><div><h3>تابعنا على</h3><div class="social-icons-row">{validSocial.map((s) => <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label}><i class={s.icon}></i></a>)}</div></div></div>}
           </aside>
         </div>
       </div>
@@ -209,23 +209,32 @@ const reportItems = (site.docs?.reports?.items || []);
   </main>
 
   <footer class="site-footer">
-    <div class="footer-pattern" aria-hidden="true"></div>
-    <div class="footer-content">
-      <img src="/logo-black.png" alt="هدايات" class="footer-hedayaat" />
-      <img src={site.assets.nationalCenterLogo} alt="المركز الوطني لتنمية القطاع غير الربحي" class="footer-center-logo" />
+    <div class="identity-ribbon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container footer-content">
+      <div class="footer-logos"><img src="/1.png" alt="هدايات" class="footer-hedayaat" /><img src={site.assets.nationalCenterLogo} alt="المركز الوطني لتنمية القطاع غير الربحي" class="footer-center-logo" /></div>
       <p>{site.footer.licenseText}</p>
-      <small>{site.footer.copyrightText.replace('{year}', String(new Date().getFullYear()))}</small>
+      <small>{copyright}</small>
     </div>
   </footer>
 
   <script is:inline>
-    const hdr = document.querySelector('.hdr');
-    const updateHeader = () => hdr?.classList.toggle('scrolled', window.scrollY > 90);
-    window.addEventListener('scroll', updateHeader, { passive: true });
-    updateHeader();
-    const navCollapse = document.getElementById('navMain');
-    document.querySelectorAll('#navMain .nav-link').forEach((link) => link.addEventListener('click', () => {
-      if (window.innerWidth < 992 && navCollapse?.classList.contains('show') && window.bootstrap) window.bootstrap.Collapse.getOrCreateInstance(navCollapse).hide();
+    const header = document.querySelector('.hdr');
+    const syncHeader = () => header?.classList.toggle('scrolled', window.scrollY > 50);
+    syncHeader();
+    addEventListener('scroll', syncHeader, { passive: true });
+
+    const navLinks = document.querySelectorAll('#navMain .nav-link');
+    navLinks.forEach((link) => link.addEventListener('click', () => {
+      const open = document.querySelector('#navMain.show');
+      if (open && window.bootstrap) window.bootstrap.Collapse.getOrCreateInstance(open).hide();
     }));
+
+    const items = document.querySelectorAll('.reveal-on-scroll');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      }), { threshold: 0.08 });
+      items.forEach((el) => io.observe(el));
+    } else { items.forEach((el) => el.classList.add('is-visible')); }
   </script>
 </BaseLayout>
