@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "public/uploads"
+media_folder: "uploads"
 public_folder: "/uploads"
 
 locale: "ar"
@@ -13,7 +13,7 @@ collections:
     files:
       - name: "home"
         label: "الصفحة الرئيسية"
-        file: "src/content/site.json"
+        file: "site.json"
         format: "json"
         fields:
           - label: "SEO والمشاركة"
@@ -22,7 +22,7 @@ collections:
             fields:
               - { label: "عنوان الموقع", name: "title", widget: "string" }
               - { label: "وصف الموقع", name: "description", widget: "text" }
-              - { label: "رابط الموقع الرسمي", name: "url", widget: "string", required: false, hint: "يوضع رابط Netlify النهائي أو الدومين الرسمي بعد النشر." }
+              - { label: "رابط الموقع الرسمي", name: "url", widget: "string", required: false, hint: "الرابط الحالي مضبوط على رابط النشر. عند اعتماد الدومين الرسمي أو رابط Netlify النهائي استبدله هنا." }
               - { label: "OG Image (واتساب)", name: "ogImage", widget: "image" }
               - { label: "Locale", name: "locale", widget: "string", default: "ar_SA" }
 

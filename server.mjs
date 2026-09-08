@@ -26,13 +26,13 @@ const mime = {
 };
 
 function safePath(urlPath) {
-  const clean = decodeURIComponent(urlPath.split('?')[0]).replace(/\\/g, '/');
+  const clean = decodeURIComponent(String(urlPath || '/').split('?')[0]).replace(/\\/g, '/');
   const normalized = path.posix.normalize(clean).replace(/^\.\.(\/|$)/g, '');
   return normalized.startsWith('/') ? normalized.slice(1) : normalized;
 }
 
 async function resolveFile(reqPath) {
-  const rel = safePath(reqPath || '/');
+  const rel = safePath(reqPath);
   const candidates = [];
   if (!rel) candidates.push('index.html');
   else {
@@ -45,7 +45,8 @@ async function resolveFile(reqPath) {
 
   for (const candidate of candidates) {
     const full = path.resolve(dist, candidate);
-    if (!full.startsWith(path.resolve(dist) + path.sep) && full !== path.resolve(dist, 'index.html')) continue;
+    const distRoot = path.resolve(dist);
+    if (full !== distRoot && !full.startsWith(distRoot + path.sep)) continue;
     try {
       const info = await stat(full);
       if (info.isFile()) return full;
@@ -61,6 +62,8 @@ async function resolveFile(reqPath) {
 
 const server = http.createServer(async (req, res) => {
   try {
+    // Netlify processes form submissions when deployed there. On Railway, a POST to /thank
+    // still lands on the thank-you page, but no submission is stored by Railway.
     const file = await resolveFile(req.url || '/');
     if (!file) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -68,9 +71,12 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     const body = await readFile(file);
+    const ext = path.extname(file).toLowerCase();
     res.writeHead(200, {
-      'Content-Type': mime[path.extname(file).toLowerCase()] || 'application/octet-stream',
-      'Cache-Control': path.extname(file) === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'Content-Type': mime[ext] || 'application/octet-stream',
+      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
     });
     if (req.method === 'HEAD') res.end();
     else res.end(body);
