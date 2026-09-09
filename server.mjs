@@ -74,7 +74,7 @@ const server = http.createServer(async (req, res) => {
     const ext = path.extname(file).toLowerCase();
     res.writeHead(200, {
       'Content-Type': mime[ext] || 'application/octet-stream',
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'Cache-Control': ['.html','.css','.js','.mjs','.json'].includes(ext) ? 'no-store, no-cache, must-revalidate, max-age=0' : 'public, max-age=300',
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     });
