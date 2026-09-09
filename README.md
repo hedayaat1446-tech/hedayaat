@@ -32,3 +32,10 @@ Publish directory:
 - روابط السوشيال غير المعتمدة مخفية حتى إضافة الروابط الرسمية.
 - الآيبان مخفي حتى إدخال الآيبان الرسمي.
 - ملفات مجلس الإدارة والتقارير تظهر كـ "قريبًا" حتى رفع ملفات PDF الرسمية.
+
+
+## Hedayaat identity update
+- Official palette applied: #637450, #BEAE59, #E69D74, #E06659, #93BBBA, #21607F.
+- Main/program headings use OYMandisa when available.
+- Subheadings/body use The Year of Handicrafts when available.
+- Cairo/Amiri remain fallback web fonts because the identity PDF does not include distributable web-font files.
