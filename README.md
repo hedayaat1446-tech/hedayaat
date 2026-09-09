@@ -39,3 +39,9 @@ Publish directory:
 - Main/program headings use OYMandisa when available.
 - Subheadings/body use The Year of Handicrafts when available.
 - Cairo/Amiri remain fallback web fonts because the identity PDF does not include distributable web-font files.
+
+
+## Visual identity correction
+- Website typography follows the report: **Amiri** for major headings and **Cairo** for body/UI.
+- Identity swatches are exact samples from the supplied guide: #647551, #BFAF5A, #E79E75, #E1675A, #94BCBB, #226180.
+- The report's near-black green background, beige navigation, and cream cards are preserved; identity colors are used as controlled accents rather than replacing the whole site background.
