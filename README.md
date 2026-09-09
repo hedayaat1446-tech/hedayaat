@@ -1,17 +1,11 @@
-# Hedayaat — exact report/identity release
+# Hedayaat — Exact Report Version
 
-This flat upload package rebuilds the exact Astro structure at build time.
+هذه النسخة تعيد واجهة الموقع الأصلية المطابقة للصور الواردة في تقرير موقع هدايات، بدون إعادة تصميم.
 
-Railway:
-- Build: `npm run build`
-- Start: `npm start`
+## Railway
+- Build Command: `npm run build`
+- Start Command: `npm start`
 
-Visual lock:
-- Report layout and section order
-- Cairo body/navigation
-- Amiri headings
-- Dark report background `#101713`
-- Report cards `#E9E5DD`
-- Official identity palette: `#637450 #BEAE59 #E69D74 #E06659 #93BBBA #21607F`
+الملفات في هذا ZIP مسطحة لسهولة رفعها على GitHub. أثناء البناء يعيد `prepare-structure.mjs` إنشاء `src/` و`public/` تلقائيًا من هذه الملفات، ويحذف أي مجلدات قديمة حتى لا يظهر تصميم سابق بالخطأ.
 
-After uploading all files to GitHub, confirm Railway deploys the commit containing `RELEASE.txt`.
+علامة الإصدار: `2026-09-10-EXACT-REPORT`

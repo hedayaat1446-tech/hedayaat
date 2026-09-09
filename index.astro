@@ -78,7 +78,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           <p class="ref-section-subtitle">{site.about.subtitle}</p>
         </div>
 
-        <div class="ref-card p-4 p-md-5 reveal-on-scroll">
+        <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
           <div class="row g-4 align-items-center">
             <div class="col-md-5">
               <div class="p-4 rounded-3" style="background-color:#ebd5b3;">
@@ -113,7 +113,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           <p class="ref-section-subtitle">{site.vision.subtitle}</p>
         </div>
 
-        <div class="ref-grid-2">
+        <div class="ref-grid-2 report-grid-vision">
           {site.vision.items.map((x) => (
             <div class="ref-card ref-feature reveal-on-scroll">
               <div class="icon"><i class={x.icon} aria-hidden="true"></i></div>
@@ -132,7 +132,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           <p class="ref-section-subtitle">{site.goals.subtitle}</p>
         </div>
 
-        <div class="ref-grid-2">
+        <div class="ref-grid-4 report-grid-goals">
           {site.goals.items.map((g) => (
             <div class="ref-card ref-feature goal-card reveal-on-scroll">
               <div class="icon"><i class={g.icon} aria-hidden="true"></i></div>
@@ -151,7 +151,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           <p class="ref-section-subtitle">{site.values.subtitle}</p>
         </div>
 
-        <div class="ref-grid-3">
+        <div class="ref-grid-4 report-grid-values">
           {site.values.items.map((v) => (
             <div class="ref-card ref-feature reveal-on-scroll">
               <div class="icon"><i class={v.icon} aria-hidden="true"></i></div>
@@ -173,7 +173,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
     </div>
 
     <div class="mx-auto reveal-on-scroll" style="max-width: 640px;">
-      {site.docs.board.published !== false && site.docs.board.fileHref ? (
       <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
         <div class="left">
           <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
@@ -184,15 +183,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
         </div>
         <i class="bi bi-download" aria-hidden="true"></i>
       </a>
-      ) : (
-        <div class="ref-card ref-link-card" aria-disabled="true">
-          <div class="left">
-            <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
-            <div><div class="title">{site.docs.board.buttonLabel}</div><small>قريبًا</small></div>
-          </div>
-          <i class="bi bi-clock" aria-hidden="true"></i>
-        </div>
-      )}
     </div>
   </div>
 </section>
@@ -208,7 +198,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
 
     <div class="mx-auto" style="max-width: 640px; display: grid; gap: 1rem;">
       {(site.docs.reports.items ?? []).map((r) => (
-        r.published !== false && r.fileHref ? (
         <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
           <div class="left">
             <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
@@ -219,15 +208,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           </div>
           <i class="bi bi-download" aria-hidden="true"></i>
         </a>
-        ) : (
-          <div class="ref-card ref-link-card reveal-on-scroll" aria-disabled="true">
-            <div class="left">
-              <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
-              <div><div class="title">{r.buttonLabel}</div><small>قريبًا</small></div>
-            </div>
-            <i class="bi bi-clock" aria-hidden="true"></i>
-          </div>
-        )
       ))}
     </div>
   </div>
@@ -240,7 +220,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
           <p class="ref-section-subtitle">{site.contact.subtitle}</p>
         </div>
 
-        <div class="contact-container">
+        <div class="contact-container report-contact">
           <div class="contact-form reveal-on-scroll">
             <form id="contact-form"   name="contact"
   method="POST"
@@ -304,7 +284,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
               </div>
             </div>
 
-            {site.contact.iban && (
             <div class="contact-item reveal-on-scroll">
               <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
               <div class="contact-details">
@@ -315,14 +294,13 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
                 </p>
               </div>
             </div>
-            )}
 
             <div class="contact-item reveal-on-scroll">
               <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
               <div class="contact-details">
                 <h3>تابعنا على</h3>
                 <div class="social-icons-row">
-                  {site.contact.social.filter((s) => s.enabled !== false && s.url && s.url !== '#').map((s) => (
+                  {site.contact.social.map((s) => (
                     <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
                       <i class={s.icon}></i>
                     </a>

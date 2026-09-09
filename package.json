@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "node prepare-structure.mjs && astro dev",
     "build": "node prepare-structure.mjs && astro build",
-    "preview": "node server.mjs",
+    "preview": "astro preview",
     "start": "node server.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "5.16.16"
+    "astro": "^5.16.16"
   }
 }

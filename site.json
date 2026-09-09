@@ -153,8 +153,7 @@
       "subtitle": "نخبة من القادة والخبراء يشرفون على حوكمة المؤسسة وتوجيه مسيرتها",
       "buttonLabel": "تحميل ملف مجلس الإدارة (PDF)",
       "buttonHint": "تعريف بالأعضاء وخبراتهم ومسؤولياتهم",
-      "fileHref": "board-info.pdf",
-      "published": false
+      "fileHref": "board-info.pdf"
     },
     "reports": {
       "title": "التقارير",
@@ -163,8 +162,7 @@
         {
           "buttonLabel": "تحميل التقرير المالي (PDF)",
           "buttonHint": "عرض للإيرادات والمصروفات وأوجه الصرف على البرامج",
-          "fileHref": "financial-report.pdf",
-          "published": false
+          "fileHref": "financial-report.pdf"
         }
       ]
     }
@@ -175,7 +173,7 @@
     "email": "Hadayaat1446@gmail.com",
     "phone": "+966 54 907 8774",
     "address": "جدة، المملكة العربية السعودية",
-    "iban": "",
+    "iban": "SA00 0000 0000 0000 0000 0000",
     "social": [
       {
         "label": "واتساب",
@@ -185,26 +183,22 @@
       {
         "label": "سناب",
         "url": "#",
-        "icon": "bi bi-snapchat",
-        "enabled": false
+        "icon": "bi bi-snapchat"
       },
       {
         "label": "يوتيوب",
         "url": "#",
-        "icon": "bi bi-youtube",
-        "enabled": false
+        "icon": "bi bi-youtube"
       },
       {
         "label": "انستغرام",
         "url": "#",
-        "icon": "bi bi-instagram",
-        "enabled": false
+        "icon": "bi bi-instagram"
       },
       {
         "label": "X",
         "url": "#",
-        "icon": "bi bi-twitter-x",
-        "enabled": false
+        "icon": "bi bi-twitter-x"
       }
     ]
   },
