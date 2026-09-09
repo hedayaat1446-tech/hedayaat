@@ -1,7 +1,7 @@
 {
-  "name": "hedayaat",
+  "name": "hedayat-astro",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "node prepare-structure.mjs && astro dev",
     "build": "node prepare-structure.mjs && astro build",

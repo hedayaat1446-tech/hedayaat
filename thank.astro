@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import site from '../content/site.json';
 ---
-<BaseLayout meta={{...site.meta, title: `شكرًا لتواصلك | ${site.meta.title}`}}>
-  <main class="ref-wrap" style="min-height:100svh;display:grid;place-items:center;">
-    <section class="ref-section" style="width:100%;max-width:760px;text-align:center;">
-      <div class="ref-card" style="padding:clamp(1.5rem,5vw,3.5rem);">
-        <div class="about-badge-icon" style="margin:0 auto 1rem;--card-accent:var(--brand-olive);"><i class="bi bi-check2" aria-hidden="true"></i></div>
-        <h1 class="ref-section-title" style="font-size:clamp(2rem,4vw,3rem);">وصلتنا رسالتك</h1>
-        <p class="ref-section-subtitle">شكرًا لتواصلك مع مؤسسة هدايات. سنراجع رسالتك ونتواصل معك عند الحاجة.</p>
-        <a class="btn-cta-primary" href="/" style="margin-top:1.4rem;">العودة إلى الصفحة الرئيسية</a>
-      </div>
-    </section>
-  </main>
-</BaseLayout>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تم الإرسال</title>
+  </head>
+  <body style="font-family: Cairo, sans-serif; background:#111713; color:#fff; text-align:center; padding:4rem 1rem;">
+    <h1 style="margin-bottom:1rem;">تم استلام رسالتك ✅</h1>
+    <p style="opacity:0.9;">شكرًا لتواصلك. سنعود إليك قريبًا.</p>
+    <a href="/" style="display:inline-block; margin-top:1.5rem; background:#c28b3f; color:#fff; padding:0.8rem 1.2rem; border-radius:999px; text-decoration:none;">
+      الرجوع للموقع
+    </a>
+  </body>
+</html>

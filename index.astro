@@ -5,10 +5,6 @@ import site from "../content/site.json";
 const nav = (site.nav || []).filter((x) => x.enabled !== false);
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
 const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحباً هدايات")}`;
-const boardReady = site.docs?.board?.published !== false && Boolean(String(site.docs?.board?.fileHref || '').trim());
-const reportItems = site.docs?.reports?.items || [];
-const hasIban = Boolean(String(site.contact?.iban || '').trim());
-const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.test(String(x.url || '').trim()));
 ---
 
 <BaseLayout meta={site.meta}>
@@ -177,27 +173,24 @@ const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.t
     </div>
 
     <div class="mx-auto reveal-on-scroll" style="max-width: 640px;">
-      {boardReady ? (
-        <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
-          <div class="left">
-            <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
-            <div>
-              <div class="title">{site.docs.board.buttonLabel}</div>
-              {site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}
-            </div>
+      {site.docs.board.published !== false && site.docs.board.fileHref ? (
+      <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
+        <div class="left">
+          <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
+          <div>
+            <div class="title">{site.docs.board.buttonLabel}</div>
+            {site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}
           </div>
-          <i class="bi bi-download" aria-hidden="true"></i>
-        </a>
+        </div>
+        <i class="bi bi-download" aria-hidden="true"></i>
+      </a>
       ) : (
         <div class="ref-card ref-link-card" aria-disabled="true">
           <div class="left">
             <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
-            <div>
-              <div class="title">{site.docs.board.buttonLabel}</div>
-              {site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}
-            </div>
+            <div><div class="title">{site.docs.board.buttonLabel}</div><small>قريبًا</small></div>
           </div>
-          <small>قريبًا</small>
+          <i class="bi bi-clock" aria-hidden="true"></i>
         </div>
       )}
     </div>
@@ -214,7 +207,8 @@ const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.t
     </div>
 
     <div class="mx-auto" style="max-width: 640px; display: grid; gap: 1rem;">
-      {reportItems.length ? reportItems.map((r) => r.published !== false && r.fileHref ? (
+      {(site.docs.reports.items ?? []).map((r) => (
+        r.published !== false && r.fileHref ? (
         <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
           <div class="left">
             <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
@@ -225,20 +219,16 @@ const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.t
           </div>
           <i class="bi bi-download" aria-hidden="true"></i>
         </a>
-      ) : (
-        <div class="ref-card ref-link-card reveal-on-scroll" aria-disabled="true">
-          <div class="left">
-            <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
-            <div>
-              <div class="title">{r.buttonLabel}</div>
-              {r.buttonHint && <small>{r.buttonHint}</small>}
+        ) : (
+          <div class="ref-card ref-link-card reveal-on-scroll" aria-disabled="true">
+            <div class="left">
+              <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
+              <div><div class="title">{r.buttonLabel}</div><small>قريبًا</small></div>
             </div>
+            <i class="bi bi-clock" aria-hidden="true"></i>
           </div>
-          <small>قريبًا</small>
-        </div>
-      )) : (
-        <div class="ref-card ref-link-card reveal-on-scroll" aria-disabled="true">لا توجد تقارير منشورة حاليًا.</div>
-      )}
+        )
+      ))}
     </div>
   </div>
 </section>
@@ -265,8 +255,8 @@ const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.t
     <label>Don’t fill this out: <input name="bot-field" /></label>
   </p>
               <div class="form-group">
-                <label class="form-label" for="fullName">الاسم الكامل</label>
-                <input class="form-input" id="fullName" name="fullName" type="text" autocomplete="name" required />
+                <label class="form-label" for="name">الاسم الكامل</label>
+                <input class="form-input" id="name" name="name" type="text" required />
               </div>
 
               <div class="form-group">
@@ -314,34 +304,32 @@ const validSocial = (site.contact?.social || []).filter((x) => /^https?:\/\//i.t
               </div>
             </div>
 
-            {hasIban && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>معلومات الحساب البنكي</h3>
-                  <p>
-                    رقم الحساب البنكي (آيبان):
-                    <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
-                  </p>
-                </div>
+            {site.contact.iban && (
+            <div class="contact-item reveal-on-scroll">
+              <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
+              <div class="contact-details">
+                <h3>معلومات الحساب البنكي</h3>
+                <p>
+                  رقم الحساب البنكي (آيبان):
+                  <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
+                </p>
               </div>
+            </div>
             )}
 
-            {validSocial.length > 0 && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>تابعنا على</h3>
-                  <div class="social-icons-row">
-                    {validSocial.map((s) => (
-                      <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
-                        <i class={s.icon}></i>
-                      </a>
-                    ))}
-                  </div>
+            <div class="contact-item reveal-on-scroll">
+              <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
+              <div class="contact-details">
+                <h3>تابعنا على</h3>
+                <div class="social-icons-row">
+                  {site.contact.social.filter((s) => s.enabled !== false && s.url && s.url !== '#').map((s) => (
+                    <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
+                      <i class={s.icon}></i>
+                    </a>
+                  ))}
                 </div>
               </div>
-            )}
+            </div>
 
           </div>
         </div>

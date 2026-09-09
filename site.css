@@ -1,14 +1,14 @@
 :root {
   --primary: #3f422f;
   --primary-soft: #5a6545;
-  /* Hedayaat identity swatches (sampled from the supplied identity guide) */
-  --brand-olive: #647551;
-  --brand-gold: #BFAF5A;
-  --brand-peach: #E79E75;
-  --brand-salmon: #E1675A;
-  --brand-dusty: #94BCBB;
-  --brand-blue: #226180;
-
+  /* Official Hedayaat identity swatches */
+  --brand-olive: #637450;
+  --brand-gold: #BEAE59;
+  --brand-peach: #E69D74;
+  --brand-salmon: #E06659;
+  --brand-dusty-blue: #93BBBA;
+  --brand-deep-blue: #21607F;
+  /* Keep the report layout; use the official gold as the primary accent. */
   --accent: var(--brand-gold);
 
   --deep-bg: #111713;
@@ -179,7 +179,7 @@ a { text-decoration: none; }
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-cta-primary:hover {
-  background: #A1934B;
+  background: #9f9047;
   transform: translateY(-1px);
   box-shadow: var(--shadow-strong);
   color: #ffffff;
@@ -252,7 +252,7 @@ a { text-decoration: none; }
   width: 70px; height: 70px;
   border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, #f5e6d3, var(--brand-gold));
+  background: linear-gradient(135deg, #f3ead8, var(--brand-gold));
   color: var(--primary);
   font-size: 1.7rem;
   margin-bottom: 1rem;
@@ -285,7 +285,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 .ref-link-card .left .icon {
   width: 56px; height: 56px; border-radius: 14px;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, #f5e6d3, var(--brand-gold));
+  background: linear-gradient(135deg, #f3ead8, var(--brand-gold));
   color: var(--primary);
   font-size: 1.5rem;
 }
@@ -317,7 +317,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 .form-input:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(191,175,90,0.35);
+  box-shadow: 0 0 0 2px rgba(194,139,63,0.35);
 }
 .form-textarea { min-height: 150px; resize: vertical; }
 .btn-form-submit {
@@ -350,7 +350,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   width: 56px; height: 56px;
   border-radius: 14px;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, #f5e6d3, var(--brand-gold));
+  background: linear-gradient(135deg, #f3ead8, var(--brand-gold));
   color: var(--primary);
   font-size: 1.3rem;
 }
@@ -367,7 +367,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 1.25rem;
   color: var(--accent);
-  border: 2px solid rgba(191,175,90,0.25);
+  border: 2px solid rgba(194,139,63,0.25);
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -394,57 +394,15 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; font-size: 0.85rem; text-align: center; }
 
 
-/* =========================================================
-   Hedayaat identity palette — accents only.
-   The site layout/background/card colors stay exactly aligned
-   with the website-report implementation.
-   ========================================================= */
-#vision .ref-feature:nth-child(1) .icon{
-  background:linear-gradient(135deg,#eef5f4,var(--brand-dusty));
+/* === Exact report visual lock — do not change without identity approval === */
+body, .nav-link, .ref-feature h3, .contact-details h3, .form-label, .btn-form-submit {
+  font-family: 'Cairo', sans-serif;
 }
-#vision .ref-feature:nth-child(2) .icon{
-  background:linear-gradient(135deg,#f5edd7,var(--brand-gold));
+.hero-title, .ref-section-title, .about-title, .ref-link-card .title {
+  font-family: 'Amiri', serif;
 }
-#goals .ref-feature:nth-child(1) .icon{
-  background:linear-gradient(135deg,#edf0e9,var(--brand-olive));
-  color:#fff;
-}
-#goals .ref-feature:nth-child(2) .icon{
-  background:linear-gradient(135deg,#f7efd8,var(--brand-gold));
-}
-#goals .ref-feature:nth-child(3) .icon{
-  background:linear-gradient(135deg,#f8e6dc,var(--brand-peach));
-}
-#goals .ref-feature:nth-child(4) .icon{
-  background:linear-gradient(135deg,#f7e1de,var(--brand-salmon));
-}
-#values .ref-feature:nth-child(1) .icon{
-  background:linear-gradient(135deg,#f7efd8,var(--brand-gold));
-}
-#values .ref-feature:nth-child(2) .icon{
-  background:linear-gradient(135deg,#eef5f4,var(--brand-dusty));
-}
-#values .ref-feature:nth-child(3) .icon{
-  background:linear-gradient(135deg,#f8e6dc,var(--brand-peach));
-}
-#values .ref-feature:nth-child(4) .icon{
-  background:linear-gradient(135deg,#f7e1de,var(--brand-salmon));
-}
-#values .ref-feature:nth-child(5) .icon{
-  background:linear-gradient(135deg,#edf0e9,var(--brand-olive));
-  color:#fff;
-}
-
-/* Exact typography from the report implementation */
-.hero-title,
-.ref-section-title,
-.about-title-font,
-.report-title-font{
-  font-family:'Amiri', serif !important;
-  font-weight:700 !important;
-}
-body,.nav-link,.ref-feature h3,.ref-feature p,.btn-cta-primary,.btn-cta-secondary,
-.form-label,.form-input,.form-textarea,.btn-form-submit,.contact-details,
-.ref-link-card,.site-footer{
-  font-family:'Cairo', sans-serif !important;
-}
+.ref-section-title { font-weight: 700; letter-spacing: 0; }
+.ref-section-title::after { background: var(--brand-gold); }
+.ref-wrap { background-color: #101713; }
+.ref-card { background-color: #e9e5dd; }
+.hdr.scrolled { background-color: #dedbd2; }

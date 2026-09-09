@@ -42,12 +42,7 @@ const mappings = [
   ['favicon.ico', 'public/favicon.ico'],
   ['favicon.svg', 'public/favicon.svg'],
   ['hero_image1.jpeg', 'public/hero_image1.jpeg'],
-  ['identity-corner.png', 'public/identity-corner.png'],
-  ['identity-grid.png', 'public/identity-grid.png'],
-  ['identity-lockup.png', 'public/identity-lockup.png'],
-  ['identity-photo-layout.jpg', 'public/identity-photo-layout.jpg'],
   ['logo1.png', 'public/logo1.png'],
-  ['logo-black.png', 'public/logo-black.png'],
   ['national-center-logo.png', 'public/national-center-logo.png'],
 ];
 
