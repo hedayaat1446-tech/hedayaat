@@ -1,7 +1,15 @@
 :root {
-  --primary: #3f422f;
-  --primary-soft: #5a6545;
-  --accent: #c28b3f;
+  --primary: #3d4a30;
+  --primary-soft: #5a6a48;
+  --accent: #c9a87c;
+  --accent-dark: #b08c5e;
+
+  --brand-olive: #4a5a3a;
+  --brand-gold: #8a8a3a;
+  --brand-peach: #d4906a;
+  --brand-coral: #c75a4a;
+  --brand-sage: #90a89a;
+  --brand-teal: #1a5a7a;
 
   --deep-bg: #111713;
   --nav-beige: #dedbd2;
@@ -10,7 +18,7 @@
   --bg-footer: #f4f1ea;
 
   --text-main: #f5f5f5;
-  --text-card-main: #3f422f;
+  --text-card-main: #3d4a30;
   --text-card-muted: #5b6762;
   --text-muted: #c1c1c1;
   --border-soft: #e0e0e0;
@@ -171,7 +179,7 @@ a { text-decoration: none; }
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-cta-primary:hover {
-  background: #a87430;
+  background: var(--accent-dark);
   transform: translateY(-1px);
   box-shadow: var(--shadow-strong);
   color: #ffffff;
@@ -244,7 +252,7 @@ a { text-decoration: none; }
   width: 70px; height: 70px;
   border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, #f5e6d3, #c28b3f);
+  background: linear-gradient(135deg, #d4c4a8, #c9a87c);
   color: var(--primary);
   font-size: 1.7rem;
   margin-bottom: 1rem;
@@ -277,7 +285,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 .ref-link-card .left .icon {
   width: 56px; height: 56px; border-radius: 14px;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, #f5e6d3, #c28b3f);
+  background: linear-gradient(135deg, #d4c4a8, #c9a87c);
   color: var(--primary);
   font-size: 1.5rem;
 }
@@ -308,8 +316,8 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 }
 .form-input:focus, .form-textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(194,139,63,0.35);
+  border-color: var(--brand-olive);
+  box-shadow: 0 0 0 2px rgba(74,90,58,0.35);
 }
 .form-textarea { min-height: 150px; resize: vertical; }
 .btn-form-submit {
@@ -342,7 +350,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   width: 56px; height: 56px;
   border-radius: 14px;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, #f5e6d3, #c28b3f);
+  background: linear-gradient(135deg, #d4c4a8, #c9a87c);
   color: var(--primary);
   font-size: 1.3rem;
 }
@@ -358,23 +366,23 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   background: #f3efe7;
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 1.25rem;
-  color: var(--accent);
-  border: 2px solid rgba(194,139,63,0.25);
+  color: var(--brand-olive);
+  border: 2px solid rgba(74,90,58,0.25);
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .social-icon-circle:hover {
   transform: translateY(-2px);
-  background-color: var(--accent);
+  background-color: var(--brand-olive);
   color: #ffffff;
-  border-color: var(--accent);
+  border-color: var(--brand-olive);
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }
 
 /* Footer */
 .site-footer {
   background-color: var(--bg-footer);
-  color: #3f422f;
+  color: #3d4a30;
   padding: 3rem 1.5rem 2rem;
   text-align: center;
 }
@@ -387,27 +395,9 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
 
 /* ==========================================================================
-   REPORT SCREENSHOT MATCH - 2026-09-10
-   The PDF report is the visual source of truth.
+   BRAND IDENTITY MATCH - 2026-09-10
+   Colors extracted from official brand identity PDF.
    ========================================================================== */
-:root {
-  --primary: #3f422f;
-  --primary-soft: #5a6545;
-  --accent: #c28b3f;
-  --deep-bg: #101713;
-  --nav-beige: #dedbd2;
-  --bg-main: #101713;
-  --bg-card: #e9e5dd;
-  --bg-footer: #f4f1ea;
-  --text-main: #f5f5f5;
-  --text-card-main: #3f422f;
-  --text-card-muted: #5b6762;
-  --text-muted: #c1c1c1;
-  --radius-card: 14px;
-  --nav-h: 66px;
-  --font-family-arabic: 'Cairo', sans-serif;
-  --font-family-title: 'Amiri', serif;
-}
 
 body { background:#101713; }
 
@@ -440,7 +430,7 @@ body { background:#101713; }
 .ref-card:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,.28); }
 
 .report-about-card { max-width:760px; margin-inline:auto; }
-.report-about-card .rounded-3 { border-radius:10px !important; background-color:#ebd5b3 !important; }
+.report-about-card .rounded-3 { border-radius:10px !important; background-color:#d4c4a8 !important; }
 
 .ref-grid-2,.ref-grid-3,.ref-grid-4 { gap:1.45rem; }
 .report-grid-vision {
@@ -457,7 +447,7 @@ body { background:#101713; }
 .ref-feature { padding:1.5rem 1.35rem; min-height:180px; }
 .ref-feature .icon {
   width:50px; height:50px; border-radius:11px; font-size:1.2rem;
-  background:linear-gradient(135deg,#f5e6d3,#c28b3f);
+  background:linear-gradient(135deg,#d4c4a8,#c9a87c);
   margin-bottom:.9rem;
 }
 .ref-feature h3 { font-size:.98rem; margin:.25rem 0 .45rem; }
