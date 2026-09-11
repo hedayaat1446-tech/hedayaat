@@ -58,14 +58,23 @@
 
   --radius-card: 14px;
   --nav-h: 66px;
-  --font-family-arabic: 'Cairo', sans-serif;
-  --font-family-title: 'OYMandisa', 'Aref Ruqaa Ink', serif;
+  --font-family-arabic: 'OYMandisa', serif;
+  --font-family-title: 'OYMandisa', serif;
 }
 
 * { box-sizing: border-box; }
 
+html {
+  font-family: var(--font-family-arabic);
+  font-synthesis: none;
+}
+
 body {
   font-family: var(--font-family-arabic);
+  /* OY Mandisa's first stylistic set creates the long Arabic connections
+     used in the official Hedayat identity sample. */
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  font-variant-ligatures: common-ligatures contextual;
   line-height: 1.8;
   direction: rtl;
   text-align: right;
@@ -74,6 +83,14 @@ body {
   color: var(--text-main);
   background-color: var(--deep-bg);
   overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  font-feature-settings: inherit;
 }
 
 a { text-decoration: none; }
@@ -191,7 +208,7 @@ a { text-decoration: none; }
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.45;
   font-weight: 900;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
   text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
@@ -265,7 +282,7 @@ a { text-decoration: none; }
   position: relative;
   display: inline-block;
   line-height: 1.35;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   -webkit-text-stroke: 0.3px rgba(0,0,0,0.15);
 }
 .ref-section-title::after {
