@@ -27,19 +27,19 @@
 }
 
 :root {
-  /* Brand Primary Colors */
-  --brand-olive: #556B2F;
-  --brand-gold: #9B8B3C;
-  --brand-peach: #D4956B;
-  --brand-coral: #C75B4A;
-  --brand-sage: #8FAE9E;
-  --brand-teal: #1B5E7B;
+  /* Brand Primary Colors — matched exactly from الهوية البصرية (هوية_هدايات.pdf) */
+  --brand-olive: #647550;
+  --brand-gold: #BEAE59;
+  --brand-peach: #E69D74;
+  --brand-coral: #E06659;
+  --brand-sage: #96BDBC;
+  --brand-teal: #286583;
 
   /* Site Theme */
-  --primary: #556B2F;
-  --primary-soft: #6B8040;
-  --accent: #9B8B3C;
-  --accent-dark: #7A6E2E;
+  --primary: #647550;
+  --primary-soft: #7C8F63;
+  --accent: #BEAE59;
+  --accent-dark: #9C8E45;
 
   --deep-bg: #101713;
   --nav-beige: #dedbd2;

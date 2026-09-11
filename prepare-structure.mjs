@@ -17,7 +17,9 @@ const maps = [
   ['favicon.svg', 'public/favicon.svg'],
   ['logo1.png', 'public/logo1.png'],
   ['national-center-logo.png', 'public/national-center-logo.png'],
-  ['OYMandisa.ttf', 'public/fonts/OYMandisa.ttf']
+  ['OYMandisa.ttf', 'public/fonts/OYMandisa.ttf'],
+  ['board-info.pdf', 'public/board-info.pdf'],
+  ['financial-report.pdf', 'public/financial-report.pdf']
 ];
 
 // Always rebuild src/public from the flat root files so stale GitHub folders cannot override the report design.

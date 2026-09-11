@@ -284,30 +284,37 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
               </div>
             </div>
 
-            <div class="contact-item reveal-on-scroll">
-              <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>معلومات الحساب البنكي</h3>
-                <p>
-                  رقم الحساب البنكي (آيبان):
-                  <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item reveal-on-scroll">
-              <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>تابعنا على</h3>
-                <div class="social-icons-row">
-                  {site.contact.social.map((s) => (
-                    <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
-                      <i class={s.icon}></i>
-                    </a>
-                  ))}
+            {site.contact.iban && (
+              <div class="contact-item reveal-on-scroll">
+                <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
+                <div class="contact-details">
+                  <h3>معلومات الحساب البنكي</h3>
+                  <p>
+                    رقم الحساب البنكي (آيبان):
+                    <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
+                  </p>
                 </div>
               </div>
-            </div>
+            )}
+
+            {(() => {
+              const activeSocial = site.contact.social.filter((s) => s.url && s.url !== "#");
+              return activeSocial.length > 0 && (
+                <div class="contact-item reveal-on-scroll">
+                  <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
+                  <div class="contact-details">
+                    <h3>تابعنا على</h3>
+                    <div class="social-icons-row">
+                      {activeSocial.map((s) => (
+                        <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
+                          <i class={s.icon}></i>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
           </div>
         </div>
