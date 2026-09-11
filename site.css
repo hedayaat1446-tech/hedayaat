@@ -2,6 +2,14 @@
    HEDAYAT BRAND IDENTITY - Official Colors & Typography
    ============================================================ */
 
+@font-face {
+  font-family: 'OYMandisa';
+  src: url('/fonts/OYMandisa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand Primary Colors */
   --brand-olive: #556B2F;
@@ -35,7 +43,7 @@
   --radius-card: 14px;
   --nav-h: 66px;
   --font-family-arabic: 'Cairo', sans-serif;
-  --font-family-title: 'Aref Ruqaa Ink', serif;
+  --font-family-title: 'OYMandisa', 'Aref Ruqaa Ink', serif;
 }
 
 * { box-sizing: border-box; }
