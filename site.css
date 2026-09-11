@@ -102,6 +102,29 @@
   --font-family-title: 'OYMandisa', serif;
 }
 
+.brand-ribbon {
+  width: 100%;
+  height: 6px;
+  margin-top: var(--nav-h);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='6'%3E%3Crect width='8' height='6' fill='%23647550'/%3E%3Crect x='8' width='8' height='6' fill='%23BEAE59'/%3E%3Crect x='16' width='8' height='6' fill='%23E69D74'/%3E%3Crect x='24' width='8' height='6' fill='%23E06659'/%3E%3Crect x='32' width='8' height='6' fill='%2396BDBC'/%3E%3Crect x='40' width='8' height='6' fill='%23286583'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 48px 6px;
+}
+
+.site-footer { position: relative; overflow: hidden; }
+.footer-watermark {
+  position: absolute;
+  inset-inline-end: -30px;
+  bottom: -30px;
+  width: 220px;
+  height: 220px;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.footer-top, .footer-divider, .footer-bottom { position: relative; z-index: 1; }
+
 * { box-sizing: border-box; }
 
 html {

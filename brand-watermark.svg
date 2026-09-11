@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 680" fill="#647550">
+<defs>
+<polygon id="dart" points="340,170 362,240 340,210 318,240"/>
+<polygon id="pent" points="340,255 362,225 358,195 322,195 318,225"/>
+<rect id="diamond" x="333" y="273" width="14" height="14" transform="rotate(45 340 280)"/>
+<g id="star">
+<rect x="330" y="296" width="20" height="8"/>
+<rect x="336" y="290" width="8" height="20"/>
+</g>
+</defs>
+<g>
+<use href="#dart"/>
+<use href="#dart" transform="rotate(45 340 340)"/>
+<use href="#dart" transform="rotate(90 340 340)"/>
+<use href="#dart" transform="rotate(135 340 340)"/>
+<use href="#dart" transform="rotate(180 340 340)"/>
+<use href="#dart" transform="rotate(225 340 340)"/>
+<use href="#dart" transform="rotate(270 340 340)"/>
+<use href="#dart" transform="rotate(315 340 340)"/>
+<use href="#pent"/>
+<use href="#pent" transform="rotate(45 340 340)"/>
+<use href="#pent" transform="rotate(90 340 340)"/>
+<use href="#pent" transform="rotate(135 340 340)"/>
+<use href="#pent" transform="rotate(180 340 340)"/>
+<use href="#pent" transform="rotate(225 340 340)"/>
+<use href="#pent" transform="rotate(270 340 340)"/>
+<use href="#pent" transform="rotate(315 340 340)"/>
+<use href="#diamond"/>
+<use href="#diamond" transform="rotate(45 340 340)"/>
+<use href="#diamond" transform="rotate(90 340 340)"/>
+<use href="#diamond" transform="rotate(135 340 340)"/>
+<use href="#diamond" transform="rotate(180 340 340)"/>
+<use href="#diamond" transform="rotate(225 340 340)"/>
+<use href="#diamond" transform="rotate(270 340 340)"/>
+<use href="#diamond" transform="rotate(315 340 340)"/>
+<use href="#star"/>
+<use href="#star" transform="rotate(45 340 340)"/>
+<use href="#star" transform="rotate(90 340 340)"/>
+<use href="#star" transform="rotate(135 340 340)"/>
+<use href="#star" transform="rotate(180 340 340)"/>
+<use href="#star" transform="rotate(225 340 340)"/>
+<use href="#star" transform="rotate(270 340 340)"/>
+<use href="#star" transform="rotate(315 340 340)"/>
+<circle cx="340" cy="340" r="7"/>
+</g>
+</svg>
