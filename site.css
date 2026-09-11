@@ -108,7 +108,11 @@ a { text-decoration: none; }
   z-index: 20;
 }
 .hdr.scrolled { background: var(--nav-beige); box-shadow: 0 4px 18px rgba(0,0,0,0.25); }
-.hdr .navbar-brand img { max-height: 46px; height: auto; width: auto; display: block; }
+.hdr .navbar-brand img {
+  width: auto;
+  height: 52px;
+  display: block;
+}
 
 .nav-rtl { display: flex; align-items: center; }
 .nav-rtl .nav-link { font-weight: 700; position: relative; padding-inline: 0.48rem; font-size: 0.82rem; }
@@ -191,11 +195,9 @@ a { text-decoration: none; }
 .hero-section .container { position: relative; z-index: 2; }
 
 .hero-logo-img {
-  width: min(58vw, 185px);
+  width: min(82vw, 430px);
   height: auto;
-  margin-bottom: 1.8rem !important;
-  filter: drop-shadow(0 14px 40px rgba(0,0,0,0.85));
-  animation: fadeInDown 1.4s ease-out;
+  margin-bottom: 1.45rem !important;
 }
 @keyframes fadeInDown {
   0% { opacity: 0; transform: translateY(-40px); }
@@ -497,7 +499,8 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 }
 .footer-top { max-width: 900px; margin: 0 auto 1.5rem; display: flex; flex-direction: column; align-items: center; }
 .footer-logos { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 0.75rem; }
-.footer-logo { height: 70px; width: auto; }
+.footer-logo { height: 70px; width: auto; max-width: min(78vw, 300px); object-fit: contain; }
+.footer-logos .footer-logo:first-child { height: 96px; }
 .footer-license { margin: 0; font-size: 0.95rem; color: #666666; }
 .footer-divider { border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 1.5rem auto; max-width: 1100px; }
 .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; font-size: 0.85rem; text-align: center; }
@@ -505,9 +508,9 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 575.98px) {
   :root { --nav-h: 60px; }
   .hdr.navbar { min-height: 60px; }
-  .hdr .navbar-brand img { max-height: 40px; }
+  .hdr .navbar-brand img { width: auto; height: 42px; }
   .hero-section { min-height: 590px; padding-top: 82px; }
-  .hero-logo-img { width: min(56vw, 160px); }
+  .hero-logo-img { width: min(88vw, 350px); }
   .report-grid-vision, .report-grid-goals, .report-grid-values { grid-template-columns: 1fr; max-width: 380px; }
   .ref-section { padding: 3.4rem 1rem; }
   .ref-feature { min-height: auto; }

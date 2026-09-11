@@ -3,12 +3,12 @@
     "title": "مؤسسة هدايات التعليمية",
     "description": "مؤسسة هدايات التعليمية - منارة هدى لتعميق الوعي المجتمعي ونشر المعارف الصحيحة عبر برامج نوعية بخبرات مؤهلة وطرق ميسرة وجاذبة.",
     "url": "https://hedayaat-production.up.railway.app",
-    "ogImage": "/1.png",
+    "ogImage": "/hedayat-new-logo.png",
     "locale": "ar_SA"
   },
   "assets": {
-    "logoNav": "/1.png",
-    "logoHero": "/2.png",
+    "logoNav": "/hedayat-new-logo.png",
+    "logoHero": "/hedayat-new-logo.png",
     "heroBackground": "/hero_image1.jpeg",
     "nationalCenterLogo": "/national-center-logo.png"
   },
