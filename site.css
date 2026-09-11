@@ -11,6 +11,46 @@
 }
 
 @font-face {
+  font-family: 'The Year of Handicrafts';
+  src: url('/fonts/TheYearofHandicrafts-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Year of Handicrafts';
+  src: url('/fonts/TheYearofHandicrafts-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Year of Handicrafts';
+  src: url('/fonts/TheYearofHandicrafts-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Year of Handicrafts';
+  src: url('/fonts/TheYearofHandicrafts-Bold.otf') format('opentype');
+  font-weight: 700 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Year of Handicrafts';
+  src: url('/fonts/TheYearofHandicrafts-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'OYMandisa';
   src: url('/fonts/OYMandisa.ttf') format('truetype');
   font-weight: bold;
@@ -58,7 +98,7 @@
 
   --radius-card: 14px;
   --nav-h: 66px;
-  --font-family-arabic: 'OYMandisa', serif;
+  --font-family-arabic: 'The Year of Handicrafts', sans-serif;
   --font-family-title: 'OYMandisa', serif;
 }
 
@@ -71,9 +111,7 @@ html {
 
 body {
   font-family: var(--font-family-arabic);
-  /* OY Mandisa's first stylistic set creates the long Arabic connections
-     used in the official Hedayat identity sample. */
-  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  font-feature-settings: "rlig" 1, "calt" 1;
   font-variant-ligatures: common-ligatures contextual;
   line-height: 1.8;
   direction: rtl;
@@ -234,6 +272,7 @@ a { text-decoration: none; }
 
 .hero-title {
   font-family: var(--font-family-title);
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
   color: #ffffff;
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.45;
@@ -306,6 +345,7 @@ a { text-decoration: none; }
 .ref-section-header { text-align: center; margin-bottom: 2.55rem; }
 .ref-section-title {
   font-family: var(--font-family-title);
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
   font-weight: 900;
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   color: var(--text-main);
@@ -360,7 +400,7 @@ a { text-decoration: none; }
   margin-bottom: 0.9rem;
 }
 .ref-feature h3 {
-  font-family: var(--font-family-title);
+  font-family: var(--font-family-arabic);
   font-size: 0.98rem;
   font-weight: 900;
   color: var(--text-card-main);

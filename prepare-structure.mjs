@@ -16,6 +16,11 @@ const maps = [
   ['favicon.svg', 'public/favicon.svg'],
   ['national-center-logo.png', 'public/national-center-logo.png'],
   ['OYMandisa.ttf', 'public/fonts/OYMandisa.ttf'],
+  ['TheYearofHandicrafts-Regular.otf', 'public/fonts/TheYearofHandicrafts-Regular.otf'],
+  ['TheYearofHandicrafts-Medium.otf', 'public/fonts/TheYearofHandicrafts-Medium.otf'],
+  ['TheYearofHandicrafts-SemiBold.otf', 'public/fonts/TheYearofHandicrafts-SemiBold.otf'],
+  ['TheYearofHandicrafts-Bold.otf', 'public/fonts/TheYearofHandicrafts-Bold.otf'],
+  ['TheYearofHandicrafts-Black.otf', 'public/fonts/TheYearofHandicrafts-Black.otf'],
   ['board-info.pdf', 'public/board-info.pdf'],
   ['financial-report.pdf', 'public/financial-report.pdf']
 ];
