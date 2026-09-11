@@ -108,18 +108,35 @@ a { text-decoration: none; }
   z-index: 20;
 }
 .hdr.scrolled { background: var(--nav-beige); box-shadow: 0 4px 18px rgba(0,0,0,0.25); }
-.hdr .navbar-brand img {
-  width: auto;
-  height: 52px;
+.brand-lockup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 100%;
+  color: currentColor;
+  background: transparent;
+  font-family: var(--font-family-title);
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  line-height: 1;
+}
+.brand-wordmark {
   display: block;
-  /* White in the source image blends into light backgrounds; black remains. */
-  mix-blend-mode: multiply;
+  white-space: nowrap;
+  font-weight: 400;
+  letter-spacing: normal;
 }
-.hdr:not(.scrolled) .navbar-brand img {
-  /* Over the dark hero, invert the logo and blend away its white rectangle. */
-  filter: invert(1);
-  mix-blend-mode: screen;
+.brand-tagline {
+  display: block;
+  white-space: nowrap;
+  font-weight: 400;
+  letter-spacing: normal;
 }
+.brand-lockup-nav { color: #111111; }
+.brand-lockup-nav .brand-wordmark { font-size: 2.35rem; }
+.brand-lockup-nav .brand-tagline { font-size: .42rem; margin-top: .12rem; }
+.hdr:not(.scrolled) .brand-lockup-nav { color: #ffffff; }
 
 .nav-rtl { display: flex; align-items: center; }
 .nav-rtl .nav-link { font-weight: 700; position: relative; padding-inline: 0.48rem; font-size: 0.82rem; }
@@ -203,12 +220,13 @@ a { text-decoration: none; }
 
 .hero-logo-img {
   width: min(82vw, 430px);
-  height: auto;
   margin-bottom: 1.45rem !important;
-  /* Source white becomes transparent-looking; the black artwork becomes white. */
-  filter: invert(1);
-  mix-blend-mode: screen;
+  margin-inline: auto;
+  color: #ffffff;
+  background: transparent;
 }
+.brand-lockup-hero .brand-wordmark { font-size: clamp(5.3rem, 9vw, 8.2rem); }
+.brand-lockup-hero .brand-tagline { font-size: clamp(.78rem, 1.5vw, 1.25rem); margin-top: .42rem; }
 @keyframes fadeInDown {
   0% { opacity: 0; transform: translateY(-40px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -510,8 +528,9 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 .footer-top { max-width: 900px; margin: 0 auto 1.5rem; display: flex; flex-direction: column; align-items: center; }
 .footer-logos { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 0.75rem; }
 .footer-logo { height: 70px; width: auto; max-width: min(78vw, 300px); object-fit: contain; }
-.footer-logos .footer-logo:first-child { height: 96px; }
-.footer-logos .footer-logo:first-child { mix-blend-mode: multiply; }
+.footer-logos .footer-logo:first-child { height: auto; color: #111111; }
+.brand-lockup-footer .brand-wordmark { font-size: 4.2rem; }
+.brand-lockup-footer .brand-tagline { font-size: .72rem; margin-top: .25rem; }
 .footer-license { margin: 0; font-size: 0.95rem; color: #666666; }
 .footer-divider { border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 1.5rem auto; max-width: 1100px; }
 .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; font-size: 0.85rem; text-align: center; }
@@ -519,9 +538,12 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 575.98px) {
   :root { --nav-h: 60px; }
   .hdr.navbar { min-height: 60px; }
-  .hdr .navbar-brand img { width: auto; height: 42px; }
+  .brand-lockup-nav .brand-wordmark { font-size: 1.95rem; }
+  .brand-lockup-nav .brand-tagline { font-size: .35rem; }
   .hero-section { min-height: 590px; padding-top: 82px; }
   .hero-logo-img { width: min(88vw, 350px); }
+  .brand-lockup-hero .brand-wordmark { font-size: clamp(4.1rem, 24vw, 6.2rem); }
+  .brand-lockup-hero .brand-tagline { font-size: clamp(.68rem, 3.2vw, .95rem); }
   .report-grid-vision, .report-grid-goals, .report-grid-values { grid-template-columns: 1fr; max-width: 380px; }
   .ref-section { padding: 3.4rem 1rem; }
   .ref-feature { min-height: auto; }

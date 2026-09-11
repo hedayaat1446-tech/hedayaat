@@ -11,7 +11,10 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
     <div class="container align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#home">
-        <img src={site.assets.logoNav} alt="شعار هدايات" />
+        <span class="brand-lockup brand-lockup-nav" role="img" aria-label="شعار هدايات">
+          <span class="brand-wordmark">هدايات</span>
+          <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+        </span>
         <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
       </a>
 
@@ -49,7 +52,10 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
-            <img src={site.assets.logoHero} alt="شعار هدايات" class="hero-logo-img mb-5" />
+            <div class="brand-lockup brand-lockup-hero hero-logo-img mb-5" role="img" aria-label="شعار هدايات">
+              <span class="brand-wordmark">هدايات</span>
+              <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+            </div>
             <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
             <p class="lead hero-lead mb-4">{site.hero.lead}</p>
 
@@ -325,7 +331,10 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-logos">
-        <img src={site.assets.logoNav} alt="شعار هدايات" class="footer-logo" />
+        <div class="brand-lockup brand-lockup-footer footer-logo" role="img" aria-label="شعار هدايات">
+          <span class="brand-wordmark">هدايات</span>
+          <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+        </div>
         <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo" />
       </div>
 
