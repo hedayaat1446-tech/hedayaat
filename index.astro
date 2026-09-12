@@ -80,6 +80,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
     </section>
 
     <section id="about" class="ref-wrap">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.about.title}</h2>
@@ -114,7 +115,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       </div>
     </section>
 
+    <div class="circle-photo-break" aria-hidden="false">
+      <div class="circle-photo-frame">
+        <img src={site.assets.heroBackground} alt="" class="circle-photo-img" />
+      </div>
+      <span class="circle-photo-badge" aria-hidden="true"></span>
+    </div>
+
     <section id="vision" class="ref-wrap">
+      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.vision.title}</h2>
@@ -171,6 +180,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       </div>
     </section>
 
+    <div class="pattern-divider" aria-hidden="true"></div>
+
  <section id="board" class="ref-wrap">
   <div class="ref-section text-center">
     <div class="ref-section-header">
@@ -222,6 +233,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
 </section>
 
     <section id="contact" class="ref-wrap">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.contact.title}</h2>
@@ -331,7 +343,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
   </main>
 
   <footer class="site-footer">
-    <img src="/brand-watermark.svg" alt="" aria-hidden="true" class="footer-watermark" />
+    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark" />
     <div class="footer-top">
       <div class="footer-logos">
         <div class="brand-lockup brand-lockup-footer footer-logo" role="img" aria-label="شعار هدايات">

@@ -114,16 +114,100 @@
 .site-footer { position: relative; overflow: hidden; }
 .footer-watermark {
   position: absolute;
-  inset-inline-end: -30px;
-  bottom: -30px;
-  width: 220px;
-  height: 220px;
-  opacity: 0.05;
+  inset-inline-end: -40px;
+  bottom: -40px;
+  width: 240px;
+  height: 338px;
+  object-fit: contain;
+  opacity: 0.07;
   pointer-events: none;
   user-select: none;
   z-index: 0;
 }
 .footer-top, .footer-divider, .footer-bottom { position: relative; z-index: 1; }
+
+/* عمودية: الزخرفة الجانبية داخل بعض الأقسام فقط */
+.vertical-decor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 130px;
+  background-image: url("/identity-corner.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+.vertical-decor--start { inset-inline-start: -10px; }
+.vertical-decor--end { inset-inline-start: auto; inset-inline-end: -10px; transform: scaleX(-1); }
+
+/* الزخرفة الدائرية مع الصورة: مرة واحدة بين "من نحن" و"رؤيتنا ورسالتنا" */
+.circle-photo-break {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 3.5rem 3rem;
+  display: flex;
+  justify-content: center;
+}
+.circle-photo-frame {
+  position: relative;
+  width: min(420px, 80vw);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.circle-photo-img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+.circle-photo-badge {
+  position: absolute;
+  inset-inline-start: -70px;
+  bottom: -70px;
+  width: 220px;
+  height: 220px;
+  background-image: url("/identity-corner.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transform: rotate(90deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* النقشة الكاملة: فاصل خفيف بين قسمين */
+.pattern-divider {
+  width: 100%;
+  height: 130px;
+  background-image: url("/identity-grid.png");
+  background-repeat: repeat;
+  background-size: 260px auto;
+  opacity: 0.1;
+}
+
+@media (max-width: 1024px) {
+  .vertical-decor { width: 90px; opacity: 0.7; }
+  .footer-watermark { width: 170px; height: 240px; }
+}
+
+@media (max-width: 768px) {
+  .vertical-decor { display: none; }
+  .circle-photo-badge { width: 140px; height: 140px; inset-inline-start: -40px; bottom: -40px; }
+  .pattern-divider { height: 80px; background-size: 180px auto; }
+}
+
+@media (max-width: 480px) {
+  .circle-photo-break { padding-inline: 1.25rem; }
+  .circle-photo-badge { width: 100px; height: 100px; inset-inline-start: -20px; bottom: -20px; }
+  .footer-watermark { width: 120px; height: 170px; opacity: 0.05; }
+}
+
+html, body { max-width: 100vw; overflow-x: hidden; }
 
 * { box-sizing: border-box; }
 

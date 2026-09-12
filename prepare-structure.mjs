@@ -24,7 +24,9 @@ const maps = [
   ['board-info.pdf', 'public/board-info.pdf'],
   ['financial-report.pdf', 'public/financial-report.pdf'],
   ['brand-watermark.svg', 'public/brand-watermark.svg'],
-  ['brand-ribbon.svg', 'public/brand-ribbon.svg']
+  ['brand-ribbon.svg', 'public/brand-ribbon.svg'],
+  ['identity-grid.png', 'public/identity-grid.png'],
+  ['identity-corner.png', 'public/identity-corner.png']
 ];
 
 // Always rebuild src/public from the flat root files so stale GitHub folders cannot override the report design.
