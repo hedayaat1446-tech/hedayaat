@@ -11,9 +11,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
     <div class="container align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#home">
-        <span class="brand-lockup brand-lockup-nav" role="img" aria-label="شعار هدايات">
-          <span class="brand-wordmark">هدايات</span>
-          <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+        <span class="brand-logo-shell brand-logo-shell-nav">
+          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-nav" />
         </span>
         <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
       </a>
@@ -54,9 +53,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
-            <div class="brand-lockup brand-lockup-hero hero-logo-img mb-5" role="img" aria-label="شعار هدايات">
-              <span class="brand-wordmark">هدايات</span>
-              <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+            <div class="brand-logo-shell brand-logo-shell-hero hero-logo-img mb-5">
+              <img src={site.assets.logoHero} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-hero" />
             </div>
             <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
             <p class="lead hero-lead mb-4">{site.hero.lead}</p>
@@ -115,11 +113,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       </div>
     </section>
 
-    <div class="circle-photo-break" aria-hidden="false">
-      <div class="circle-photo-frame">
-        <img src={site.assets.heroBackground} alt="" class="circle-photo-img" />
-      </div>
-      <span class="circle-photo-badge" aria-hidden="true"></span>
+    <div class="circle-photo-break" aria-hidden="true">
+      <div class="circle-photo-frame"></div>
     </div>
 
     <section id="vision" class="ref-wrap">
@@ -346,9 +341,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
     <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark" />
     <div class="footer-top">
       <div class="footer-logos">
-        <div class="brand-lockup brand-lockup-footer footer-logo" role="img" aria-label="شعار هدايات">
-          <span class="brand-wordmark">هدايات</span>
-          <span class="brand-tagline">محاضرات - ورش عمل - برامج</span>
+        <div class="brand-logo-shell brand-logo-shell-footer footer-logo">
+          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-footer" />
         </div>
         <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo" />
       </div>
