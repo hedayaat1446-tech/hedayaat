@@ -47,18 +47,29 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
     <script is:inline>
-      document.documentElement.classList.add('js');
+      (() => {
+        document.documentElement.classList.add('js');
 
-      // Keep first entry at the top of the homepage. Mobile browsers (especially
-      // Safari/Chrome) may otherwise restore an old scroll position on reload/back.
-      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      if (!window.location.hash) {
+        // The homepage must ALWAYS open on the hero. iOS/WhatsApp in-app browsers
+        // can restore an old anchor/scroll position before the page finishes loading.
+        const isHome = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+        if (!isHome) return;
+
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+        // Remove a stale #contact/#about fragment before the matching section exists,
+        // preventing the browser from auto-jumping there on first render.
+        if (window.location.hash) {
+          history.replaceState(history.state, '', window.location.pathname + window.location.search);
+        }
+
+        document.documentElement.style.scrollBehavior = 'auto';
         document.documentElement.scrollTop = 0;
         window.scrollTo(0, 0);
-      }
+      })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=20260912-mobile-top-v9" />
+    <link rel="stylesheet" href="/styles/site.css?v=20260912-mobile-top-v10" />
   </head>
 
   <body>
@@ -66,24 +77,49 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
 
     <script is:inline>
       (() => {
-        const resetToTop = () => {
-          // Preserve intentional section links such as /#about.
-          if (window.location.hash) return;
+        const isHome = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+        if (!isHome) return;
+
+        let userInteracted = false;
+        const markInteraction = () => { userInteracted = true; };
+        ['touchstart', 'pointerdown', 'mousedown', 'keydown', 'wheel'].forEach((eventName) => {
+          window.addEventListener(eventName, markInteraction, { passive: true, once: true });
+        });
+
+        const removeStaleHash = () => {
+          if (window.location.hash) {
+            history.replaceState(history.state, '', window.location.pathname + window.location.search);
+          }
+        };
+
+        const resetToHero = () => {
+          if (userInteracted) return;
+          removeStaleHash();
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
           window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+          const hero = document.getElementById('home');
+          if (hero && window.scrollY > 2) hero.scrollIntoView({ block: 'start', behavior: 'auto' });
         };
 
-        // Browsers can restore the saved scroll position after DOMContentLoaded,
-        // so repeat the reset on pageshow/load and on the next paint.
+        const runRecoveryPasses = () => {
+          resetToHero();
+          requestAnimationFrame(() => requestAnimationFrame(resetToHero));
+          [40, 120, 300, 700, 1400].forEach((delay) => setTimeout(resetToHero, delay));
+        };
+
+        document.addEventListener('DOMContentLoaded', runRecoveryPasses, { once: true });
+        window.addEventListener('load', runRecoveryPasses, { once: true });
         window.addEventListener('pageshow', () => {
-          resetToTop();
-          requestAnimationFrame(() => requestAnimationFrame(resetToTop));
+          // pageshow also fires when iOS restores the tab from its back/forward cache.
+          userInteracted = false;
+          runRecoveryPasses();
         });
-        window.addEventListener('load', () => {
-          resetToTop();
-          setTimeout(resetToTop, 0);
-        }, { once: true });
+
+        // Stop forcing the top after the browser has had time to finish restoration.
+        setTimeout(() => {
+          document.documentElement.style.scrollBehavior = '';
+        }, 1700);
       })();
     </script>
 

@@ -25,7 +25,7 @@ const server = http.createServer(async (req, res) => {
     }
     const body = await readFile(file);
     const ext = extname(file).toLowerCase();
-    const noCache = ext === '.html' || ext === '.css' || file.endsWith('hedayat-official-logo-v5.png');
+    const noCache = ext === '.html' || ext === '.css' || ext === '.js' || file.endsWith('hedayat-official-logo-v5.png') || file.endsWith('hedayat-official-logo-hero-v7.png');
     res.writeHead(200, {
       'Content-Type': types[ext] || 'application/octet-stream',
       'Cache-Control': noCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600'
