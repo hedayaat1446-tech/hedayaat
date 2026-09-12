@@ -751,3 +751,137 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   .ref-section { padding: 3.4rem 1rem; }
   .ref-feature { min-height: auto; }
 }
+
+
+/* ============================================================
+   v11 — MOBILE HEADER / HERO POLISH
+   Keep the first mobile screen clean, compact and focused on the hero.
+   ============================================================ */
+@media (max-width: 767.98px) {
+  :root { --nav-h: 68px; }
+
+  /* A single compact header row instead of the tall floating composition. */
+  .hdr.navbar,
+  .hdr.navbar.scrolled {
+    min-height: var(--nav-h);
+    padding: 7px 12px;
+    background: rgba(248, 246, 240, 0.92) !important;
+    box-shadow: 0 3px 18px rgba(42, 58, 51, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .hdr.navbar > .container {
+    display: grid !important;
+    grid-template-columns: 46px minmax(0, 1fr) 46px;
+    grid-template-areas:
+      "toggle brand whatsapp"
+      "collapse collapse collapse";
+    align-items: center;
+    column-gap: 8px;
+    width: 100%;
+    max-width: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .hdr .navbar-toggler {
+    grid-area: toggle;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(100,117,80,.28) !important;
+    border-radius: 12px;
+    background: rgba(255,255,255,.56);
+  }
+  .hdr .navbar-toggler-icon,
+  .hdr:not(.scrolled) .navbar-toggler-icon,
+  .hdr.scrolled .navbar-toggler-icon {
+    width: 25px;
+    height: 25px;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(100,117,80,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.2' d='M5 8h20M5 15h20M5 22h20'/%3e%3c/svg%3e") !important;
+  }
+
+  .hdr .navbar-brand {
+    grid-area: brand;
+    justify-self: center;
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+    margin: 0 !important;
+  }
+  .hdr .official-logo-nav {
+    height: 39px !important;
+    width: auto !important;
+    max-width: min(48vw, 190px) !important;
+    filter: none !important;
+  }
+
+  .hdr > .container > .whatsapp-btn.d-lg-none {
+    grid-area: whatsapp;
+    justify-self: end;
+    width: 42px;
+    height: 42px;
+    margin: 0 !important;
+    font-size: 1.08rem;
+    box-shadow: 0 5px 14px rgba(37,211,102,.24);
+  }
+
+  .hdr .navbar-collapse {
+    grid-area: collapse;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  /* The patterned strip looked like a second header on phones. */
+  .brand-ribbon { display: none !important; }
+
+  /* Start the hero immediately below the compact header and keep the content high. */
+  .hero-section {
+    min-height: max(690px, 100svh);
+    align-items: flex-start;
+    padding-top: calc(var(--nav-h) + 34px) !important;
+    padding-bottom: 78px;
+    background-position: center 42%;
+  }
+  .hero-section .container { width: 100%; }
+  .official-logo-hero-wrap {
+    margin-bottom: 22px !important;
+  }
+  .official-logo-hero {
+    width: min(84vw, 410px) !important;
+    max-height: 190px;
+    object-fit: contain;
+  }
+  .hero-title {
+    margin-top: 0 !important;
+    font-size: clamp(2.1rem, 10vw, 3rem) !important;
+    line-height: 1.35;
+  }
+  .hero-lead {
+    font-size: .98rem;
+    line-height: 1.9;
+    max-width: 92%;
+  }
+}
+
+@media (max-width: 390px) {
+  .hdr.navbar > .container {
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+    column-gap: 6px;
+  }
+  .hdr .navbar-toggler,
+  .hdr > .container > .whatsapp-btn.d-lg-none {
+    width: 40px;
+    height: 40px;
+  }
+  .hdr .official-logo-nav {
+    height: 36px !important;
+    max-width: 50vw !important;
+  }
+  .hero-section { padding-top: calc(var(--nav-h) + 28px) !important; }
+}
