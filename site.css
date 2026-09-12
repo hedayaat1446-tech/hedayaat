@@ -979,3 +979,86 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     font-size: .93rem;
   }
 }
+
+
+/* ============================================================
+   v15 — CONTACT, PRIVACY & MOBILE WHATSAPP POLISH
+   ============================================================ */
+.form-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.form-privacy-note {
+  margin: .8rem .2rem 0;
+  color: var(--text-card-muted);
+  font-size: .72rem;
+  line-height: 1.8;
+  text-align: center;
+}
+.form-privacy-note a,
+.contact-link {
+  color: var(--brand-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.contact-link:hover,
+.form-privacy-note a:hover { color: var(--brand-olive); }
+
+.privacy-page {
+  min-height: 100vh;
+  background: var(--bg-main);
+  padding: 4rem 1.25rem;
+  color: var(--text-main);
+}
+.privacy-shell {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid rgba(100,117,80,.10);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+}
+.privacy-logo { display:block; width:min(250px, 70vw); height:auto; margin:0 auto 1.6rem; }
+.privacy-page h1 { text-align:center; color:var(--brand-olive); margin:0 0 .75rem; font-size:clamp(1.8rem, 6vw, 2.5rem); }
+.privacy-intro { text-align:center; color:var(--text-card-muted); margin:0 auto 2rem; max-width:620px; }
+.privacy-page h2 { color:var(--text-card-main); font-size:1.15rem; margin:1.6rem 0 .45rem; }
+.privacy-page p, .privacy-page li { color:var(--text-card-muted); line-height:1.95; }
+.privacy-page ul { margin:.4rem 0 0; padding-inline-start:1.3rem; }
+.privacy-back { display:flex; justify-content:center; margin-top:2rem; }
+.privacy-back a { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:.65rem 1.25rem; border-radius:999px; background:var(--brand-olive); color:white; font-weight:700; }
+
+@media (max-width: 767.98px) {
+  .hdr.navbar > .container {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+  }
+  .hdr > .container > .whatsapp-btn.d-lg-none {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: .95rem !important;
+    box-shadow: 0 4px 12px rgba(37,211,102,.20) !important;
+  }
+  .form-privacy-note { font-size: .70rem; padding-inline:.25rem; }
+}
+
+@media (max-width: 390px) {
+  .hdr.navbar > .container {
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+  }
+  .hdr > .container > .whatsapp-btn.d-lg-none {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: .9rem !important;
+  }
+}

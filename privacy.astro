@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+
+const privacyMeta = {
+  ...site.meta,
+  title: "سياسة الخصوصية | مؤسسة هدايات التعليمية",
+  description: "سياسة الخصوصية الخاصة بنموذج التواصل في موقع مؤسسة هدايات التعليمية."
+};
+---
+
+<BaseLayout meta={privacyMeta}>
+  <main class="privacy-page">
+    <article class="privacy-shell">
+      <a href="/" aria-label="العودة إلى الصفحة الرئيسية">
+        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="privacy-logo" />
+      </a>
+      <h1>سياسة الخصوصية</h1>
+      <p class="privacy-intro">نحرص في مؤسسة هدايات التعليمية على التعامل مع بيانات التواصل بوضوح واحترام للخصوصية.</p>
+
+      <h2>البيانات التي يرسلها المستخدم</h2>
+      <p>عند استخدام نموذج التواصل، قد تُرسل بيانات مثل الاسم والبريد الإلكتروني وموضوع الرسالة ونصها.</p>
+
+      <h2>الغرض من استخدام البيانات</h2>
+      <p>تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسارات والمقترحات وطلبات الشراكات أو البرامج التعليمية فقط.</p>
+
+      <h2>مشاركة البيانات</h2>
+      <p>لا تُستخدم بيانات نموذج التواصل لعرضها للعامة، ويقتصر التعامل معها على ما يلزم لمتابعة التواصل والطلب المرسل.</p>
+
+      <h2>التواصل بشأن الخصوصية</h2>
+      <p>لأي استفسار متعلق بالخصوصية، يمكن التواصل عبر البريد الإلكتروني: <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+
+      <div class="privacy-back"><a href="/#contact">العودة إلى الموقع</a></div>
+    </article>
+  </main>
+</BaseLayout>

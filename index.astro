@@ -260,10 +260,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
    <!-- لازم هذا -->
   <input type="hidden" name="form-name" value="contact" />
 
-  <!-- Honeypot ضد السبام (مخفي) -->
-  <p style="display:none;">
-    <label>Don’t fill this out: <input name="bot-field" /></label>
-  </p>
+  <!-- Honeypot ضد السبام: مخفي بصريًا وعن قارئات الشاشة -->
+  <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-group">
                 <label class="form-label" for="name">الاسم الكامل</label>
                 <input class="form-input" id="name" name="name" type="text" required />
@@ -285,6 +283,10 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
               </div>
 
               <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
+              <p class="form-privacy-note">
+                تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسار فقط.
+                <a href="/privacy/">سياسة الخصوصية</a>
+              </p>
               <div id="form-status" class="mt-2" style="font-size:0.85rem;"></div>
             </form>
           </div>
@@ -294,7 +296,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
               <div class="contact-icon"><i class="bi bi-envelope" aria-hidden="true"></i></div>
               <div class="contact-details">
                 <h3>البريد الإلكتروني</h3>
-                <p>{site.contact.email}</p>
+                <p><a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
               </div>
             </div>
 
@@ -302,7 +304,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
               <div class="contact-icon"><i class="bi bi-telephone" aria-hidden="true"></i></div>
               <div class="contact-details">
                 <h3>رقم الهاتف / واتساب</h3>
-                <p>{site.contact.phone}</p>
+                <p><a class="contact-link" href={`tel:${waDigits ? `+${waDigits}` : site.contact.phone}`}>{site.contact.phone}</a></p>
               </div>
             </div>
 
@@ -333,7 +335,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
                 <div class="contact-item reveal-on-scroll">
                   <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
                   <div class="contact-details">
-                    <h3>تابعنا على</h3>
+                    <h3>تواصل معنا عبر واتساب</h3>
                     <div class="social-icons-row">
                       {activeSocial.map((s) => (
                         <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>

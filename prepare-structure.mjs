@@ -6,6 +6,7 @@ const maps = [
   ['BaseLayout.astro', 'src/layouts/BaseLayout.astro'],
   ['index.astro', 'src/pages/index.astro'],
   ['thank.astro', 'src/pages/thank.astro'],
+  ['privacy.astro', 'src/pages/privacy.astro'],
   ['site.json', 'src/content/site.json'],
   ['site.css', 'public/styles/site.css'],
   ['config.yml', 'public/admin/config.yml'],
