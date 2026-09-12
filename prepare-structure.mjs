@@ -12,6 +12,7 @@ const maps = [
   ['index.html', 'public/admin/index.html'],
   ['hedayat-new-logo.png', 'public/hedayat-new-logo.png'],
   ['hedayat-official-logo-v5.png', 'public/hedayat-official-logo-v5.png'],
+  ['hedayat-official-logo-hero-v7.png', 'public/hedayat-official-logo-hero-v7.png'],
   ['hero_image1.jpeg', 'public/hero_image1.jpeg'],
   ['favicon.ico', 'public/favicon.ico'],
   ['favicon.svg', 'public/favicon.svg'],
