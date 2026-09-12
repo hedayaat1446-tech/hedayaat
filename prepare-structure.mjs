@@ -22,7 +22,9 @@ const maps = [
   ['TheYearofHandicrafts-Bold.otf', 'public/fonts/TheYearofHandicrafts-Bold.otf'],
   ['TheYearofHandicrafts-Black.otf', 'public/fonts/TheYearofHandicrafts-Black.otf'],
   ['board-info.pdf', 'public/board-info.pdf'],
-  ['financial-report.pdf', 'public/financial-report.pdf']
+  ['financial-report.pdf', 'public/financial-report.pdf'],
+  ['brand-watermark.svg', 'public/brand-watermark.svg'],
+  ['brand-ribbon.svg', 'public/brand-ribbon.svg']
 ];
 
 // Always rebuild src/public from the flat root files so stale GitHub folders cannot override the report design.
