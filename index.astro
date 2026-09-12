@@ -314,6 +314,12 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="contact-details">
                 <h3>العنوان</h3>
                 <p>{site.contact.address}</p>
+                {site.contact.locationUrl && (
+                  <a class="contact-action-link" href={site.contact.locationUrl} target="_blank" rel="noopener">
+                    <i class="bi bi-map" aria-hidden="true"></i>
+                    فتح الموقع على الخريطة
+                  </a>
+                )}
               </div>
             </div>
 
@@ -330,24 +336,19 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               </div>
             )}
 
-            {(() => {
-              const activeSocial = site.contact.social.filter((s) => s.url && s.url !== "#");
-              return activeSocial.length > 0 && (
-                <div class="contact-item reveal-on-scroll">
-                  <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
-                  <div class="contact-details">
-                    <h3>تواصل معنا عبر واتساب</h3>
-                    <div class="social-icons-row">
-                      {activeSocial.map((s) => (
-                        <a href={/واتساب|whatsapp/i.test(s.label) ? waLink : s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
-                          <i class={s.icon}></i>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+            {site.contact.linktreeUrl && (
+              <div class="contact-item reveal-on-scroll">
+                <div class="contact-icon"><i class="bi bi-link-45deg" aria-hidden="true"></i></div>
+                <div class="contact-details">
+                  <h3>حسابات هدايات</h3>
+                  <p>جميع حسابات المؤسسة وروابطها الرسمية في مكان واحد.</p>
+                  <a class="contact-action-link" href={site.contact.linktreeUrl} target="_blank" rel="noopener">
+                    <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+                    عرض جميع الحسابات
+                  </a>
                 </div>
-              );
-            })()}
+              </div>
+            )}
 
           </div>
         </div>

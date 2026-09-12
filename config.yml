@@ -154,10 +154,13 @@ collections:
               - { label: "الإيميل", name: "email", widget: "string" }
               - { label: "الهاتف", name: "phone", widget: "string" }
               - { label: "العنوان", name: "address", widget: "string" }
+              - { label: "رابط الموقع على الخريطة", name: "locationUrl", widget: "string", required: false }
+              - { label: "رابط جميع الحسابات (Linktree)", name: "linktreeUrl", widget: "string", required: false }
               - { label: "IBAN", name: "iban", widget: "string" }
-              - label: "روابط السوشيال"
+              - label: "روابط إضافية (اختياري)"
                 name: "social"
                 widget: "list"
+                required: false
                 fields:
                   - { label: "الاسم", name: "label", widget: "string" }
                   - { label: "الرابط", name: "url", widget: "string" }

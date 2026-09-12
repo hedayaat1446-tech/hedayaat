@@ -54,11 +54,6 @@
     "lead": "مؤسسة تعليمية موثوقة متخصصة في تقديم معرفة أصيلة رافدة للقيم العليا للوطن، عبر برامج نوعية بخبرات مؤهلة وطرق ميسرة وجاذبة.",
     "cta": [
       {
-        "label": "تبرّع / ساهم في البرامج",
-        "href": "#contact",
-        "variant": "primary"
-      },
-      {
         "label": "تعرّف على المؤسسة",
         "href": "#about",
         "variant": "secondary"
@@ -174,33 +169,9 @@
     "phone": "+966 54 907 8774",
     "address": "جدة، المملكة العربية السعودية",
     "iban": "",
-    "social": [
-      {
-        "label": "واتساب",
-        "url": "https://wa.me/966549078774",
-        "icon": "bi bi-whatsapp"
-      },
-      {
-        "label": "سناب",
-        "url": "#",
-        "icon": "bi bi-snapchat"
-      },
-      {
-        "label": "يوتيوب",
-        "url": "#",
-        "icon": "bi bi-youtube"
-      },
-      {
-        "label": "انستغرام",
-        "url": "#",
-        "icon": "bi bi-instagram"
-      },
-      {
-        "label": "X",
-        "url": "#",
-        "icon": "bi bi-twitter-x"
-      }
-    ]
+    "social": [],
+    "locationUrl": "https://maps.app.goo.gl/F3CqDs2bdyde1Rm68?g_st=iw",
+    "linktreeUrl": "https://linktr.ee/hedayaat1446"
   },
   "footer": {
     "licenseText": "مرخّصة من المركز الوطني لتنمية القطاع غير الربحي برقم ١١٠٠٥٢٧٠٠٠",

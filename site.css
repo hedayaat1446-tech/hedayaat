@@ -1184,3 +1184,75 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   }
   .footer-links { gap: .35rem .55rem; font-size: .84rem; }
 }
+
+
+/* ============================================================
+   v17 — MOBILE CENTERING, MAP + LINKTREE CONTACT LINKS
+   ============================================================ */
+.hero-copy {
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+}
+.hero-copy .hero-title,
+.hero-copy .hero-lead {
+  text-align: center !important;
+  margin-inline: auto !important;
+}
+.hero-copy > .d-flex {
+  width: 100%;
+  justify-content: center !important;
+}
+
+.contact-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .38rem;
+  margin-top: .45rem;
+  color: var(--brand-teal);
+  font-size: .76rem;
+  font-weight: 800;
+  text-decoration: none;
+  line-height: 1.7;
+}
+.contact-action-link:hover,
+.contact-action-link:focus-visible {
+  color: var(--brand-olive);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 991.98px) {
+  .hdr .navbar-collapse {
+    text-align: center;
+  }
+  .hdr .navbar-collapse .nav-rtl {
+    width: 100%;
+    align-items: stretch;
+    text-align: center;
+  }
+  .hdr .navbar-collapse .nav-link {
+    width: 100%;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: .65rem;
+  }
+  .hero-copy .hero-title {
+    width: min(100%, 620px);
+  }
+  .hero-copy .hero-lead {
+    width: min(100%, 560px);
+    max-width: 560px !important;
+  }
+  .contact-details {
+    min-width: 0;
+  }
+}
