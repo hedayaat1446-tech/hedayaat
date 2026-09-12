@@ -24,9 +24,11 @@ const server = http.createServer(async (req, res) => {
       if (!extname(file)) file = join(file, 'index.html');
     }
     const body = await readFile(file);
+    const ext = extname(file).toLowerCase();
+    const noCache = ext === '.html' || ext === '.css' || file.endsWith('hedayat-official-logo-v5.png');
     res.writeHead(200, {
-      'Content-Type': types[extname(file).toLowerCase()] || 'application/octet-stream',
-      'Cache-Control': extname(file).toLowerCase() === '.html' ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600'
+      'Content-Type': types[ext] || 'application/octet-stream',
+      'Cache-Control': noCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600'
     });
     res.end(body);
   } catch {

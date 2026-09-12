@@ -10,10 +10,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
 <BaseLayout meta={site.meta}>
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
     <div class="container align-items-center">
-      <a class="navbar-brand d-flex align-items-center" href="#home">
-        <span class="brand-logo-shell brand-logo-shell-nav">
-          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-nav" />
-        </span>
+      <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
+        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-nav" style="display:block; height:48px; width:auto; max-width:min(56vw,340px); object-fit:contain; background:transparent !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
         <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
       </a>
 
@@ -48,13 +46,32 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
 
   <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
 
-  <main>
+  <style is:inline>
+  /* v5: official transparent logo. Inline on purpose so an old cached stylesheet cannot restore the white card. */
+  .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .official-logo { padding: 0 !important; }
+  @media (max-width: 768px) {
+    .official-logo-nav { height: 41px !important; max-width: 62vw !important; }
+    .official-logo-hero { width: min(84vw, 430px) !important; }
+    .official-logo-footer { width: min(74vw, 280px) !important; }
+  }
+</style>
+
+<main>
     <section id="home" class="hero-section" style={{ "--hero-bg": `url(${site.assets.heroBackground})` }}>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
-            <div class="brand-logo-shell brand-logo-shell-hero hero-logo-img mb-5">
-              <img src={site.assets.logoHero} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-hero" />
+            <div class="official-logo-hero-wrap mb-5" style="display:flex; justify-content:center; align-items:center; width:100%; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important;">
+              <img src={site.assets.logoHero} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-hero" style="display:block; width:min(78vw,560px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 auto !important;" />
             </div>
             <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
             <p class="lead hero-lead mb-4">{site.hero.lead}</p>
@@ -341,9 +358,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
     <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark" />
     <div class="footer-top">
       <div class="footer-logos">
-        <div class="brand-logo-shell brand-logo-shell-footer footer-logo">
-          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="brand-logo brand-logo-footer" />
-        </div>
+        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
         <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo" />
       </div>
 
