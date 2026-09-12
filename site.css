@@ -754,9 +754,8 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
 
 /* ============================================================
-   v12 — MOBILE HEADER / HERO SPACING
-   Avoid showing the same brand mark twice back-to-back on phones.
-   The header carries the brand; the hero starts with the message.
+   v11 — MOBILE HEADER / HERO POLISH
+   Keep the first mobile screen clean, compact and focused on the hero.
    ============================================================ */
 @media (max-width: 767.98px) {
   :root { --nav-h: 68px; }
@@ -816,9 +815,9 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     margin: 0 !important;
   }
   .hdr .official-logo-nav {
-    height: 34px !important;
+    height: 39px !important;
     width: auto !important;
-    max-width: min(44vw, 176px) !important;
+    max-width: min(48vw, 190px) !important;
     filter: none !important;
   }
 
@@ -841,22 +840,27 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   /* The patterned strip looked like a second header on phones. */
   .brand-ribbon { display: none !important; }
 
-  /* On mobile the header already shows the full logo. Hiding the duplicate
-     hero logo gives the first screen breathing room and a clearer hierarchy. */
+  /* Start the hero immediately below the compact header and keep the content high. */
   .hero-section {
     min-height: max(690px, 100svh);
     align-items: flex-start;
-    padding-top: calc(var(--nav-h) + 58px) !important;
+    padding-top: calc(var(--nav-h) + 34px) !important;
     padding-bottom: 78px;
     background-position: center 42%;
   }
   .hero-section .container { width: 100%; }
   .official-logo-hero-wrap {
-    display: none !important;
+    margin-bottom: 22px !important;
   }
-  .hero-title {
-    max-width: 92%;
-    margin-inline: auto !important;
+
+  /* v13: keep the hero logo exactly where it is, but give the copy breathing room below it. */
+  .hero-copy {
+    margin-top: 44px;
+  }
+  .official-logo-hero {
+    width: min(84vw, 410px) !important;
+    max-height: 190px;
+    object-fit: contain;
   }
   .hero-title {
     margin-top: 0 !important;
@@ -881,8 +885,9 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     height: 40px;
   }
   .hdr .official-logo-nav {
-    height: 32px !important;
-    max-width: 46vw !important;
+    height: 36px !important;
+    max-width: 50vw !important;
   }
-  .hero-section { padding-top: calc(var(--nav-h) + 50px) !important; }
+  .hero-section { padding-top: calc(var(--nav-h) + 28px) !important; }
+  .hero-copy { margin-top: 36px; }
 }
