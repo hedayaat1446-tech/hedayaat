@@ -47,7 +47,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
   <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
 
   <style is:inline>
-  /* v5: official transparent logo. Inline on purpose so an old cached stylesheet cannot restore the white card. */
+  /* v6: official transparent logo + light identity theme. Inline on purpose so an old cached stylesheet cannot restore the white card. */
   .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
     background: transparent !important;
     background-color: transparent !important;
@@ -88,9 +88,9 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       </div>
 
       <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" preserveAspectRatio="none">
-        <path fill="#101713" opacity="0.9" d="M0,80 C240,120 480,40 720,80 C960,120 1200,60 1440,90 L1440,160 L0,160 Z"></path>
-        <path fill="#101713" opacity="0.7" d="M0,90 C240,130 480,50 720,90 C960,130 1200,70 1440,100 L1440,160 L0,160 Z"></path>
-        <path fill="#101713" opacity="0.5" d="M0,100 C240,140 480,60 720,100 C960,140 1200,80 1440,110 L1440,160 L0,160 Z"></path>
+        <path fill="#F7F4EE" opacity="0.98" d="M0,80 C240,120 480,40 720,80 C960,120 1200,60 1440,90 L1440,160 L0,160 Z"></path>
+        <path fill="#EEF2E8" opacity="0.88" d="M0,90 C240,130 480,50 720,90 C960,130 1200,70 1440,100 L1440,160 L0,160 Z"></path>
+        <path fill="#E8F2F1" opacity="0.72" d="M0,100 C240,140 480,60 720,100 C960,140 1200,80 1440,110 L1440,160 L0,160 Z"></path>
       </svg>
     </section>
 
@@ -105,7 +105,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
         <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
           <div class="row g-4 align-items-center">
             <div class="col-md-5">
-              <div class="p-4 rounded-3" style="background-color:#d4c4a8;">
+              <div class="p-4 rounded-3" style="background-color:var(--soft-sage);">
                 <div class="d-flex flex-column align-items-center text-center">
                   <i class="bi bi-patch-check-fill display-5 mb-3" style="color:var(--primary);" aria-hidden="true"></i>
                   <h3 class="fw-bold" style="font-family: var(--font-family-arabic); color: var(--primary);">
@@ -129,10 +129,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
         </div>
       </div>
     </section>
-
-    <div class="circle-photo-break" aria-hidden="true">
-      <div class="circle-photo-frame"></div>
-    </div>
 
     <section id="vision" class="ref-wrap">
       <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
