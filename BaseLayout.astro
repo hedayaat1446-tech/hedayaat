@@ -1,5 +1,6 @@
 ---
 const { meta } = Astro.props;
+const isNotFound = Astro.url.pathname === "/404" || Astro.url.pathname === "/404/" || Astro.url.pathname.endsWith("/404.html");
 
 // تنظيف الدومين
 const baseUrl = (meta.url || "").replace(/\/+$/, "");
@@ -20,6 +21,7 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
 
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />
+    {isNotFound && <meta name="robots" content="noindex, nofollow" />}
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 
@@ -69,7 +71,7 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=20260912-contact-privacy-v15" />
+    <link rel="stylesheet" href="/styles/site.css?v=20260912-footer-404-whatsapp-v16" />
   </head>
 
   <body>

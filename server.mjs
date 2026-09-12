@@ -32,8 +32,18 @@ const server = http.createServer(async (req, res) => {
     });
     res.end(body);
   } catch {
-    res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'});
-    res.end('Not Found');
+    try {
+      const notFoundFile = join(root, '404.html');
+      const body = await readFile(notFoundFile);
+      res.writeHead(404, {
+        'Content-Type':'text/html; charset=utf-8',
+        'Cache-Control':'no-cache, no-store, must-revalidate'
+      });
+      res.end(body);
+    } catch {
+      res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'});
+      res.end('Not Found');
+    }
   }
 });
 server.listen(port, '0.0.0.0', () => console.log(`Hedayaat exact-report site on ${port}`));

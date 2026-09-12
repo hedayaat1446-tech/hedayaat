@@ -4,7 +4,8 @@ import site from "../content/site.json";
 
 const nav = (site.nav || []).filter((x) => x.enabled !== false);
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
-const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحباً هدايات")}`;
+const waMessage = "السلام عليكم، أرغب بالاستفسار عن برامج مؤسسة هدايات التعليمية";
+const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;
 ---
 
 <BaseLayout meta={site.meta}>
@@ -338,7 +339,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
                     <h3>تواصل معنا عبر واتساب</h3>
                     <div class="social-icons-row">
                       {activeSocial.map((s) => (
-                        <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
+                        <a href={/واتساب|whatsapp/i.test(s.label) ? waLink : s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
                           <i class={s.icon}></i>
                         </a>
                       ))}
@@ -359,10 +360,18 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
     <div class="footer-top">
       <div class="footer-logos">
         <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo" />
+        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" width="733" height="340" />
       </div>
 
       <p class="footer-license">{site.footer.licenseText}</p>
+
+      <nav class="footer-links" aria-label="روابط أسفل الصفحة">
+        <a href="/#home">الرئيسية</a>
+        <span aria-hidden="true">•</span>
+        <a href="/#contact">تواصل معنا</a>
+        <span aria-hidden="true">•</span>
+        <a href="/privacy/">سياسة الخصوصية</a>
+      </nav>
     </div>
 
     <hr class="footer-divider" />
