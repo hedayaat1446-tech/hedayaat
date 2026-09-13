@@ -1259,18 +1259,24 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
 
 /* ============================================================
-   v18 — STRUCTURED MAIN NAVIGATION
-   Six clear top-level items with grouped dropdowns.
+   v19 — EXACT REQUESTED HEADER STRUCTURE ONLY
+   1 عن المؤسسة → 6 subitems
+   2 البرامج
+   3 الشركاء
+   4 الحوكمة → 4 subitems
+   5 المركز الإعلامي → 3 subitems
+   6 تواصل معنا
+   No page-content placeholders are added by this change.
    ============================================================ */
 .nav-dropdown-toggle {
-  background: transparent;
-  border: 0;
+  background: transparent !important;
+  border: 0 !important;
   font-family: inherit;
   cursor: pointer;
+  color: inherit;
 }
 .nav-dropdown-toggle.dropdown-toggle::before { display: none !important; }
 .nav-dropdown-toggle.dropdown-toggle::after {
-  position: static !important;
   display: inline-block !important;
   width: .42em !important;
   height: .42em !important;
@@ -1282,19 +1288,20 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   content: "" !important;
 }
 .hedayat-dropdown {
-  min-width: 240px;
+  min-width: 250px;
   padding: .55rem;
   border: 1px solid rgba(100,117,80,.14);
   border-radius: 14px;
   background: rgba(255,253,250,.99);
   box-shadow: 0 16px 38px rgba(62,76,66,.14);
   text-align: right;
+  direction: rtl;
 }
 .hedayat-dropdown .dropdown-item {
   color: var(--text-card-main);
   font-weight: 700;
   font-size: .86rem;
-  padding: .62rem .8rem;
+  padding: .64rem .82rem;
   border-radius: 9px;
   text-align: right;
   white-space: normal;
@@ -1304,52 +1311,21 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   color: var(--primary);
   background: var(--soft-olive);
 }
-.nav-section-placeholder {
-  max-width: 760px;
-  margin-inline: auto;
-  padding: 2rem;
-  text-align: center;
+#vision-item,
+#mission-item {
+  scroll-margin-top: calc(var(--nav-h) + 24px);
 }
-.nav-section-placeholder .placeholder-icon {
-  width: 58px;
-  height: 58px;
-  margin: 0 auto .9rem;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  color: var(--primary);
-  background: var(--soft-olive);
-  font-size: 1.45rem;
-}
-.nav-section-placeholder h3 {
-  color: var(--primary);
-  font-weight: 800;
-  margin-bottom: .55rem;
-}
-.nav-section-placeholder p {
-  color: var(--text-card-muted);
-  margin: 0;
-}
-.ref-wrap-soft { background: rgba(238,242,232,.38); }
-.ref-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 1rem;
-}
-.governance-grid .nav-section-placeholder,
-.media-center-grid .nav-section-placeholder {
-  max-width: none;
-  height: 100%;
-}
-#vision-item, #mission-item, #financial-statements, #policies, #operational-plan,
-#latest-news, #photos, #videos {
-  scroll-margin-top: calc(var(--nav-h) + 28px);
-}
-
 @media (min-width: 992px) {
-  .hdr .dropdown-menu { inset-inline-end: 0; inset-inline-start: auto; }
+  .hdr .hedayat-nav-group > .dropdown-menu {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+  .hdr .hedayat-nav-group:hover > .dropdown-menu,
+  .hdr .hedayat-nav-group:focus-within > .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
 }
-
 @media (max-width: 991.98px) {
   .nav-rtl { align-items: stretch !important; }
   .nav-rtl .nav-item { width: 100%; }
@@ -1361,20 +1337,293 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   .hedayat-dropdown {
     position: static !important;
     transform: none !important;
-    width: calc(100% - 1rem);
+    width: calc(100% - 1.2rem);
     min-width: 0;
-    margin: .15rem auto .55rem !important;
+    margin: .1rem auto .6rem !important;
+    padding: .35rem;
     box-shadow: none;
     background: var(--soft-olive);
     border-color: rgba(100,117,80,.10);
   }
   .hedayat-dropdown .dropdown-item {
     text-align: center !important;
-    padding-block: .7rem;
+    padding-block: .72rem;
+    font-size: .9rem;
   }
 }
 
-@media (max-width: 767.98px) {
-  .ref-grid-3, .governance-grid { grid-template-columns: 1fr !important; }
-  .nav-section-placeholder { padding: 1.5rem 1.1rem; }
+/* ============================================================
+   v20 — PREMIUM INSTITUTIONAL / GOVERNMENT-INSPIRED NAVIGATION
+   Visual-only refinement. Keeps the exact v19 information architecture.
+   ============================================================ */
+
+/* Calm official header: warm ivory, restrained shadow, identity rail. */
+.hdr.navbar,
+.hdr.navbar.scrolled,
+.hdr.navbar:not(.scrolled) {
+  background: rgba(250, 248, 243, .97) !important;
+  box-shadow: 0 8px 28px rgba(49, 62, 54, .075) !important;
+  border-bottom: 1px solid rgba(95, 111, 79, .13);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding-block: .52rem;
+}
+.hdr.navbar::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 3px;
+  background: linear-gradient(90deg,
+    #687A55 0 24%,
+    #C6B45C 24% 42%,
+    #E79B72 42% 61%,
+    #E56356 61% 76%,
+    #92B7B6 76% 89%,
+    #2B6A84 89% 100%);
+  opacity: .92;
+  pointer-events: none;
+}
+
+/* Logo stays clean and prominent without looking oversized. */
+.hdr .navbar-brand {
+  position: relative;
+  z-index: 2;
+}
+.hdr .official-logo-nav {
+  filter: none !important;
+}
+
+/* Main navigation: dignified spacing and soft institutional hover state. */
+.nav-rtl {
+  gap: .16rem !important;
+}
+.nav-rtl .nav-item {
+  display: flex;
+  align-items: center;
+}
+.nav-rtl .nav-link,
+.nav-dropdown-toggle {
+  color: #34443D !important;
+  font-size: .84rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2;
+  padding: .72rem .64rem !important;
+  border-radius: 10px;
+  transition: color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.hdr:not(.scrolled) .nav-link,
+.hdr.scrolled .nav-link,
+.hdr:not(.scrolled) .nav-dropdown-toggle,
+.hdr.scrolled .nav-dropdown-toggle {
+  color: #34443D !important;
+}
+.nav-rtl .nav-link:hover,
+.nav-rtl .nav-link:focus-visible,
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible,
+.hedayat-nav-group.show > .nav-dropdown-toggle {
+  color: #526842 !important;
+  background: rgba(104, 122, 85, .085) !important;
+}
+.nav-rtl .nav-link::after {
+  display: none !important;
+}
+
+/* Chevron: small and quiet, like an official portal rather than a retail menu. */
+.nav-dropdown-toggle.dropdown-toggle::after {
+  width: .38em !important;
+  height: .38em !important;
+  margin-inline-start: .46rem !important;
+  border-width: 0 0 1.6px 1.6px !important;
+  opacity: .72;
+  transition: transform .18s ease;
+}
+.hedayat-nav-group.show > .nav-dropdown-toggle.dropdown-toggle::after {
+  transform: rotate(135deg) translate(-1px,-1px) !important;
+}
+
+/* Desktop dropdown: formal panel with a restrained identity accent. */
+.hedayat-dropdown {
+  min-width: 286px !important;
+  padding: .52rem !important;
+  margin-top: .62rem !important;
+  border: 1px solid rgba(91, 107, 78, .16) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 254, 251, .995) !important;
+  box-shadow: 0 22px 54px rgba(44, 58, 49, .14) !important;
+  overflow: hidden;
+}
+.hedayat-dropdown::before {
+  content: "";
+  display: block;
+  height: 3px;
+  margin: -.52rem -.52rem .46rem;
+  background: linear-gradient(90deg, #687A55, #C6B45C, #E79B72);
+}
+.hedayat-dropdown li + li {
+  border-top: 1px solid rgba(95, 111, 79, .08);
+}
+.hedayat-dropdown .dropdown-item {
+  position: relative;
+  color: #34443D !important;
+  font-size: .88rem !important;
+  font-weight: 750 !important;
+  line-height: 1.55;
+  padding: .72rem .88rem .72rem 1rem !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  transition: background-color .18s ease, color .18s ease, padding-inline-start .18s ease;
+}
+.hedayat-dropdown .dropdown-item::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-inline-end: .58rem;
+  border-radius: 50%;
+  background: #B6A756;
+  vertical-align: .12em;
+  opacity: .82;
+}
+.hedayat-dropdown .dropdown-item:hover,
+.hedayat-dropdown .dropdown-item:focus-visible {
+  color: #4D633F !important;
+  background: #F4F1E8 !important;
+  padding-inline-start: 1.02rem !important;
+}
+
+/* WhatsApp stays available, but no longer visually overpowers the institution. */
+.hdr .whatsapp-btn {
+  width: 38px !important;
+  height: 38px !important;
+  border: 1px solid rgba(37, 211, 102, .26);
+  background: #FFFFFF !important;
+  color: #1FAE55 !important;
+  box-shadow: 0 6px 18px rgba(40, 73, 52, .10) !important;
+}
+.hdr .whatsapp-btn:hover,
+.hdr .whatsapp-btn:focus-visible {
+  background: #F1FBF5 !important;
+  color: #168C45 !important;
+  transform: translateY(-1px);
+}
+
+/* Menu button matches the brand instead of generic Bootstrap chrome. */
+.hdr .navbar-toggler,
+.hdr.scrolled .navbar-toggler,
+.hdr:not(.scrolled) .navbar-toggler {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(91, 107, 78, .22) !important;
+  border-radius: 13px !important;
+  background: rgba(255,255,255,.72) !important;
+  box-shadow: 0 5px 16px rgba(49, 62, 54, .06);
+}
+.hdr .navbar-toggler-icon,
+.hdr.scrolled .navbar-toggler-icon,
+.hdr:not(.scrolled) .navbar-toggler-icon {
+  background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(82,104,66,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='1.9' d='M5 8h20M5 15h20M5 22h20'/%3e%3c/svg%3e") !important;
+}
+
+@media (min-width: 992px) {
+  .hdr.navbar > .container {
+    max-width: 1320px;
+  }
+  .hdr .hedayat-nav-group > .dropdown-menu {
+    margin-top: .6rem !important;
+  }
+}
+
+/* Mobile: institutional sheet with clear hierarchy, not a stack of floating buttons. */
+@media (max-width: 991.98px) {
+  .hdr.navbar,
+  .hdr.navbar.scrolled,
+  .hdr.navbar:not(.scrolled) {
+    background: rgba(250,248,243,.985) !important;
+  }
+  .hdr .navbar-collapse {
+    margin-top: .72rem !important;
+    padding: .45rem .58rem .66rem !important;
+    border: 1px solid rgba(91,107,78,.14) !important;
+    border-radius: 16px !important;
+    background: #FFFDF9 !important;
+    box-shadow: 0 24px 58px rgba(44,58,49,.14) !important;
+    max-height: calc(100vh - var(--nav-h) - 28px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .hdr .navbar-collapse .nav-rtl {
+    gap: 0 !important;
+  }
+  .hdr .navbar-collapse .nav-item {
+    display: block;
+    border-bottom: 1px solid rgba(91,107,78,.09);
+  }
+  .hdr .navbar-collapse .nav-item:last-child {
+    border-bottom: 0;
+  }
+  .hdr .navbar-collapse .nav-link,
+  .hdr .navbar-collapse .nav-dropdown-toggle {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px !important;
+    font-size: .97rem !important;
+    padding: .72rem .76rem !important;
+  }
+  .hedayat-dropdown {
+    width: calc(100% - .5rem) !important;
+    margin: .04rem auto .58rem !important;
+    padding: .3rem .5rem .44rem !important;
+    border: 0 !important;
+    border-radius: 11px !important;
+    background: #F4F1E8 !important;
+    box-shadow: inset 0 0 0 1px rgba(91,107,78,.08) !important;
+  }
+  .hedayat-dropdown::before {
+    height: 2px;
+    margin: -.3rem -.5rem .25rem;
+    opacity: .72;
+  }
+  .hedayat-dropdown li + li {
+    border-top-color: rgba(91,107,78,.075);
+  }
+  .hedayat-dropdown .dropdown-item {
+    text-align: center !important;
+    font-size: .9rem !important;
+    padding: .65rem .55rem !important;
+  }
+  .hedayat-dropdown .dropdown-item::before {
+    width: 4px;
+    height: 4px;
+    margin-inline-end: .44rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hdr .official-logo-nav {
+    height: 36px !important;
+    max-width: min(44vw, 164px) !important;
+  }
+  .hdr .whatsapp-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .hdr .navbar-toggler {
+    width: 43px;
+    height: 43px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-rtl .nav-link,
+  .nav-dropdown-toggle,
+  .hedayat-dropdown .dropdown-item,
+  .hdr .whatsapp-btn {
+    transition: none !important;
+  }
 }
