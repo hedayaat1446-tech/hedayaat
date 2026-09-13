@@ -15,33 +15,83 @@
   "nav": [
     {
       "enabled": true,
-      "label": "من نحن",
-      "href": "#about"
+      "label": "عن المؤسسة",
+      "children": [
+        {
+          "label": "من نحن",
+          "href": "#about"
+        },
+        {
+          "label": "الرؤية",
+          "href": "#vision-item"
+        },
+        {
+          "label": "الرسالة",
+          "href": "#mission-item"
+        },
+        {
+          "label": "الأهداف الاستراتيجية",
+          "href": "#goals"
+        },
+        {
+          "label": "قيمنا",
+          "href": "#values"
+        },
+        {
+          "label": "أعضاء مجلس الإدارة",
+          "href": "#board"
+        }
+      ]
     },
     {
       "enabled": true,
-      "label": "الرؤية والرسالة",
-      "href": "#vision"
+      "label": "البرامج",
+      "href": "#programs"
     },
     {
       "enabled": true,
-      "label": "الأهداف الاستراتيجية",
-      "href": "#goals"
+      "label": "الشركاء",
+      "href": "#partners"
     },
     {
       "enabled": true,
-      "label": "قيمنا",
-      "href": "#values"
+      "label": "الحوكمة",
+      "children": [
+        {
+          "label": "الأنظمة واللوائح والسياسات",
+          "href": "#policies"
+        },
+        {
+          "label": "الخطة التشغيلية",
+          "href": "#operational-plan"
+        },
+        {
+          "label": "القوائم والتقارير المالية",
+          "href": "#financial-statements"
+        },
+        {
+          "label": "التقارير",
+          "href": "#reports"
+        }
+      ]
     },
     {
       "enabled": true,
-      "label": "مجلس الإدارة",
-      "href": "#board"
-    },
-    {
-      "enabled": true,
-      "label": "التقارير",
-      "href": "#reports"
+      "label": "المركز الإعلامي",
+      "children": [
+        {
+          "label": "آخر الأخبار",
+          "href": "#latest-news"
+        },
+        {
+          "label": "الصور",
+          "href": "#photos"
+        },
+        {
+          "label": "الفيديو",
+          "href": "#videos"
+        }
+      ]
     },
     {
       "enabled": true,

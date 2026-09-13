@@ -1256,3 +1256,125 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     min-width: 0;
   }
 }
+
+
+/* ============================================================
+   v18 — STRUCTURED MAIN NAVIGATION
+   Six clear top-level items with grouped dropdowns.
+   ============================================================ */
+.nav-dropdown-toggle {
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+.nav-dropdown-toggle.dropdown-toggle::before { display: none !important; }
+.nav-dropdown-toggle.dropdown-toggle::after {
+  position: static !important;
+  display: inline-block !important;
+  width: .42em !important;
+  height: .42em !important;
+  margin-inline-start: .42rem !important;
+  vertical-align: .16em !important;
+  border: solid currentColor !important;
+  border-width: 0 0 1.8px 1.8px !important;
+  transform: rotate(-45deg) !important;
+  content: "" !important;
+}
+.hedayat-dropdown {
+  min-width: 240px;
+  padding: .55rem;
+  border: 1px solid rgba(100,117,80,.14);
+  border-radius: 14px;
+  background: rgba(255,253,250,.99);
+  box-shadow: 0 16px 38px rgba(62,76,66,.14);
+  text-align: right;
+}
+.hedayat-dropdown .dropdown-item {
+  color: var(--text-card-main);
+  font-weight: 700;
+  font-size: .86rem;
+  padding: .62rem .8rem;
+  border-radius: 9px;
+  text-align: right;
+  white-space: normal;
+}
+.hedayat-dropdown .dropdown-item:hover,
+.hedayat-dropdown .dropdown-item:focus {
+  color: var(--primary);
+  background: var(--soft-olive);
+}
+.nav-section-placeholder {
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 2rem;
+  text-align: center;
+}
+.nav-section-placeholder .placeholder-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto .9rem;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+  background: var(--soft-olive);
+  font-size: 1.45rem;
+}
+.nav-section-placeholder h3 {
+  color: var(--primary);
+  font-weight: 800;
+  margin-bottom: .55rem;
+}
+.nav-section-placeholder p {
+  color: var(--text-card-muted);
+  margin: 0;
+}
+.ref-wrap-soft { background: rgba(238,242,232,.38); }
+.ref-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 1rem;
+}
+.governance-grid .nav-section-placeholder,
+.media-center-grid .nav-section-placeholder {
+  max-width: none;
+  height: 100%;
+}
+#vision-item, #mission-item, #financial-statements, #policies, #operational-plan,
+#latest-news, #photos, #videos {
+  scroll-margin-top: calc(var(--nav-h) + 28px);
+}
+
+@media (min-width: 992px) {
+  .hdr .dropdown-menu { inset-inline-end: 0; inset-inline-start: auto; }
+}
+
+@media (max-width: 991.98px) {
+  .nav-rtl { align-items: stretch !important; }
+  .nav-rtl .nav-item { width: 100%; }
+  .nav-rtl .nav-link,
+  .nav-dropdown-toggle {
+    width: 100%;
+    text-align: center !important;
+  }
+  .hedayat-dropdown {
+    position: static !important;
+    transform: none !important;
+    width: calc(100% - 1rem);
+    min-width: 0;
+    margin: .15rem auto .55rem !important;
+    box-shadow: none;
+    background: var(--soft-olive);
+    border-color: rgba(100,117,80,.10);
+  }
+  .hedayat-dropdown .dropdown-item {
+    text-align: center !important;
+    padding-block: .7rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ref-grid-3, .governance-grid { grid-template-columns: 1fr !important; }
+  .nav-section-placeholder { padding: 1.5rem 1.1rem; }
+}

@@ -29,7 +29,23 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
-          {nav.map((item) => (
+          {nav.map((item) => item.children?.length ? (
+            <li class="nav-item dropdown">
+              <button
+                class="nav-link dropdown-toggle nav-dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {item.label}
+              </button>
+              <ul class="dropdown-menu hedayat-dropdown">
+                {item.children.map((child) => (
+                  <li><a class="dropdown-item" href={child.href}>{child.label}</a></li>
+                ))}
+              </ul>
+            </li>
+          ) : (
             <li class="nav-item"><a class="nav-link" href={item.href}>{item.label}</a></li>
           ))}
         </ul>
@@ -142,8 +158,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
         </div>
 
         <div class="ref-grid-2 report-grid-vision">
-          {site.vision.items.map((x) => (
-            <div class="ref-card ref-feature reveal-on-scroll">
+          {site.vision.items.map((x, index) => (
+            <div id={index === 0 ? "vision-item" : "mission-item"} class="ref-card ref-feature reveal-on-scroll">
               <div class="icon"><i class={x.icon} aria-hidden="true"></i></div>
               <h3>{x.title}</h3>
               <p>{x.text}</p>
@@ -217,6 +233,55 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
   </div>
 </section>
 
+<section id="programs" class="ref-wrap ref-wrap-soft">
+  <div class="ref-section">
+    <div class="ref-section-header text-center">
+      <h2 class="ref-section-title">البرامج</h2>
+      <p class="ref-section-subtitle">برامج ومبادرات مؤسسة هدايات التعليمية</p>
+    </div>
+    <div class="ref-card nav-section-placeholder reveal-on-scroll">
+      <div class="placeholder-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></div>
+      <h3>البرامج</h3>
+      <p>سيتم إضافة البرامج المعتمدة وتفاصيلها هنا.</p>
+    </div>
+  </div>
+</section>
+
+<section id="partners" class="ref-wrap">
+  <div class="ref-section">
+    <div class="ref-section-header text-center">
+      <h2 class="ref-section-title">الشركاء</h2>
+      <p class="ref-section-subtitle">شركاء النجاح والتعاون المؤسسي</p>
+    </div>
+    <div class="ref-card nav-section-placeholder reveal-on-scroll">
+      <div class="placeholder-icon"><i class="bi bi-people" aria-hidden="true"></i></div>
+      <h3>الشركاء</h3>
+      <p>سيتم إضافة الجهات والشراكات المعتمدة هنا.</p>
+    </div>
+  </div>
+</section>
+
+<section id="governance" class="ref-wrap ref-wrap-soft">
+  <div class="ref-section">
+    <div class="ref-section-header text-center">
+      <h2 class="ref-section-title">الحوكمة</h2>
+      <p class="ref-section-subtitle">الأنظمة والخطط والتقارير المعتمدة للمؤسسة</p>
+    </div>
+    <div class="ref-grid-2 governance-grid">
+      <article id="policies" class="ref-card nav-section-placeholder reveal-on-scroll">
+        <div class="placeholder-icon"><i class="bi bi-journal-check" aria-hidden="true"></i></div>
+        <h3>الأنظمة واللوائح والسياسات</h3>
+        <p>سيتم نشر الأنظمة واللوائح والسياسات المعتمدة هنا.</p>
+      </article>
+      <article id="operational-plan" class="ref-card nav-section-placeholder reveal-on-scroll">
+        <div class="placeholder-icon"><i class="bi bi-calendar2-check" aria-hidden="true"></i></div>
+        <h3>الخطة التشغيلية</h3>
+        <p>سيتم نشر الخطة التشغيلية المعتمدة هنا.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="reports" class="ref-wrap">
   <div class="ref-section">
     <div class="ref-section-header text-center">
@@ -227,8 +292,8 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     </div>
 
     <div class="mx-auto" style="max-width: 640px; display: grid; gap: 1rem;">
-      {(site.docs.reports.items ?? []).map((r) => (
-        <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
+      {(site.docs.reports.items ?? []).map((r, index) => (
+        <a id={index === 0 ? "financial-statements" : undefined} href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
           <div class="left">
             <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
             <div>
@@ -239,6 +304,32 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <i class="bi bi-download" aria-hidden="true"></i>
         </a>
       ))}
+    </div>
+  </div>
+</section>
+
+<section id="media-center" class="ref-wrap ref-wrap-soft">
+  <div class="ref-section">
+    <div class="ref-section-header text-center">
+      <h2 class="ref-section-title">المركز الإعلامي</h2>
+      <p class="ref-section-subtitle">أخبار المؤسسة وصورها ومحتواها المرئي</p>
+    </div>
+    <div class="ref-grid-3 media-center-grid">
+      <article id="latest-news" class="ref-card nav-section-placeholder reveal-on-scroll">
+        <div class="placeholder-icon"><i class="bi bi-newspaper" aria-hidden="true"></i></div>
+        <h3>آخر الأخبار</h3>
+        <p>سيتم نشر آخر أخبار المؤسسة هنا.</p>
+      </article>
+      <article id="photos" class="ref-card nav-section-placeholder reveal-on-scroll">
+        <div class="placeholder-icon"><i class="bi bi-images" aria-hidden="true"></i></div>
+        <h3>الصور</h3>
+        <p>سيتم إضافة ألبومات الصور المعتمدة هنا.</p>
+      </article>
+      <article id="videos" class="ref-card nav-section-placeholder reveal-on-scroll">
+        <div class="placeholder-icon"><i class="bi bi-play-btn" aria-hidden="true"></i></div>
+        <h3>الفيديو</h3>
+        <p>سيتم إضافة الفيديوهات والمحتوى المرئي هنا.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -418,7 +509,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       const navMain    = document.getElementById('navMain');
       const navToggler = document.querySelector('.navbar-toggler');
       if (navMain && navToggler) {
-        const navLinks = navMain.querySelectorAll('.nav-link');
+        const navLinks = navMain.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item');
         navLinks.forEach(link => {
           link.addEventListener('click', () => {
             const isTogglerVisible = window.getComputedStyle(navToggler).display !== 'none';
