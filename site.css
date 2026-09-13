@@ -1627,3 +1627,289 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     transition: none !important;
   }
 }
+
+
+/* ============================================================
+   V21 — DESKTOP NAV VISIBILITY / DROPDOWN POSITION FIX
+   The previous Popper placement could lift dropdown panels over the
+   navbar, hiding the parent item and adjacent navigation links.
+   ============================================================ */
+@media (min-width: 992px) {
+  .hdr.navbar,
+  .hdr.navbar.scrolled,
+  .hdr.navbar:not(.scrolled) {
+    overflow: visible !important;
+  }
+
+  .hdr.navbar > .container {
+    max-width: 1460px !important;
+    width: min(96%, 1460px) !important;
+    gap: 1rem;
+  }
+
+  .hdr .navbar-collapse {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0;
+    overflow: visible !important;
+  }
+
+  .hdr .nav-rtl {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .28rem !important;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .hdr .nav-rtl .nav-item,
+  .hdr .hedayat-nav-group {
+    position: relative !important;
+    flex: 0 0 auto;
+  }
+
+  .hdr .nav-rtl .nav-link,
+  .hdr .nav-dropdown-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 44px;
+    padding: .72rem .72rem !important;
+    font-size: .96rem !important;
+    font-weight: 800 !important;
+    color: #2F4039 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Keep Bootstrap/Popper from lifting the menu over the header. */
+  .hdr .hedayat-nav-group > .dropdown-menu,
+  .hdr .hedayat-nav-group > .dropdown-menu[data-bs-popper] {
+    position: absolute !important;
+    top: calc(100% + .58rem) !important;
+    bottom: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    inset: auto auto auto 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    z-index: 2100 !important;
+  }
+
+  .hdr .hedayat-dropdown {
+    min-width: 300px !important;
+    max-width: min(360px, 92vw) !important;
+  }
+
+  .hdr .hedayat-dropdown .dropdown-item {
+    font-size: .96rem !important;
+    font-weight: 750 !important;
+    padding-block: .78rem !important;
+  }
+
+  .hdr .navbar-brand {
+    flex: 0 0 auto;
+  }
+
+  .hdr .official-logo-nav {
+    height: 52px !important;
+    max-width: 220px !important;
+  }
+
+  .hdr .whatsapp-btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* Intermediate laptops: retain all six items without making the text tiny. */
+@media (min-width: 992px) and (max-width: 1240px) {
+  .hdr.navbar > .container {
+    width: 98% !important;
+    gap: .45rem;
+  }
+  .hdr .official-logo-nav {
+    height: 45px !important;
+    max-width: 175px !important;
+  }
+  .hdr .nav-rtl {
+    gap: .05rem !important;
+  }
+  .hdr .nav-rtl .nav-link,
+  .hdr .nav-dropdown-toggle {
+    font-size: .82rem !important;
+    padding-inline: .43rem !important;
+  }
+  .hdr .whatsapp-btn {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
+
+
+/* ============================================================
+   V22 — MOBILE NAV VISIBILITY / GOVERNMENT-STYLE SHEET
+   Keeps all six top-level items visible and makes submenus behave
+   like clear nested sections instead of closing the whole menu.
+   ============================================================ */
+@media (max-width: 991.98px) {
+  .hdr.navbar,
+  .hdr.navbar.scrolled,
+  .hdr.navbar:not(.scrolled) {
+    overflow: visible !important;
+  }
+
+  .hdr.navbar > .container {
+    position: relative !important;
+  }
+
+  .hdr .navbar-collapse,
+  .hdr .navbar-collapse.collapsing,
+  .hdr .navbar-collapse.show {
+    position: fixed !important;
+    top: calc(var(--nav-h) + 10px) !important;
+    inset-inline: 12px !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: .55rem .65rem .72rem !important;
+    border: 1px solid rgba(91,107,78,.16) !important;
+    border-radius: 18px !important;
+    background: rgba(255,253,249,.995) !important;
+    box-shadow: 0 22px 58px rgba(44,58,49,.18) !important;
+    max-height: calc(100dvh - var(--nav-h) - 26px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    z-index: 2050 !important;
+  }
+
+  .hdr .navbar-collapse .nav-rtl {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hdr .navbar-collapse .nav-item,
+  .hdr .navbar-collapse .hedayat-nav-group {
+    display: block !important;
+    width: 100% !important;
+    border-bottom: 1px solid rgba(91,107,78,.10) !important;
+  }
+
+  .hdr .navbar-collapse .nav-item:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .hdr .navbar-collapse .nav-link,
+  .hdr .navbar-collapse .nav-dropdown-toggle {
+    width: 100% !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: right !important;
+    direction: rtl !important;
+    padding: .78rem .9rem !important;
+    border-radius: 10px !important;
+    color: #2F4039 !important;
+    background: transparent !important;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+  }
+
+  .hdr .navbar-collapse .nav-dropdown-toggle {
+    justify-content: space-between !important;
+  }
+
+  .hdr .navbar-collapse .nav-link:hover,
+  .hdr .navbar-collapse .nav-link:focus-visible,
+  .hdr .navbar-collapse .nav-dropdown-toggle:hover,
+  .hdr .navbar-collapse .nav-dropdown-toggle:focus-visible,
+  .hdr .navbar-collapse .hedayat-nav-group.show > .nav-dropdown-toggle {
+    color: #526842 !important;
+    background: #F4F1E8 !important;
+  }
+
+  .hdr .hedayat-nav-group > .dropdown-menu,
+  .hdr .hedayat-nav-group > .dropdown-menu[data-bs-popper] {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    float: none !important;
+    width: calc(100% - .7rem) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: .05rem auto .62rem !important;
+    padding: .34rem .42rem .4rem !important;
+    border: 1px solid rgba(91,107,78,.10) !important;
+    border-radius: 12px !important;
+    background: #F7F4ED !important;
+    box-shadow: none !important;
+  }
+
+  .hdr .hedayat-dropdown::before {
+    height: 2px !important;
+    margin: -.34rem -.42rem .25rem !important;
+    opacity: .72;
+  }
+
+  .hdr .hedayat-dropdown .dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 44px !important;
+    text-align: right !important;
+    direction: rtl !important;
+    padding: .67rem .78rem !important;
+    font-size: .92rem !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+    color: #3B4A43 !important;
+    border-radius: 8px !important;
+    white-space: normal !important;
+  }
+
+  .hdr .hedayat-dropdown .dropdown-item::before {
+    flex: 0 0 auto;
+    width: 5px !important;
+    height: 5px !important;
+    margin-inline-end: .55rem !important;
+  }
+
+  .hdr .nav-dropdown-toggle.dropdown-toggle::after {
+    flex: 0 0 auto;
+    margin-inline-start: .8rem !important;
+  }
+
+  .hdr .whatsapp-btn {
+    flex: 0 0 auto !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .hdr .navbar-collapse,
+  .hdr .navbar-collapse.collapsing,
+  .hdr .navbar-collapse.show {
+    inset-inline: 9px !important;
+    padding-inline: .52rem !important;
+    border-radius: 16px !important;
+  }
+
+  .hdr .navbar-collapse .nav-link,
+  .hdr .navbar-collapse .nav-dropdown-toggle {
+    min-height: 50px !important;
+    font-size: .96rem !important;
+    padding-inline: .78rem !important;
+  }
+
+  .hdr .hedayat-dropdown .dropdown-item {
+    font-size: .89rem !important;
+  }
+}

@@ -36,6 +36,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
                 type="button"
                 data-bs-toggle="dropdown"
                 data-bs-auto-close="outside"
+                data-bs-display="static"
                 aria-expanded="false"
               >
                 {item.label}
@@ -431,12 +432,13 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 
       // Formspree AJAX
 
-      // إغلاق منيو الجوال
+      // إغلاق منيو الجوال فقط بعد اختيار رابط فعلي.
+      // لا نغلقها عند الضغط على عناوين القوائم الفرعية مثل "عن المؤسسة" و"الحوكمة".
       const navMain    = document.getElementById('navMain');
       const navToggler = document.querySelector('.navbar-toggler');
       if (navMain && navToggler) {
-        const navLinks = navMain.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
+        const destinationLinks = navMain.querySelectorAll('a.nav-link, a.dropdown-item');
+        destinationLinks.forEach(link => {
           link.addEventListener('click', () => {
             const isTogglerVisible = window.getComputedStyle(navToggler).display !== 'none';
             const isExpanded = navToggler.getAttribute('aria-expanded') === 'true';
