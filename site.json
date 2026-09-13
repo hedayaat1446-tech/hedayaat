@@ -81,15 +81,15 @@
       "children": [
         {
           "label": "آخر الأخبار",
-          "href": "#latest-news"
+          "href": "/news/"
         },
         {
           "label": "الصور",
-          "href": "#photos"
+          "href": "/photos/"
         },
         {
           "label": "الفيديو",
-          "href": "#videos"
+          "href": "/videos/"
         }
       ]
     },

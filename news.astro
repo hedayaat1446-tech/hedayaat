@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+const meta = { ...site.meta, title: "آخر الأخبار | مؤسسة هدايات التعليمية", description: "آخر الأخبار - المركز الإعلامي لمؤسسة هدايات التعليمية" };
+---
+<BaseLayout meta={meta}>
+  <main class="media-page">
+    <header class="media-header"><div class="media-header-inner">
+      <a href="/" class="media-brand" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+      <a href="/" class="media-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+    </div></header>
+    <section class="media-hero"><div class="media-shell">
+      <span class="media-eyebrow">المركز الإعلامي</span>
+      <div class="media-icon"><i class="bi bi-newspaper" aria-hidden="true"></i></div>
+      <h1>آخر الأخبار</h1><p>تابع آخر أخبار مؤسسة هدايات التعليمية وإعلاناتها المعتمدة.</p>
+    </div></section>
+    <nav class="media-tabs" aria-label="أقسام المركز الإعلامي"><a href="/news/">آخر الأخبار</a><a href="/photos/">الصور</a><a href="/videos/">الفيديو</a></nav>
+    <section class="media-content"><div class="media-empty">
+      <div class="empty-mark"><i class="bi bi-newspaper" aria-hidden="true"></i></div><h2>آخر الأخبار</h2><p>سيتم نشر المحتوى المعتمد في هذا القسم قريبًا.</p><a class="media-back" href="/">العودة إلى موقع المؤسسة</a>
+    </div></section>
+  </main>
+  <style>
+    :global(body){margin:0;background:#f7f4ee;color:#334137;} .media-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-arabic);}
+    .media-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)} .media-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .media-brand img{display:block;width:190px;max-width:47vw;height:auto}.media-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#5e734a;font-weight:700;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}
+    .media-hero{padding:76px 20px 48px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)} .media-shell{max-width:760px;margin:auto}.media-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#eef2e8;color:#5e734a;font-weight:800;margin-bottom:22px}
+    .media-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#fff4ea;color:#de8f62;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)} h1{font-size:clamp(2.25rem,5vw,4rem);margin:0 0 14px;font-weight:900;color:#334137}.media-hero p{margin:0 auto;max-width:650px;font-size:1.15rem;line-height:2;color:#667267}
+    .media-tabs{max-width:760px;margin:-6px auto 42px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#fff;border:1px solid rgba(94,115,74,.14);border-radius:18px;box-shadow:0 14px 38px rgba(51,65,55,.08)} .media-tabs a{text-align:center;text-decoration:none;color:#465646;font-weight:800;padding:13px 10px;border-radius:13px;transition:.18s ease}.media-tabs a:hover{background:#eef2e8;color:#4d643e}
+    .media-content{max-width:980px;margin:0 auto;padding:0 20px 90px}.media-empty{background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:28px;padding:64px 26px;text-align:center;box-shadow:0 20px 56px rgba(51,65,55,.07)} .empty-mark{width:82px;height:82px;margin:0 auto 20px;display:grid;place-items:center;border-radius:50%;background:#f7f1df;color:#9a873c;font-size:34px}.media-empty h2{font-size:1.65rem;margin:0 0 12px;color:#334137}.media-empty p{font-size:1.05rem;color:#788078;margin:0 0 26px}.media-back{display:inline-flex;text-decoration:none;background:#667a52;color:#fff;padding:12px 24px;border-radius:999px;font-weight:800}
+    @media(max-width:600px){.media-header-inner{padding:12px 16px}.media-brand img{width:150px}.media-home span{display:none}.media-home{width:42px;height:42px;justify-content:center;padding:0}.media-hero{padding:56px 18px 34px}.media-tabs{margin:0 16px 34px}.media-tabs a{font-size:.92rem;padding:12px 4px}.media-empty{padding:48px 18px;border-radius:22px}.media-content{padding-left:16px;padding-right:16px}}
+  </style>
+</BaseLayout>
