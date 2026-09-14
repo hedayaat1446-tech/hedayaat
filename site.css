@@ -2046,3 +2046,96 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   v28 — ABOUT COPY PLACEMENT + BALANCED FOOTER IDENTITY
+   ============================================================ */
+#about .ref-section-header {
+  margin-bottom: 2.9rem;
+}
+
+#about .ref-section-subtitle {
+  max-width: 880px;
+  margin-top: 1.35rem;
+  font-size: clamp(.98rem, 1.45vw, 1.12rem);
+  line-height: 2.05;
+  color: #58615b;
+  text-wrap: pretty;
+}
+
+/* Use the identity motif as a quiet frame on both sides instead of one
+   oversized mark floating in a single corner. */
+.site-footer {
+  isolation: isolate;
+}
+
+.footer-watermark {
+  bottom: -72px;
+  width: clamp(250px, 22vw, 340px);
+  height: auto;
+  opacity: .055;
+  z-index: 0;
+}
+
+.footer-watermark--start {
+  inset-inline-start: -82px;
+  inset-inline-end: auto;
+  transform: scaleX(-1);
+}
+
+.footer-watermark--end {
+  inset-inline-end: -82px;
+  inset-inline-start: auto;
+}
+
+.footer-top {
+  max-width: 980px;
+}
+
+.footer-logos {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  gap: clamp(2rem, 5vw, 4.25rem);
+  justify-content: center;
+}
+
+.official-logo-footer {
+  width: min(25vw, 285px) !important;
+  max-width: 285px !important;
+}
+
+.footer-logos .national-center-footer-logo {
+  width: min(22vw, 225px) !important;
+  max-width: 225px !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+@media (max-width: 767.98px) {
+  #about .ref-section-header {
+    margin-bottom: 2.25rem;
+  }
+
+  #about .ref-section-subtitle {
+    max-width: 100%;
+    font-size: .98rem;
+    line-height: 1.95;
+    padding-inline: .2rem;
+  }
+
+  /* Keep the phone footer clean; the paired decorative marks are desktop/tablet only. */
+  .footer-watermark {
+    display: none !important;
+  }
+
+  .official-logo-footer {
+    width: min(58vw, 220px) !important;
+    max-width: 220px !important;
+  }
+
+  .footer-logos .national-center-footer-logo {
+    width: min(54vw, 190px) !important;
+    max-width: 190px !important;
+  }
+}
