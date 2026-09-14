@@ -209,58 +209,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </div>
     </section>
 
-    <div class="pattern-divider" aria-hidden="true"></div>
-
- <section id="board" class="ref-wrap">
-  <div class="ref-section text-center">
-    <div class="ref-section-header">
-      <h2 class="ref-section-title">{site.docs.board.title}</h2>
-      {site.docs.board.subtitle && (
-        <p class="ref-section-subtitle">{site.docs.board.subtitle}</p>
-      )}
-    </div>
-
-    <div class="mx-auto reveal-on-scroll" style="max-width: 640px;">
-      <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
-        <div class="left">
-          <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
-          <div>
-            <div class="title">{site.docs.board.buttonLabel}</div>
-            {site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}
-          </div>
-        </div>
-        <i class="bi bi-download" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section id="reports" class="ref-wrap">
-  <div class="ref-section">
-    <div class="ref-section-header text-center">
-      <h2 class="ref-section-title">{site.docs.reports.title}</h2>
-      {site.docs.reports.subtitle && (
-        <p class="ref-section-subtitle">{site.docs.reports.subtitle}</p>
-      )}
-    </div>
-
-    <div class="mx-auto" style="max-width: 640px; display: grid; gap: 1rem;">
-      {(site.docs.reports.items ?? []).map((r) => (
-        <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
-          <div class="left">
-            <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
-            <div>
-              <div class="title">{r.buttonLabel}</div>
-              {r.buttonHint && <small>{r.buttonHint}</small>}
-            </div>
-          </div>
-          <i class="bi bi-download" aria-hidden="true"></i>
-        </a>
-      ))}
-    </div>
-  </div>
-</section>
-
     <section id="contact" class="ref-wrap">
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">

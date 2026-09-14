@@ -11,6 +11,8 @@ const maps = [
   ['news.astro', 'src/pages/news.astro'],
   ['photos.astro', 'src/pages/photos.astro'],
   ['videos.astro', 'src/pages/videos.astro'],
+  ['board.astro', 'src/pages/board.astro'],
+  ['reports.astro', 'src/pages/reports.astro'],
   ['site.json', 'src/content/site.json'],
   ['site.css', 'public/styles/site.css'],
   ['config.yml', 'public/admin/config.yml'],

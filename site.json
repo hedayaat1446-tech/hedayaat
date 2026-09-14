@@ -39,7 +39,7 @@
         },
         {
           "label": "أعضاء مجلس الإدارة",
-          "href": "#board"
+          "href": "/board/"
         }
       ]
     },
@@ -71,7 +71,7 @@
         },
         {
           "label": "التقارير",
-          "href": "#reports"
+          "href": "/reports/"
         }
       ]
     },

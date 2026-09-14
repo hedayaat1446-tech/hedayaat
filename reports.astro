@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+const meta = {
+  ...site.meta,
+  title: "التقارير | مؤسسة هدايات التعليمية",
+  description: "تقارير مؤسسة هدايات التعليمية والملفات المالية والإدارية المنشورة."
+};
+---
+<BaseLayout meta={meta}>
+  <main class="institution-page">
+    <header class="institution-header">
+      <div class="institution-header-inner">
+        <a href="/" class="institution-brand" aria-label="العودة إلى الرئيسية">
+          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" />
+        </a>
+        <a href="/" class="institution-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+      </div>
+    </header>
+
+    <section class="institution-hero">
+      <div class="institution-shell">
+        <span class="institution-eyebrow">الحوكمة</span>
+        <div class="institution-icon"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i></div>
+        <h1>{site.docs.reports.title}</h1>
+        {site.docs.reports.subtitle && <p>{site.docs.reports.subtitle}</p>}
+      </div>
+    </section>
+
+    <section class="institution-content">
+      <div class="documents-grid">
+        {(site.docs.reports.items ?? []).map((r) => (
+          <article class="document-card">
+            <div class="document-icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
+            <div class="document-copy">
+              <h2>{r.buttonLabel}</h2>
+              {r.buttonHint && <p>{r.buttonHint}</p>}
+            </div>
+            <div class="document-actions">
+              <a class="document-action" href={`/${r.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الملف</span></a>
+              <a class="document-action document-action--secondary" href={`/${r.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <a class="institution-back" href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى موقع المؤسسة</a>
+    </section>
+  </main>
+
+  <style>
+    :global(body){margin:0;background:#f7f4ee;color:#334137}.institution-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-arabic)}
+    .institution-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.institution-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.institution-brand img{display:block;width:190px;max-width:47vw;height:auto}.institution-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#5e734a;font-weight:800;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}
+    .institution-hero{padding:72px 20px 44px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)}.institution-shell{max-width:760px;margin:auto}.institution-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#eef2e8;color:#5e734a;font-weight:800;margin-bottom:22px}.institution-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#fff4ea;color:#de8f62;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)}h1{font-size:clamp(2.2rem,5vw,3.8rem);margin:0 0 14px;font-weight:900;color:#334137}.institution-hero p{margin:0 auto;max-width:720px;font-size:1.12rem;line-height:2;color:#667267}
+    .institution-content{max-width:920px;margin:0 auto;padding:0 20px 88px}.documents-grid{display:grid;gap:18px}.document-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:26px;padding:28px;box-shadow:0 20px 56px rgba(51,65,55,.07)}.document-icon{width:64px;height:64px;display:grid;place-items:center;border-radius:18px;background:#eef2e8;color:#5e734a;font-size:28px}.document-copy h2{margin:0 0 7px;font-size:1.3rem;font-weight:900}.document-copy p{margin:0;color:#788078;line-height:1.8}.document-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.document-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:#667a52;color:#fff;padding:11px 18px;border-radius:999px;font-weight:800;white-space:nowrap}.document-action--secondary{background:#fff;color:#667a52;border:1px solid rgba(102,122,82,.28)}.institution-back{display:inline-flex;align-items:center;gap:8px;margin-top:26px;text-decoration:none;color:#5e734a;font-weight:800}
+    @media(max-width:720px){.institution-header-inner{padding:12px 16px}.institution-brand img{width:150px}.institution-home span{display:none}.institution-home{width:42px;height:42px;justify-content:center;padding:0}.institution-hero{padding:52px 18px 34px}.institution-content{padding:0 16px 70px}.document-card{grid-template-columns:auto 1fr;padding:22px 18px;border-radius:22px}.document-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;width:100%}.document-action{width:100%}}
+  </style>
+</BaseLayout>
