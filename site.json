@@ -116,8 +116,8 @@
     "cardTitle": "مؤسسة تعليمية مسجلة",
     "cardText": "نجمع بين الأصالة العلمية والوسائل المعاصرة المؤثرة لنصنع أثراً عميقاً ومستداماً.",
     "textTitle": "رسالتنا في تعميق الوعي",
-    "p1": "نسعى لترسيخ المعارف الصحيحة وبناء وعي راسخ يحصّن الفرد والمجتمع من الانحرافات الفكرية والقيمية؛ وذلك عبر الجمع بين الأصالة العلمية والوسائل المعاصرة الجاذبة.",
-    "p2": "نؤمن بأن الوعي العميق هو خط الدفاع الأول عن ثوابت الهوية الوطنية والإسلامية، وأن الاستثمار في بناء القناعات هو استثمار في مستقبل الوطن كافة."
+    "p1": "أنشئت مؤسسة هدايات لترسيخ العقيدة الصحيحة، وبناء وعي عقدي راسخ يحصّن الفرد والمجتمع من الانحرافات العقدية والممارسات الروحانية الوافدة، وذلك من خلال الجمع بين الأصالة العلمية والوسائل المعاصرة المؤثرة، بما يسهم في تعزيز ثوابت الهوية الإسلامية والفكرية للمجتمع.",
+    "p2": ""
   },
   "vision": {
     "title": "رؤيتنا ورسالتنا",
@@ -219,9 +219,41 @@
     "phone": "+966 54 907 8774",
     "address": "جدة، المملكة العربية السعودية",
     "iban": "",
-    "social": [],
+    "social": [
+      {
+        "name": "Instagram",
+        "label": "إنستغرام",
+        "icon": "bi-instagram",
+        "url": "https://www.instagram.com/hedayaat_edu/"
+      },
+      {
+        "name": "X",
+        "label": "X",
+        "icon": "bi-twitter-x",
+        "url": "https://x.com/hedayaat_edu"
+      },
+      {
+        "name": "TikTok",
+        "label": "تيك توك",
+        "icon": "bi-tiktok",
+        "url": "https://www.tiktok.com/@hedayaat_edu"
+      },
+      {
+        "name": "Snapchat",
+        "label": "سناب شات",
+        "icon": "bi-snapchat",
+        "url": "https://www.snapchat.com/add/hedayaat_edu"
+      },
+      {
+        "name": "YouTube",
+        "label": "يوتيوب",
+        "icon": "bi-youtube",
+        "url": "https://www.youtube.com/@hedayaat_edu"
+      }
+    ],
     "locationUrl": "https://maps.app.goo.gl/F3CqDs2bdyde1Rm68?g_st=iw",
-    "linktreeUrl": "https://linktr.ee/hedayaat1446"
+    "linktreeUrl": "",
+    "socialUsername": "hedayaat_edu"
   },
   "footer": {
     "licenseText": "مرخّصة من المركز الوطني لتنمية القطاع غير الربحي برقم ١١٠٠٥٢٧٠٠٠",

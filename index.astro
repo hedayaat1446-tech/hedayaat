@@ -354,16 +354,27 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               </div>
             )}
 
-            {site.contact.linktreeUrl && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-link-45deg" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>حسابات هدايات</h3>
-                  <p>جميع حسابات المؤسسة وروابطها الرسمية في مكان واحد.</p>
-                  <a class="contact-action-link" href={site.contact.linktreeUrl} target="_blank" rel="noopener">
-                    <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-                    عرض جميع الحسابات
-                  </a>
+            {site.contact.social?.length > 0 && (
+              <div class="contact-item contact-social-item reveal-on-scroll">
+                <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
+                <div class="contact-details social-contact-details">
+                  <h3>حسابات التواصل الاجتماعي</h3>
+                  <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
+                  <div class="official-social-links" aria-label="حسابات هدايات الرسمية">
+                    {site.contact.social.map((account) => (
+                      <a
+                        class="official-social-link"
+                        href={account.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`هدايات على ${account.label}`}
+                        title={`هدايات على ${account.label}`}
+                      >
+                        <i class={`bi ${account.icon}`} aria-hidden="true"></i>
+                        <span>{account.label}</span>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
