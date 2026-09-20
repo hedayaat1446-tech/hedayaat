@@ -4,8 +4,8 @@ import site from "../content/site.json";
 
 const privacyMeta = {
   ...site.meta,
-  title: "سياسة الخصوصية | مؤسسة هدايات التعليمية",
-  description: "سياسة الخصوصية الخاصة بنموذج التواصل في موقع مؤسسة هدايات التعليمية."
+  title: "سياسة الخصوصية وحماية البيانات | مؤسسة هدايات التعليمية",
+  description: "الوصول إلى سياسة الخصوصية وحماية البيانات المعتمدة لمؤسسة هدايات التعليمية."
 };
 ---
 
@@ -15,22 +15,47 @@ const privacyMeta = {
       <a href="/" aria-label="العودة إلى الصفحة الرئيسية">
         <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="privacy-logo" />
       </a>
-      <h1>سياسة الخصوصية</h1>
-      <p class="privacy-intro">نحرص في مؤسسة هدايات التعليمية على التعامل مع بيانات التواصل بوضوح واحترام للخصوصية.</p>
 
-      <h2>البيانات التي يرسلها المستخدم</h2>
-      <p>عند استخدام نموذج التواصل، قد تُرسل بيانات مثل الاسم والبريد الإلكتروني وموضوع الرسالة ونصها.</p>
+      <span class="privacy-badge">وثيقة حوكمة معتمدة</span>
+      <h1>سياسة الخصوصية وحماية البيانات</h1>
+      <p class="privacy-intro">
+        هذه الصفحة مخصصة للوصول إلى النسخة الرسمية المنشورة من سياسة الخصوصية وحماية البيانات في مؤسسة هدايات التعليمية، دون إنشاء نسخة نصية موازية قد تختلف عن الوثيقة المعتمدة.
+      </p>
 
-      <h2>الغرض من استخدام البيانات</h2>
-      <p>تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسارات والمقترحات وطلبات الشراكات أو البرامج التعليمية فقط.</p>
+      <section class="privacy-official-card" aria-labelledby="privacy-official-title">
+        <img src="/privacy-data-policy-preview.jpg" alt="معاينة الصفحة الأولى من سياسة الخصوصية وحماية البيانات" loading="eager" />
+        <div class="privacy-official-copy">
+          <h2 id="privacy-official-title">النسخة الرسمية</h2>
+          <p>تتضمن الوثيقة نطاق البيانات، وأغراض استخدامها، وأمن البيانات ومشاركتها، وحقوق صاحب البيانات، واعتماد السياسة.</p>
+          <div class="privacy-actions">
+            <a class="privacy-primary" href="/privacy-data-policy.pdf" target="_blank" rel="noopener">
+              <i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span>
+            </a>
+            <a class="privacy-secondary" href="/privacy-data-policy.pdf" download>
+              <i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
-      <h2>مشاركة البيانات</h2>
-      <p>لا تُستخدم بيانات نموذج التواصل لعرضها للعامة، ويقتصر التعامل معها على ما يلزم لمتابعة التواصل والطلب المرسل.</p>
-
-      <h2>التواصل بشأن الخصوصية</h2>
-      <p>لأي استفسار متعلق بالخصوصية، يمكن التواصل عبر البريد الإلكتروني: <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+      <p class="privacy-contact">
+        للاستفسارات المتعلقة بالخصوصية يمكن التواصل عبر البريد الإلكتروني:
+        <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
 
       <div class="privacy-back"><a href="/#contact">العودة إلى الموقع</a></div>
     </article>
   </main>
+
+  <style>
+    .privacy-badge{display:table;margin:0 auto 14px;padding:7px 14px;border-radius:999px;background:#eef5f3;color:#0b6170;font-size:.86rem;font-weight:800;border:1px solid rgba(11,97,112,.1)}
+    .privacy-official-card{display:grid;grid-template-columns:minmax(180px,32%) 1fr;gap:24px;align-items:center;margin-top:30px;padding:22px;border:1px solid rgba(11,97,112,.12);border-radius:20px;background:#fbfdfc;box-shadow:0 14px 38px rgba(37,64,56,.06)}
+    .privacy-official-card>img{display:block;width:100%;max-height:320px;object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 8px 22px rgba(25,55,50,.08)}
+    .privacy-official-copy h2{margin:0 0 8px}.privacy-official-copy p{margin:0 0 18px}
+    .privacy-actions{display:flex;gap:10px;flex-wrap:wrap}.privacy-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:800}
+    .privacy-primary{background:#667a52;color:#fff}.privacy-secondary{background:#fff;color:#667a52;border:1px solid rgba(102,122,82,.25)}
+    .privacy-contact{margin-top:26px;padding:16px 18px;border-radius:14px;background:#f6f4ee;text-align:center}
+    @media(max-width:640px){.privacy-official-card{grid-template-columns:1fr;padding:16px}.privacy-official-card>img{max-height:280px}.privacy-actions{display:grid;grid-template-columns:1fr 1fr}.privacy-actions a{padding-inline:8px}}
+    @media(max-width:380px){.privacy-actions{grid-template-columns:1fr}}
+  </style>
 </BaseLayout>

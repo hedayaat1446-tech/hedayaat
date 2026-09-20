@@ -1,29 +1,111 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>لوحة التحكم هدايات</title>
-<link rel="icon" href="/favicon.ico" sizes="any">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>لوحة تحكم هدايات</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
+  <style>
+    :root{color-scheme:light;--ink:#173f4e;--teal:#0b5f72;--teal2:#084c5b;--sand:#b09247;--bg:#f5f7f6;--line:#dce6e7;--muted:#66777d;--danger:#9b2c2c;--ok:#236c4b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}.shell{max-width:1180px;margin:auto;padding:28px 18px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:15px}.brand img{width:170px;max-width:45vw;height:auto}.brand h1{margin:0;font-size:1.25rem}.brand p{margin:2px 0 0;color:var(--muted);font-size:.88rem}.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 34px rgba(15,63,78,.06);padding:22px}.login{max-width:520px;margin:70px auto}.field{display:grid;gap:7px;margin:14px 0}.field label{font-weight:800}.field input,.field textarea{width:100%;border:1px solid #cddbdd;border-radius:11px;padding:11px 12px;font:inherit;background:#fff;color:#243d45;outline:none}.field input:focus,.field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(11,95,114,.09)}textarea{min-height:520px;direction:ltr;text-align:left;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.84rem;line-height:1.55;resize:vertical}.btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--teal);color:white}.btn-primary:hover{background:var(--teal2)}.btn-secondary{background:#eef4f4;color:var(--teal);border:1px solid #d8e5e6}.btn-danger{background:#fff2f2;color:var(--danger);border:1px solid #f0cece}.btn:disabled{opacity:.6;cursor:not-allowed}.status{min-height:26px;margin-top:12px;font-weight:700}.status.ok{color:var(--ok)}.status.err{color:var(--danger)}.status.muted{color:var(--muted)}.hidden{display:none!important}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{background:#fff;color:var(--teal);border:1px solid var(--line)}.tab.active{background:var(--teal);color:#fff}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.toolbar h2{margin:0;font-size:1.15rem}.toolbar p{margin:2px 0 0;color:var(--muted);font-size:.88rem}.messages{display:grid;gap:12px}.message{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fbfcfc}.message-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}.message h3{margin:0;font-size:1rem}.message .meta{font-size:.82rem;color:var(--muted)}.message .email{direction:ltr;display:inline-block}.message .subject{margin:10px 0 4px;font-weight:800;color:#34535e}.message .body{margin:0;white-space:pre-wrap;color:#4e6066}.empty{text-align:center;padding:44px 16px;color:var(--muted)}.notice{background:#fff9e9;border:1px solid #ead9a2;border-radius:12px;padding:12px 14px;color:#6d5b2f;font-size:.88rem;margin-bottom:16px}.logout{margin-inline-start:auto}@media(max-width:640px){.shell{padding:16px 12px 42px}.top{align-items:flex-start}.brand img{width:135px}.brand h1{font-size:1.05rem}.card{padding:16px;border-radius:14px}.login{margin:38px auto}textarea{min-height:440px}.logout{margin-inline-start:0}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="top">
+      <div class="brand"><img src="/hedayat-official-logo-v5.png" alt="هدايات التعليمية" /><div><h1>لوحة التحكم</h1><p>إدارة المحتوى ورسائل الموقع</p></div></div>
+      <button id="logout" class="btn btn-danger logout hidden" type="button">تسجيل الخروج</button>
+    </div>
 
-    <!-- Netlify Identity (ضروري مع git-gateway) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+    <section id="loginCard" class="card login">
+      <h2 style="margin-top:0">تسجيل الدخول</h2>
+      <p style="color:var(--muted)">أدخل كلمة مرور الإدارة المعرّفة في متغير <b>ADMIN_PASSWORD</b> على Railway.</p>
+      <form id="loginForm">
+        <div class="field"><label for="password">كلمة المرور</label><input id="password" name="password" type="password" autocomplete="current-password" required /></div>
+        <button class="btn btn-primary" type="submit">دخول</button>
+        <div id="loginStatus" class="status" aria-live="polite"></div>
+      </form>
+    </section>
 
-    <script>
-      // بعد تسجيل الدخول يرجعك للوحة
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-  </body>
+    <section id="dashboard" class="hidden">
+      <div class="notice">للاحتفاظ بالتعديلات والرسائل بعد إعادة تشغيل Railway، اربط Volume وحدد <b>DATA_DIR=/data</b>. بدون Volume ستعمل اللوحة، لكن تخزين Railway المحلي قد لا يكون دائمًا بعد إعادة النشر.</div>
+      <div class="tabs" role="tablist">
+        <button class="btn tab active" data-tab="content" type="button">محتوى الموقع</button>
+        <button class="btn tab" data-tab="messages" type="button">رسائل التواصل</button>
+      </div>
+
+      <div id="contentPanel" class="card">
+        <div class="toolbar"><div><h2>محتوى الموقع</h2><p>تعديل ملف المحتوى المركزي. يتم التحقق منه ثم إعادة بناء الموقع تلقائيًا.</p></div><div><button id="reloadSite" class="btn btn-secondary" type="button">إعادة تحميل</button> <button id="saveSite" class="btn btn-primary" type="button">حفظ وتطبيق</button></div></div>
+        <div class="field"><label for="siteJson">بيانات الموقع (JSON)</label><textarea id="siteJson" spellcheck="false"></textarea></div>
+        <div id="siteStatus" class="status muted" aria-live="polite"></div>
+      </div>
+
+      <div id="messagesPanel" class="card hidden">
+        <div class="toolbar"><div><h2>رسائل التواصل</h2><p>آخر 200 رسالة استقبلها نموذج الموقع.</p></div><button id="reloadMessages" class="btn btn-secondary" type="button">تحديث</button></div>
+        <div id="messages" class="messages"><div class="empty">جارٍ التحميل...</div></div>
+        <div id="messagesStatus" class="status muted" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const loginCard = $('#loginCard'), dashboard = $('#dashboard'), logout = $('#logout');
+    const loginStatus = $('#loginStatus'), siteStatus = $('#siteStatus'), messagesStatus = $('#messagesStatus');
+    const siteJson = $('#siteJson'), messagesBox = $('#messages');
+
+    async function api(path, options={}) {
+      const response = await fetch(path, { credentials:'same-origin', ...options, headers:{ Accept:'application/json', ...(options.headers||{}) } });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) { const e = new Error(data.message || 'تعذر تنفيذ الطلب.'); e.status=response.status; throw e; }
+      return data;
+    }
+    function setStatus(el, text, kind='muted'){ el.textContent=text||''; el.className=`status ${kind}`; }
+    function showDashboard(){ loginCard.classList.add('hidden'); dashboard.classList.remove('hidden'); logout.classList.remove('hidden'); }
+    function showLogin(){ dashboard.classList.add('hidden'); logout.classList.add('hidden'); loginCard.classList.remove('hidden'); }
+
+    async function loadSite() {
+      setStatus(siteStatus,'جارٍ تحميل المحتوى...');
+      try { const r=await api('/api/admin/site'); siteJson.value=JSON.stringify(r.data,null,2); setStatus(siteStatus,'تم تحميل أحدث محتوى.','ok'); showDashboard(); }
+      catch(e){ if(e.status===401){showLogin(); return;} setStatus(siteStatus,e.message,'err'); }
+    }
+    async function loadMessages() {
+      messagesBox.innerHTML='<div class="empty">جارٍ التحميل...</div>'; setStatus(messagesStatus,'');
+      try {
+        const r=await api('/api/admin/messages');
+        if(!r.data.length){messagesBox.innerHTML='<div class="empty">لا توجد رسائل مسجلة حتى الآن.</div>'; return;}
+        messagesBox.innerHTML='';
+        for(const m of r.data){
+          const el=document.createElement('article'); el.className='message';
+          const d=new Date(m.receivedAt); const date=Number.isNaN(d.getTime())?m.receivedAt:d.toLocaleString('ar-SA');
+          el.innerHTML=`<div class="message-head"><div><h3></h3><div class="meta email"></div></div><div class="meta date"></div></div><div class="subject"></div><p class="body"></p>`;
+          el.querySelector('h3').textContent=m.name||'بدون اسم'; el.querySelector('.email').textContent=m.email||''; el.querySelector('.date').textContent=date||''; el.querySelector('.subject').textContent=m.subject?`الموضوع: ${m.subject}`:'الموضوع: —'; el.querySelector('.body').textContent=m.message||'';
+          messagesBox.appendChild(el);
+        }
+      } catch(e){ if(e.status===401){showLogin(); return;} messagesBox.innerHTML=''; setStatus(messagesStatus,e.message,'err'); }
+    }
+
+    $('#loginForm').addEventListener('submit', async (e)=>{
+      e.preventDefault(); setStatus(loginStatus,'جارٍ التحقق...');
+      try { await api('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('#password').value})}); $('#password').value=''; showDashboard(); await loadSite(); }
+      catch(err){setStatus(loginStatus,err.message,'err');}
+    });
+    logout.addEventListener('click', async()=>{try{await api('/api/admin/logout',{method:'POST'});}catch{} showLogin(); siteJson.value='';});
+    $('#reloadSite').addEventListener('click', loadSite);
+    $('#saveSite').addEventListener('click', async()=>{
+      let parsed; try{parsed=JSON.parse(siteJson.value);}catch{setStatus(siteStatus,'صيغة JSON غير صحيحة. لم يتم الحفظ.','err');return;}
+      const btn=$('#saveSite'); btn.disabled=true; setStatus(siteStatus,'جارٍ الحفظ وإعادة بناء الموقع... قد يستغرق ذلك عدة ثوانٍ.');
+      try{const r=await api('/api/admin/site',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(parsed)});setStatus(siteStatus,r.message||'تم الحفظ.','ok');await loadSite();}
+      catch(e){setStatus(siteStatus,e.message,'err');}finally{btn.disabled=false;}
+    });
+    $('#reloadMessages').addEventListener('click', loadMessages);
+    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
+      const isContent=btn.dataset.tab==='content'; $('#contentPanel').classList.toggle('hidden',!isContent); $('#messagesPanel').classList.toggle('hidden',isContent); if(!isContent)loadMessages();
+    }));
+
+    loadSite();
+  </script>
+</body>
 </html>

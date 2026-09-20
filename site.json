@@ -4,13 +4,15 @@
     "description": "مؤسسة هدايات التعليمية - منارة هدى لتعميق الوعي المجتمعي ونشر المعارف الصحيحة عبر برامج نوعية بخبرات مؤهلة وطرق ميسرة وجاذبة.",
     "url": "https://hedayaat-production.up.railway.app",
     "ogImage": "/hedayat-official-logo-v5.png",
-    "locale": "ar_SA"
+    "locale": "ar_SA",
+    "siteName": "مؤسسة هدايات التعليمية"
   },
   "assets": {
     "logoNav": "/hedayat-official-logo-v5.png",
     "logoHero": "/hedayat-official-logo-hero-v7.png",
     "heroBackground": "/hero_image1.jpeg",
-    "nationalCenterLogo": "/national-center-logo.png"
+    "nationalCenterLogo": "/national-center-logo.png",
+    "trusteesBoard": "/trustees-board.png"
   },
   "nav": [
     {
@@ -38,7 +40,7 @@
           "href": "#values"
         },
         {
-          "label": "أعضاء مجلس الإدارة",
+          "label": "أعضاء مجلس الأمناء",
           "href": "/board/"
         }
       ]
@@ -59,19 +61,7 @@
       "children": [
         {
           "label": "الأنظمة واللوائح والسياسات",
-          "href": "#policies"
-        },
-        {
-          "label": "الخطة التشغيلية",
-          "href": "#operational-plan"
-        },
-        {
-          "label": "القوائم والتقارير المالية",
-          "href": "#financial-statements"
-        },
-        {
-          "label": "التقارير",
-          "href": "/reports/"
+          "href": "/governance/"
         }
       ]
     },
@@ -193,21 +183,56 @@
     ]
   },
   "docs": {
-    "board": {
-      "title": "مجلس الإدارة",
-      "subtitle": "نخبة من القادة والخبراء يشرفون على حوكمة المؤسسة وتوجيه مسيرتها",
-      "buttonLabel": "تحميل ملف مجلس الإدارة (PDF)",
-      "buttonHint": "تعريف بالأعضاء وخبراتهم ومسؤولياتهم (نسخة أولية، قيد الاعتماد)",
-      "fileHref": "board-info.pdf"
-    },
     "reports": {
-      "title": "التقارير",
-      "subtitle": "إطلالة شفافة على الإنجازات والأثر والموقف المالي للمؤسسة",
-      "items": [
+      "title": "القوائم والتقارير المالية",
+      "subtitle": "تُنشر هنا القوائم والتقارير المالية المعتمدة عند إتاحتها للنشر.",
+      "items": []
+    },
+    "trustees": {
+      "title": "أعضاء مجلس الأمناء",
+      "subtitle": "مجلس أمناء مؤسسة هدايات التعليمية",
+      "imageHref": "/trustees-board.png"
+    },
+    "governance": {
+      "title": "الأنظمة واللوائح والسياسات",
+      "subtitle": "الوثائق النظامية والسياسات المعتمدة لمؤسسة هدايات التعليمية، منشورة لتعزيز الشفافية وسهولة الوصول إلى المعلومات.",
+      "official": [
         {
-          "buttonLabel": "تحميل التقرير المالي (PDF)",
-          "buttonHint": "عرض للإيرادات والمصروفات وأوجه الصرف على البرامج (نسخة أولية، قيد الاعتماد)",
-          "fileHref": "financial-report.pdf"
+          "title": "شهادة ترخيص منظمة غير ربحية",
+          "description": "شهادة الترخيص الرسمية لمؤسسة هدايات التعليمية الصادرة عن المركز الوطني لتنمية القطاع غير الربحي.",
+          "fileHref": "organization-license.pdf",
+          "previewHref": "/organization-license-preview.jpg",
+          "meta": "رقم الترخيص 1100527000"
+        },
+        {
+          "title": "اللائحة الأساسية",
+          "description": "اللائحة الأساسية المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها الإداري وأحكام مجلس الأمناء.",
+          "fileHref": "basic-regulation.pdf",
+          "previewHref": "/basic-regulation-preview.jpg",
+          "meta": "وثيقة تنظيمية أساسية"
+        }
+      ],
+      "policies": [
+        {
+          "title": "سياسة الخصوصية وحماية البيانات",
+          "description": "السياسة المعتمدة لحماية خصوصية البيانات الشخصية وتحديد نطاق استخدامها وحقوق أصحاب البيانات.",
+          "fileHref": "privacy-data-policy.pdf",
+          "previewHref": "/privacy-data-policy-preview.jpg",
+          "meta": "سياسة معتمدة"
+        },
+        {
+          "title": "سياسة الإفصاح والشفافية",
+          "description": "السياسة المنظمة للإفصاح المؤسسي وقنوات النشر الرسمية والاستثناءات وإدارة تعارض المصالح.",
+          "fileHref": "disclosure-transparency-policy.pdf",
+          "previewHref": "/disclosure-transparency-policy-preview.jpg",
+          "meta": "سياسة معتمدة"
+        },
+        {
+          "title": "سياسة الاحتفاظ بالوثائق وإتلافها",
+          "description": "السياسة المنظمة لحفظ الوثائق والسجلات ومدد الاحتفاظ بها وإجراءات الإتلاف الآمن.",
+          "fileHref": "records-retention-disposal-policy.pdf",
+          "previewHref": "/records-retention-disposal-policy-preview.jpg",
+          "meta": "سياسة معتمدة"
         }
       ]
     }
@@ -215,7 +240,7 @@
   "contact": {
     "title": "تواصل معنا",
     "subtitle": "نسعد باستقبال استفساراتكم ومقترحاتكم، وطلب الشراكات أو البرامج المخصصة لجهاتكم التعليمية.",
-    "email": "Hadayaat1446@gmail.com",
+    "email": "hedayaat1446@gmail.com",
     "phone": "+966 54 907 8774",
     "address": "جدة، المملكة العربية السعودية",
     "iban": "",
@@ -229,7 +254,7 @@
       {
         "name": "X",
         "label": "X",
-        "icon": "bi-twitter-x",
+        "icon": "",
         "url": "https://x.com/hedayaat_edu"
       },
       {
@@ -258,5 +283,21 @@
   "footer": {
     "licenseText": "مرخّصة من المركز الوطني لتنمية القطاع غير الربحي برقم ١١٠٠٥٢٧٠٠٠",
     "copyrightText": "جميع الحقوق محفوظة © {year} هدايات"
+  },
+  "programs": {
+    "title": "البرامج والمبادرات",
+    "subtitle": "مساحة مخصصة لعرض البرامج والمبادرات التعليمية للمؤسسة بصورة واضحة ومحدثة.",
+    "cardTitle": "برامج تعليمية نوعية",
+    "cardText": "تعمل المؤسسة على تقديم برامج تعليمية بوسائل معاصرة ميسرة وجاذبة، بما ينسجم مع رسالتها وأهدافها.",
+    "ctaLabel": "الاستفسار عن البرامج",
+    "ctaHref": "#contact"
+  },
+  "partners": {
+    "title": "الشراكات",
+    "subtitle": "نبني تعاوناً مؤسسياً يدعم جودة البرامج ويعزز الأثر المجتمعي.",
+    "cardTitle": "الشراكات المؤسسية",
+    "cardText": "للتواصل بشأن فرص الشراكة والتعاون مع مؤسسة هدايات التعليمية، يمكن استخدام قنوات التواصل الرسمية بالموقع.",
+    "ctaLabel": "طلب شراكة أو تعاون",
+    "ctaHref": "#contact"
   }
 }

@@ -209,6 +209,42 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </div>
     </section>
 
+    <section id="programs" class="ref-wrap institutional-info-section">
+      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
+      <div class="ref-section">
+        <div class="ref-section-header">
+          <h2 class="ref-section-title">{site.programs.title}</h2>
+          <p class="ref-section-subtitle">{site.programs.subtitle}</p>
+        </div>
+        <article class="ref-card institutional-info-card reveal-on-scroll">
+          <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
+          <div class="institutional-info-copy">
+            <h3>{site.programs.cardTitle}</h3>
+            <p>{site.programs.cardText}</p>
+          </div>
+          <a class="institutional-info-action" href={site.programs.ctaHref}>{site.programs.ctaLabel}</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="partners" class="ref-wrap institutional-info-section">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
+      <div class="ref-section">
+        <div class="ref-section-header">
+          <h2 class="ref-section-title">{site.partners.title}</h2>
+          <p class="ref-section-subtitle">{site.partners.subtitle}</p>
+        </div>
+        <article class="ref-card institutional-info-card reveal-on-scroll">
+          <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
+          <div class="institutional-info-copy">
+            <h3>{site.partners.cardTitle}</h3>
+            <p>{site.partners.cardText}</p>
+          </div>
+          <a class="institutional-info-action" href={site.partners.ctaHref}>{site.partners.ctaLabel}</a>
+        </article>
+      </div>
+    </section>
+
     <section id="contact" class="ref-wrap">
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
@@ -219,34 +255,27 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 
         <div class="contact-container report-contact">
           <div class="contact-form reveal-on-scroll">
-            <form id="contact-form"   name="contact"
-  method="POST"
-  data-netlify="true"
-  data-netlify-honeypot="bot-field"
-  action="/thank">
-   <!-- لازم هذا -->
-  <input type="hidden" name="form-name" value="contact" />
-
-  <!-- Honeypot ضد السبام: مخفي بصريًا وعن قارئات الشاشة -->
-  <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <form id="contact-form" name="contact" method="POST" action="/api/contact">
+              <!-- Honeypot ضد الرسائل الآلية -->
+              <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-group">
                 <label class="form-label" for="name">الاسم الكامل</label>
-                <input class="form-input" id="name" name="name" type="text" required />
+                <input class="form-input" id="name" name="name" type="text" autocomplete="name" maxlength="120" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="email">البريد الإلكتروني</label>
-                <input class="form-input" id="email" name="email" type="email" required />
+                <input class="form-input" id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="subject">موضوع الرسالة</label>
-                <input class="form-input" id="subject" name="subject" type="text" />
+                <input class="form-input" id="subject" name="subject" type="text" maxlength="180" />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="message">نص الرسالة</label>
-                <textarea class="form-textarea" id="message" name="message" required></textarea>
+                <textarea class="form-textarea" id="message" name="message" maxlength="5000" required></textarea>
               </div>
 
               <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
@@ -254,7 +283,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
                 تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسار فقط.
                 <a href="/privacy/">سياسة الخصوصية</a>
               </p>
-              <div id="form-status" class="mt-2" style="font-size:0.85rem;"></div>
+              <div id="form-status" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
             </form>
           </div>
 
@@ -318,7 +347,11 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
                         aria-label={`هدايات على ${account.label}`}
                         title={`هدايات على ${account.label}`}
                       >
-                        <i class={`bi ${account.icon}`} aria-hidden="true"></i>
+                        {account.name === "X" ? (
+                          <span class="social-x-mark" aria-hidden="true">X</span>
+                        ) : (
+                          <i class={`bi ${account.icon}`} aria-hidden="true"></i>
+                        )}
                         <span>{account.label}</span>
                       </a>
                     ))}
@@ -370,7 +403,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       if (window.scrollY > 60) hdr.classList.add('scrolled');
       else hdr.classList.remove('scrolled');
     }
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('load', handleScroll);
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -390,7 +423,50 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
         revealEls.forEach(el => el.classList.add('is-visible'));
       }
 
-      // Formspree AJAX
+      // إرسال نموذج التواصل إلى خادم Railway نفسه بدل الاعتماد على Netlify Forms.
+      const contactForm = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+      if (contactForm && formStatus) {
+        contactForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          if (!contactForm.reportValidity()) return;
+
+          const submitButton = contactForm.querySelector('button[type="submit"]');
+          const originalLabel = submitButton?.textContent || 'إرسال الرسالة';
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'جارٍ الإرسال...';
+          }
+          formStatus.className = 'form-status is-pending';
+          formStatus.textContent = 'يتم إرسال رسالتك الآن...';
+
+          try {
+            const params = new URLSearchParams(new FormData(contactForm));
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Accept': 'application/json'
+              },
+              body: params.toString()
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.ok) throw new Error(data.message || 'تعذر إرسال الرسالة.');
+
+            contactForm.reset();
+            formStatus.className = 'form-status is-success';
+            formStatus.textContent = data.message || 'تم استلام رسالتك بنجاح.';
+          } catch (error) {
+            formStatus.className = 'form-status is-error';
+            formStatus.textContent = error?.message || 'تعذر إرسال الرسالة حاليًا. يرجى المحاولة مرة أخرى.';
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = originalLabel;
+            }
+          }
+        });
+      }
 
       // إغلاق منيو الجوال فقط بعد اختيار رابط فعلي.
       // لا نغلقها عند الضغط على عناوين القوائم الفرعية مثل "عن المؤسسة" و"الحوكمة".
