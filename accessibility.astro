@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+const meta = {
+  ...site.meta,
+  title: "بيان إمكانية الوصول | مؤسسة هدايات التعليمية",
+  description: "بيان إمكانية الوصول الرقمي في موقع مؤسسة هدايات التعليمية ووسائل طلب المساعدة أو الإبلاغ عن عائق في الوصول."
+};
+---
+<BaseLayout meta={meta}>
+  <main id="main-content" class="access-page">
+    <header class="access-header">
+      <div class="access-header-inner">
+        <a href="/" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+        <div class="access-header-actions">
+          <a href="/en/#accessibility" lang="en" dir="ltr">EN</a>
+          <a href="/"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+        </div>
+      </div>
+    </header>
+
+    <section class="access-hero" aria-labelledby="access-title">
+      <div class="access-shell">
+        <span><i class="bi bi-person-check" aria-hidden="true"></i> الوصول الرقمي</span>
+        <h1 id="access-title">بيان إمكانية الوصول</h1>
+        <p>تعمل مؤسسة هدايات التعليمية على جعل موقعها أوضح وأسهل استخدامًا لأكبر عدد ممكن من الزوار، بمن فيهم مستخدمو لوحة المفاتيح وقارئات الشاشة وكبار السن وذوو الاحتياجات المختلفة في الوصول الرقمي.</p>
+      </div>
+    </section>
+
+    <section class="access-content">
+      <article class="access-callout">
+        <div class="access-callout-icon"><i class="bi bi-check2-circle" aria-hidden="true"></i></div>
+        <div>
+          <h2>مستوى الاستهداف</h2>
+          <p>صُممت التحسينات في الموقع بالاسترشاد بمبادئ إرشادات إتاحة محتوى الويب WCAG 2.2، مع استهداف مستوى AA قدر الإمكان. هذا البيان لا يمثل شهادة تدقيق خارجية أو ادعاءً باجتياز اعتماد رسمي.</p>
+        </div>
+      </article>
+
+      <div class="access-grid">
+        <article><i class="bi bi-keyboard" aria-hidden="true"></i><h2>التنقل بلوحة المفاتيح</h2><p>يمكن الوصول إلى الروابط والأزرار وعناصر النماذج باستخدام لوحة المفاتيح، مع مؤشر تركيز واضح ورابط مباشر لتجاوز الترويسة إلى المحتوى الرئيسي.</p></article>
+        <article><i class="bi bi-fonts" aria-hidden="true"></i><h2>تكبير النص</h2><p>تتضمن جميع الصفحات أدوات لتصغير النص أو إعادته للحجم الافتراضي أو تكبيره، ويتم حفظ اختيار المستخدم على جهازه.</p></article>
+        <article><i class="bi bi-circle-half" aria-hidden="true"></i><h2>تباين أعلى</h2><p>يوفر الموقع خيار تباين مرتفع يرفع وضوح النصوص والحدود والروابط، ولا يعتمد على اللون وحده لنقل الحالات المهمة.</p></article>
+        <article><i class="bi bi-card-image" aria-hidden="true"></i><h2>بدائل نصية للصور</h2><p>الصور ذات المعنى مزودة بنصوص بديلة، بينما العناصر الزخرفية يتم تجاهلها بواسطة تقنيات المساعدة حتى لا تسبب تشويشًا.</p></article>
+        <article><i class="bi bi-camera-video" aria-hidden="true"></i><h2>محتوى الفيديو</h2><p>الفيديو المنشور حاليًا صامت، لذلك توفر صفحته وصفًا بصريًا منظمًا للمشاهد الرئيسية. وعند نشر فيديو يتضمن كلامًا ستُضاف ترجمة نصية عند توفرها.</p></article>
+        <article><i class="bi bi-phone" aria-hidden="true"></i><h2>الشاشات المختلفة</h2><p>تتغير البطاقات والقوائم وأحجام المحتوى لتناسب الهواتف والأجهزة اللوحية وشاشات الحاسب، مع تجنب التمرير الأفقي قدر الإمكان.</p></article>
+      </div>
+
+      <section class="access-help" aria-labelledby="access-help-title">
+        <div>
+          <span>هل واجهت عائقًا؟</span>
+          <h2 id="access-help-title">ساعدنا على تحسين الوصول</h2>
+          <p>إذا واجهت صعوبة في قراءة محتوى أو استخدام عنصر في الموقع، أرسل وصفًا مختصرًا للمشكلة والصفحة التي ظهرت فيها، وسنعمل على مراجعتها.</p>
+        </div>
+        <div class="access-help-actions">
+          <a href={`mailto:${site.contact.email}?subject=${encodeURIComponent('ملاحظة حول إمكانية الوصول في موقع هدايات')}`}><i class="bi bi-envelope" aria-hidden="true"></i> البريد الإلكتروني</a>
+          <a href="/#contact"><i class="bi bi-chat-left-text" aria-hidden="true"></i> نموذج التواصل</a>
+        </div>
+      </section>
+
+      <p class="access-updated"><i class="bi bi-calendar-check" aria-hidden="true"></i> آخر تحديث للبيان: 20 سبتمبر 2026</p>
+    </section>
+  </main>
+
+  <style>
+    :global(body){margin:0;background:#f7f8f5;color:#35433a}.access-page{min-height:100vh;font-family:var(--font-family-arabic)}.access-header{position:sticky;top:0;z-index:25;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(100,117,80,.14);backdrop-filter:blur(12px)}.access-header-inner{max-width:1120px;margin:auto;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}.access-header img{display:block;width:180px;max-width:44vw;height:auto}.access-header-actions{display:flex;gap:8px}.access-header-actions a{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid rgba(100,117,80,.2);border-radius:10px;color:#526441;background:#fff;font-weight:900;text-decoration:none}
+    .access-hero{padding:72px 20px 55px;text-align:center;background:linear-gradient(135deg,#f0f4ea,#fff 58%,#edf5f4)}.access-shell{max-width:830px;margin:auto}.access-shell>span{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:#eaf0e3;color:#526441;font-weight:900}.access-hero h1{font-size:clamp(2.2rem,5vw,3.8rem);margin:17px 0 12px;color:#35483a;font-weight:900}.access-hero p{margin:auto;max-width:800px;line-height:2;color:#637168;font-size:1.04rem}
+    .access-content{max-width:1120px;margin:auto;padding:52px 20px 90px}.access-callout{display:flex;gap:18px;align-items:flex-start;padding:24px;background:#fff;border:1px solid rgba(100,117,80,.14);border-radius:20px;box-shadow:0 12px 32px rgba(61,75,64,.06)}.access-callout-icon{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:15px;background:#eaf0e3;color:#526441;font-size:27px}.access-callout h2{margin:0 0 7px;color:#394a3d;font-size:1.35rem}.access-callout p{margin:0;color:#657268;line-height:1.9}.access-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.access-grid article{background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:18px;padding:23px;box-shadow:0 10px 28px rgba(61,75,64,.045)}.access-grid article>i{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;background:#edf3e8;color:#526441;font-size:23px}.access-grid h2{font-size:1.1rem;margin:15px 0 7px;color:#394a3d}.access-grid p{margin:0;color:#68746b;line-height:1.85}.access-help{margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:25px;padding:26px;border-radius:20px;background:#315f70;color:#fff}.access-help span{color:#f1dda0;font-size:.86rem;font-weight:900}.access-help h2{margin:3px 0 6px;font-size:1.45rem;font-weight:900}.access-help p{margin:0;max-width:650px;color:#e6eef0;line-height:1.8}.access-help-actions{display:flex;flex-direction:column;gap:9px;min-width:190px}.access-help-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#244e5e;border-radius:10px;padding:10px 13px;text-decoration:none;font-weight:900}.access-updated{text-align:center;color:#69766c;margin:24px 0 0;font-size:.9rem}
+    @media(max-width:850px){.access-grid{grid-template-columns:1fr 1fr}.access-help{align-items:flex-start;flex-direction:column}.access-help-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.access-header-inner{padding:11px 14px}.access-header img{width:142px}.access-header-actions a span{display:none}.access-hero{padding:50px 16px 40px}.access-content{padding:40px 14px 70px}.access-callout{flex-direction:column}.access-grid{grid-template-columns:1fr}.access-help-actions{grid-template-columns:1fr}}
+  </style>
+</BaseLayout>

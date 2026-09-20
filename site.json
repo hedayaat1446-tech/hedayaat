@@ -60,8 +60,16 @@
       "label": "الحوكمة",
       "children": [
         {
-          "label": "الأنظمة واللوائح والسياسات",
+          "label": "مركز الحوكمة",
           "href": "/governance/"
+        },
+        {
+          "label": "الشفافية والإفصاح",
+          "href": "/transparency/"
+        },
+        {
+          "label": "بيان إمكانية الوصول",
+          "href": "/accessibility/"
         }
       ]
     },
@@ -87,6 +95,11 @@
       "enabled": true,
       "label": "تواصل معنا",
       "href": "#contact"
+    },
+    {
+      "enabled": true,
+      "label": "English",
+      "href": "/en/"
     }
   ],
   "hero": {
@@ -194,22 +207,30 @@
       "imageHref": "/trustees-board.png"
     },
     "governance": {
-      "title": "الأنظمة واللوائح والسياسات",
-      "subtitle": "الوثائق النظامية والسياسات المعتمدة لمؤسسة هدايات التعليمية، منشورة لتعزيز الشفافية وسهولة الوصول إلى المعلومات.",
+      "title": "مركز الحوكمة",
+      "subtitle": "بوابة موحدة للوثائق النظامية والسياسات المعتمدة ووثائق الحوكمة المؤسسية في مؤسسة هدايات التعليمية.",
       "official": [
         {
           "title": "شهادة ترخيص منظمة غير ربحية",
           "description": "شهادة الترخيص الرسمية لمؤسسة هدايات التعليمية الصادرة عن المركز الوطني لتنمية القطاع غير الربحي.",
           "fileHref": "organization-license.pdf",
           "previewHref": "/organization-license-preview.jpg",
-          "meta": "رقم الترخيص 1100527000"
+          "meta": "رقم الترخيص 1100527000",
+          "category": "الترخيص",
+          "status": "منشور",
+          "updated": "06 مارس 2025",
+          "version": "شهادة سارية حتى 05 مارس 2029"
         },
         {
           "title": "اللائحة الأساسية",
           "description": "اللائحة الأساسية المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها الإداري وأحكام مجلس الأمناء.",
           "fileHref": "basic-regulation.pdf",
           "previewHref": "/basic-regulation-preview.jpg",
-          "meta": "وثيقة تنظيمية أساسية"
+          "meta": "وثيقة تنظيمية أساسية",
+          "category": "اللائحة الأساسية",
+          "status": "منشور",
+          "updated": "06 مارس 2025",
+          "version": "اللائحة الأساسية المعتمدة"
         }
       ],
       "policies": [
@@ -218,21 +239,56 @@
           "description": "السياسة المعتمدة لحماية خصوصية البيانات الشخصية وتحديد نطاق استخدامها وحقوق أصحاب البيانات.",
           "fileHref": "privacy-data-policy.pdf",
           "previewHref": "/privacy-data-policy-preview.jpg",
-          "meta": "سياسة معتمدة"
+          "meta": "سياسة معتمدة",
+          "status": "منشور",
+          "approvalDate": "17 سبتمبر 2026",
+          "updated": "17 سبتمبر 2026",
+          "version": "الدورة الأولى",
+          "category": "السياسات"
         },
         {
           "title": "سياسة الإفصاح والشفافية",
           "description": "السياسة المنظمة للإفصاح المؤسسي وقنوات النشر الرسمية والاستثناءات وإدارة تعارض المصالح.",
           "fileHref": "disclosure-transparency-policy.pdf",
           "previewHref": "/disclosure-transparency-policy-preview.jpg",
-          "meta": "سياسة معتمدة"
+          "meta": "سياسة معتمدة",
+          "status": "منشور",
+          "approvalDate": "17 سبتمبر 2026",
+          "updated": "17 سبتمبر 2026",
+          "version": "الدورة الأولى",
+          "category": "السياسات"
         },
         {
           "title": "سياسة الاحتفاظ بالوثائق وإتلافها",
           "description": "السياسة المنظمة لحفظ الوثائق والسجلات ومدد الاحتفاظ بها وإجراءات الإتلاف الآمن.",
           "fileHref": "records-retention-disposal-policy.pdf",
           "previewHref": "/records-retention-disposal-policy-preview.jpg",
-          "meta": "سياسة معتمدة"
+          "meta": "سياسة معتمدة",
+          "status": "منشور",
+          "approvalDate": "17 سبتمبر 2026",
+          "updated": "17 سبتمبر 2026",
+          "version": "الدورة الأولى",
+          "category": "السياسات"
+        }
+      ],
+      "planned": [
+        {
+          "title": "الخطة التشغيلية",
+          "category": "الخطة التشغيلية",
+          "status": "بانتظار النشر",
+          "message": "سيتم النشر بعد الاعتماد."
+        },
+        {
+          "title": "التقارير المالية",
+          "category": "التقارير المالية",
+          "status": "بانتظار النشر",
+          "message": "سيتم النشر بعد الاعتماد."
+        },
+        {
+          "title": "التقارير السنوية",
+          "category": "التقارير السنوية",
+          "status": "بانتظار النشر",
+          "message": "سيتم النشر بعد الاعتماد."
         }
       ]
     }
@@ -299,5 +355,13 @@
     "cardText": "للتواصل بشأن فرص الشراكة والتعاون مع مؤسسة هدايات التعليمية، يمكن استخدام قنوات التواصل الرسمية بالموقع.",
     "ctaLabel": "طلب شراكة أو تعاون",
     "ctaHref": "#contact"
+  },
+  "institution": {
+    "type": "مؤسسة أهلية مرخصة",
+    "licenseNumber": "1100527000",
+    "unifiedNationalNumber": "7049464931",
+    "supervision": "وزارة التعليم",
+    "licenseValidUntil": "05 مارس 2029",
+    "verifyUrl": "https://backendgateway.nawa.ncnp.gov.sa/documents/pdf/58967?preview=true&item_type=entity&doc_type=license"
   }
 }

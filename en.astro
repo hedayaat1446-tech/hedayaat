@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site.json";
+const institution = site.institution;
+const meta = {
+  ...site.meta,
+  title: "Hedayat Educational Foundation",
+  description: "Official English overview of Hedayat Educational Foundation, including its mission, governance, license information and contact channels.",
+  locale: "en_SA"
+};
+---
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <main id="main-content" class="en-page">
+    <header class="en-header">
+      <div class="en-header-inner">
+        <a class="en-brand" href="/en/" aria-label="Hedayat Educational Foundation home"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
+        <nav class="en-nav" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#governance">Governance</a>
+          <a href="#license">License</a>
+          <a href="#contact">Contact</a>
+          <a class="en-lang" href="/" lang="ar" dir="rtl">العربية</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="en-hero" aria-labelledby="en-title">
+      <div class="en-hero-inner">
+        <img src={site.assets.logoHero} alt="Hedayat Educational Foundation" />
+        <span>Licensed Non-profit Educational Foundation</span>
+        <h1 id="en-title">Guidance that deepens awareness and strengthens values.</h1>
+        <p>Hedayat Educational Foundation provides reliable educational knowledge through purposeful programs, qualified expertise and accessible contemporary methods.</p>
+        <div class="en-hero-actions">
+          <a href="#about">About the Foundation</a>
+          <a class="secondary" href="#contact">Contact us</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="en-trust" aria-label="Official registration information">
+      <div><i class="bi bi-patch-check" aria-hidden="true"></i><span>Organization type</span><strong>Licensed Civil Foundation</strong></div>
+      <div><i class="bi bi-file-earmark-check" aria-hidden="true"></i><span>License No.</span><strong>{institution.licenseNumber}</strong></div>
+      <div><i class="bi bi-building" aria-hidden="true"></i><span>Unified National No.</span><strong>{institution.unifiedNationalNumber}</strong></div>
+      <div><i class="bi bi-mortarboard" aria-hidden="true"></i><span>Supervising authority</span><strong>Ministry of Education</strong></div>
+      <a href={institution.verifyUrl} target="_blank" rel="noopener noreferrer">Verify license <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></a>
+    </section>
+
+    <section id="about" class="en-section">
+      <div class="en-section-head"><span>About</span><h2>Hedayat Educational Foundation</h2></div>
+      <div class="en-about-grid">
+        <article><h3>Who we are</h3><p>Hedayat was established to strengthen sound knowledge and build well-grounded awareness that helps individuals and communities respond thoughtfully to intellectual and value-related challenges. The Foundation combines authentic knowledge with contemporary educational methods to create sustainable impact.</p></article>
+        <article><h3>Our vision</h3><p>To be a trusted and leading foundation that delivers authentic knowledge supporting the nation’s higher values and contributes to a generation that is aware, confident in its identity and grounded in its values.</p></article>
+        <article><h3>Our mission</h3><p>To deepen community awareness and share reliable knowledge through high-quality programs, qualified expertise and modern, accessible and engaging educational methods.</p></article>
+      </div>
+    </section>
+
+    <section id="governance" class="en-section en-section--soft">
+      <div class="en-section-head"><span>Governance</span><h2>Governance & Transparency</h2><p>Official documents remain available in their original approved Arabic versions.</p></div>
+      <div class="en-governance-grid">
+        <a href="/organization-license.pdf" target="_blank" rel="noopener"><i class="bi bi-patch-check" aria-hidden="true"></i><div><strong>Organization License</strong><span>Official non-profit organization license certificate</span></div></a>
+        <a href="/basic-regulation.pdf" target="_blank" rel="noopener"><i class="bi bi-journal-text" aria-hidden="true"></i><div><strong>Basic Regulation</strong><span>Foundation establishment, objectives and governance framework</span></div></a>
+        <a href="/privacy-data-policy.pdf" target="_blank" rel="noopener"><i class="bi bi-shield-lock" aria-hidden="true"></i><div><strong>Privacy & Data Protection Policy</strong><span>Approved policy governing personal data handling</span></div></a>
+        <a href="/disclosure-transparency-policy.pdf" target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><div><strong>Disclosure & Transparency Policy</strong><span>Approved institutional disclosure framework</span></div></a>
+        <a href="/records-retention-disposal-policy.pdf" target="_blank" rel="noopener"><i class="bi bi-archive" aria-hidden="true"></i><div><strong>Records Retention & Disposal Policy</strong><span>Approved records retention and secure disposal rules</span></div></a>
+        <a href="/transparency/"><i class="bi bi-diagram-3" aria-hidden="true"></i><div><strong>Transparency Page</strong><span>Board of Trustees and published governance status</span></div></a>
+      </div>
+      <div class="en-planned" role="note"><i class="bi bi-info-circle" aria-hidden="true"></i><p>Operational plans, financial reports and annual reports will be published once their approved versions are available.</p></div>
+    </section>
+
+    <section id="license" class="en-section">
+      <div class="en-license-card">
+        <img src="/organization-license-preview.jpg" alt="Preview of Hedayat Educational Foundation license certificate" loading="lazy" />
+        <div>
+          <span>Official License</span>
+          <h2>Non-profit Organization License Certificate</h2>
+          <dl>
+            <div><dt>Organization</dt><dd>Hedayat Educational</dd></div>
+            <div><dt>Organization Type</dt><dd>Foundation</dd></div>
+            <div><dt>Office</dt><dd>Jeddah</dd></div>
+            <div><dt>Supervised by</dt><dd>Ministry of Education</dd></div>
+            <div><dt>License Number</dt><dd>{institution.licenseNumber}</dd></div>
+            <div><dt>Unified National Number</dt><dd>{institution.unifiedNationalNumber}</dd></div>
+            <div><dt>Valid Until</dt><dd>5 March 2029</dd></div>
+          </dl>
+          <div class="en-license-actions">
+            <a href={institution.verifyUrl} target="_blank" rel="noopener noreferrer">Verify License</a>
+            <a class="secondary" href="/organization-license.pdf" target="_blank" rel="noopener">View PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="en-accessibility">
+      <div><span>Accessibility</span><h2>Designed for clearer access</h2><p>The site supports keyboard navigation, visible focus indicators, text scaling, a high-contrast mode and textual descriptions for meaningful visual content. Accessibility improvements are guided by WCAG 2.2 principles, with AA as the target where practical.</p></div>
+      <a href="/accessibility/">Read the Arabic accessibility statement</a>
+    </section>
+
+    <section id="contact" class="en-section en-section--contact">
+      <div class="en-section-head"><span>Contact</span><h2>Contact Hedayat</h2></div>
+      <div class="en-contact-grid">
+        <a href={`mailto:${site.contact.email}`}><i class="bi bi-envelope" aria-hidden="true"></i><span>Email</span><strong>{site.contact.email}</strong></a>
+        <a href={`tel:+${(site.contact.phone || '').replace(/\D/g,'')}`}><i class="bi bi-telephone" aria-hidden="true"></i><span>Phone</span><strong dir="ltr">{site.contact.phone}</strong></a>
+        <div><i class="bi bi-geo-alt" aria-hidden="true"></i><span>Office</span><strong>Jeddah, Saudi Arabia</strong></div>
+      </div>
+      <p class="en-contact-note">For official inquiries in Arabic, you can also use the <a href="/#contact">contact form on the Arabic website</a>.</p>
+    </section>
+
+    <footer class="en-footer">
+      <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" />
+      <p>Licensed by the National Center for Non-Profit Sector — License No. {institution.licenseNumber}</p>
+      <a href="/" lang="ar" dir="rtl">العودة إلى الموقع العربي</a>
+    </footer>
+  </main>
+
+  <style>
+    :global(html[lang="en"] body){direction:ltr;text-align:left;font-family:Arial,"Helvetica Neue",sans-serif;background:#f8f7f3;color:#34453d}.en-page{min-height:100vh}.en-header{position:sticky;top:0;z-index:25;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(100,117,80,.13);backdrop-filter:blur(12px)}.en-header-inner{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}.en-brand img{display:block;width:180px;height:auto}.en-nav{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.en-nav a{padding:8px 10px;border-radius:9px;color:#435540;font-weight:700;text-decoration:none}.en-nav a:hover{background:#eef2e8}.en-lang{border:1px solid rgba(100,117,80,.22)}
+    .en-hero{padding:82px 20px 72px;background:linear-gradient(135deg,#eff4eb,#fff 56%,#eaf3f3);text-align:center}.en-hero-inner{max-width:900px;margin:auto}.en-hero img{display:block;width:min(520px,82vw);height:auto;margin:0 auto 25px}.en-hero-inner>span{display:inline-flex;padding:7px 13px;border-radius:999px;background:#e9efe3;color:#526441;font-weight:800}.en-hero h1{font-family:Georgia,serif;font-size:clamp(2.3rem,5vw,4.3rem);line-height:1.12;margin:18px 0 15px;color:#34473b}.en-hero p{font-size:1.08rem;line-height:1.8;color:#66746c;max-width:760px;margin:auto}.en-hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}.en-hero-actions a,.en-license-actions a{display:inline-flex;align-items:center;justify-content:center;background:#647550;color:#fff;padding:11px 17px;border-radius:10px;text-decoration:none;font-weight:800}.en-hero-actions .secondary,.en-license-actions .secondary{background:#fff;color:#526441;border:1px solid rgba(100,117,80,.22)}
+    .en-trust{max-width:1180px;margin:-27px auto 0;position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,1fr) auto;background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:18px;box-shadow:0 16px 38px rgba(50,70,57,.08);overflow:hidden}.en-trust>div{padding:18px 16px;border-right:1px solid rgba(100,117,80,.1);display:grid;grid-template-columns:auto 1fr;column-gap:9px}.en-trust i{grid-row:1/3;color:#647550;font-size:20px}.en-trust span{font-size:.73rem;color:#778178;font-weight:700}.en-trust strong{font-size:.9rem;color:#36483c}.en-trust>a{display:flex;align-items:center;justify-content:center;gap:7px;padding:16px 20px;background:#286583;color:#fff;text-decoration:none;font-weight:800;text-align:center}
+    .en-section{max-width:1180px;margin:auto;padding:76px 22px}.en-section--soft{max-width:none;background:#f1f5f1}.en-section--soft>*{max-width:1180px;margin-left:auto;margin-right:auto}.en-section-head{margin-bottom:24px}.en-section-head>span,.en-license-card>div>span,.en-accessibility span{color:#735e1f;text-transform:uppercase;font-size:.78rem;font-weight:900;letter-spacing:.08em}.en-section-head h2,.en-license-card h2,.en-accessibility h2{margin:5px 0 0;font-family:Georgia,serif;color:#34473b;font-size:clamp(1.8rem,3vw,2.5rem)}.en-section-head p{color:#6b776f}.en-about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.en-about-grid article{background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:18px;padding:24px;box-shadow:0 10px 28px rgba(50,70,57,.05)}.en-about-grid h3{margin:0 0 9px;color:#3f5144}.en-about-grid p{margin:0;color:#69766d;line-height:1.8}.en-governance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.en-governance-grid>a{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:15px;padding:18px;color:#3d5042;text-decoration:none}.en-governance-grid>a>i{font-size:22px;color:#286583}.en-governance-grid strong{display:block}.en-governance-grid span{display:block;color:#748077;font-size:.86rem;margin-top:3px;line-height:1.5}.en-planned{margin-top:18px;display:flex;gap:10px;padding:15px;border-radius:12px;background:#fff8e6;color:#6d602f;border:1px solid rgba(190,174,89,.22)}.en-planned p{margin:0}
+    .en-license-card{display:grid;grid-template-columns:minmax(280px,38%) 1fr;gap:32px;align-items:center;background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:22px;padding:24px;box-shadow:0 14px 36px rgba(50,70,57,.06)}.en-license-card>img{display:block;width:100%;max-height:430px;object-fit:contain;background:#f7f8f5}.en-license-card dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.en-license-card dl>div{padding:10px 12px;border-radius:10px;background:#f5f7f3}.en-license-card dt{font-size:.75rem;color:#748077}.en-license-card dd{margin:2px 0 0;font-weight:800;color:#3e5143}.en-license-actions{display:flex;gap:10px;flex-wrap:wrap}.en-accessibility{max-width:1136px;margin:0 auto 26px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:27px;border-radius:20px;background:#286583;color:#fff}.en-accessibility h2{color:#fff}.en-accessibility span{color:#f0d987}.en-accessibility p{margin:7px 0 0;color:#e7eff2;line-height:1.7;max-width:760px}.en-accessibility>a{flex:0 0 auto;background:#fff;color:#286583;text-decoration:none;font-weight:800;padding:11px 14px;border-radius:10px}.en-section--contact{padding-top:60px}.en-contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.en-contact-grid>a,.en-contact-grid>div{background:#fff;border:1px solid rgba(100,117,80,.12);border-radius:16px;padding:21px;text-decoration:none;color:#3d5042;display:grid;grid-template-columns:auto 1fr;gap:3px 12px}.en-contact-grid i{grid-row:1/3;font-size:22px;color:#647550}.en-contact-grid span{font-size:.75rem;color:#768078}.en-contact-grid strong{font-size:.95rem;overflow-wrap:anywhere}.en-contact-note{margin-top:18px;color:#69766d}.en-contact-note a{color:#286583;font-weight:800}.en-footer{background:#ecefe9;padding:34px 22px;text-align:center}.en-footer img{width:190px;height:auto}.en-footer p{color:#657168}.en-footer a{color:#526441;font-weight:800;text-decoration:none}
+    @media(max-width:980px){.en-nav a:not(.en-lang){display:none}.en-trust{grid-template-columns:1fr 1fr}.en-trust>a{grid-column:1/-1}.en-about-grid,.en-governance-grid{grid-template-columns:1fr 1fr}.en-license-card{grid-template-columns:1fr}.en-license-card>img{max-height:360px}.en-accessibility{margin-inline:20px;align-items:flex-start;flex-direction:column}}
+    @media(max-width:620px){.en-header-inner{padding:11px 14px}.en-brand img{width:140px}.en-hero{padding:58px 16px}.en-trust{margin:0;border-radius:0;border-inline:0;grid-template-columns:1fr}.en-trust>div{border-right:0;border-bottom:1px solid rgba(100,117,80,.1)}.en-section{padding:54px 15px}.en-about-grid,.en-governance-grid,.en-contact-grid{grid-template-columns:1fr}.en-license-card{padding:16px}.en-license-card dl{grid-template-columns:1fr}.en-accessibility{margin-inline:15px}.en-accessibility>a{width:100%;text-align:center}}
+  </style>
+</BaseLayout>

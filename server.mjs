@@ -195,7 +195,7 @@ function validateSiteConfig(site) {
   const needString = (value, name, max = 1000) => { if (!nonEmptyString(value, max)) errors.push(`${name} must be a non-empty string`); };
   const needArray = (value, name) => { if (!Array.isArray(value)) errors.push(`${name} must be an array`); };
   const allowedFragments = new Set(['home','about','vision-item','mission-item','goals','values','programs','partners','contact']);
-  const allowedRoutes = new Set(['/','/board/','/governance/','/news/','/photos/','/videos/','/reports/','/privacy/','/thank/']);
+  const allowedRoutes = new Set(['/','/board/','/governance/','/transparency/','/accessibility/','/en/','/news/','/photos/','/videos/','/reports/','/privacy/','/thank/']);
   const validHref = (value, name, { externalOnly = false } = {}) => {
     if (!nonEmptyString(value, 1000)) { errors.push(`${name} must be a non-empty link`); return; }
     if (externalOnly) {
@@ -227,7 +227,7 @@ function validateSiteConfig(site) {
 
   needObject(site, 'site');
   if (!isPlainObject(site)) return errors;
-  for (const key of ['meta','assets','hero','about','vision','goals','values','docs','contact','footer','programs','partners']) needObject(site[key], key);
+  for (const key of ['meta','assets','institution','hero','about','vision','goals','values','docs','contact','footer','programs','partners']) needObject(site[key], key);
   if (errors.length) return errors;
 
   needString(site.meta.title, 'meta.title', 180);
@@ -241,6 +241,13 @@ function validateSiteConfig(site) {
   if (site.meta.siteName !== undefined) needString(site.meta.siteName, 'meta.siteName', 180);
 
   for (const key of ['logoNav','logoHero','heroBackground','nationalCenterLogo','trusteesBoard']) needString(site.assets[key], `assets.${key}`, 500);
+
+  needString(site.institution.type, 'institution.type', 180);
+  needString(site.institution.licenseNumber, 'institution.licenseNumber', 80);
+  needString(site.institution.unifiedNationalNumber, 'institution.unifiedNationalNumber', 80);
+  needString(site.institution.supervision, 'institution.supervision', 180);
+  needString(site.institution.licenseValidUntil, 'institution.licenseValidUntil', 120);
+  validHref(site.institution.verifyUrl, 'institution.verifyUrl', { externalOnly: true });
 
   needArray(site.nav, 'nav');
   if (Array.isArray(site.nav)) {
@@ -323,6 +330,16 @@ function validateSiteConfig(site) {
       items.forEach((doc, index) => {
         if (!isPlainObject(doc)) { errors.push(`docs.governance.${groupName}[${index}] must be an object`); return; }
         for (const key of ['title','description','fileHref','previewHref','meta']) needString(doc[key], `docs.governance.${groupName}[${index}].${key}`, 1000);
+        for (const key of ['category','status','updated','version','approvalDate']) {
+          if (doc[key] !== undefined && doc[key] !== '') needString(doc[key], `docs.governance.${groupName}[${index}].${key}`, 300);
+        }
+      });
+    }
+    if (site.docs.governance.planned !== undefined) {
+      needArray(site.docs.governance.planned, 'docs.governance.planned');
+      if (Array.isArray(site.docs.governance.planned)) site.docs.governance.planned.forEach((item, index) => {
+        if (!isPlainObject(item)) { errors.push(`docs.governance.planned[${index}] must be an object`); return; }
+        for (const key of ['title','category','status','message']) needString(item[key], `docs.governance.planned[${index}].${key}`, 500);
       });
     }
   }

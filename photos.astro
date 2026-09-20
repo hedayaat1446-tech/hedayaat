@@ -4,7 +4,7 @@ import site from "../content/site.json";
 const meta = { ...site.meta, title: "الصور | مؤسسة هدايات التعليمية", description: "الصور - المركز الإعلامي لمؤسسة هدايات التعليمية" };
 ---
 <BaseLayout meta={meta}>
-  <main class="media-page">
+  <main id="main-content" class="media-page">
     <header class="media-header"><div class="media-header-inner">
       <a href="/" class="media-brand" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
       <a href="/" class="media-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>

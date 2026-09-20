@@ -1,0 +1,105 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+const governance = site.docs.governance;
+const meta = {
+  ...site.meta,
+  title: "الشفافية والإفصاح | مؤسسة هدايات التعليمية",
+  description: "صفحة الشفافية والإفصاح لمؤسسة هدايات التعليمية، وتعرض مجلس الأمناء والسياسات المعتمدة وحالة نشر بيانات الحوكمة."
+};
+const trustees = [
+  { role: "رئيس مجلس الأمناء", name: "حنين فهد السديري" },
+  { role: "نائب رئيس مجلس الأمناء", name: "جمانة طلال محجوب" },
+  { role: "عضو مجلس الأمناء", name: "أماني بشير الجهني" }
+];
+---
+<BaseLayout meta={meta}>
+  <main id="main-content" class="transparency-page">
+    <header class="tp-header">
+      <div class="tp-header-inner">
+        <a href="/" class="tp-brand" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+        <nav aria-label="التنقل" class="tp-actions">
+          <a href="/governance/"><i class="bi bi-shield-check" aria-hidden="true"></i><span>مركز الحوكمة</span></a>
+          <a href="/"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="tp-hero" aria-labelledby="tp-title">
+      <div class="tp-shell">
+        <span class="tp-kicker"><i class="bi bi-eye" aria-hidden="true"></i> الشفافية المؤسسية</span>
+        <h1 id="tp-title">الشفافية والإفصاح</h1>
+        <p>عرض واضح للمعلومات المنشورة عن مجلس الأمناء والسياسات المعتمدة وحالة نشر بيانات الحوكمة، دون إظهار بيانات غير معتمدة.</p>
+      </div>
+    </section>
+
+    <section class="tp-content">
+      <div class="tp-section-head">
+        <div><span>القيادة والحوكمة</span><h2>مجلس الأمناء</h2></div>
+        <a href="/board/">عرض صفحة المجلس <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+      </div>
+      <div class="tp-board-grid">
+        {trustees.map((member) => (
+          <article class="tp-person-card">
+            <div class="tp-avatar" aria-hidden="true"><i class="bi bi-person"></i></div>
+            <span>{member.role}</span>
+            <h3>{member.name}</h3>
+          </article>
+        ))}
+      </div>
+
+      <article class="tp-exec-card" aria-labelledby="exec-title">
+        <div class="tp-exec-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
+        <div>
+          <span class="tp-status"><i class="bi bi-clock" aria-hidden="true"></i> غير منشور حاليًا</span>
+          <h2 id="exec-title">الإدارة التنفيذية</h2>
+          <p>لا تتضمن الملفات المنشورة حاليًا بيانات معتمدة بأسماء الإدارة التنفيذية، لذلك لا يتم عرض أسماء أو مناصب غير موثقة. سيتم تحديث هذا القسم عند اعتماد البيانات للنشر.</p>
+        </div>
+      </article>
+
+      <div class="tp-section-head tp-section-head--policies">
+        <div><span>الوثائق المعتمدة</span><h2>السياسات المنشورة</h2></div>
+        <a href="/governance/#policies">فتح مركز الحوكمة <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+      </div>
+      <div class="tp-policy-grid">
+        {governance.policies.map((doc) => (
+          <article class="tp-policy-card">
+            <div class="tp-policy-top">
+              <div class="tp-policy-icon"><i class="bi bi-file-earmark-check" aria-hidden="true"></i></div>
+              <span class="tp-status tp-status--published"><i class="bi bi-check-circle" aria-hidden="true"></i> {doc.status}</span>
+            </div>
+            <h3>{doc.title}</h3>
+            <p>{doc.description}</p>
+            <dl>
+              <div><dt>تاريخ الاعتماد</dt><dd>{doc.approvalDate}</dd></div>
+              <div><dt>آخر تحديث منشور</dt><dd>{doc.updated}</dd></div>
+              <div><dt>الدورة/الإصدار</dt><dd>{doc.version}</dd></div>
+            </dl>
+            <a href={`/${doc.fileHref}`} target="_blank" rel="noopener">عرض الوثيقة <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></a>
+          </article>
+        ))}
+      </div>
+
+      <section class="tp-disclosure" aria-labelledby="disclosure-title">
+        <div class="tp-disclosure-icon"><i class="bi bi-megaphone" aria-hidden="true"></i></div>
+        <div>
+          <span>سياسة الإفصاح</span>
+          <h2 id="disclosure-title">نشر المعلومات وفق الوثائق المعتمدة</h2>
+          <p>تلتزم الصفحة بعرض ما هو منشور ومعتمد فقط. المعلومات التي لم تُنشر رسميًا تظهر بحالة واضحة بدل استخدام ملفات مؤقتة أو بيانات تقديرية.</p>
+        </div>
+        <a href="/disclosure-transparency-policy.pdf" target="_blank" rel="noopener">عرض سياسة الإفصاح والشفافية</a>
+      </section>
+    </section>
+  </main>
+
+  <style>
+    :global(body){margin:0;background:#f6f8f7;color:#183f4d}.transparency-page{min-height:100vh;font-family:var(--font-family-arabic)}
+    .tp-header{position:sticky;top:0;z-index:25;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(8,77,98,.1);backdrop-filter:blur(12px)}.tp-header-inner{max-width:1160px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}.tp-brand img{display:block;width:180px;max-width:45vw;height:auto}.tp-actions{display:flex;gap:8px}.tp-actions a{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border-radius:10px;border:1px solid rgba(11,95,114,.18);background:#fff;color:#0b5f72;text-decoration:none;font-weight:900}
+    .tp-hero{padding:72px 20px 58px;text-align:center;background:linear-gradient(135deg,#eef6f5,#fff 55%,#f8f3e5);border-bottom:1px solid rgba(8,77,98,.08)}.tp-shell{max-width:820px;margin:auto}.tp-kicker{display:inline-flex;align-items:center;gap:8px;background:#e6f2f1;color:#0b6170;padding:8px 15px;border-radius:999px;font-weight:900}.tp-hero h1{font-size:clamp(2.2rem,5vw,3.9rem);margin:17px 0 12px;color:#0d4659;font-weight:900}.tp-hero p{max-width:760px;margin:auto;color:#63777e;line-height:2;font-size:1.05rem}
+    .tp-content{max-width:1160px;margin:auto;padding:56px 20px 90px}.tp-section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.tp-section-head span{display:block;color:#735e1f;font-weight:900;font-size:.86rem}.tp-section-head h2{margin:2px 0 0;color:#153f4e;font-size:1.9rem;font-weight:900}.tp-section-head>a{color:#0b5f72;font-weight:900;text-decoration:none}.tp-board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.tp-person-card{background:#fff;border:1px solid rgba(11,95,114,.11);border-radius:18px;padding:25px;text-align:center;box-shadow:0 12px 30px rgba(30,65,75,.05)}.tp-avatar{width:72px;height:72px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:#edf5f4;color:#0b5f72;font-size:31px}.tp-person-card span{color:#7a6a34;font-weight:900;font-size:.9rem}.tp-person-card h3{margin:5px 0 0;color:#193f4c;font-size:1.15rem;font-weight:900}.tp-exec-card{margin-top:24px;display:flex;align-items:flex-start;gap:18px;padding:25px;border:1px dashed rgba(11,95,114,.24);border-radius:18px;background:#fff}.tp-exec-icon{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:15px;background:#f3f1e8;color:#8a7430;font-size:25px}.tp-exec-card h2{margin:8px 0 7px;font-size:1.35rem;color:#173f4e}.tp-exec-card p{margin:0;color:#64777e;line-height:1.9}.tp-status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;background:#f3f1e8;color:#735e1f;font-weight:900;font-size:.8rem}.tp-status--published{background:#e7f3ef;color:#17624d}
+    .tp-section-head--policies{margin-top:54px}.tp-policy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.tp-policy-card{background:#fff;border:1px solid rgba(11,95,114,.11);border-radius:18px;padding:22px;box-shadow:0 12px 30px rgba(30,65,75,.05);display:flex;flex-direction:column}.tp-policy-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.tp-policy-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:12px;background:#edf5f4;color:#0b5f72;font-size:22px}.tp-policy-card h3{margin:17px 0 8px;color:#173f4e;font-size:1.12rem;font-weight:900}.tp-policy-card>p{margin:0 0 17px;color:#65787e;line-height:1.8;flex:1}.tp-policy-card dl{display:grid;gap:8px;margin:0 0 17px;padding:13px;background:#f7f9f8;border-radius:12px}.tp-policy-card dl>div{display:flex;justify-content:space-between;gap:12px}.tp-policy-card dt{color:#6b7b80;font-size:.82rem}.tp-policy-card dd{margin:0;color:#284e5b;font-weight:900;font-size:.82rem}.tp-policy-card>a{display:inline-flex;align-items:center;gap:7px;color:#0b5f72;font-weight:900;text-decoration:none}
+    .tp-disclosure{margin-top:34px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;background:#0b5f72;color:#fff;border-radius:20px;padding:24px}.tp-disclosure-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:15px;background:rgba(255,255,255,.12);font-size:25px}.tp-disclosure span{font-size:.82rem;font-weight:900;color:#e8d993}.tp-disclosure h2{margin:3px 0 6px;font-size:1.25rem;font-weight:900}.tp-disclosure p{margin:0;color:#e6eff1;line-height:1.75}.tp-disclosure>a{background:#fff;color:#0b5f72;text-decoration:none;font-weight:900;border-radius:10px;padding:10px 14px;text-align:center}
+    @media(max-width:900px){.tp-board-grid,.tp-policy-grid{grid-template-columns:1fr 1fr}.tp-disclosure{grid-template-columns:auto 1fr}.tp-disclosure>a{grid-column:1/-1}}
+    @media(max-width:620px){.tp-header-inner{padding:11px 14px}.tp-brand img{width:142px}.tp-actions a span{display:none}.tp-actions a{width:42px;height:42px;justify-content:center;padding:0}.tp-hero{padding:50px 16px 40px}.tp-content{padding:42px 14px 70px}.tp-section-head{align-items:flex-start;flex-direction:column}.tp-board-grid,.tp-policy-grid{grid-template-columns:1fr}.tp-exec-card{flex-direction:column}.tp-policy-card dl>div{display:block}.tp-policy-card dd{margin-top:2px}.tp-disclosure{display:flex;align-items:flex-start;flex-direction:column}.tp-disclosure>a{width:100%}}
+  </style>
+</BaseLayout>

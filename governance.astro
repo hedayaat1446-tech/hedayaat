@@ -3,125 +3,214 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import site from "../content/site.json";
 
 const governance = site.docs.governance;
+const institution = site.institution;
 const meta = {
   ...site.meta,
   title: `${governance.title} | مؤسسة هدايات التعليمية`,
   description: governance.subtitle
 };
+
+const licenseDoc = governance.official.find((doc) => doc.category === "الترخيص") || governance.official[0];
+const regulationDoc = governance.official.find((doc) => doc.category === "اللائحة الأساسية") || governance.official[1];
+const plannedByCategory = Object.fromEntries((governance.planned || []).map((item) => [item.category, item]));
 ---
 
 <BaseLayout meta={meta}>
-  <main class="governance-page">
+  <main id="main-content" class="governance-page">
     <header class="gov-header">
       <div class="gov-header-inner">
         <a href="/" class="gov-brand" aria-label="العودة إلى الرئيسية">
           <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" />
         </a>
-        <nav class="gov-header-actions" aria-label="التنقل">
+        <nav class="gov-header-actions" aria-label="التنقل في الحوكمة">
+          <a href="/transparency/" class="gov-header-link"><i class="bi bi-eye" aria-hidden="true"></i><span>الشفافية</span></a>
+          <a href="/en/#governance" class="gov-header-link" lang="en" dir="ltr"><span>EN</span></a>
           <a href="/" class="gov-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
         </nav>
       </div>
     </header>
 
-    <section class="gov-hero">
+    <section class="gov-hero" aria-labelledby="gov-title">
       <div class="gov-shell">
-        <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> الحوكمة</span>
-        <h1>{governance.title}</h1>
+        <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> الحوكمة المؤسسية</span>
+        <h1 id="gov-title">{governance.title}</h1>
         <p>{governance.subtitle}</p>
-        <div class="gov-summary" aria-label="ملخص الوثائق">
-          <div><strong>{governance.official.length}</strong><span>وثائق نظامية</span></div>
+        <div class="gov-summary" aria-label="ملخص مركز الحوكمة">
+          <div><strong>{governance.official.length}</strong><span>وثائق نظامية منشورة</span></div>
           <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.policies.length}</strong><span>سياسات منشورة</span></div>
+          <div><strong>{governance.policies.length}</strong><span>سياسات معتمدة</span></div>
+          <span class="gov-summary-separator" aria-hidden="true"></span>
+          <div><strong>{governance.planned?.length || 0}</strong><span>أقسام بانتظار الاعتماد</span></div>
         </div>
       </div>
     </section>
 
-    <section class="gov-content">
-      <div class="gov-section-heading">
-        <div class="gov-section-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></div>
-        <div>
-          <span>الوثائق الرسمية</span>
-          <h2>الوثائق النظامية</h2>
-          <p>وثائق تعريف وتنظيم المؤسسة المعتمدة والمرتبطة بوضعها النظامي.</p>
+    <section class="gov-content" aria-label="وثائق الحوكمة">
+      <div class="gov-tabs-shell">
+        <div class="gov-tabs" role="tablist" aria-label="أقسام مركز الحوكمة">
+          <button type="button" role="tab" id="tab-license" aria-controls="panel-license" aria-selected="true" tabindex="0" data-gov-tab="license"><i class="bi bi-patch-check" aria-hidden="true"></i><span>الترخيص</span></button>
+          <button type="button" role="tab" id="tab-regulation" aria-controls="panel-regulation" aria-selected="false" tabindex="-1" data-gov-tab="regulation"><i class="bi bi-journal-text" aria-hidden="true"></i><span>اللائحة الأساسية</span></button>
+          <button type="button" role="tab" id="tab-policies" aria-controls="panel-policies" aria-selected="false" tabindex="-1" data-gov-tab="policies"><i class="bi bi-shield-lock" aria-hidden="true"></i><span>السياسات</span></button>
+          <button type="button" role="tab" id="tab-operational" aria-controls="panel-operational" aria-selected="false" tabindex="-1" data-gov-tab="operational"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>الخطة التشغيلية</span></button>
+          <button type="button" role="tab" id="tab-financial" aria-controls="panel-financial" aria-selected="false" tabindex="-1" data-gov-tab="financial"><i class="bi bi-bar-chart" aria-hidden="true"></i><span>التقارير المالية</span></button>
+          <button type="button" role="tab" id="tab-annual" aria-controls="panel-annual" aria-selected="false" tabindex="-1" data-gov-tab="annual"><i class="bi bi-calendar3" aria-hidden="true"></i><span>التقارير السنوية</span></button>
         </div>
       </div>
 
-      <div class="gov-doc-grid gov-doc-grid--official">
-        {governance.official.map((doc) => (
-          <article class="gov-doc-card gov-doc-card--official">
-            <div class="gov-doc-preview">
-              <img src={doc.previewHref} alt={`معاينة الصفحة الأولى من ${doc.title}`} loading="lazy" />
-              <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> وثيقة رسمية</span>
-            </div>
-            <div class="gov-doc-body">
-              <div class="gov-doc-meta"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span>{doc.meta}</span></div>
-              <h3>{doc.title}</h3>
-              <p>{doc.description}</p>
-              <div class="gov-doc-actions">
-                <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener">
-                  <i class="bi bi-eye" aria-hidden="true"></i><span>عرض الوثيقة</span>
-                </a>
-                <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download>
-                  <i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span>
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="gov-divider" role="presentation"></div>
-
-      <div class="gov-section-heading">
-        <div class="gov-section-icon"><i class="bi bi-journal-check" aria-hidden="true"></i></div>
-        <div>
-          <span>الحوكمة المؤسسية</span>
-          <h2>السياسات المعتمدة</h2>
-          <p>سياسات منشورة لتنظيم الممارسات المؤسسية وتعزيز الشفافية وحماية البيانات والوثائق.</p>
+      <section id="panel-license" class="gov-panel" role="tabpanel" aria-labelledby="tab-license" data-gov-panel="license">
+        <div class="gov-section-heading">
+          <div class="gov-section-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></div>
+          <div><span>الوضع النظامي</span><h2>شهادة الترخيص</h2><p>الشهادة الرسمية للمؤسسة، مع بيانات الترخيص الأساسية ورابط التحقق الرسمي.</p></div>
         </div>
-      </div>
-
-      <div class="gov-doc-grid">
-        {governance.policies.map((doc) => (
-          <article class="gov-doc-card">
-            <div class="gov-doc-preview">
-              <img src={doc.previewHref} alt={`معاينة الصفحة الأولى من ${doc.title}`} loading="lazy" />
-              <span class="gov-doc-badge gov-doc-badge--policy"><i class="bi bi-shield-check" aria-hidden="true"></i> سياسة معتمدة</span>
+        <article class="gov-doc-card gov-doc-card--featured">
+          <div class="gov-doc-preview">
+            <img src={licenseDoc.previewHref} alt={`معاينة ${licenseDoc.title}`} loading="eager" />
+            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> منشور</span>
+          </div>
+          <div class="gov-doc-body">
+            <div class="gov-doc-meta"><i class="bi bi-building" aria-hidden="true"></i><span>{institution.type}</span></div>
+            <h3>{licenseDoc.title}</h3>
+            <p>{licenseDoc.description}</p>
+            <dl class="gov-facts">
+              <div><dt>رقم الترخيص</dt><dd dir="ltr">{institution.licenseNumber}</dd></div>
+              <div><dt>الرقم الوطني الموحد</dt><dd dir="ltr">{institution.unifiedNationalNumber}</dd></div>
+              <div><dt>جهة الإشراف</dt><dd>{institution.supervision}</dd></div>
+              <div><dt>سريان الشهادة</dt><dd>حتى {institution.licenseValidUntil}</dd></div>
+            </dl>
+            <div class="gov-doc-actions">
+              <a class="gov-btn gov-btn--primary" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer"><i class="bi bi-patch-check" aria-hidden="true"></i><span>التحقق من الترخيص</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الشهادة</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
             </div>
-            <div class="gov-doc-body">
-              <div class="gov-doc-meta"><i class="bi bi-file-earmark-text" aria-hidden="true"></i><span>{doc.meta}</span></div>
-              <h3>{doc.title}</h3>
-              <p>{doc.description}</p>
-              <div class="gov-doc-actions">
-                <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener">
-                  <i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span>
-                </a>
-                <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download>
-                  <i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span>
-                </a>
+          </div>
+        </article>
+      </section>
+
+      <section id="panel-regulation" class="gov-panel" role="tabpanel" aria-labelledby="tab-regulation" data-gov-panel="regulation">
+        <div class="gov-section-heading">
+          <div class="gov-section-icon"><i class="bi bi-journal-text" aria-hidden="true"></i></div>
+          <div><span>الوثائق التنظيمية</span><h2>اللائحة الأساسية</h2><p>الوثيقة المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها الإداري وأحكام مجلس الأمناء.</p></div>
+        </div>
+        <article class="gov-doc-card gov-doc-card--featured">
+          <div class="gov-doc-preview">
+            <img src={regulationDoc.previewHref} alt={`معاينة ${regulationDoc.title}`} loading="lazy" />
+            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> منشور</span>
+          </div>
+          <div class="gov-doc-body">
+            <div class="gov-doc-meta"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span>{regulationDoc.meta}</span></div>
+            <h3>{regulationDoc.title}</h3>
+            <p>{regulationDoc.description}</p>
+            <div class="gov-publish-row"><span><i class="bi bi-calendar-check" aria-hidden="true"></i> {regulationDoc.updated}</span><span><i class="bi bi-tag" aria-hidden="true"></i> {regulationDoc.version}</span></div>
+            <div class="gov-doc-actions">
+              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض اللائحة</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${regulationDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="panel-policies" class="gov-panel" role="tabpanel" aria-labelledby="tab-policies" data-gov-panel="policies">
+        <div class="gov-section-heading">
+          <div class="gov-section-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
+          <div><span>السياسات المعتمدة</span><h2>السياسات المنشورة</h2><p>وثائق الحوكمة المنشورة بصيغتها الأصلية، مع تاريخ الاعتماد والدورة المنشورة.</p></div>
+        </div>
+        <div class="gov-doc-grid">
+          {governance.policies.map((doc) => (
+            <article class="gov-doc-card">
+              <div class="gov-doc-preview gov-doc-preview--policy">
+                <img src={doc.previewHref} alt={`معاينة الصفحة الأولى من ${doc.title}`} loading="lazy" />
+                <span class="gov-doc-badge gov-doc-badge--policy"><i class="bi bi-shield-check" aria-hidden="true"></i> {doc.status}</span>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
+              <div class="gov-doc-body">
+                <div class="gov-doc-meta"><i class="bi bi-file-earmark-text" aria-hidden="true"></i><span>{doc.meta}</span></div>
+                <h3>{doc.title}</h3>
+                <p>{doc.description}</p>
+                <div class="gov-policy-meta" aria-label={`بيانات ${doc.title}`}>
+                  <span><b>تاريخ الاعتماد:</b> {doc.approvalDate}</span>
+                  <span><b>آخر تحديث منشور:</b> {doc.updated}</span>
+                  <span><b>الدورة/الإصدار:</b> {doc.version}</span>
+                </div>
+                <div class="gov-doc-actions">
+                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span></a>
+                  <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <div class="gov-note">
-        <div class="gov-note-icon"><i class="bi bi-info-circle" aria-hidden="true"></i></div>
-        <p>تُعرض الوثائق بصيغتها الأصلية المعتمدة. يمكن فتح كل ملف مباشرة في المتصفح أو تنزيل نسخة PDF للاطلاع عليها.</p>
-      </div>
+      {[
+        ['operational', plannedByCategory['الخطة التشغيلية'], 'bi-clipboard-check', 'الخطة التشغيلية'],
+        ['financial', plannedByCategory['التقارير المالية'], 'bi-bar-chart', 'التقارير المالية'],
+        ['annual', plannedByCategory['التقارير السنوية'], 'bi-calendar3', 'التقارير السنوية']
+      ].map(([key, item, icon, title]) => (
+        <section id={`panel-${key}`} class="gov-panel" role="tabpanel" aria-labelledby={`tab-${key}`} data-gov-panel={key}>
+          <div class="gov-section-heading">
+            <div class="gov-section-icon"><i class={`bi ${icon}`} aria-hidden="true"></i></div>
+            <div><span>الوثائق المؤسسية</span><h2>{title}</h2><p>يظهر هذا القسم عند نشر الوثيقة المعتمدة رسميًا.</p></div>
+          </div>
+          <div class="gov-empty" role="status">
+            <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+            <div><h3>{item?.status || 'بانتظار النشر'}</h3><p>{item?.message || 'سيتم النشر بعد الاعتماد.'}</p></div>
+          </div>
+        </section>
+      ))}
 
-      <a class="gov-back" href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى موقع المؤسسة</a>
+      <div class="gov-bottom-links">
+        <a href="/transparency/"><i class="bi bi-eye" aria-hidden="true"></i> صفحة الشفافية والإفصاح</a>
+        <a href="/accessibility/"><i class="bi bi-person-check" aria-hidden="true"></i> بيان إمكانية الوصول</a>
+        <a href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى موقع المؤسسة</a>
+      </div>
     </section>
   </main>
 
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = [...document.querySelectorAll('[data-gov-tab]')];
+      const panels = [...document.querySelectorAll('[data-gov-panel]')];
+      if (!tabs.length || !panels.length) return;
+
+      const activate = (key, { focus = false, updateHash = true } = {}) => {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.govTab === key;
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          tab.tabIndex = active ? 0 : -1;
+          if (active && focus) tab.focus();
+        });
+        panels.forEach((panel) => { panel.hidden = panel.dataset.govPanel !== key; });
+        if (updateHash) history.replaceState(null, '', `#${key}`);
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activate(tab.dataset.govTab));
+        tab.addEventListener('keydown', (event) => {
+          let next = null;
+          if (event.key === 'ArrowLeft') next = (index + 1) % tabs.length;
+          if (event.key === 'ArrowRight') next = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          if (next !== null) {
+            event.preventDefault();
+            activate(tabs[next].dataset.govTab, { focus: true });
+          }
+        });
+      });
+
+      const requested = location.hash.replace('#', '');
+      const initial = tabs.some((tab) => tab.dataset.govTab === requested) ? requested : 'license';
+      activate(initial, { updateHash: false });
+    });
+  </script>
+
   <style>
     :global(body){margin:0;background:#f7f9f8;color:#153847}.governance-page{min-height:100vh;background:linear-gradient(180deg,#fbfcfc 0%,#f4f7f6 100%);font-family:var(--font-family-arabic)}
-    .gov-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(8,77,98,.11);backdrop-filter:blur(14px)}
-    .gov-header-inner{max-width:1180px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.gov-brand img{display:block;width:188px;max-width:47vw;height:auto}.gov-header-actions{display:flex;align-items:center;gap:10px}.gov-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#0b5a70;font-weight:800;border:1px solid rgba(11,90,112,.18);padding:9px 16px;border-radius:10px;background:#fff;transition:.2s ease}.gov-home:hover{background:#f2f8f8;border-color:rgba(11,90,112,.32)}
-    .gov-hero{position:relative;overflow:hidden;padding:78px 20px 64px;text-align:center;background:linear-gradient(135deg,#f6fbfb 0%,#fff 48%,#fbfaf4 100%);border-bottom:1px solid rgba(8,77,98,.08)}.gov-hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,94,112,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(13,94,112,.025) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 84%);pointer-events:none}.gov-shell{position:relative;max-width:820px;margin:auto}.gov-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#e9f4f3;color:#0b6170;font-weight:800;margin-bottom:22px;border:1px solid rgba(11,97,112,.08)}.gov-hero h1{font-size:clamp(2.2rem,5vw,4rem);margin:0 0 16px;font-weight:900;color:#0a4155;letter-spacing:-.02em}.gov-hero p{margin:0 auto;max-width:760px;font-size:1.08rem;line-height:2;color:#62747b}.gov-summary{margin:30px auto 0;display:inline-flex;align-items:center;gap:24px;background:#fff;border:1px solid rgba(8,77,98,.1);box-shadow:0 14px 34px rgba(24,64,74,.06);border-radius:16px;padding:14px 24px}.gov-summary>div{display:flex;align-items:baseline;gap:8px}.gov-summary strong{font-size:1.55rem;color:#0a566b}.gov-summary span{font-size:.9rem;color:#75848a;font-weight:700}.gov-summary-separator{width:1px;height:28px;background:rgba(8,77,98,.12)}
-    .gov-content{max-width:1180px;margin:0 auto;padding:64px 22px 90px}.gov-section-heading{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}.gov-section-icon{flex:0 0 52px;width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:#e9f4f3;color:#0a6473;font-size:24px;border:1px solid rgba(10,100,115,.08)}.gov-section-heading>div:last-child>span{display:block;color:#ad9149;font-size:.86rem;font-weight:900;margin-bottom:4px}.gov-section-heading h2{margin:0 0 5px;font-size:clamp(1.55rem,3vw,2.1rem);font-weight:900;color:#113f50}.gov-section-heading p{margin:0;color:#728087;line-height:1.8}
-    .gov-doc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.gov-doc-grid--official{grid-template-columns:repeat(2,minmax(0,1fr))}.gov-doc-card{overflow:hidden;background:#fff;border:1px solid rgba(10,80,98,.11);border-radius:20px;box-shadow:0 12px 38px rgba(21,56,71,.055);display:flex;flex-direction:column;min-width:0}.gov-doc-card--official{display:grid;grid-template-columns:minmax(180px,36%) 1fr;min-height:330px}.gov-doc-preview{position:relative;background:#edf3f2;min-height:248px;overflow:hidden;display:grid;place-items:center;padding:16px}.gov-doc-card--official .gov-doc-preview{min-height:100%}.gov-doc-preview img{display:block;width:100%;height:100%;max-height:310px;object-fit:contain;object-position:center;background:#fff;box-shadow:0 8px 24px rgba(20,52,62,.10);border-radius:3px}.gov-doc-card:not(.gov-doc-card--official) .gov-doc-preview img{height:260px;object-fit:contain;object-position:center}.gov-doc-badge{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;background:rgba(9,74,91,.93);color:white;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:800;box-shadow:0 6px 16px rgba(8,56,71,.17)}.gov-doc-badge--policy{background:rgba(173,145,73,.94)}.gov-doc-body{padding:23px;display:flex;flex-direction:column;flex:1}.gov-doc-meta{display:flex;align-items:center;gap:7px;color:#79898f;font-size:.83rem;font-weight:700;margin-bottom:9px}.gov-doc-meta i{color:#b09247}.gov-doc-body h3{margin:0 0 10px;font-size:1.23rem;line-height:1.55;font-weight:900;color:#173f4e}.gov-doc-body p{margin:0 0 22px;color:#6e7d83;line-height:1.9;font-size:.94rem;flex:1}.gov-doc-actions{display:flex;gap:9px;flex-wrap:wrap}.gov-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:10px;padding:10px 14px;font-weight:800;font-size:.9rem;transition:.2s ease}.gov-btn--primary{background:#0b5f72;color:#fff;border:1px solid #0b5f72}.gov-btn--primary:hover{background:#084c5b;color:#fff}.gov-btn--secondary{background:#fff;color:#0b5f72;border:1px solid rgba(11,95,114,.22)}.gov-btn--secondary:hover{background:#f3f8f8;color:#0b5f72}.gov-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(8,77,98,.13),transparent);margin:62px 0}.gov-note{margin-top:34px;display:flex;align-items:flex-start;gap:12px;background:#f0f7f6;border:1px solid rgba(10,100,115,.11);border-radius:14px;padding:17px 18px;color:#5d737a}.gov-note-icon{color:#0b6170;font-size:20px}.gov-note p{margin:0;line-height:1.8;font-size:.92rem}.gov-back{display:inline-flex;align-items:center;gap:8px;margin-top:28px;text-decoration:none;color:#0b5f72;font-weight:800}
-    @media(max-width:980px){.gov-doc-grid,.gov-doc-grid--official{grid-template-columns:repeat(2,minmax(0,1fr))}.gov-doc-card--official{display:flex}.gov-doc-card--official .gov-doc-preview{min-height:260px}.gov-doc-card--official .gov-doc-preview img{height:260px;object-fit:contain}}
-    @media(max-width:680px){.gov-header-inner{padding:11px 15px}.gov-brand img{width:148px}.gov-home span{display:none}.gov-home{width:42px;height:42px;justify-content:center;padding:0;border-radius:10px}.gov-hero{padding:54px 17px 44px}.gov-hero h1{font-size:2.15rem}.gov-hero p{font-size:.98rem;line-height:1.85}.gov-summary{gap:14px;padding:12px 15px;width:100%;justify-content:center}.gov-summary>div{flex-direction:column;gap:1px;align-items:center}.gov-summary strong{font-size:1.35rem}.gov-content{padding:44px 15px 70px}.gov-section-heading{gap:12px}.gov-section-icon{width:46px;height:46px;flex-basis:46px}.gov-doc-grid,.gov-doc-grid--official{grid-template-columns:1fr}.gov-doc-preview,.gov-doc-card--official .gov-doc-preview{min-height:245px;padding:14px}.gov-doc-preview img,.gov-doc-card--official .gov-doc-preview img{height:245px;object-fit:contain}.gov-doc-body{padding:20px}.gov-doc-actions{display:grid;grid-template-columns:1fr 1fr}.gov-btn{width:100%;padding:10px 8px}.gov-divider{margin:46px 0}}
+    .gov-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(8,77,98,.12);backdrop-filter:blur(14px)}.gov-header-inner{max-width:1180px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.gov-brand img{display:block;width:188px;max-width:44vw;height:auto}.gov-header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.gov-home,.gov-header-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#0b5a70;font-weight:800;border:1px solid rgba(11,90,112,.18);padding:9px 13px;border-radius:10px;background:#fff}.gov-home:hover,.gov-header-link:hover{background:#f2f8f8;color:#084c5b}
+    .gov-hero{position:relative;overflow:hidden;padding:72px 20px 58px;text-align:center;background:linear-gradient(135deg,#f4f9f8 0%,#fff 50%,#fbfaf4 100%);border-bottom:1px solid rgba(8,77,98,.08)}.gov-shell{max-width:900px;margin:auto}.gov-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#e9f4f3;color:#0b6170;font-weight:800;margin-bottom:20px;border:1px solid rgba(11,97,112,.08)}.gov-hero h1{font-size:clamp(2.2rem,5vw,4rem);margin:0 0 14px;font-weight:900;color:#0a4155}.gov-hero p{margin:0 auto;max-width:800px;font-size:1.08rem;line-height:2;color:#62747b}.gov-summary{margin:28px auto 0;display:inline-flex;align-items:center;gap:20px;background:#fff;border:1px solid rgba(8,77,98,.1);box-shadow:0 14px 34px rgba(24,64,74,.06);border-radius:16px;padding:13px 22px}.gov-summary>div{display:flex;align-items:baseline;gap:7px}.gov-summary strong{font-size:1.5rem;color:#0a566b}.gov-summary span{font-size:.86rem;color:#64777e;font-weight:800}.gov-summary-separator{width:1px;height:28px;background:rgba(8,77,98,.13)}
+    .gov-content{max-width:1180px;margin:0 auto;padding:42px 22px 90px}.gov-tabs-shell{position:sticky;top:73px;z-index:20;margin-bottom:38px;background:rgba(247,249,248,.95);padding:10px 0;backdrop-filter:blur(8px)}.gov-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;background:#fff;border:1px solid rgba(8,77,98,.12);padding:8px;border-radius:16px;box-shadow:0 10px 28px rgba(21,56,71,.06)}.gov-tabs button{border:0;background:transparent;color:#50666e;border-radius:11px;padding:11px 8px;font:inherit;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;min-height:48px}.gov-tabs button[aria-selected="true"]{background:#0b5f72;color:#fff;box-shadow:0 6px 18px rgba(11,95,114,.2)}.gov-tabs button:focus-visible{outline:3px solid #beae59;outline-offset:2px}.gov-panel{animation:govFade .22s ease}@keyframes govFade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .gov-section-heading{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}.gov-section-icon{flex:0 0 52px;width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:#e9f4f3;color:#0a6473;font-size:24px;border:1px solid rgba(10,100,115,.08)}.gov-section-heading>div:last-child>span{display:block;color:#735e1f;font-size:.86rem;font-weight:900;margin-bottom:4px}.gov-section-heading h2{margin:0 0 5px;font-size:clamp(1.55rem,3vw,2.1rem);font-weight:900;color:#113f50}.gov-section-heading p{margin:0;color:#667980;line-height:1.8}
+    .gov-doc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.gov-doc-card{overflow:hidden;background:#fff;border:1px solid rgba(10,80,98,.12);border-radius:20px;box-shadow:0 12px 38px rgba(21,56,71,.06);display:flex;flex-direction:column;min-width:0}.gov-doc-card--featured{display:grid;grid-template-columns:minmax(240px,36%) 1fr;min-height:390px}.gov-doc-preview{position:relative;background:#edf3f2;min-height:250px;overflow:hidden;display:grid;place-items:center;padding:16px}.gov-doc-card--featured .gov-doc-preview{min-height:100%}.gov-doc-preview img{display:block;width:100%;height:100%;max-height:360px;object-fit:contain;object-position:center;background:#fff;box-shadow:0 8px 24px rgba(20,52,62,.10);border-radius:4px}.gov-doc-preview--policy img{height:260px}.gov-doc-badge{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;background:#07566a;color:#fff;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:900}.gov-doc-badge--policy{background:#816f2d}.gov-doc-body{padding:24px;display:flex;flex-direction:column;flex:1}.gov-doc-meta{display:flex;align-items:center;gap:7px;color:#667980;font-size:.84rem;font-weight:800;margin-bottom:9px}.gov-doc-meta i{color:#735e1f}.gov-doc-body h3{margin:0 0 10px;font-size:1.28rem;line-height:1.55;font-weight:900;color:#173f4e}.gov-doc-body>p{margin:0 0 20px;color:#62747b;line-height:1.9;font-size:.96rem;flex:1}.gov-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 22px}.gov-facts>div{background:#f6f9f8;border:1px solid rgba(10,80,98,.09);border-radius:12px;padding:11px 13px}.gov-facts dt{font-size:.78rem;color:#677b82;font-weight:800}.gov-facts dd{margin:2px 0 0;color:#123f4f;font-weight:900}.gov-publish-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px;color:#536b73;font-size:.88rem;font-weight:800}.gov-publish-row span{background:#f6f9f8;border-radius:9px;padding:7px 10px}.gov-policy-meta{display:grid;gap:6px;margin:0 0 20px;padding:13px;background:#f7f9f8;border-radius:12px;color:#5c7077;font-size:.87rem}.gov-policy-meta b{color:#284f5d}.gov-doc-actions{display:flex;gap:9px;flex-wrap:wrap}.gov-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:10px;padding:10px 14px;font-weight:900;font-size:.9rem;transition:.2s ease}.gov-btn--primary{background:#0b5f72;color:#fff;border:1px solid #0b5f72}.gov-btn--primary:hover{background:#084c5b;color:#fff}.gov-btn--secondary{background:#fff;color:#0b5f72;border:1px solid rgba(11,95,114,.24)}.gov-btn--secondary:hover{background:#f3f8f8;color:#0b5f72}.gov-empty{min-height:260px;display:flex;align-items:center;justify-content:center;gap:20px;text-align:right;border:1px dashed rgba(10,80,98,.25);border-radius:20px;background:#fff;padding:34px}.gov-empty>i{font-size:2.3rem;color:#735e1f}.gov-empty h3{margin:0 0 5px;color:#173f4e;font-size:1.25rem}.gov-empty p{margin:0;color:#667980}.gov-bottom-links{margin-top:42px;padding-top:22px;border-top:1px solid rgba(10,80,98,.12);display:flex;gap:12px;flex-wrap:wrap}.gov-bottom-links a{display:inline-flex;align-items:center;gap:7px;color:#0b5f72;font-weight:900;text-decoration:none;padding:9px 12px;border-radius:9px}.gov-bottom-links a:hover{background:#edf5f4}
+    @media(max-width:980px){.gov-tabs{grid-template-columns:repeat(3,1fr)}.gov-doc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gov-doc-card--featured{grid-template-columns:minmax(210px,40%) 1fr}.gov-summary{display:grid;grid-template-columns:repeat(3,1fr);width:100%}.gov-summary-separator{display:none}.gov-summary>div{justify-content:center;flex-direction:column;gap:0}}
+    @media(max-width:680px){.gov-header-inner{padding:11px 14px}.gov-brand img{width:142px}.gov-header-actions{gap:5px}.gov-header-link span,.gov-home span{font-size:.8rem}.gov-header-link,.gov-home{padding:8px 9px}.gov-hero{padding:50px 16px 40px}.gov-hero h1{font-size:2.05rem}.gov-hero p{font-size:.97rem}.gov-content{padding:28px 14px 70px}.gov-tabs-shell{top:63px;margin-inline:-4px;overflow-x:auto}.gov-tabs{display:flex;width:max-content;min-width:100%;padding:6px}.gov-tabs button{min-width:132px;font-size:.87rem}.gov-section-heading{gap:11px}.gov-section-icon{width:44px;height:44px;flex-basis:44px}.gov-doc-grid{grid-template-columns:1fr}.gov-doc-card--featured{display:flex}.gov-doc-preview,.gov-doc-card--featured .gov-doc-preview{min-height:245px}.gov-doc-preview img,.gov-doc-preview--policy img{height:245px}.gov-doc-body{padding:19px}.gov-doc-actions{display:grid;grid-template-columns:1fr 1fr}.gov-doc-actions .gov-btn:first-child:last-child{grid-column:1/-1}.gov-facts{grid-template-columns:1fr}.gov-empty{min-height:220px;align-items:flex-start;flex-direction:column;text-align:right}.gov-bottom-links{display:grid}.gov-bottom-links a{width:100%}}
   </style>
 </BaseLayout>

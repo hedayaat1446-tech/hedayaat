@@ -1,5 +1,5 @@
 ---
-const { meta } = Astro.props;
+const { meta, lang = "ar", dir = lang === "ar" ? "rtl" : "ltr", skipLabel = lang === "ar" ? "تجاوز إلى المحتوى الرئيسي" : "Skip to main content", accessibilityLabel = lang === "ar" ? "أدوات إمكانية الوصول" : "Accessibility tools" } = Astro.props;
 const isNotFound = Astro.url.pathname === "/404" || Astro.url.pathname === "/404/" || Astro.url.pathname.endsWith("/404.html");
 
 // تنظيف الدومين
@@ -14,7 +14,7 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
 ---
 
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang={lang} dir={dir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,10 +67,19 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=28" />
+    <link rel="stylesheet" href="/styles/site.css?v=29" />
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">{skipLabel}</a>
+
+    <aside class="a11y-tools" aria-label={accessibilityLabel}>
+      <button type="button" data-a11y="decrease" aria-label={lang === "ar" ? "تصغير حجم النص" : "Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
+      <button type="button" data-a11y="reset" aria-label={lang === "ar" ? "إعادة حجم النص للوضع الافتراضي" : "Reset text size"} title={lang === "ar" ? "الحجم الافتراضي" : "Default size"}>A</button>
+      <button type="button" data-a11y="increase" aria-label={lang === "ar" ? "تكبير حجم النص" : "Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
+      <button type="button" data-a11y="contrast" aria-pressed="false" aria-label={lang === "ar" ? "تفعيل التباين العالي" : "Toggle high contrast"} title={lang === "ar" ? "تباين عالٍ" : "High contrast"}><i class="bi bi-circle-half" aria-hidden="true"></i></button>
+    </aside>
+
     <slot />
 
     <script is:inline>
@@ -113,6 +122,52 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
         });
 
         setTimeout(() => { document.documentElement.style.scrollBehavior = ''; }, 900);
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const scaleKey = 'hedayat-font-scale';
+        const contrastKey = 'hedayat-high-contrast';
+        const allowedScales = [0.9, 1, 1.125, 1.25];
+
+        const readScale = () => {
+          const value = Number(localStorage.getItem(scaleKey) || '1');
+          return allowedScales.includes(value) ? value : 1;
+        };
+        const applyScale = (value) => {
+          const scale = allowedScales.includes(value) ? value : 1;
+          root.style.fontSize = `${scale * 100}%`;
+          try { localStorage.setItem(scaleKey, String(scale)); } catch { /* preference persistence is optional */ }
+        };
+        const applyContrast = (enabled) => {
+          root.classList.toggle('a11y-high-contrast', enabled);
+          try { localStorage.setItem(contrastKey, enabled ? '1' : '0'); } catch { /* preference persistence is optional */ }
+          const button = document.querySelector('[data-a11y="contrast"]');
+          if (button) button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        };
+
+        try {
+          applyScale(readScale());
+          applyContrast(localStorage.getItem(contrastKey) === '1');
+        } catch { /* localStorage can be unavailable in strict privacy modes */ }
+
+        document.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-a11y]');
+          if (!button) return;
+          const action = button.dataset.a11y;
+          if (action === 'contrast') {
+            applyContrast(!root.classList.contains('a11y-high-contrast'));
+            return;
+          }
+          let current = 1;
+          try { current = readScale(); } catch { current = 1; }
+          const index = allowedScales.indexOf(current);
+          if (action === 'increase') applyScale(allowedScales[Math.min(index + 1, allowedScales.length - 1)]);
+          if (action === 'decrease') applyScale(allowedScales[Math.max(index - 1, 0)]);
+          if (action === 'reset') applyScale(1);
+        });
       })();
     </script>
 
