@@ -454,15 +454,37 @@ async function handleContact(req, res) {
     return;
   }
 
+  const requestLang = cleanText(body.lang, 10).toLowerCase() === 'en' ? 'en' : 'ar';
+  const contactText = requestLang === 'en' ? {
+    rejected: 'This request could not be accepted from the current source.',
+    limited: 'Too many attempts. Please try again later.',
+    tooLarge: 'The submitted form is larger than allowed.',
+    unreadable: 'The form data could not be read.',
+    received: 'Your message has been received.',
+    invalid: 'Please check your name, email address and message.',
+    storage: 'Your message could not be saved right now. Please try again.',
+    success: 'Your message has been received and recorded successfully.'
+  } : {
+    rejected: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.',
+    limited: 'تم تجاوز عدد المحاولات المسموح بها مؤقتًا. يرجى المحاولة لاحقًا.',
+    tooLarge: 'حجم بيانات النموذج أكبر من المسموح.',
+    unreadable: 'تعذر قراءة بيانات النموذج.',
+    received: 'تم استلام الرسالة.',
+    invalid: 'يرجى التأكد من الاسم والبريد الإلكتروني ونص الرسالة.',
+    storage: 'تعذر حفظ الرسالة حاليًا. يرجى المحاولة مرة أخرى.',
+    success: 'تم استلام رسالتك وتسجيلها بنجاح.'
+  };
+
   // Honeypot: return a normal-looking success response without recording spam.
   if (cleanText(body['bot-field'], 100)) {
-    json(res, 200, { ok: true, message: 'تم استلام الرسالة.' });
+    json(res, 200, { ok: true, message: contactText.received });
     return;
   }
 
   const message = {
     id: randomUUID(),
     receivedAt: new Date().toISOString(),
+    lang: requestLang,
     name: cleanText(body.name, 120),
     email: cleanText(body.email, 254).toLowerCase(),
     subject: cleanText(body.subject, 180),
@@ -470,7 +492,7 @@ async function handleContact(req, res) {
   };
 
   if (message.name.length < 2 || !isValidEmail(message.email) || message.message.length < 3) {
-    json(res, 422, { ok: false, message: 'يرجى التأكد من الاسم والبريد الإلكتروني ونص الرسالة.' });
+    json(res, 422, { ok: false, message: contactText.invalid });
     return;
   }
 
@@ -479,14 +501,14 @@ async function handleContact(req, res) {
     await appendFile(contactMessagesFile, `${JSON.stringify(message)}\n`, { encoding: 'utf8', mode: 0o600 });
   } catch (error) {
     console.error('contact storage error:', error?.message || error);
-    json(res, 500, { ok: false, message: 'تعذر حفظ الرسالة حاليًا. يرجى المحاولة مرة أخرى.' });
+    json(res, 500, { ok: false, message: contactText.storage });
     return;
   }
 
   const delivery = await optionalEmailDelivery(message);
   const acceptsJson = String(req.headers.accept || '').includes('application/json');
   if (!acceptsJson) {
-    res.writeHead(303, { Location: '/thank/', 'Cache-Control': 'no-store' });
+    res.writeHead(303, { Location: requestLang === 'en' ? '/en/?sent=1#contact' : '/thank/', 'Cache-Control': 'no-store' });
     res.end();
     return;
   }
@@ -494,7 +516,7 @@ async function handleContact(req, res) {
   json(res, 201, {
     ok: true,
     delivered: delivery.delivered,
-    message: 'تم استلام رسالتك وتسجيلها بنجاح.'
+    message: contactText.success
   });
 }
 

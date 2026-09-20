@@ -2263,12 +2263,14 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   .reveal-on-scroll { opacity: 1 !important; transform: none !important; }
 }
 
-/* Official trust bar directly below the hero */
+/* Official trust bar at the end of the page, immediately before the footer */
 .official-trust-bar {
   position: relative;
   z-index: 4;
-  padding: 0 20px;
-  margin-top: -18px;
+  padding: 30px 20px 36px;
+  margin-top: 0;
+  background: #FAF7F2;
+  border-top: 1px solid rgba(100,117,80,.08);
 }
 .official-trust-inner {
   max-width: 1180px;
@@ -2312,7 +2314,7 @@ html.js .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
   .trust-verify { grid-column:1 / -1; min-height:52px; }
 }
 @media(max-width: 560px){
-  .official-trust-bar { padding:0; margin-top:0; }
+  .official-trust-bar { padding:24px 0 0; margin-top:0; background:#FAF7F2; }
   .official-trust-inner { grid-template-columns:1fr; border-radius:0; border-inline:0; }
   .trust-item { padding:14px 18px; border-inline-end:0; }
   .trust-verify { grid-column:auto; border-radius:0; }

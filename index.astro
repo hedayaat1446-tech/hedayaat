@@ -115,31 +115,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </svg>
     </section>
 
-    <section class="official-trust-bar" aria-label="بيانات المؤسسة الرسمية">
-      <div class="official-trust-inner">
-        <div class="trust-item trust-item--type">
-          <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-          <div><span>صفة المؤسسة</span><strong>{site.institution.type}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
-          <div><span>رقم الترخيص</span><strong dir="ltr">{site.institution.licenseNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-building" aria-hidden="true"></i>
-          <div><span>الرقم الوطني الموحد</span><strong dir="ltr">{site.institution.unifiedNationalNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
-          <div><span>جهة الإشراف</span><strong>{site.institution.supervision}</strong></div>
-        </div>
-        <a class="trust-verify" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-patch-check" aria-hidden="true"></i>
-          <span>التحقق من الترخيص</span>
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-        </a>
-      </div>
-    </section>
+
 
     <section id="about" class="ref-wrap">
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
@@ -388,6 +364,32 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="official-trust-bar" aria-label="بيانات المؤسسة الرسمية">
+      <div class="official-trust-inner">
+        <div class="trust-item trust-item--type">
+          <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
+          <div><span>صفة المؤسسة</span><strong>{site.institution.type}</strong></div>
+        </div>
+        <div class="trust-item">
+          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
+          <div><span>رقم الترخيص</span><strong dir="ltr">{site.institution.licenseNumber}</strong></div>
+        </div>
+        <div class="trust-item">
+          <i class="bi bi-building" aria-hidden="true"></i>
+          <div><span>الرقم الوطني الموحد</span><strong dir="ltr">{site.institution.unifiedNationalNumber}</strong></div>
+        </div>
+        <div class="trust-item">
+          <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+          <div><span>جهة الإشراف</span><strong>{site.institution.supervision}</strong></div>
+        </div>
+        <a class="trust-verify" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-patch-check" aria-hidden="true"></i>
+          <span>التحقق من الترخيص</span>
+          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+        </a>
       </div>
     </section>
   </main>
