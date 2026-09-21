@@ -11,6 +11,42 @@ const canonical = `${baseUrl}${Astro.url.pathname}`;
 const ogImageAbs = meta.ogImage?.startsWith("http")
   ? meta.ogImage
   : `${baseUrl}${meta.ogImage?.startsWith("/") ? "" : "/"}${meta.ogImage || ""}`;
+
+const feedback = lang === "ar" ? {
+  launcher: "شاركنا رأيك",
+  title: "رأيك يهمنا",
+  subtitle: "هل كانت هذه الصفحة مفيدة؟",
+  yes: "نعم",
+  somewhat: "إلى حد ما",
+  no: "لا",
+  commentLabel: "ملاحظة أو اقتراح (اختياري)",
+  commentPlaceholder: "اكتبي ملاحظتك باختصار...",
+  privacy: "لا نطلب أي بيانات شخصية في هذا التقييم.",
+  submit: "إرسال الرأي",
+  sending: "جارٍ الإرسال...",
+  close: "إغلاق نافذة التقييم",
+  choose: "اختاري أحد الخيارات أولًا.",
+  failed: "تعذر إرسال رأيك الآن. حاولي مرة أخرى.",
+  thanks: "شكرًا لك. تم تسجيل رأيك.",
+  center: "مركز مشاركة المستفيد وقياس الرضا"
+} : {
+  launcher: "Share feedback",
+  title: "Your feedback matters",
+  subtitle: "Was this page helpful?",
+  yes: "Yes",
+  somewhat: "Somewhat",
+  no: "No",
+  commentLabel: "Comment or suggestion (optional)",
+  commentPlaceholder: "Share a brief note...",
+  privacy: "We do not ask for personal information in this feedback form.",
+  submit: "Send feedback",
+  sending: "Sending...",
+  close: "Close feedback dialog",
+  choose: "Please choose one option first.",
+  failed: "We could not send your feedback right now. Please try again.",
+  thanks: "Thank you. Your feedback has been recorded.",
+  center: "Beneficiary Participation & Satisfaction"
+};
 ---
 
 <!doctype html>
@@ -68,7 +104,7 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=29" />
+    <link rel="stylesheet" href="/styles/site.css?v=30" />
   </head>
 
   <body>
@@ -82,6 +118,126 @@ const ogImageAbs = meta.ogImage?.startsWith("http")
     </aside>
 
     <slot />
+
+    {!isNotFound && (
+      <div class="page-feedback" data-feedback-root data-lang={lang} data-sending={feedback.sending} data-choose={feedback.choose} data-failed={feedback.failed} data-thanks={feedback.thanks}>
+        <button class="feedback-launcher" type="button" data-feedback-open aria-haspopup="dialog" aria-controls="feedbackDialog">
+          <i class="bi bi-chat-dots" aria-hidden="true"></i>
+          <span>{feedback.launcher}</span>
+        </button>
+
+        <dialog id="feedbackDialog" class="feedback-dialog" aria-labelledby="feedbackTitle" aria-describedby="feedbackSubtitle">
+          <form class="feedback-form" data-feedback-form novalidate>
+            <div class="feedback-head">
+              <div>
+                <h2 id="feedbackTitle">{feedback.title}</h2>
+                <p id="feedbackSubtitle">{feedback.subtitle}</p>
+              </div>
+              <button class="feedback-close" type="button" data-feedback-close aria-label={feedback.close} title={feedback.close}>×</button>
+            </div>
+
+            <fieldset class="feedback-choices">
+              <legend class="visually-hidden">{feedback.subtitle}</legend>
+              <label><input type="radio" name="choice" value="yes" /><span><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i>{feedback.yes}</span></label>
+              <label><input type="radio" name="choice" value="somewhat" /><span><i class="bi bi-dash-circle" aria-hidden="true"></i>{feedback.somewhat}</span></label>
+              <label><input type="radio" name="choice" value="no" /><span><i class="bi bi-hand-thumbs-down" aria-hidden="true"></i>{feedback.no}</span></label>
+            </fieldset>
+
+            <label class="feedback-comment-label" for="feedbackComment">{feedback.commentLabel}</label>
+            <textarea id="feedbackComment" name="comment" maxlength="1200" rows="4" placeholder={feedback.commentPlaceholder}></textarea>
+            <input class="feedback-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <p class="feedback-privacy"><i class="bi bi-shield-check" aria-hidden="true"></i>{feedback.privacy}</p>
+            <a class="feedback-center-link" href={lang === "ar" ? "/participation/" : "/en/participation/"}><i class="bi bi-people" aria-hidden="true"></i>{feedback.center}</a>
+            <div class="feedback-actions">
+              <button class="feedback-submit" type="submit">{feedback.submit}</button>
+              <div class="feedback-status" data-feedback-status role="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </dialog>
+      </div>
+    )}
+
+    {!isNotFound && (
+      <script is:inline>
+        (() => {
+          const root = document.querySelector('[data-feedback-root]');
+          if (!root) return;
+          const feedbackLang = root.dataset.lang === 'en' ? 'en' : 'ar';
+          const feedbackSending = root.dataset.sending || '';
+          const feedbackChoose = root.dataset.choose || '';
+          const feedbackFailed = root.dataset.failed || '';
+          const feedbackThanks = root.dataset.thanks || '';
+          const dialog = root.querySelector('.feedback-dialog');
+          const openButton = root.querySelector('[data-feedback-open]');
+          const closeButton = root.querySelector('[data-feedback-close]');
+          const form = root.querySelector('[data-feedback-form]');
+          const status = root.querySelector('[data-feedback-status]');
+          const submitButton = root.querySelector('.feedback-submit');
+
+          const setStatus = (message, type = '') => {
+            status.textContent = message || '';
+            status.dataset.state = type;
+          };
+
+          const openDialog = () => {
+            setStatus('');
+            if (typeof dialog.showModal === 'function') dialog.showModal();
+            else dialog.setAttribute('open', '');
+          };
+          const closeDialog = () => {
+            if (typeof dialog.close === 'function') dialog.close();
+            else dialog.removeAttribute('open');
+          };
+
+          openButton.addEventListener('click', openDialog);
+          closeButton.addEventListener('click', closeDialog);
+          dialog.addEventListener('click', (event) => {
+            if (event.target !== dialog) return;
+            const rect = dialog.getBoundingClientRect();
+            const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+            if (!inside) closeDialog();
+          });
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const data = new FormData(form);
+            const choice = String(data.get('choice') || '');
+            if (!choice) {
+              setStatus(feedbackChoose, 'error');
+              form.querySelector('input[name="choice"]')?.focus();
+              return;
+            }
+
+            submitButton.disabled = true;
+            setStatus(feedbackSending, 'loading');
+            try {
+              const response = await fetch('/api/feedback', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                  choice,
+                  comment: String(data.get('comment') || ''),
+                  'bot-field': String(data.get('bot-field') || ''),
+                  lang: feedbackLang,
+                  page: window.location.pathname
+                })
+              });
+              const payload = await response.json().catch(() => ({}));
+              if (!response.ok) throw new Error(payload.message || feedbackFailed);
+              form.reset();
+              setStatus(payload.message || feedbackThanks, 'success');
+              openButton.classList.add('feedback-sent');
+              setTimeout(closeDialog, 1400);
+            } catch (error) {
+              setStatus(error?.message || feedbackFailed, 'error');
+            } finally {
+              submitButton.disabled = false;
+            }
+          });
+        })();
+      </script>
+    )}
 
     <script is:inline>
       (() => {

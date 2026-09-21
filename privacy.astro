@@ -38,6 +38,11 @@ const privacyMeta = {
         </div>
       </section>
 
+      <aside class="privacy-collection-note" aria-label="تنبيه حول نماذج الموقع">
+        <i class="bi bi-shield-check" aria-hidden="true"></i>
+        <div><strong>نماذج مشاركة المستفيد</strong><p>قياس الرضا لا يطلب اسمًا أو بريدًا إلكترونيًا. وفي نموذج المشاركة لا يتم طلب البريد الإلكتروني إلا عند اختيار الرغبة في الحصول على رد، وتخضع البيانات المقدمة للسياسة الرسمية المنشورة أعلاه.</p></div>
+      </aside>
+
       <p class="privacy-contact">
         للاستفسارات المتعلقة بالخصوصية يمكن التواصل عبر البريد الإلكتروني:
         <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
@@ -54,7 +59,7 @@ const privacyMeta = {
     .privacy-official-copy h2{margin:0 0 8px}.privacy-official-copy p{margin:0 0 18px}
     .privacy-actions{display:flex;gap:10px;flex-wrap:wrap}.privacy-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:800}
     .privacy-primary{background:#667a52;color:#fff}.privacy-secondary{background:#fff;color:#667a52;border:1px solid rgba(102,122,82,.25)}
-    .privacy-contact{margin-top:26px;padding:16px 18px;border-radius:14px;background:#f6f4ee;text-align:center}
+    .privacy-collection-note{margin-top:22px;padding:16px 18px;border-radius:14px;background:#eef5f3;border:1px solid rgba(49,95,112,.12);display:flex;align-items:flex-start;gap:12px}.privacy-collection-note>i{color:#315f70;font-size:1.35rem;margin-top:2px}.privacy-collection-note strong{color:#315f70}.privacy-collection-note p{margin:3px 0 0;color:#5f6d66;line-height:1.8}.privacy-contact{margin-top:26px;padding:16px 18px;border-radius:14px;background:#f6f4ee;text-align:center}
     @media(max-width:640px){.privacy-official-card{grid-template-columns:1fr;padding:16px}.privacy-official-card>img{max-height:280px}.privacy-actions{display:grid;grid-template-columns:1fr 1fr}.privacy-actions a{padding-inline:8px}}
     @media(max-width:380px){.privacy-actions{grid-template-columns:1fr}}
   </style>

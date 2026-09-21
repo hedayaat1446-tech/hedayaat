@@ -76,20 +76,12 @@
     {
       "enabled": true,
       "label": "المركز الإعلامي",
-      "children": [
-        {
-          "label": "آخر الأخبار",
-          "href": "/news/"
-        },
-        {
-          "label": "الصور",
-          "href": "/photos/"
-        },
-        {
-          "label": "الفيديو",
-          "href": "/videos/"
-        }
-      ]
+      "href": "/videos/"
+    },
+    {
+      "enabled": true,
+      "label": "مشاركة المستفيد",
+      "href": "/participation/"
     },
     {
       "enabled": true,

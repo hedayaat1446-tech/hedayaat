@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site.json";
+const meta = {
+  ...site.meta,
+  title: "Media Center | Hedayat Educational Foundation",
+  description: "Official video content from Hedayat Educational Foundation.",
+  locale: "en_SA",
+  siteName: "Hedayat Educational Foundation"
+};
+---
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <main id="main-content" class="media-page" tabindex="-1">
+    <header class="media-header"><div class="media-header-inner">
+      <a href="/en/" class="media-brand" aria-label="Back to the English home page"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
+      <a href="/en/" class="media-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>Home</span></a>
+    </div></header>
+    <section class="media-hero"><div class="media-shell">
+      <span class="media-eyebrow">Media Center</span>
+      <div class="media-icon"><i class="bi bi-play-btn" aria-hidden="true"></i></div>
+      <h1>Media Center</h1>
+      <p>Official video content published by Hedayat Educational Foundation.</p>
+    </div></section>
+    <section class="media-content">
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-frame">
+            <video controls preload="metadata" playsinline poster="/media/media-center-video-01-poster.jpg" width="1920" height="1080" aria-label="Visual introduction to Hedayat Educational Foundation" aria-describedby="video-visual-description-en">
+              <source src="/media/media-center-video-01.mp4" type="video/mp4" />
+              Your browser does not support video playback.
+            </video>
+          </div>
+          <div class="video-info">
+            <span class="video-label"><i class="bi bi-camera-video" aria-hidden="true"></i> Silent introductory video</span>
+            <h2>Visual introduction to Hedayat Educational Foundation</h2>
+            <p>The video introduces the Foundation, followed by its vision and mission, values, strategic goals, programs and partnerships, and concludes with contact information and a QR code.</p>
+            <details class="video-description" open id="video-visual-description-en">
+              <summary><i class="bi bi-card-text" aria-hidden="true"></i> Visual description</summary>
+              <div class="video-description-body">
+                <p><strong>Accessibility note:</strong> The published file does not contain an audio track. The description below summarizes the main scenes and on-screen text.</p>
+                <ol>
+                  <li><span>0–5 sec</span> Introductory screen displaying the name of Hedayat Educational Foundation and a brief overview.</li>
+                  <li><span>5–11 sec</span> Vision and mission presented in two visual cards.</li>
+                  <li><span>11–16 sec</span> Foundation values, including quality, credibility, transparency, collaboration, innovation and flexibility.</li>
+                  <li><span>16–21 sec</span> Strategic goals displayed as visual elements.</li>
+                  <li><span>21–26 sec</span> Programs and partnerships with related logos shown on screen.</li>
+                  <li><span>26–30 sec</span> Contact screen with communication details and a QR code.</li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <style>
+    :global(body){margin:0;background:#f7f4ee;color:#334137}.media-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-english,Arial,sans-serif)}
+    .media-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.media-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .media-brand img{display:block;width:190px;max-width:47vw;height:auto}.media-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#5e734a;font-weight:700;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}
+    .media-hero{padding:76px 20px 48px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)}.media-shell{max-width:760px;margin:auto}.media-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#eef2e8;color:#5e734a;font-weight:800;margin-bottom:22px}
+    .media-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#fff4ea;color:#de8f62;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)}h1{font-size:clamp(2.25rem,5vw,4rem);margin:0 0 14px;font-weight:900;color:#334137}.media-hero p{margin:0 auto;max-width:650px;font-size:1.15rem;line-height:1.8;color:#667267}
+    .media-content{max-width:980px;margin:0 auto;padding:0 20px 90px}.video-grid{display:grid;grid-template-columns:1fr;gap:26px}.video-card{overflow:hidden;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:28px;box-shadow:0 20px 56px rgba(51,65,55,.07)}.video-frame{background:#111;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}.video-frame video{display:block;width:100%;height:100%;object-fit:contain;background:#111}.video-info{padding:24px 28px 28px;text-align:left}.video-label{display:inline-flex;align-items:center;gap:8px;color:#5e734a;background:#eef2e8;border-radius:999px;padding:7px 13px;font-size:.88rem;font-weight:800;margin-bottom:14px}.video-info h2{font-size:clamp(1.35rem,3vw,1.8rem);margin:0 0 9px;color:#334137}.video-info p{margin:0;color:#68756d;font-size:1.02rem;line-height:1.8}
+    .video-description{margin-top:20px;border:1px solid rgba(94,115,74,.16);border-radius:14px;background:#f8faf6;overflow:hidden}.video-description summary{cursor:pointer;list-style:none;padding:13px 15px;font-weight:900;color:#4e643e;display:flex;align-items:center;gap:8px}.video-description summary::-webkit-details-marker{display:none}.video-description summary::after{content:"+";margin-left:auto;font-size:1.2rem}.video-description[open] summary::after{content:"−"}.video-description-body{padding:0 16px 16px;border-top:1px solid rgba(94,115,74,.12)}.video-description-body p{margin:13px 0;color:#647168;font-size:.94rem}.video-description-body ol{margin:0;padding-left:1.2rem;color:#5f6e63;line-height:1.8}.video-description-body li+li{margin-top:7px}.video-description-body li span{display:inline-block;min-width:82px;color:#40543f;font-weight:900}
+    @media(max-width:600px){.media-header-inner{padding:12px 16px}.media-brand img{width:150px}.media-home span{display:none}.media-home{width:42px;height:42px;justify-content:center;padding:0}.media-hero{padding:56px 18px 34px}.media-content{padding-left:16px;padding-right:16px}.video-card{border-radius:22px}.video-info{padding:20px 18px 22px}}
+  </style>
+</BaseLayout>

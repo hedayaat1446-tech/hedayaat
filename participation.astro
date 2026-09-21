@@ -1,0 +1,196 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
+const meta = {
+  ...site.meta,
+  title: "مركز مشاركة المستفيد وقياس الرضا | مؤسسة هدايات التعليمية",
+  description: "مركز مشاركة المستفيد في مؤسسة هدايات التعليمية لقياس الرضا واستقبال الاقتراحات والاستفسارات والملاحظات مع رقم مرجعي للمتابعة."
+};
+---
+<BaseLayout meta={meta}>
+  <main id="main-content" class="participation-page">
+    <header class="participation-header">
+      <div class="participation-header-inner">
+        <a href="/" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+        <div class="participation-header-actions">
+          <a href="/en/participation/" lang="en" dir="ltr">EN</a>
+          <a href="/"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+        </div>
+      </div>
+    </header>
+
+    <section class="participation-hero" aria-labelledby="participation-title">
+      <div class="participation-shell">
+        <span class="participation-kicker"><i class="bi bi-people" aria-hidden="true"></i> صوت المستفيد جزء من التحسين</span>
+        <h1 id="participation-title">مركز مشاركة المستفيد وقياس الرضا</h1>
+        <p>مساحة موحدة لقياس تجربتك، واستقبال مقترحاتك واستفساراتك وملاحظاتك، ومتابعة الطلبات برقم مرجعي واضح.</p>
+        <div class="participation-hero-actions">
+          <a href="#satisfaction" class="participation-primary"><i class="bi bi-star" aria-hidden="true"></i> قياس الرضا</a>
+          <a href="#request" class="participation-secondary"><i class="bi bi-chat-square-text" aria-hidden="true"></i> إرسال مشاركة</a>
+          <a href="#track" class="participation-secondary"><i class="bi bi-search" aria-hidden="true"></i> متابعة طلب</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="participation-intro" aria-label="خيارات المشاركة">
+      <article><i class="bi bi-bar-chart-line" aria-hidden="true"></i><h2>قياس الرضا</h2><p>قيّم تجربتك من 1 إلى 5 وساعدنا على تحديد جوانب التحسين.</p></article>
+      <article><i class="bi bi-lightbulb" aria-hidden="true"></i><h2>اقتراح أو استفسار</h2><p>شارك فكرة، ملاحظة، استفسارًا أو بلاغًا تقنيًا من خلال نموذج موحد.</p></article>
+      <article><i class="bi bi-journal-check" aria-hidden="true"></i><h2>متابعة واضحة</h2><p>يحصل كل طلب على رقم مرجعي يمكن استخدامه لمعرفة حالته دون عرض محتواه علنًا.</p></article>
+    </section>
+
+    <section id="satisfaction" class="participation-section" aria-labelledby="satisfaction-title">
+      <div class="participation-section-head">
+        <span>مؤشر الرضا</span>
+        <h2 id="satisfaction-title">كيف تقيّم تجربتك مع الموقع؟</h2>
+        <p>اختر درجة من 1 إلى 5. لا يطلب هذا النموذج اسمك أو بريدك الإلكتروني.</p>
+      </div>
+      <form id="satisfactionForm" class="participation-card participation-form" novalidate>
+        <fieldset class="score-fieldset">
+          <legend>مستوى الرضا</legend>
+          <div class="score-options" role="radiogroup" aria-label="مستوى الرضا من 1 إلى 5">
+            <label><input type="radio" name="score" value="1" required /><span><strong>1</strong><small>غير راضٍ</small></span></label>
+            <label><input type="radio" name="score" value="2" /><span><strong>2</strong><small>ضعيف</small></span></label>
+            <label><input type="radio" name="score" value="3" /><span><strong>3</strong><small>مقبول</small></span></label>
+            <label><input type="radio" name="score" value="4" /><span><strong>4</strong><small>جيد</small></span></label>
+            <label><input type="radio" name="score" value="5" /><span><strong>5</strong><small>ممتاز</small></span></label>
+          </div>
+        </fieldset>
+        <div class="form-grid">
+          <label class="field"><span>الجانب الذي تقيّمه</span><select name="reason"><option value="overall">التجربة بشكل عام</option><option value="clarity">وضوح المحتوى</option><option value="ease">سهولة الاستخدام</option><option value="content">جودة المحتوى</option><option value="accessibility">إمكانية الوصول</option><option value="speed">سرعة الوصول للمعلومة</option><option value="other">جانب آخر</option></select></label>
+          <label class="field field-full"><span>ملاحظة إضافية <small>(اختياري)</small></span><textarea name="comment" maxlength="1500" rows="4" placeholder="اكتب ملاحظتك باختصار..."></textarea></label>
+        </div>
+        <input class="participation-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-submit-row"><button type="submit" class="participation-submit"><i class="bi bi-send" aria-hidden="true"></i> إرسال التقييم</button><div id="satisfactionStatus" class="form-status" role="status" aria-live="polite"></div></div>
+      </form>
+    </section>
+
+    <section id="request" class="participation-section participation-soft" aria-labelledby="request-title">
+      <div class="participation-section-head">
+        <span>مشاركة المستفيد</span>
+        <h2 id="request-title">أرسل اقتراحًا أو استفسارًا</h2>
+        <p>بعد الإرسال ستحصل على رقم مرجعي. بيانات التواصل اختيارية ولا تُطلب إلا إذا رغبت في الحصول على رد.</p>
+      </div>
+      <form id="participationForm" class="participation-card participation-form" novalidate>
+        <div class="form-grid">
+          <label class="field"><span>نوع المشاركة <b aria-hidden="true">*</b></span><select name="type" required><option value="">اختر النوع</option><option value="suggestion">اقتراح</option><option value="complaint">ملاحظة / شكوى</option><option value="inquiry">استفسار</option><option value="technical">مشكلة تقنية</option></select></label>
+          <label class="field"><span>التصنيف <b aria-hidden="true">*</b></span><select name="category" required><option value="">اختر التصنيف</option><option value="programs">البرامج والمبادرات</option><option value="governance">الحوكمة والوثائق</option><option value="website">الموقع الإلكتروني</option><option value="accessibility">إمكانية الوصول</option><option value="general">عام</option></select></label>
+          <label class="field field-full"><span>عنوان المشاركة <b aria-hidden="true">*</b></span><input name="subject" maxlength="180" required placeholder="عنوان مختصر وواضح" /></label>
+          <label class="field field-full"><span>التفاصيل <b aria-hidden="true">*</b></span><textarea name="details" maxlength="4000" rows="6" required placeholder="اكتب التفاصيل التي تساعد على فهم المشاركة..."></textarea></label>
+        </div>
+        <label class="response-toggle"><input id="responseRequested" type="checkbox" name="responseRequested" /><span><strong>أرغب في الحصول على رد</strong><small>سيظهر حقل البريد الإلكتروني عند تفعيل هذا الخيار.</small></span></label>
+        <div id="responseFields" class="form-grid response-fields" hidden>
+          <label class="field"><span>الاسم <small>(اختياري)</small></span><input name="name" maxlength="120" autocomplete="name" /></label>
+          <label class="field"><span>البريد الإلكتروني <b aria-hidden="true">*</b></span><input name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" /></label>
+        </div>
+        <label class="privacy-check"><input type="checkbox" name="privacyAccepted" required /><span>اطلعت على <a href="/privacy/" target="_blank" rel="noopener">سياسة الخصوصية</a> وأوافق على معالجة البيانات المقدمة لغرض استلام هذه المشاركة ومتابعتها.</span></label>
+        <input class="participation-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-submit-row"><button type="submit" class="participation-submit"><i class="bi bi-send" aria-hidden="true"></i> إرسال المشاركة</button><div id="participationStatus" class="form-status" role="status" aria-live="polite"></div></div>
+        <div id="referenceBox" class="reference-box" hidden>
+          <div><span>رقم الطلب المرجعي</span><strong id="referenceValue"></strong><small>احتفظ بهذا الرقم لمتابعة حالة الطلب.</small></div>
+          <button id="copyReference" type="button"><i class="bi bi-clipboard" aria-hidden="true"></i> نسخ الرقم</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="track" class="participation-section" aria-labelledby="track-title">
+      <div class="participation-section-head">
+        <span>متابعة الطلب</span>
+        <h2 id="track-title">تحقق من حالة مشاركتك</h2>
+        <p>أدخل الرقم المرجعي الذي ظهر لك بعد الإرسال. لا يتم عرض نص المشاركة أو بيانات التواصل في نتيجة المتابعة.</p>
+      </div>
+      <form id="trackForm" class="participation-card track-form" novalidate>
+        <label class="field"><span>الرقم المرجعي</span><input id="trackReference" name="reference" maxlength="40" autocomplete="off" placeholder="HDY-2026-XXXXXXXXXX" required /></label>
+        <button type="submit" class="participation-submit"><i class="bi bi-search" aria-hidden="true"></i> التحقق من الحالة</button>
+        <div id="trackStatus" class="form-status track-status" role="status" aria-live="polite"></div>
+        <div id="trackResult" class="track-result" hidden></div>
+      </form>
+    </section>
+
+    <section class="participation-note" aria-label="ملاحظة الخصوصية">
+      <i class="bi bi-shield-check" aria-hidden="true"></i>
+      <div><h2>خصوصيتك مهمة</h2><p>قياس الرضا لا يطلب بيانات شخصية. وفي نموذج المشاركة، لا يتم طلب البريد الإلكتروني إلا عند اختيار الرغبة في الحصول على رد. تجنب إدخال بيانات شخصية أو حساسة لا تحتاجها المشاركة.</p></div>
+    </section>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const qs = (s, root=document) => root.querySelector(s);
+      const setStatus = (el, text, state='') => { el.textContent = text || ''; el.dataset.state = state; };
+      const responseToggle = qs('#responseRequested');
+      const responseFields = qs('#responseFields');
+      const emailInput = qs('input[name="email"]', responseFields);
+      responseToggle?.addEventListener('change', () => {
+        responseFields.hidden = !responseToggle.checked;
+        emailInput.required = responseToggle.checked;
+        if (!responseToggle.checked) { qs('input[name="name"]', responseFields).value=''; emailInput.value=''; }
+      });
+
+      const satisfactionForm = qs('#satisfactionForm');
+      satisfactionForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const status = qs('#satisfactionStatus');
+        const submit = qs('button[type="submit"]', satisfactionForm);
+        const fd = new FormData(satisfactionForm);
+        if (!fd.get('score')) { setStatus(status, 'يرجى اختيار مستوى الرضا أولًا.', 'error'); satisfactionForm.querySelector('input[name="score"]')?.focus(); return; }
+        submit.disabled = true; setStatus(status, 'جارٍ إرسال التقييم...', 'loading');
+        try {
+          const r = await fetch('/api/satisfaction', { method:'POST', credentials:'same-origin', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({score:Number(fd.get('score')),reason:String(fd.get('reason')||'overall'),comment:String(fd.get('comment')||''),'bot-field':String(fd.get('bot-field')||''),lang:'ar',page:location.pathname}) });
+          const data = await r.json().catch(()=>({})); if(!r.ok) throw new Error(data.message||'تعذر إرسال التقييم.');
+          satisfactionForm.reset(); setStatus(status, data.message||'شكرًا لك. تم تسجيل مستوى رضاك.', 'success');
+        } catch (e) { setStatus(status, e.message||'تعذر إرسال التقييم.', 'error'); }
+        finally { submit.disabled = false; }
+      });
+
+      const participationForm = qs('#participationForm');
+      participationForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const status = qs('#participationStatus');
+        const submit = qs('button[type="submit"]', participationForm);
+        if (!participationForm.reportValidity()) return;
+        const fd = new FormData(participationForm);
+        submit.disabled = true; setStatus(status, 'جارٍ إرسال المشاركة...', 'loading'); qs('#referenceBox').hidden = true;
+        try {
+          const payload = {type:String(fd.get('type')||''),category:String(fd.get('category')||''),subject:String(fd.get('subject')||''),details:String(fd.get('details')||''),responseRequested:fd.get('responseRequested')==='on',name:String(fd.get('name')||''),email:String(fd.get('email')||''),privacyAccepted:fd.get('privacyAccepted')==='on','bot-field':String(fd.get('bot-field')||''),lang:'ar'};
+          const r = await fetch('/api/participation', {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+          const data = await r.json().catch(()=>({})); if(!r.ok) throw new Error(data.message||'تعذر إرسال المشاركة.');
+          participationForm.reset(); responseFields.hidden=true; emailInput.required=false; setStatus(status, data.message||'تم استلام طلبك بنجاح.', 'success');
+          qs('#referenceValue').textContent = data.reference || ''; qs('#referenceBox').hidden = !data.reference;
+          qs('#trackReference').value = data.reference || '';
+        } catch (e) { setStatus(status, e.message||'تعذر إرسال المشاركة.', 'error'); }
+        finally { submit.disabled = false; }
+      });
+
+      qs('#copyReference')?.addEventListener('click', async () => {
+        const value = qs('#referenceValue').textContent.trim(); if(!value) return;
+        try { await navigator.clipboard.writeText(value); qs('#copyReference').textContent='تم النسخ'; setTimeout(()=>{qs('#copyReference').innerHTML='<i class="bi bi-clipboard" aria-hidden="true"></i> نسخ الرقم';},1400); } catch {}
+      });
+
+      const statusLabels = {received:'تم الاستلام',in_review:'قيد المراجعة',resolved:'تمت المعالجة',closed:'مغلق'};
+      const typeLabels = {suggestion:'اقتراح',complaint:'ملاحظة / شكوى',inquiry:'استفسار',technical:'مشكلة تقنية'};
+      qs('#trackForm')?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const out = qs('#trackStatus'); const result = qs('#trackResult'); const ref = qs('#trackReference').value.trim().toUpperCase();
+        result.hidden=true; setStatus(out,'جارٍ التحقق...','loading');
+        try {
+          const r = await fetch(`/api/participation/status?reference=${encodeURIComponent(ref)}`, {headers:{Accept:'application/json'},credentials:'same-origin'}); const data=await r.json().catch(()=>({})); if(!r.ok) throw new Error(data.message||'تعذر التحقق من الحالة.');
+          const d=data.data||{}; const received=new Date(d.receivedAt); const updated=new Date(d.statusUpdatedAt);
+          result.innerHTML='<div><span>رقم الطلب</span><strong class="track-ref"></strong></div><div><span>النوع</span><strong class="track-type"></strong></div><div><span>الحالة</span><strong class="track-state"></strong></div><div><span>آخر تحديث</span><strong class="track-date"></strong></div>';
+          qs('.track-ref',result).textContent=d.reference||ref; qs('.track-type',result).textContent=typeLabels[d.type]||'—'; qs('.track-state',result).textContent=statusLabels[d.status]||d.status||'—'; qs('.track-date',result).textContent=Number.isNaN(updated.getTime())?'—':updated.toLocaleString('ar-SA');
+          result.hidden=false; setStatus(out,'تم العثور على الطلب.','success');
+        } catch(e) { setStatus(out,e.message||'تعذر التحقق من الحالة.','error'); }
+      });
+    })();
+  </script>
+
+  <style>
+    :global(body){margin:0;background:#f7f8f5;color:#35433a}.participation-page{min-height:100vh;font-family:var(--font-family-arabic)}.participation-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(100,117,80,.14);backdrop-filter:blur(12px)}.participation-header-inner{max-width:1160px;margin:auto;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}.participation-header img{display:block;width:180px;max-width:44vw;height:auto}.participation-header-actions{display:flex;gap:8px}.participation-header-actions a{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid rgba(100,117,80,.2);border-radius:10px;color:#526441;background:#fff;font-weight:900;text-decoration:none}
+    .participation-hero{padding:78px 20px 62px;text-align:center;background:radial-gradient(circle at 10% 20%,rgba(190,174,89,.12),transparent 28%),linear-gradient(135deg,#f0f4ea,#fff 58%,#eaf3f3)}.participation-shell{max-width:880px;margin:auto}.participation-kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:#eaf0e3;color:#526441;font-weight:900}.participation-hero h1{font-size:clamp(2.15rem,5vw,3.8rem);margin:18px 0 13px;color:#30483e;font-weight:950}.participation-hero p{max-width:780px;margin:auto;color:#637168;line-height:2;font-size:1.05rem}.participation-hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}.participation-hero-actions a{display:inline-flex;align-items:center;gap:8px;padding:11px 17px;border-radius:11px;text-decoration:none;font-weight:900}.participation-primary{background:#315f70;color:#fff}.participation-secondary{background:#fff;color:#315f70;border:1px solid rgba(49,95,112,.2)}
+    .participation-intro{max-width:1160px;margin:-25px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:2}.participation-intro article{background:#fff;border:1px solid rgba(100,117,80,.13);border-radius:18px;padding:24px;box-shadow:0 13px 32px rgba(55,73,63,.07)}.participation-intro article>i{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;background:#edf3e8;color:#526441;font-size:23px}.participation-intro h2{font-size:1.12rem;margin:14px 0 6px;color:#344c40}.participation-intro p{margin:0;color:#69766e;line-height:1.85;font-size:.94rem}
+    .participation-section{max-width:1160px;margin:auto;padding:70px 20px 10px;scroll-margin-top:90px}.participation-soft{max-width:none;margin-top:55px;padding-top:65px;padding-bottom:65px;background:#f0f4f1}.participation-soft>.participation-section-head,.participation-soft>.participation-card{max-width:1120px;margin-inline:auto}.participation-section-head{text-align:center;margin-bottom:24px}.participation-section-head>span{color:#8a7433;font-weight:900;font-size:.86rem}.participation-section-head h2{margin:5px 0 7px;color:#344c40;font-size:clamp(1.65rem,3vw,2.3rem);font-weight:950}.participation-section-head p{margin:0 auto;max-width:760px;color:#69766e;line-height:1.85}.participation-card{background:#fff;border:1px solid rgba(100,117,80,.14);border-radius:22px;padding:28px;box-shadow:0 14px 36px rgba(55,73,63,.06)}
+    .score-fieldset{border:0;padding:0;margin:0 0 24px}.score-fieldset legend{font-weight:900;color:#3b5045;margin-bottom:10px}.score-options{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.score-options label{cursor:pointer}.score-options input{position:absolute;opacity:0;pointer-events:none}.score-options span{min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #d8e2dc;border-radius:15px;background:#fbfcfb;color:#52645b;transition:.18s ease}.score-options strong{font-size:1.6rem;color:#315f70}.score-options small{font-size:.78rem}.score-options input:checked+span{border-color:#315f70;background:#eaf3f3;box-shadow:0 0 0 3px rgba(49,95,112,.08)}.score-options input:focus-visible+span{outline:3px solid #beae59;outline-offset:3px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:grid;gap:7px}.field-full{grid-column:1/-1}.field>span{font-weight:900;color:#3d5147}.field small{font-weight:500;color:#77847d}.field input,.field select,.field textarea{width:100%;border:1px solid #d2ded7;border-radius:11px;padding:11px 12px;background:#fff;color:#35433a;font:inherit;outline:0}.field textarea{resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#315f70;box-shadow:0 0 0 3px rgba(49,95,112,.08)}.response-toggle,.privacy-check{display:flex;align-items:flex-start;gap:10px;margin-top:18px}.response-toggle input,.privacy-check input{margin-top:5px;accent-color:#315f70}.response-toggle span{display:grid}.response-toggle strong{color:#3d5147}.response-toggle small{color:#758078}.response-fields{margin-top:16px}.privacy-check span{color:#657168;line-height:1.8}.privacy-check a{color:#315f70;font-weight:900}.participation-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important}.form-submit-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}.participation-submit{border:0;border-radius:11px;padding:11px 17px;background:#315f70;color:#fff;font:inherit;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}.participation-submit:disabled{opacity:.6;cursor:wait}.form-status{min-height:26px;font-weight:800;color:#6c7871}.form-status[data-state="success"]{color:#226044}.form-status[data-state="error"]{color:#9b2c2c}.form-status[data-state="loading"]{color:#66777d}.reference-box{margin-top:20px;padding:17px;border-radius:15px;background:#eef5f3;border:1px solid #ccdfda;display:flex;align-items:center;justify-content:space-between;gap:16px}.reference-box[hidden]{display:none}.reference-box div{display:grid;gap:2px}.reference-box span,.reference-box small{color:#64766d}.reference-box strong{direction:ltr;text-align:right;color:#234e5d;font-size:1.2rem;letter-spacing:.03em}.reference-box button{border:1px solid #bfd3cd;background:#fff;color:#315f70;border-radius:9px;padding:9px 12px;font:inherit;font-weight:900;cursor:pointer}
+    .track-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end;max-width:830px;margin:auto}.track-status,.track-result{grid-column:1/-1}.track-result{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2px}.track-result[hidden]{display:none}.track-result>div{border:1px solid #dbe4df;border-radius:12px;padding:13px;background:#fafcfb;display:grid;gap:3px}.track-result span{font-size:.78rem;color:#758078}.track-result strong{color:#344c40}.track-ref{direction:ltr;text-align:right}.participation-note{max-width:1120px;margin:58px auto 85px;padding:24px;display:flex;gap:17px;align-items:flex-start;background:#315f70;color:#fff;border-radius:20px}.participation-note>i{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:14px;background:rgba(255,255,255,.12);font-size:25px}.participation-note h2{margin:0 0 5px;font-size:1.25rem}.participation-note p{margin:0;color:#e8f0f1;line-height:1.85}
+    :global(.a11y-high-contrast) .participation-card,:global(.a11y-high-contrast) .participation-intro article,:global(.a11y-high-contrast) .field input,:global(.a11y-high-contrast) .field select,:global(.a11y-high-contrast) .field textarea{border-color:#222!important;box-shadow:none!important}:global(.a11y-high-contrast) .score-options input:checked+span{background:#111!important;color:#fff!important}
+    @media(max-width:850px){.participation-intro{grid-template-columns:1fr}.score-options{grid-template-columns:repeat(5,minmax(0,1fr))}.track-result{grid-template-columns:1fr 1fr}}@media(max-width:620px){.participation-header-inner{padding:11px 14px}.participation-header img{width:142px}.participation-header-actions a span{display:none}.participation-hero{padding:54px 15px 46px}.participation-intro{margin-top:18px;padding:0 14px}.participation-section{padding:52px 14px 8px}.participation-soft{padding-top:52px;padding-bottom:52px}.participation-card{padding:18px;border-radius:17px}.score-options{grid-template-columns:1fr 1fr 1fr}.score-options label:nth-child(4),.score-options label:nth-child(5){grid-column:span 1}.form-grid{grid-template-columns:1fr}.field-full{grid-column:auto}.form-submit-row{align-items:stretch}.participation-submit{width:100%}.reference-box{align-items:stretch;flex-direction:column}.track-form{grid-template-columns:1fr}.track-result{grid-template-columns:1fr}.participation-note{margin:48px 14px 70px;flex-direction:column}}
+  </style>
+</BaseLayout>

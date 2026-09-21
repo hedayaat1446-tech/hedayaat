@@ -12,6 +12,10 @@ const port = Number.isInteger(requestedPort) && requestedPort > 0 && requestedPo
 const root = resolve(process.cwd(), 'dist');
 const dataDir = process.env.DATA_DIR || join(process.cwd(), 'data');
 const contactMessagesFile = process.env.CONTACT_MESSAGES_FILE || join(dataDir, 'contact-messages.jsonl');
+const feedbackMessagesFile = process.env.FEEDBACK_MESSAGES_FILE || join(dataDir, 'feedback-messages.jsonl');
+const satisfactionResponsesFile = process.env.SATISFACTION_RESPONSES_FILE || join(dataDir, 'satisfaction-responses.jsonl');
+const participationRequestsFile = process.env.PARTICIPATION_REQUESTS_FILE || join(dataDir, 'participation-requests.jsonl');
+const participationUpdatesFile = process.env.PARTICIPATION_UPDATES_FILE || join(dataDir, 'participation-updates.jsonl');
 const persistedSiteFile = process.env.SITE_CONFIG_STORE || join(dataDir, 'site.json');
 const adminPassword = process.env.ADMIN_PASSWORD || '';
 const adminSecret = process.env.ADMIN_SECRET || adminPassword;
@@ -27,6 +31,10 @@ const types = {
 };
 
 const rateBuckets = new Map();
+const feedbackRateBuckets = new Map();
+const satisfactionRateBuckets = new Map();
+const participationRateBuckets = new Map();
+const participationStatusRateBuckets = new Map();
 const adminLoginBuckets = new Map();
 let adminSaveInProgress = false;
 
@@ -82,6 +90,22 @@ function checkRateLimit(bucket, key, windowMs, max) {
 
 function rateLimited(req) {
   return checkRateLimit(rateBuckets, clientIp(req), 15 * 60 * 1000, 5);
+}
+
+function feedbackRateLimited(req) {
+  return checkRateLimit(feedbackRateBuckets, clientIp(req), 60 * 60 * 1000, 12);
+}
+
+function satisfactionRateLimited(req) {
+  return checkRateLimit(satisfactionRateBuckets, clientIp(req), 60 * 60 * 1000, 12);
+}
+
+function participationRateLimited(req) {
+  return checkRateLimit(participationRateBuckets, clientIp(req), 60 * 60 * 1000, 8);
+}
+
+function participationStatusRateLimited(req) {
+  return checkRateLimit(participationStatusRateBuckets, clientIp(req), 15 * 60 * 1000, 60);
 }
 
 function adminLoginRateLimited(req) {
@@ -195,7 +219,7 @@ function validateSiteConfig(site) {
   const needString = (value, name, max = 1000) => { if (!nonEmptyString(value, max)) errors.push(`${name} must be a non-empty string`); };
   const needArray = (value, name) => { if (!Array.isArray(value)) errors.push(`${name} must be an array`); };
   const allowedFragments = new Set(['home','about','vision-item','mission-item','goals','values','programs','partners','contact']);
-  const allowedRoutes = new Set(['/','/board/','/governance/','/transparency/','/accessibility/','/en/','/news/','/photos/','/videos/','/reports/','/privacy/','/thank/']);
+  const allowedRoutes = new Set(['/','/board/','/governance/','/transparency/','/accessibility/','/participation/','/en/','/en/videos/','/en/participation/','/videos/','/reports/','/privacy/','/thank/']);
   const validHref = (value, name, { externalOnly = false } = {}) => {
     if (!nonEmptyString(value, 1000)) { errors.push(`${name} must be a non-empty link`); return; }
     if (externalOnly) {
@@ -434,6 +458,291 @@ async function optionalEmailDelivery(message) {
   }
 }
 
+async function handleFeedback(req, res) {
+  if (!sameOriginAllowed(req)) {
+    json(res, 403, { ok: false, message: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.' });
+    return;
+  }
+
+  if (feedbackRateLimited(req)) {
+    json(res, 429, { ok: false, message: 'تم استلام عدة تقييمات مؤخرًا. يرجى المحاولة لاحقًا.' }, { 'Retry-After': '3600' });
+    return;
+  }
+
+  let body;
+  try {
+    body = parseRequestBody(req, await readBody(req, 8 * 1024));
+  } catch (error) {
+    if (error?.statusCode === 413) json(res, 413, { ok: false, message: 'حجم التقييم أكبر من المسموح.' });
+    else json(res, 400, { ok: false, message: 'تعذر قراءة التقييم.' });
+    return;
+  }
+
+  const requestLang = cleanText(body.lang, 10).toLowerCase() === 'en' ? 'en' : 'ar';
+  const text = requestLang === 'en' ? {
+    invalid: 'Please choose an answer before submitting your feedback.',
+    storage: 'Your feedback could not be saved right now. Please try again.',
+    success: 'Thank you. Your feedback has been recorded.'
+  } : {
+    invalid: 'اختاري تقييمًا قبل إرسال رأيك.',
+    storage: 'تعذر حفظ رأيك حاليًا. يرجى المحاولة مرة أخرى.',
+    success: 'شكرًا لك. تم تسجيل رأيك بنجاح.'
+  };
+
+  // Honeypot: look successful to bots without storing anything.
+  if (cleanText(body['bot-field'], 100)) {
+    json(res, 201, { ok: true, message: text.success });
+    return;
+  }
+
+  const choice = cleanText(body.choice, 20).toLowerCase();
+  if (!['yes', 'somewhat', 'no'].includes(choice)) {
+    json(res, 422, { ok: false, message: text.invalid });
+    return;
+  }
+
+  let page = cleanText(body.page, 500) || '/';
+  if (!page.startsWith('/') || page.startsWith('//') || page.includes('\\')) page = '/';
+
+  const feedback = {
+    id: randomUUID(),
+    receivedAt: new Date().toISOString(),
+    lang: requestLang,
+    choice,
+    page,
+    comment: cleanText(body.comment, 1200)
+  };
+
+  try {
+    await mkdir(dirname(feedbackMessagesFile), { recursive: true });
+    await appendFile(feedbackMessagesFile, `${JSON.stringify(feedback)}\n`, { encoding: 'utf8', mode: 0o600 });
+  } catch (error) {
+    console.error('feedback storage error:', error?.message || error);
+    json(res, 500, { ok: false, message: text.storage });
+    return;
+  }
+
+  json(res, 201, { ok: true, message: text.success });
+}
+
+
+function isTruthy(value) {
+  return value === true || value === 1 || String(value ?? '').toLowerCase() === 'true' || String(value ?? '') === '1' || String(value ?? '').toLowerCase() === 'on';
+}
+
+function participationReference() {
+  const token = randomUUID().replace(/-/g, '').slice(0, 10).toUpperCase();
+  return `HDY-${new Date().getFullYear()}-${token}`;
+}
+
+async function safeReadRecentJsonl(filePath, maxLines = 200, maxBytes = 2 * 1024 * 1024) {
+  try { return await readRecentJsonl(filePath, maxLines, maxBytes); }
+  catch (error) { if (error?.code === 'ENOENT') return []; throw error; }
+}
+
+async function mergedParticipationRows(limit = 500) {
+  const [requests, updates] = await Promise.all([
+    safeReadRecentJsonl(participationRequestsFile, Math.max(limit, 5000), 6 * 1024 * 1024),
+    safeReadRecentJsonl(participationUpdatesFile, 5000, 4 * 1024 * 1024)
+  ]);
+  const latest = new Map();
+  for (const update of updates) {
+    const ref = cleanText(update?.reference, 80);
+    if (ref && !latest.has(ref)) latest.set(ref, update);
+  }
+  return requests.slice(0, limit).map((item) => {
+    const update = latest.get(item.reference);
+    return {
+      ...item,
+      status: update?.status || item.status || 'received',
+      statusUpdatedAt: update?.updatedAt || item.statusUpdatedAt || item.receivedAt
+    };
+  });
+}
+
+async function handleSatisfaction(req, res) {
+  if (!sameOriginAllowed(req)) {
+    json(res, 403, { ok: false, message: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.' });
+    return;
+  }
+  if (satisfactionRateLimited(req)) {
+    json(res, 429, { ok: false, message: 'تم استلام عدة تقييمات مؤخرًا. يرجى المحاولة لاحقًا.' }, { 'Retry-After': '3600' });
+    return;
+  }
+
+  let body;
+  try { body = parseRequestBody(req, await readBody(req, 12 * 1024)); }
+  catch (error) {
+    if (error?.statusCode === 413) json(res, 413, { ok: false, message: 'حجم التقييم أكبر من المسموح.' });
+    else json(res, 400, { ok: false, message: 'تعذر قراءة التقييم.' });
+    return;
+  }
+
+  const lang = cleanText(body.lang, 10).toLowerCase() === 'en' ? 'en' : 'ar';
+  const t = lang === 'en' ? {
+    invalid: 'Please select a satisfaction score from 1 to 5.',
+    storage: 'We could not save your rating right now. Please try again.',
+    success: 'Thank you. Your satisfaction rating has been recorded.'
+  } : {
+    invalid: 'يرجى اختيار مستوى الرضا من 1 إلى 5.',
+    storage: 'تعذر حفظ تقييم الرضا حاليًا. يرجى المحاولة مرة أخرى.',
+    success: 'شكرًا لك. تم تسجيل مستوى رضاك.'
+  };
+  if (cleanText(body['bot-field'], 100)) { json(res, 201, { ok: true, message: t.success }); return; }
+
+  const score = Number(body.score);
+  if (!Number.isInteger(score) || score < 1 || score > 5) {
+    json(res, 422, { ok: false, message: t.invalid });
+    return;
+  }
+  const allowedReasons = new Set(['overall','clarity','ease','content','accessibility','speed','other']);
+  const reason = cleanText(body.reason, 40).toLowerCase();
+  let page = cleanText(body.page, 500) || '/participation/';
+  if (!page.startsWith('/') || page.startsWith('//') || page.includes('\\')) page = '/participation/';
+  const entry = {
+    id: randomUUID(),
+    receivedAt: new Date().toISOString(),
+    lang,
+    score,
+    reason: allowedReasons.has(reason) ? reason : 'overall',
+    page,
+    comment: cleanText(body.comment, 1500)
+  };
+  try {
+    await mkdir(dirname(satisfactionResponsesFile), { recursive: true });
+    await appendFile(satisfactionResponsesFile, `${JSON.stringify(entry)}\n`, { encoding: 'utf8', mode: 0o600 });
+  } catch (error) {
+    console.error('satisfaction storage error:', error?.message || error);
+    json(res, 500, { ok: false, message: t.storage });
+    return;
+  }
+  json(res, 201, { ok: true, message: t.success });
+}
+
+async function handleParticipationRequest(req, res) {
+  if (!sameOriginAllowed(req)) {
+    json(res, 403, { ok: false, message: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.' });
+    return;
+  }
+  if (participationRateLimited(req)) {
+    json(res, 429, { ok: false, message: 'تم إرسال عدة طلبات مؤخرًا. يرجى المحاولة لاحقًا.' }, { 'Retry-After': '3600' });
+    return;
+  }
+
+  let body;
+  try { body = parseRequestBody(req, await readBody(req, 24 * 1024)); }
+  catch (error) {
+    if (error?.statusCode === 413) json(res, 413, { ok: false, message: 'حجم الطلب أكبر من المسموح.' });
+    else json(res, 400, { ok: false, message: 'تعذر قراءة بيانات الطلب.' });
+    return;
+  }
+
+  const lang = cleanText(body.lang, 10).toLowerCase() === 'en' ? 'en' : 'ar';
+  const t = lang === 'en' ? {
+    invalid: 'Please complete the required fields and accept the privacy notice.',
+    email: 'Please enter a valid email address if you would like a response.',
+    storage: 'We could not save your request right now. Please try again.',
+    success: 'Your request has been received.'
+  } : {
+    invalid: 'يرجى إكمال الحقول المطلوبة والموافقة على إشعار الخصوصية.',
+    email: 'يرجى إدخال بريد إلكتروني صحيح إذا رغبت في الحصول على رد.',
+    storage: 'تعذر حفظ طلبك حاليًا. يرجى المحاولة مرة أخرى.',
+    success: 'تم استلام طلبك بنجاح.'
+  };
+  if (cleanText(body['bot-field'], 100)) {
+    json(res, 201, { ok: true, reference: participationReference(), status: 'received', message: t.success });
+    return;
+  }
+
+  const allowedTypes = new Set(['suggestion','complaint','inquiry','technical']);
+  const allowedCategories = new Set(['programs','governance','website','accessibility','general']);
+  const type = cleanText(body.type, 30).toLowerCase();
+  const category = cleanText(body.category, 30).toLowerCase();
+  const subject = cleanText(body.subject, 180);
+  const details = cleanText(body.details, 4000);
+  const privacyAccepted = isTruthy(body.privacyAccepted);
+  const responseRequested = isTruthy(body.responseRequested);
+  const name = cleanText(body.name, 120);
+  const email = cleanText(body.email, 254).toLowerCase();
+
+  if (!allowedTypes.has(type) || !allowedCategories.has(category) || subject.length < 3 || details.length < 10 || !privacyAccepted) {
+    json(res, 422, { ok: false, message: t.invalid });
+    return;
+  }
+  if ((responseRequested || email) && !isValidEmail(email)) {
+    json(res, 422, { ok: false, message: t.email });
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const request = {
+    id: randomUUID(),
+    reference: participationReference(),
+    receivedAt: now,
+    status: 'received',
+    statusUpdatedAt: now,
+    lang,
+    type,
+    category,
+    subject,
+    details,
+    responseRequested,
+    name: responseRequested ? name : '',
+    email: responseRequested ? email : ''
+  };
+  try {
+    await mkdir(dirname(participationRequestsFile), { recursive: true });
+    await appendFile(participationRequestsFile, `${JSON.stringify(request)}\n`, { encoding: 'utf8', mode: 0o600 });
+  } catch (error) {
+    console.error('participation storage error:', error?.message || error);
+    json(res, 500, { ok: false, message: t.storage });
+    return;
+  }
+  json(res, 201, { ok: true, reference: request.reference, status: request.status, receivedAt: request.receivedAt, message: t.success });
+}
+
+async function handleParticipationStatus(req, res, url) {
+  const lang = cleanText(url.searchParams.get('lang'), 10).toLowerCase() === 'en' ? 'en' : 'ar';
+  const text = lang === 'en' ? {
+    invalid: 'The reference number is not valid.',
+    missing: 'No request was found with this reference number.',
+    error: 'We could not check the request status right now.',
+    limited: 'Too many status checks. Please try again later.'
+  } : {
+    invalid: 'رقم الطلب غير صالح.',
+    missing: 'لم يتم العثور على طلب بهذا الرقم.',
+    error: 'تعذر التحقق من حالة الطلب حاليًا.',
+    limited: 'تم إجراء عدد كبير من عمليات التحقق. يرجى المحاولة لاحقًا.'
+  };
+  if (participationStatusRateLimited(req)) {
+    json(res, 429, { ok: false, message: text.limited }, { 'Retry-After': '900' });
+    return;
+  }
+  const reference = cleanText(url.searchParams.get('reference'), 80).toUpperCase();
+  if (!/^HDY-\d{4}-[A-F0-9]{10}$/.test(reference)) {
+    json(res, 422, { ok: false, message: text.invalid });
+    return;
+  }
+  try {
+    const rows = await mergedParticipationRows(5000);
+    const match = rows.find((item) => item.reference === reference);
+    if (!match) { json(res, 404, { ok: false, message: text.missing }); return; }
+    json(res, 200, {
+      ok: true,
+      data: {
+        reference: match.reference,
+        status: match.status,
+        receivedAt: match.receivedAt,
+        statusUpdatedAt: match.statusUpdatedAt,
+        type: match.type
+      }
+    });
+  } catch (error) {
+    console.error('participation status error:', error?.message || error);
+    json(res, 500, { ok: false, message: text.error });
+  }
+}
+
 async function handleContact(req, res) {
   if (!sameOriginAllowed(req)) {
     json(res, 403, { ok: false, message: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.' });
@@ -559,8 +868,8 @@ function secureCookie(req) {
   return String(req.headers['x-forwarded-proto'] || '').split(',')[0].trim().toLowerCase() === 'https' || Boolean(req.socket.encrypted);
 }
 
-async function readRecentMessages(maxLines = 200, maxBytes = 2 * 1024 * 1024) {
-  const handle = await open(contactMessagesFile, 'r');
+async function readRecentJsonl(filePath, maxLines = 200, maxBytes = 2 * 1024 * 1024) {
+  const handle = await open(filePath, 'r');
   try {
     const info = await handle.stat();
     const length = Math.min(info.size, maxBytes);
@@ -692,11 +1001,68 @@ async function handleAdminApi(req, res, pathname) {
 
   if (pathname === '/api/admin/messages' && req.method === 'GET') {
     try {
-      const data = await readRecentMessages(200);
+      const data = await readRecentJsonl(contactMessagesFile, 200);
       json(res, 200, { ok: true, data });
     } catch (error) {
       if (error?.code === 'ENOENT') json(res, 200, { ok: true, data: [] });
       else json(res, 500, { ok: false, message: 'تعذر قراءة الرسائل.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/feedback' && req.method === 'GET') {
+    try {
+      const data = await readRecentJsonl(feedbackMessagesFile, 500);
+      json(res, 200, { ok: true, data });
+    } catch (error) {
+      if (error?.code === 'ENOENT') json(res, 200, { ok: true, data: [] });
+      else json(res, 500, { ok: false, message: 'تعذر قراءة آراء الزوار.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/satisfaction' && req.method === 'GET') {
+    try {
+      const data = await safeReadRecentJsonl(satisfactionResponsesFile, 1000, 4 * 1024 * 1024);
+      json(res, 200, { ok: true, data });
+    } catch {
+      json(res, 500, { ok: false, message: 'تعذر قراءة قياسات الرضا.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/participation' && req.method === 'GET') {
+    try {
+      const data = await mergedParticipationRows(1000);
+      json(res, 200, { ok: true, data });
+    } catch {
+      json(res, 500, { ok: false, message: 'تعذر قراءة طلبات المستفيدين.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/participation/status' && req.method === 'PATCH') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 8 * 1024)); }
+    catch { json(res, 400, { ok: false, message: 'طلب غير صالح.' }); return true; }
+    const reference = cleanText(body.reference, 80).toUpperCase();
+    const status = cleanText(body.status, 30).toLowerCase();
+    if (!/^HDY-\d{4}-[A-F0-9]{10}$/.test(reference) || !['received','in_review','resolved','closed'].includes(status)) {
+      json(res, 422, { ok: false, message: 'رقم الطلب أو الحالة غير صالح.' });
+      return true;
+    }
+    const rows = await mergedParticipationRows(5000);
+    if (!rows.some((item) => item.reference === reference)) {
+      json(res, 404, { ok: false, message: 'لم يتم العثور على الطلب.' });
+      return true;
+    }
+    const update = { reference, status, updatedAt: new Date().toISOString() };
+    try {
+      await mkdir(dirname(participationUpdatesFile), { recursive: true });
+      await appendFile(participationUpdatesFile, `${JSON.stringify(update)}\n`, { encoding: 'utf8', mode: 0o600 });
+      json(res, 200, { ok: true, message: 'تم تحديث حالة الطلب.', data: update });
+    } catch {
+      json(res, 500, { ok: false, message: 'تعذر تحديث حالة الطلب.' });
     }
     return true;
   }
@@ -813,6 +1179,26 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/contact' && req.method === 'POST') {
       await handleContact(req, res);
+      return;
+    }
+
+    if (pathname === '/api/feedback' && req.method === 'POST') {
+      await handleFeedback(req, res);
+      return;
+    }
+
+    if (pathname === '/api/satisfaction' && req.method === 'POST') {
+      await handleSatisfaction(req, res);
+      return;
+    }
+
+    if (pathname === '/api/participation' && req.method === 'POST') {
+      await handleParticipationRequest(req, res);
+      return;
+    }
+
+    if (pathname === '/api/participation/status' && req.method === 'GET') {
+      await handleParticipationStatus(req, res, url);
       return;
     }
 
