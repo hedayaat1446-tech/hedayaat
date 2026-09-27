@@ -1,12 +1,5 @@
 # إعداد Railway — هدايات
 
-## تشغيل المشروع على Railway
-
-- Build command: `npm run build`
-- Start command: `npm start`
-- `npm start` يشغّل `server.mjs`، وهو الخادم الفعلي للموقع وواجهات `/api/*`.
-- لا تستخدم `astro preview` كخادم إنتاج؛ لأنه لا يشغّل واجهات API الخاصة بالمشروع وقد يسبب خطأ `allowedHosts`.
-
 الموقع لا يعتمد على Netlify بعد الآن.
 
 ## متغيرات البيئة الموصى بها
