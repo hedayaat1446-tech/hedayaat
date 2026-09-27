@@ -1,11 +1,45 @@
-# Hedayaat — Exact Report Version
+# Hedayat Website
 
-هذه النسخة تعيد واجهة الموقع الأصلية المطابقة للصور الواردة في تقرير موقع هدايات، بدون إعادة تصميم.
+موقع تعريفي لمؤسسة هدايات التعليمية، مبني باستخدام Astro ويدعم إدارة المحتوى عبر Decap CMS.
 
-## Railway
-- Build Command: `npm run build`
-- Start Command: `npm start`
+## Tech Stack
+- Astro
+- HTML / CSS
+- Bootstrap
+- Bootstrap Icons
+- Decap CMS
+- Netlify
 
-الملفات في هذا ZIP مسطحة لسهولة رفعها على GitHub. أثناء البناء يعيد `prepare-structure.mjs` إنشاء `src/` و`public/` تلقائيًا من هذه الملفات، ويحذف أي مجلدات قديمة حتى لا يظهر تصميم سابق بالخطأ.
+## Run Locally
+npm install
+npm run dev
 
-علامة الإصدار: `2026-09-10-EXACT-REPORT`
+## Build
+npm run build
+
+## Preview
+npm run preview
+
+## Deployment
+Build command:
+npm run build
+
+Publish directory:
+dist
+
+## CMS
+Admin panel:
+https://YOUR-SITE.netlify.app/admin
+
+## Content File
+src/content/site.json
+
+## Notes
+- PDF files should be added inside public/
+- Netlify Identity and Git Gateway must be enabled for CMS access.
+
+
+
+## Feedback
+قسم «رأيك يهمنا» مرتبط بنموذج Microsoft Forms التالي. تُدار الاستجابات من حساب Microsoft ويمكن فتحها في Excel للتحليل:
+https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAppL2WJUQjlEOEJEVzFWOTc5TFBGSEI5TVJTUkhXVC4u

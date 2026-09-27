@@ -4,15 +4,14 @@ import site from "../content/site.json";
 
 const nav = (site.nav || []).filter((x) => x.enabled !== false);
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
-const waMessage = "السلام عليكم، أرغب بالاستفسار عن برامج مؤسسة هدايات التعليمية";
-const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;
+const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحباً هدايات")}`;
 ---
 
 <BaseLayout meta={site.meta}>
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
     <div class="container align-items-center">
-      <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-nav" style="display:block; height:48px; width:auto; max-width:min(56vw,340px); object-fit:contain; background:transparent !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
+      <a class="navbar-brand d-flex align-items-center" href="#home">
+        <img src={site.assets.logoNav} alt="شعار هدايات" />
         <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
       </a>
 
@@ -29,25 +28,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
-          {nav.map((item) => item.children?.length ? (
-            <li class="nav-item dropdown hedayat-nav-group">
-              <button
-                class="nav-link dropdown-toggle nav-dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                data-bs-display="static"
-                aria-expanded="false"
-              >
-                {item.label}
-              </button>
-              <ul class="dropdown-menu hedayat-dropdown">
-                {item.children.map((child) => (
-                  <li><a class="dropdown-item" href={child.href}>{child.label}</a></li>
-                ))}
-              </ul>
-            </li>
-          ) : (
+          {nav.map((item) => (
             <li class="nav-item"><a class="nav-link" href={item.href}>{item.label}</a></li>
           ))}
         </ul>
@@ -63,75 +44,47 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     </div>
   </nav>
 
-  <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
-
-  <style is:inline>
-  /* v6: official transparent logo + light identity theme. Inline on purpose so an old cached stylesheet cannot restore the white card. */
-  .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .official-logo { padding: 0 !important; }
-  @media (max-width: 768px) {
-    .official-logo-nav { height: 39px !important; max-width: min(48vw, 190px) !important; }
-    .official-logo-hero { width: min(88vw, 470px) !important; }
-    .official-logo-footer { width: min(58vw, 220px) !important; }
-  }
-</style>
-
-<main id="main-content">
+  <main>
     <section id="home" class="hero-section" style={{ "--hero-bg": `url(${site.assets.heroBackground})` }}>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
-            <div class="official-logo-hero-wrap mb-5" style="display:flex; justify-content:center; align-items:center; width:100%; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important;">
-              <img src={site.assets.logoHero} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-hero" style="display:block; width:min(82vw,620px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 auto !important;" />
-            </div>
-            <div class="hero-copy">
-              <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
-              <p class="lead hero-lead mb-4">{site.hero.lead}</p>
+            <img src={site.assets.logoHero} alt="شعار هدايات" class="hero-logo-img mb-5" />
+            <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
+            <p class="lead hero-lead mb-4">{site.hero.lead}</p>
 
-              <div class="d-flex flex-wrap justify-content-center gap-2 gap-md-3 mt-2">
-                {site.hero.cta.map((b) => (
-                  <a href={b.href} class={b.variant === "secondary" ? "btn-cta-secondary" : "btn-cta-primary"}>
-                    {b.label}
-                  </a>
-                ))}
-              </div>
+            <div class="d-flex flex-wrap justify-content-center gap-2 gap-md-3 mt-2">
+              {site.hero.cta.map((b) => (
+                <a href={b.href} class={b.variant === "secondary" ? "btn-cta-secondary" : "btn-cta-primary"}>
+                  {b.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" preserveAspectRatio="none">
-        <path fill="#F7F4EE" opacity="0.98" d="M0,80 C240,120 480,40 720,80 C960,120 1200,60 1440,90 L1440,160 L0,160 Z"></path>
-        <path fill="#EEF2E8" opacity="0.88" d="M0,90 C240,130 480,50 720,90 C960,130 1200,70 1440,100 L1440,160 L0,160 Z"></path>
-        <path fill="#E8F2F1" opacity="0.72" d="M0,100 C240,140 480,60 720,100 C960,140 1200,80 1440,110 L1440,160 L0,160 Z"></path>
+        <path fill="#101713" opacity="0.9" d="M0,80 C240,120 480,40 720,80 C960,120 1200,60 1440,90 L1440,160 L0,160 Z"></path>
+        <path fill="#101713" opacity="0.7" d="M0,90 C240,130 480,50 720,90 C960,130 1200,70 1440,100 L1440,160 L0,160 Z"></path>
+        <path fill="#101713" opacity="0.5" d="M0,100 C240,140 480,60 720,100 C960,140 1200,80 1440,110 L1440,160 L0,160 Z"></path>
       </svg>
     </section>
 
-
-
     <section id="about" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.about.title}</h2>
           <p class="ref-section-subtitle">{site.about.subtitle}</p>
         </div>
 
-        <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
+        <div class="ref-card p-4 p-md-5 reveal-on-scroll">
           <div class="row g-4 align-items-center">
             <div class="col-md-5">
-              <div class="p-4 rounded-3" style="background-color:var(--soft-sage);">
+              <div class="p-4 rounded-3" style="background-color:#ebd5b3;">
                 <div class="d-flex flex-column align-items-center text-center">
                   <i class="bi bi-patch-check-fill display-5 mb-3" style="color:var(--primary);" aria-hidden="true"></i>
-                  <h3 class="fw-bold" style="font-family: var(--font-family-arabic); color: var(--primary);">
+                  <h3 class="fw-bold" style="font-family: var(--font-family-title); color: var(--primary);">
                     {site.about.cardTitle}
                   </h3>
                   <p class="mb-0" style="color:var(--text-card-muted);">
@@ -142,7 +95,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
             </div>
 
             <div class="col-md-7">
-              <h4 class="mb-3" style="font-family: var(--font-family-arabic); color: var(--primary);">
+              <h4 class="mb-3" style="font-family: var(--font-family-title); color: var(--primary);">
                 {site.about.textTitle}
               </h4>
               <p class="mb-3" style="color:var(--text-card-muted);">{site.about.p1}</p>
@@ -154,16 +107,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     </section>
 
     <section id="vision" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.vision.title}</h2>
           <p class="ref-section-subtitle">{site.vision.subtitle}</p>
         </div>
 
-        <div class="ref-grid-2 report-grid-vision">
-          {site.vision.items.map((x, index) => (
-            <div id={index === 0 ? "vision-item" : "mission-item"} class="ref-card ref-feature reveal-on-scroll">
+        <div class="ref-grid-2">
+          {site.vision.items.map((x) => (
+            <div class="ref-card ref-feature reveal-on-scroll">
               <div class="icon"><i class={x.icon} aria-hidden="true"></i></div>
               <h3>{x.title}</h3>
               <p>{x.text}</p>
@@ -180,7 +132,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <p class="ref-section-subtitle">{site.goals.subtitle}</p>
         </div>
 
-        <div class="ref-grid-4 report-grid-goals">
+        <div class="ref-grid-2">
           {site.goals.items.map((g) => (
             <div class="ref-card ref-feature goal-card reveal-on-scroll">
               <div class="icon"><i class={g.icon} aria-hidden="true"></i></div>
@@ -199,7 +151,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <p class="ref-section-subtitle">{site.values.subtitle}</p>
         </div>
 
-        <div class="ref-grid-4 report-grid-values">
+        <div class="ref-grid-3">
           {site.values.items.map((v) => (
             <div class="ref-card ref-feature reveal-on-scroll">
               <div class="icon"><i class={v.icon} aria-hidden="true"></i></div>
@@ -211,81 +163,126 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </div>
     </section>
 
-    <section id="programs" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.programs.title}</h2>
-          <p class="ref-section-subtitle">{site.programs.subtitle}</p>
-        </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>{site.programs.cardTitle}</h3>
-            <p>{site.programs.cardText}</p>
-          </div>
-          <a class="institutional-info-action" href={site.programs.ctaHref}>{site.programs.ctaLabel}</a>
-        </article>
-      </div>
-    </section>
+ <section id="board" class="ref-wrap">
+  <div class="ref-section text-center">
+    <div class="ref-section-header">
+      <h2 class="ref-section-title">{site.docs.board.title}</h2>
+      {site.docs.board.subtitle && (
+        <p class="ref-section-subtitle">{site.docs.board.subtitle}</p>
+      )}
+    </div>
 
-    <section id="partners" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
+    <div class="mx-auto reveal-on-scroll" style="max-width: 640px;">
+      <a href={site.docs.board.fileHref} download class="ref-card ref-link-card">
+        <div class="left">
+          <div class="icon"><i class="bi bi-file-earmark-person" aria-hidden="true"></i></div>
+          <div>
+            <div class="title">{site.docs.board.buttonLabel}</div>
+            {site.docs.board.buttonHint && <small>{site.docs.board.buttonHint}</small>}
+          </div>
+        </div>
+        <i class="bi bi-download" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="reports" class="ref-wrap">
+  <div class="ref-section">
+    <div class="ref-section-header text-center">
+      <h2 class="ref-section-title">{site.docs.reports.title}</h2>
+      {site.docs.reports.subtitle && (
+        <p class="ref-section-subtitle">{site.docs.reports.subtitle}</p>
+      )}
+    </div>
+
+    <div class="mx-auto" style="max-width: 640px; display: grid; gap: 1rem;">
+      {(site.docs.reports.items ?? []).map((r) => (
+        <a href={r.fileHref} download class="ref-card ref-link-card reveal-on-scroll">
+          <div class="left">
+            <div class="icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
+            <div>
+              <div class="title">{r.buttonLabel}</div>
+              {r.buttonHint && <small>{r.buttonHint}</small>}
+            </div>
+          </div>
+          <i class="bi bi-download" aria-hidden="true"></i>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+    <section id="feedback" class="ref-wrap feedback-section-wrap">
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.partners.title}</h2>
-          <p class="ref-section-subtitle">{site.partners.subtitle}</p>
+          <h2 class="ref-section-title">رأيك يهمنا</h2>
+          <p class="ref-section-subtitle">شاركنا تقييم تجربتك مع موقع هدايات، واكتب رأيك أو ملاحظتك. تُجمع الاستجابات عبر Microsoft Forms لتسهيل تحليلها في Excel.</p>
         </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>{site.partners.cardTitle}</h3>
-            <p>{site.partners.cardText}</p>
-          </div>
-          <a class="institutional-info-action" href={site.partners.ctaHref}>{site.partners.ctaLabel}</a>
-        </article>
+
+        <div class="feedback-card feedback-ms-card reveal-on-scroll">
+          <div class="feedback-ms-icon" aria-hidden="true"><i class="bi bi-chat-heart"></i></div>
+          <h3>ساعدنا نطوّر تجربة هدايات</h3>
+          <p>النموذج قصير ويحتوي على تقييم بالنجوم وخانة لكتابة رأيك أو ملاحظتك.</p>
+          <a
+            class="btn-form-submit feedback-ms-button"
+            href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAppL2WJUQjlEOEJEVzFWOTc5TFBGSEI5TVJTUkhXVC4u"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="فتح نموذج تقييم هدايات في نافذة جديدة"
+          >
+            شاركنا رأيك
+            <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+          </a>
+          <div class="feedback-hint">سيُفتح نموذج Microsoft Forms في نافذة جديدة.</div>
+        </div>
       </div>
     </section>
 
     <section id="contact" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.contact.title}</h2>
           <p class="ref-section-subtitle">{site.contact.subtitle}</p>
         </div>
 
-        <div class="contact-container report-contact">
+        <div class="contact-container">
           <div class="contact-form reveal-on-scroll">
-            <form id="contact-form" name="contact" method="POST" action="/api/contact">
-              <!-- Honeypot ضد الرسائل الآلية -->
-              <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <form id="contact-form"   name="contact"
+  method="POST"
+  data-netlify="true"
+  data-netlify-honeypot="bot-field"
+  action="/thank">
+   <!-- لازم هذا -->
+  <input type="hidden" name="form-name" value="contact" />
+
+  <!-- Honeypot ضد السبام (مخفي) -->
+  <p style="display:none;">
+    <label>Don’t fill this out: <input name="bot-field" /></label>
+  </p>
               <div class="form-group">
                 <label class="form-label" for="name">الاسم الكامل</label>
-                <input class="form-input" id="name" name="name" type="text" autocomplete="name" maxlength="120" required />
+                <input class="form-input" id="name" name="name" type="text" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="email">البريد الإلكتروني</label>
-                <input class="form-input" id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+                <input class="form-input" id="email" name="email" type="email" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="subject">موضوع الرسالة</label>
-                <input class="form-input" id="subject" name="subject" type="text" maxlength="180" />
+                <input class="form-input" id="subject" name="subject" type="text" />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="message">نص الرسالة</label>
-                <textarea class="form-textarea" id="message" name="message" maxlength="5000" required></textarea>
+                <textarea class="form-textarea" id="message" name="message" required></textarea>
               </div>
 
               <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
-              <p class="form-privacy-note">
-                تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسار فقط.
-                <a href="/privacy/">سياسة الخصوصية</a>
-              </p>
-              <div id="form-status" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
+              <div id="form-status" class="mt-2" style="font-size:0.85rem;"></div>
             </form>
           </div>
 
@@ -294,7 +291,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="contact-icon"><i class="bi bi-envelope" aria-hidden="true"></i></div>
               <div class="contact-details">
                 <h3>البريد الإلكتروني</h3>
-                <p><a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+                <p>{site.contact.email}</p>
               </div>
             </div>
 
@@ -302,7 +299,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="contact-icon"><i class="bi bi-telephone" aria-hidden="true"></i></div>
               <div class="contact-details">
                 <h3>رقم الهاتف / واتساب</h3>
-                <p><a class="contact-link" href={`tel:${waDigits ? `+${waDigits}` : site.contact.phone}`}>{site.contact.phone}</a></p>
+                <p>{site.contact.phone}</p>
               </div>
             </div>
 
@@ -311,117 +308,48 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="contact-details">
                 <h3>العنوان</h3>
                 <p>{site.contact.address}</p>
-                {site.contact.locationUrl && (
-                  <a class="contact-action-link" href={site.contact.locationUrl} target="_blank" rel="noopener">
-                    <i class="bi bi-map" aria-hidden="true"></i>
-                    فتح الموقع على الخريطة
-                  </a>
-                )}
               </div>
             </div>
 
-            {site.contact.iban && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>معلومات الحساب البنكي</h3>
-                  <p>
-                    رقم الحساب البنكي (آيبان):
-                    <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
-                  </p>
-                </div>
+            <div class="contact-item reveal-on-scroll">
+              <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
+              <div class="contact-details">
+                <h3>معلومات الحساب البنكي</h3>
+                <p>
+                  رقم الحساب البنكي (آيبان):
+                  <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
+                </p>
               </div>
-            )}
+            </div>
 
-            {site.contact.social?.length > 0 && (
-              <div class="contact-item contact-social-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
-                <div class="contact-details social-contact-details">
-                  <h3>حسابات التواصل الاجتماعي</h3>
-                  <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
-                  <div class="official-social-links" aria-label="حسابات هدايات الرسمية">
-                    {site.contact.social.map((account) => (
-                      <a
-                        class="official-social-link"
-                        href={account.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`هدايات على ${account.label}`}
-                        title={`هدايات على ${account.label}`}
-                      >
-                        {account.name === "X" ? (
-                          <span class="social-x-mark" aria-hidden="true">X</span>
-                        ) : (
-                          <i class={`bi ${account.icon}`} aria-hidden="true"></i>
-                        )}
-                        <span>{account.label}</span>
-                      </a>
-                    ))}
-                  </div>
+            <div class="contact-item reveal-on-scroll">
+              <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
+              <div class="contact-details">
+                <h3>تابعنا على</h3>
+                <div class="social-icons-row">
+                  {site.contact.social.map((s) => (
+                    <a href={s.url} target="_blank" rel="noopener" class="social-icon-circle" aria-label={s.label}>
+                      <i class={s.icon}></i>
+                    </a>
+                  ))}
                 </div>
               </div>
-            )}
+            </div>
 
           </div>
         </div>
       </div>
     </section>
-
-    <section class="official-trust-bar" aria-label="بيانات المؤسسة الرسمية">
-      <div class="official-trust-inner">
-        <div class="trust-item trust-item--type">
-          <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-          <div><span>صفة المؤسسة</span><strong>{site.institution.type}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
-          <div><span>رقم الترخيص</span><strong dir="ltr">{site.institution.licenseNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-building" aria-hidden="true"></i>
-          <div><span>الرقم الوطني الموحد</span><strong dir="ltr">{site.institution.unifiedNationalNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
-          <div><span>جهة الإشراف</span><strong>{site.institution.supervision}</strong></div>
-        </div>
-        <a class="trust-verify" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-patch-check" aria-hidden="true"></i>
-          <span>التحقق من الترخيص</span>
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-        </a>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--start" />
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--end" />
     <div class="footer-top">
       <div class="footer-logos">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" width="733" height="340" />
+        <img src={site.assets.logoNav} alt="شعار هدايات" class="footer-logo" />
+        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo" />
       </div>
 
       <p class="footer-license">{site.footer.licenseText}</p>
-
-      <nav class="footer-links" aria-label="روابط أسفل الصفحة">
-        <a href="/#home">الرئيسية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/governance/">مركز الحوكمة</a>
-        <span aria-hidden="true">•</span>
-        <a href="/transparency/">الشفافية والإفصاح</a>
-        <span aria-hidden="true">•</span>
-        <a href="/accessibility/">إمكانية الوصول</a>
-        <span aria-hidden="true">•</span>
-        <a href="/participation/">مشاركة المستفيد</a>
-        <span aria-hidden="true">•</span>
-        <a href="/#contact">تواصل معنا</a>
-        <span aria-hidden="true">•</span>
-        <a href="/privacy/">سياسة الخصوصية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/en/" lang="en" dir="ltr">English</a>
-      </nav>
     </div>
 
     <hr class="footer-divider" />
@@ -441,7 +369,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       if (window.scrollY > 60) hdr.classList.add('scrolled');
       else hdr.classList.remove('scrolled');
     }
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     window.addEventListener('load', handleScroll);
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -461,58 +389,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
         revealEls.forEach(el => el.classList.add('is-visible'));
       }
 
-      // إرسال نموذج التواصل إلى خادم Railway نفسه بدل الاعتماد على Netlify Forms.
-      const contactForm = document.getElementById('contact-form');
-      const formStatus = document.getElementById('form-status');
-      if (contactForm && formStatus) {
-        contactForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          if (!contactForm.reportValidity()) return;
 
-          const submitButton = contactForm.querySelector('button[type="submit"]');
-          const originalLabel = submitButton?.textContent || 'إرسال الرسالة';
-          if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'جارٍ الإرسال...';
-          }
-          formStatus.className = 'form-status is-pending';
-          formStatus.textContent = 'يتم إرسال رسالتك الآن...';
+      // Formspree AJAX
 
-          try {
-            const params = new URLSearchParams(new FormData(contactForm));
-            const response = await fetch('/api/contact', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Accept': 'application/json'
-              },
-              body: params.toString()
-            });
-            const data = await response.json().catch(() => ({}));
-            if (!response.ok || !data.ok) throw new Error(data.message || 'تعذر إرسال الرسالة.');
-
-            contactForm.reset();
-            formStatus.className = 'form-status is-success';
-            formStatus.textContent = data.message || 'تم استلام رسالتك بنجاح.';
-          } catch (error) {
-            formStatus.className = 'form-status is-error';
-            formStatus.textContent = error?.message || 'تعذر إرسال الرسالة حاليًا. يرجى المحاولة مرة أخرى.';
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalLabel;
-            }
-          }
-        });
-      }
-
-      // إغلاق منيو الجوال فقط بعد اختيار رابط فعلي.
-      // لا نغلقها عند الضغط على عناوين القوائم الفرعية مثل "عن المؤسسة" و"الحوكمة".
+      // إغلاق منيو الجوال
       const navMain    = document.getElementById('navMain');
       const navToggler = document.querySelector('.navbar-toggler');
       if (navMain && navToggler) {
-        const destinationLinks = navMain.querySelectorAll('a.nav-link, a.dropdown-item');
-        destinationLinks.forEach(link => {
+        const navLinks = navMain.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
           link.addEventListener('click', () => {
             const isTogglerVisible = window.getComputedStyle(navToggler).display !== 'none';
             const isExpanded = navToggler.getAttribute('aria-expanded') === 'true';

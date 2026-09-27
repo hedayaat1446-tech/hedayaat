@@ -2,102 +2,67 @@
   "meta": {
     "title": "مؤسسة هدايات التعليمية",
     "description": "مؤسسة هدايات التعليمية - منارة هدى لتعميق الوعي المجتمعي ونشر المعارف الصحيحة عبر برامج نوعية بخبرات مؤهلة وطرق ميسرة وجاذبة.",
-    "url": "https://hedayaat-production.up.railway.app",
-    "ogImage": "/hedayat-official-logo-v5.png",
-    "locale": "ar_SA",
-    "siteName": "مؤسسة هدايات التعليمية"
+    "url": "https://YOUR-SITE-NAME.netlify.app",
+    "ogImage": "/1.png",
+    "locale": "ar_SA"
   },
   "assets": {
-    "logoNav": "/hedayat-official-logo-v5.png",
-    "logoHero": "/hedayat-official-logo-hero-v7.png",
+    "logoNav": "/1.png",
+    "logoHero": "/2.png",
     "heroBackground": "/hero_image1.jpeg",
-    "nationalCenterLogo": "/national-center-logo.png",
-    "trusteesBoard": "/trustees-board.png"
+    "nationalCenterLogo": "/national-center-logo.png"
   },
   "nav": [
     {
       "enabled": true,
-      "label": "عن المؤسسة",
-      "children": [
-        {
-          "label": "من نحن",
-          "href": "#about"
-        },
-        {
-          "label": "الرؤية",
-          "href": "#vision-item"
-        },
-        {
-          "label": "الرسالة",
-          "href": "#mission-item"
-        },
-        {
-          "label": "الأهداف الاستراتيجية",
-          "href": "#goals"
-        },
-        {
-          "label": "قيمنا",
-          "href": "#values"
-        },
-        {
-          "label": "أعضاء مجلس الأمناء",
-          "href": "/board/"
-        }
-      ]
+      "label": "من نحن",
+      "href": "#about"
     },
     {
       "enabled": true,
-      "label": "البرامج",
-      "href": "#programs"
+      "label": "الرؤية والرسالة",
+      "href": "#vision"
     },
     {
       "enabled": true,
-      "label": "الشركاء",
-      "href": "#partners"
+      "label": "الأهداف الاستراتيجية",
+      "href": "#goals"
     },
     {
       "enabled": true,
-      "label": "الحوكمة",
-      "children": [
-        {
-          "label": "مركز الحوكمة",
-          "href": "/governance/"
-        },
-        {
-          "label": "الشفافية والإفصاح",
-          "href": "/transparency/"
-        },
-        {
-          "label": "بيان إمكانية الوصول",
-          "href": "/accessibility/"
-        }
-      ]
+      "label": "قيمنا",
+      "href": "#values"
     },
     {
       "enabled": true,
-      "label": "المركز الإعلامي",
-      "href": "/videos/"
+      "label": "مجلس الإدارة",
+      "href": "#board"
     },
     {
       "enabled": true,
-      "label": "مشاركة المستفيد",
-      "href": "/participation/"
+      "label": "التقارير",
+      "href": "#reports"
+    },
+    {
+      "enabled": true,
+      "label": "شاركنا رأيك",
+      "href": "#feedback"
     },
     {
       "enabled": true,
       "label": "تواصل معنا",
       "href": "#contact"
-    },
-    {
-      "enabled": true,
-      "label": "English",
-      "href": "/en/"
     }
   ],
   "hero": {
     "headline": "منارة هدى لتعميق الوعي المجتمعي",
     "lead": "مؤسسة تعليمية موثوقة متخصصة في تقديم معرفة أصيلة رافدة للقيم العليا للوطن، عبر برامج نوعية بخبرات مؤهلة وطرق ميسرة وجاذبة.",
     "cta": [
+      {
+        "label": "تبرّع / ساهم في البرامج",
+        "href": "#contact",
+        "variant": "primary"
+      },
       {
         "label": "تعرّف على المؤسسة",
         "href": "#about",
@@ -107,7 +72,7 @@
   },
   "about": {
     "title": "من نحن؟",
-    "subtitle": "أنشئت مؤسسة هدايات لترسيخ العقيدة الصحيحة، وبناء وعي عقدي راسخ يحصّن الفرد والمجتمع من الانحرافات العقدية والممارسات الروحانية الوافدة، وذلك من خلال الجمع بين الأصالة العلمية والوسائل المعاصرة المؤثرة، بما يسهم في تعزيز ثوابت الهوية الإسلامية والفكرية للمجتمع.",
+    "subtitle": "المعارف الصحيحة لبناء وعي راسخ للفرد والمجتمع",
     "cardTitle": "مؤسسة تعليمية مسجلة",
     "cardText": "نجمع بين الأصالة العلمية والوسائل المعاصرة المؤثرة لنصنع أثراً عميقاً ومستداماً.",
     "textTitle": "رسالتنا في تعميق الوعي",
@@ -188,99 +153,21 @@
     ]
   },
   "docs": {
+    "board": {
+      "title": "مجلس الإدارة",
+      "subtitle": "نخبة من القادة والخبراء يشرفون على حوكمة المؤسسة وتوجيه مسيرتها",
+      "buttonLabel": "تحميل ملف مجلس الإدارة (PDF)",
+      "buttonHint": "تعريف بالأعضاء وخبراتهم ومسؤولياتهم",
+      "fileHref": "board-info.pdf"
+    },
     "reports": {
-      "title": "القوائم والتقارير المالية",
-      "subtitle": "تُنشر هنا القوائم والتقارير المالية المعتمدة عند إتاحتها للنشر.",
-      "items": []
-    },
-    "trustees": {
-      "title": "أعضاء مجلس الأمناء",
-      "subtitle": "مجلس أمناء مؤسسة هدايات التعليمية",
-      "imageHref": "/trustees-board.png"
-    },
-    "governance": {
-      "title": "مركز الحوكمة",
-      "subtitle": "بوابة موحدة للوثائق النظامية والسياسات المعتمدة ووثائق الحوكمة المؤسسية في مؤسسة هدايات التعليمية.",
-      "official": [
+      "title": "التقارير",
+      "subtitle": "إطلالة شفافة على الإنجازات والأثر والموقف المالي للمؤسسة",
+      "items": [
         {
-          "title": "شهادة ترخيص منظمة غير ربحية",
-          "description": "شهادة الترخيص الرسمية لمؤسسة هدايات التعليمية الصادرة عن المركز الوطني لتنمية القطاع غير الربحي.",
-          "fileHref": "organization-license.pdf",
-          "previewHref": "/organization-license-preview.jpg",
-          "meta": "رقم الترخيص 1100527000",
-          "category": "الترخيص",
-          "status": "منشور",
-          "updated": "06 مارس 2025",
-          "version": "شهادة سارية حتى 05 مارس 2029"
-        },
-        {
-          "title": "اللائحة الأساسية",
-          "description": "اللائحة الأساسية المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها الإداري وأحكام مجلس الأمناء.",
-          "fileHref": "basic-regulation.pdf",
-          "previewHref": "/basic-regulation-preview.jpg",
-          "meta": "وثيقة تنظيمية أساسية",
-          "category": "اللائحة الأساسية",
-          "status": "منشور",
-          "updated": "06 مارس 2025",
-          "version": "اللائحة الأساسية المعتمدة"
-        }
-      ],
-      "policies": [
-        {
-          "title": "سياسة الخصوصية وحماية البيانات",
-          "description": "السياسة المعتمدة لحماية خصوصية البيانات الشخصية وتحديد نطاق استخدامها وحقوق أصحاب البيانات.",
-          "fileHref": "privacy-data-policy.pdf",
-          "previewHref": "/privacy-data-policy-preview.jpg",
-          "meta": "سياسة معتمدة",
-          "status": "منشور",
-          "approvalDate": "17 سبتمبر 2026",
-          "updated": "17 سبتمبر 2026",
-          "version": "الدورة الأولى",
-          "category": "السياسات"
-        },
-        {
-          "title": "سياسة الإفصاح والشفافية",
-          "description": "السياسة المنظمة للإفصاح المؤسسي وقنوات النشر الرسمية والاستثناءات وإدارة تعارض المصالح.",
-          "fileHref": "disclosure-transparency-policy.pdf",
-          "previewHref": "/disclosure-transparency-policy-preview.jpg",
-          "meta": "سياسة معتمدة",
-          "status": "منشور",
-          "approvalDate": "17 سبتمبر 2026",
-          "updated": "17 سبتمبر 2026",
-          "version": "الدورة الأولى",
-          "category": "السياسات"
-        },
-        {
-          "title": "سياسة الاحتفاظ بالوثائق وإتلافها",
-          "description": "السياسة المنظمة لحفظ الوثائق والسجلات ومدد الاحتفاظ بها وإجراءات الإتلاف الآمن.",
-          "fileHref": "records-retention-disposal-policy.pdf",
-          "previewHref": "/records-retention-disposal-policy-preview.jpg",
-          "meta": "سياسة معتمدة",
-          "status": "منشور",
-          "approvalDate": "17 سبتمبر 2026",
-          "updated": "17 سبتمبر 2026",
-          "version": "الدورة الأولى",
-          "category": "السياسات"
-        }
-      ],
-      "planned": [
-        {
-          "title": "الخطة التشغيلية",
-          "category": "الخطة التشغيلية",
-          "status": "بانتظار النشر",
-          "message": "سيتم النشر بعد الاعتماد."
-        },
-        {
-          "title": "التقارير المالية",
-          "category": "التقارير المالية",
-          "status": "بانتظار النشر",
-          "message": "سيتم النشر بعد الاعتماد."
-        },
-        {
-          "title": "التقارير السنوية",
-          "category": "التقارير السنوية",
-          "status": "بانتظار النشر",
-          "message": "سيتم النشر بعد الاعتماد."
+          "buttonLabel": "تحميل التقرير المالي (PDF)",
+          "buttonHint": "عرض للإيرادات والمصروفات وأوجه الصرف على البرامج",
+          "fileHref": "financial-report.pdf"
         }
       ]
     }
@@ -288,72 +175,40 @@
   "contact": {
     "title": "تواصل معنا",
     "subtitle": "نسعد باستقبال استفساراتكم ومقترحاتكم، وطلب الشراكات أو البرامج المخصصة لجهاتكم التعليمية.",
-    "email": "hedayaat1446@gmail.com",
+    "email": "Hadayaat1446@gmail.com",
     "phone": "+966 54 907 8774",
     "address": "جدة، المملكة العربية السعودية",
-    "iban": "",
+    "iban": "SA00 0000 0000 0000 0000 0000",
     "social": [
       {
-        "name": "Instagram",
-        "label": "إنستغرام",
-        "icon": "bi-instagram",
-        "url": "https://www.instagram.com/hedayaat_edu/"
+        "label": "واتساب",
+        "url": "https://wa.me/966549078774",
+        "icon": "bi bi-whatsapp"
       },
       {
-        "name": "X",
-        "label": "X",
-        "icon": "",
-        "url": "https://x.com/hedayaat_edu"
+        "label": "سناب",
+        "url": "#",
+        "icon": "bi bi-snapchat"
       },
       {
-        "name": "TikTok",
-        "label": "تيك توك",
-        "icon": "bi-tiktok",
-        "url": "https://www.tiktok.com/@hedayaat_edu"
-      },
-      {
-        "name": "Snapchat",
-        "label": "سناب شات",
-        "icon": "bi-snapchat",
-        "url": "https://www.snapchat.com/add/hedayaat_edu"
-      },
-      {
-        "name": "YouTube",
         "label": "يوتيوب",
-        "icon": "bi-youtube",
-        "url": "https://www.youtube.com/@hedayaat_edu"
+        "url": "#",
+        "icon": "bi bi-youtube"
+      },
+      {
+        "label": "انستغرام",
+        "url": "#",
+        "icon": "bi bi-instagram"
+      },
+      {
+        "label": "X",
+        "url": "#",
+        "icon": "bi bi-twitter-x"
       }
-    ],
-    "locationUrl": "https://maps.app.goo.gl/F3CqDs2bdyde1Rm68?g_st=iw",
-    "linktreeUrl": "",
-    "socialUsername": "hedayaat_edu"
+    ]
   },
   "footer": {
     "licenseText": "مرخّصة من المركز الوطني لتنمية القطاع غير الربحي برقم ١١٠٠٥٢٧٠٠٠",
     "copyrightText": "جميع الحقوق محفوظة © {year} هدايات"
-  },
-  "programs": {
-    "title": "البرامج والمبادرات",
-    "subtitle": "مساحة مخصصة لعرض البرامج والمبادرات التعليمية للمؤسسة بصورة واضحة ومحدثة.",
-    "cardTitle": "برامج تعليمية نوعية",
-    "cardText": "تعمل المؤسسة على تقديم برامج تعليمية بوسائل معاصرة ميسرة وجاذبة، بما ينسجم مع رسالتها وأهدافها.",
-    "ctaLabel": "الاستفسار عن البرامج",
-    "ctaHref": "#contact"
-  },
-  "partners": {
-    "title": "الشراكات",
-    "subtitle": "نبني تعاوناً مؤسسياً يدعم جودة البرامج ويعزز الأثر المجتمعي.",
-    "cardTitle": "الشراكات المؤسسية",
-    "cardText": "للتواصل بشأن فرص الشراكة والتعاون مع مؤسسة هدايات التعليمية، يمكن استخدام قنوات التواصل الرسمية بالموقع.",
-    "ctaLabel": "طلب شراكة أو تعاون",
-    "ctaHref": "#contact"
-  },
-  "institution": {
-    "type": "مؤسسة أهلية مرخصة",
-    "licenseNumber": "1100527000",
-    "unifiedNationalNumber": "7049464931",
-    "supervision": "وزارة التعليم",
-    "licenseValidUntil": "05 مارس 2029",
-    "verifyUrl": "https://backendgateway.nawa.ncnp.gov.sa/documents/pdf/58967?preview=true&item_type=entity&doc_type=license"
   }
 }

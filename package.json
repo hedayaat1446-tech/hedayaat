@@ -3,13 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node prepare-structure.mjs && astro dev",
-    "build": "node prepare-structure.mjs && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview",
-    "start": "node server.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "5.16.16"
+    "astro": "^5.16.16"
   }
 }
