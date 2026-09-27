@@ -37,9 +37,3 @@ src/content/site.json
 ## Notes
 - PDF files should be added inside public/
 - Netlify Identity and Git Gateway must be enabled for CMS access.
-
-
-
-## Feedback
-قسم «رأيك يهمنا» مرتبط بنموذج Microsoft Forms التالي. تُدار الاستجابات من حساب Microsoft ويمكن فتحها في Excel للتحليل:
-https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAppL2WJUQjlEOEJEVzFWOTc5TFBGSEI5TVJTUkhXVC4u

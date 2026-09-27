@@ -214,28 +214,23 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
 </section>
 
 
-    <section id="feedback" class="ref-wrap feedback-section-wrap">
+    <section id="feedback" class="ref-wrap">
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">رأيك يهمنا</h2>
-          <p class="ref-section-subtitle">شاركنا تقييم تجربتك مع موقع هدايات، واكتب رأيك أو ملاحظتك. تُجمع الاستجابات عبر Microsoft Forms لتسهيل تحليلها في Excel.</p>
+          <p class="ref-section-subtitle">شاركنا تجربتك مع موقع هدايات وساعدنا على تحسين التجربة.</p>
         </div>
 
-        <div class="feedback-card feedback-ms-card reveal-on-scroll">
-          <div class="feedback-ms-icon" aria-hidden="true"><i class="bi bi-chat-heart"></i></div>
-          <h3>ساعدنا نطوّر تجربة هدايات</h3>
-          <p>النموذج قصير ويحتوي على تقييم بالنجوم وخانة لكتابة رأيك أو ملاحظتك.</p>
-          <a
-            class="btn-form-submit feedback-ms-button"
-            href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAppL2WJUQjlEOEJEVzFWOTc5TFBGSEI5TVJTUkhXVC4u"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="فتح نموذج تقييم هدايات في نافذة جديدة"
-          >
-            شاركنا رأيك
+        <div class="feedback-card ref-card reveal-on-scroll">
+          <div class="feedback-icon" aria-hidden="true"><i class="bi bi-chat-heart"></i></div>
+          <div class="feedback-copy">
+            <h3>شاركنا رأيك</h3>
+            <p>استبيان قصير لتقييم تجربتك وكتابة ملاحظتك. تُحفظ الاستجابات في Microsoft Forms ويمكن فتحها في Excel للتحليل.</p>
+          </div>
+          <a class="feedback-button" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAppL2WJUQjlEOEJEVzFWOTc5TFBGSEI5TVJTUkhXVC4u" target="_blank" rel="noopener noreferrer">
+            فتح نموذج التقييم
             <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
           </a>
-          <div class="feedback-hint">سيُفتح نموذج Microsoft Forms في نافذة جديدة.</div>
         </div>
       </div>
     </section>
@@ -388,7 +383,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent("مرحبا�
       } else {
         revealEls.forEach(el => el.classList.add('is-visible'));
       }
-
 
       // Formspree AJAX
 
