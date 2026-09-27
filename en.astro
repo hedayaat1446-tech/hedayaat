@@ -330,7 +330,7 @@ const values = [
                 <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
                 <div class="contact-details social-contact-details">
                   <h3>Official social media</h3>
-                  <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
+                  {site.contact.socialUsername && <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>}
                   <div class="official-social-links" aria-label="Hedayat official social media accounts">
                     {site.contact.social.map((account) => (
                       <a class="official-social-link" href={account.url} target="_blank" rel="noopener noreferrer" aria-label={`Hedayat on ${account.name}`} title={`Hedayat on ${account.name}`}>

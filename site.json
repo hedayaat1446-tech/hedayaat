@@ -10,7 +10,8 @@
     "logoNav": "/1.png",
     "logoHero": "/2.png",
     "heroBackground": "/hero_image1.jpeg",
-    "nationalCenterLogo": "/national-center-logo.png"
+    "nationalCenterLogo": "/national-center-logo.png",
+    "trusteesBoard": "/trustees-board.png"
   },
   "nav": [
     {
@@ -170,6 +171,97 @@
           "fileHref": "financial-report.pdf"
         }
       ]
+    },
+    "trustees": {
+      "title": "مجلس الأمناء",
+      "subtitle": "مجلس أمناء مؤسسة هدايات التعليمية",
+      "imageHref": "/trustees-board.png"
+    },
+    "governance": {
+      "title": "مركز الحوكمة",
+      "subtitle": "الوثائق النظامية والسياسات المنشورة لمؤسسة هدايات التعليمية.",
+      "official": [
+        {
+          "title": "شهادة ترخيص مؤسسة هدايات التعليمية",
+          "description": "شهادة الترخيص الرسمية الصادرة للمؤسسة.",
+          "fileHref": "organization-license.pdf",
+          "previewHref": "/organization-license-preview.jpg",
+          "meta": "وثيقة ترخيص رسمية",
+          "category": "الترخيص",
+          "status": "منشور",
+          "updated": "2025-03-06",
+          "version": "النسخة المنشورة"
+        },
+        {
+          "title": "اللائحة الأساسية لمؤسسة هدايات التعليمية",
+          "description": "اللائحة الأساسية المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها.",
+          "fileHref": "basic-regulation.pdf",
+          "previewHref": "/basic-regulation-preview.jpg",
+          "meta": "اللائحة الأساسية",
+          "category": "اللائحة الأساسية",
+          "status": "منشور",
+          "updated": "النسخة المنشورة",
+          "version": "النسخة المعتمدة"
+        }
+      ],
+      "policies": [
+        {
+          "title": "سياسة حماية البيانات والخصوصية",
+          "description": "السياسة المنشورة المتعلقة بحماية البيانات والخصوصية.",
+          "fileHref": "privacy-data-policy.pdf",
+          "previewHref": "/privacy-data-policy-preview.jpg",
+          "meta": "سياسة مؤسسية",
+          "category": "السياسات",
+          "status": "منشور",
+          "approvalDate": "حسب الوثيقة المعتمدة",
+          "updated": "النسخة المنشورة",
+          "version": "النسخة المعتمدة"
+        },
+        {
+          "title": "سياسة الإفصاح والشفافية",
+          "description": "السياسة المنشورة المتعلقة بالإفصاح والشفافية.",
+          "fileHref": "disclosure-transparency-policy.pdf",
+          "previewHref": "/disclosure-transparency-policy-preview.jpg",
+          "meta": "سياسة مؤسسية",
+          "category": "السياسات",
+          "status": "منشور",
+          "approvalDate": "حسب الوثيقة المعتمدة",
+          "updated": "النسخة المنشورة",
+          "version": "النسخة المعتمدة"
+        },
+        {
+          "title": "سياسة الاحتفاظ بالسجلات وإتلافها",
+          "description": "السياسة المنشورة المتعلقة بالاحتفاظ بالسجلات والتخلص منها.",
+          "fileHref": "records-retention-disposal-policy.pdf",
+          "previewHref": "/records-retention-disposal-policy-preview.jpg",
+          "meta": "سياسة مؤسسية",
+          "category": "السياسات",
+          "status": "منشور",
+          "approvalDate": "حسب الوثيقة المعتمدة",
+          "updated": "النسخة المنشورة",
+          "version": "النسخة المعتمدة"
+        }
+      ],
+      "planned": [
+        {
+          "title": "الخطة التشغيلية",
+          "category": "الخطة التشغيلية",
+          "status": "بانتظار النشر",
+          "message": "سيتم النشر بعد اعتماد الوثيقة رسميًا."
+        },
+        {
+          "title": "التقارير المالية",
+          "category": "التقارير المالية",
+          "status": "متاح في قسم التقارير",
+          "message": "يمكن الاطلاع على التقرير المالي المنشور من صفحة التقارير."
+        },
+        {
+          "title": "التقارير السنوية",
+          "category": "التقارير السنوية",
+          "status": "بانتظار النشر",
+          "message": "سيتم النشر بعد اعتماد التقرير السنوي رسميًا."
+        }
+      ]
     }
   },
   "contact": {
@@ -181,34 +273,39 @@
     "iban": "SA00 0000 0000 0000 0000 0000",
     "social": [
       {
+        "name": "WhatsApp",
         "label": "واتساب",
         "url": "https://wa.me/966549078774",
         "icon": "bi bi-whatsapp"
-      },
-      {
-        "label": "سناب",
-        "url": "#",
-        "icon": "bi bi-snapchat"
-      },
-      {
-        "label": "يوتيوب",
-        "url": "#",
-        "icon": "bi bi-youtube"
-      },
-      {
-        "label": "انستغرام",
-        "url": "#",
-        "icon": "bi bi-instagram"
-      },
-      {
-        "label": "X",
-        "url": "#",
-        "icon": "bi bi-twitter-x"
       }
     ]
   },
   "footer": {
     "licenseText": "مرخّصة من المركز الوطني لتنمية القطاع غير الربحي برقم ١١٠٠٥٢٧٠٠٠",
     "copyrightText": "جميع الحقوق محفوظة © {year} هدايات"
+  },
+  "institution": {
+    "type": "مؤسسة أهلية تعليمية غير ربحية",
+    "licenseNumber": "1100527000",
+    "unifiedNationalNumber": "7049464931",
+    "supervision": "وزارة التعليم",
+    "licenseValidUntil": "2029-03-05",
+    "verifyUrl": "https://ncnp.gov.sa/ar"
+  },
+  "programs": {
+    "title": "البرامج",
+    "subtitle": "برامج تعليمية نوعية تعزز الوعي والمعرفة الموثوقة.",
+    "cardTitle": "برامج المؤسسة",
+    "cardText": "للاستفسار عن البرامج الحالية أو البرامج المخصصة للجهات التعليمية، تواصلوا معنا عبر القنوات الرسمية.",
+    "ctaLabel": "استفسر عن البرامج",
+    "ctaHref": "#contact"
+  },
+  "partners": {
+    "title": "الشراكات",
+    "subtitle": "شراكات مؤسسية تدعم جودة البرامج وتوسع الأثر المجتمعي.",
+    "cardTitle": "فرص التعاون والشراكة",
+    "cardText": "نسعد بطلبات الشراكة والتعاون مع الجهات التعليمية وغير الربحية ذات الأهداف المشتركة.",
+    "ctaLabel": "اطلب شراكة",
+    "ctaHref": "#contact"
   }
 }
