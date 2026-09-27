@@ -3,11 +3,11 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node prepare-structure.mjs && astro dev",
+    "build": "node prepare-structure.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "start": "npm run build && astro preview --host 0.0.0.0 --port ${PORT:-4321}"
+    "start": "node server.mjs"
   },
   "dependencies": {
     "astro": "^5.16.16"
