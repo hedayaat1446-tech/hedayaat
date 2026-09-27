@@ -2,7 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import site from "../../content/site.json";
 
-const institution = site.institution;
+const institution = site.institution ?? {
+  licenseNumber: "1100527000",
+  unifiedNationalNumber: "7049464931",
+  verifyUrl: "https://ncnp.gov.sa/en"
+};
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
 const waMessage = "Hello, I would like to inquire about Hedayat Educational Foundation programs.";
 const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;

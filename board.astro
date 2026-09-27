@@ -1,6 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import site from "../content/site.json";
+const trustees = site.docs?.trustees ?? {
+  title: "مجلس الأمناء",
+  subtitle: "مجلس أمناء مؤسسة هدايات التعليمية",
+  imageHref: "/trustees-board.png"
+};
 const meta = {
   ...site.meta,
   title: "أعضاء مجلس الأمناء | مؤسسة هدايات التعليمية",
@@ -22,15 +27,15 @@ const meta = {
       <div class="institution-shell">
         <span class="institution-eyebrow">عن المؤسسة</span>
         <div class="institution-icon"><i class="bi bi-people" aria-hidden="true"></i></div>
-        <h1 id="trustees-title">{site.docs.trustees.title}</h1>
-        {site.docs.trustees.subtitle && <p>{site.docs.trustees.subtitle}</p>}
+        <h1 id="trustees-title">{trustees.title}</h1>
+        {trustees.subtitle && <p>{trustees.subtitle}</p>}
       </div>
     </section>
 
     <section id="trustees" class="institution-content trustees-section" aria-labelledby="trustees-title">
       <figure class="trustees-card">
         <img
-          src={site.docs.trustees.imageHref}
+          src={trustees.imageHref}
           alt="أعضاء مجلس الأمناء في مؤسسة هدايات التعليمية"
           loading="eager"
           decoding="async"

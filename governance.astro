@@ -2,8 +2,32 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import site from "../content/site.json";
 
-const governance = site.docs.governance;
-const institution = site.institution;
+const governance = site.docs?.governance ?? {
+  title: "مركز الحوكمة",
+  subtitle: "الوثائق النظامية والسياسات المنشورة لمؤسسة هدايات التعليمية.",
+  official: [
+    { title: "شهادة ترخيص مؤسسة هدايات التعليمية", description: "شهادة الترخيص الرسمية الصادرة للمؤسسة.", fileHref: "organization-license.pdf", previewHref: "/organization-license-preview.jpg", meta: "وثيقة ترخيص رسمية", category: "الترخيص", status: "منشور", updated: "2025-03-06", version: "النسخة المنشورة" },
+    { title: "اللائحة الأساسية لمؤسسة هدايات التعليمية", description: "اللائحة الأساسية المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها.", fileHref: "basic-regulation.pdf", previewHref: "/basic-regulation-preview.jpg", meta: "اللائحة الأساسية", category: "اللائحة الأساسية", status: "منشور", updated: "النسخة المنشورة", version: "النسخة المعتمدة" }
+  ],
+  policies: [
+    { title: "سياسة حماية البيانات والخصوصية", description: "السياسة المنشورة المتعلقة بحماية البيانات والخصوصية.", fileHref: "privacy-data-policy.pdf", previewHref: "/privacy-data-policy-preview.jpg", meta: "سياسة مؤسسية", category: "السياسات", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" },
+    { title: "سياسة الإفصاح والشفافية", description: "السياسة المنشورة المتعلقة بالإفصاح والشفافية.", fileHref: "disclosure-transparency-policy.pdf", previewHref: "/disclosure-transparency-policy-preview.jpg", meta: "سياسة مؤسسية", category: "السياسات", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" },
+    { title: "سياسة الاحتفاظ بالسجلات وإتلافها", description: "السياسة المنشورة المتعلقة بالاحتفاظ بالسجلات والتخلص منها.", fileHref: "records-retention-disposal-policy.pdf", previewHref: "/records-retention-disposal-policy-preview.jpg", meta: "سياسة مؤسسية", category: "السياسات", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" }
+  ],
+  planned: [
+    { title: "الخطة التشغيلية", category: "الخطة التشغيلية", status: "بانتظار النشر", message: "سيتم النشر بعد اعتماد الوثيقة رسميًا." },
+    { title: "التقارير المالية", category: "التقارير المالية", status: "متاح في قسم التقارير", message: "يمكن الاطلاع على التقرير المالي المنشور من صفحة التقارير." },
+    { title: "التقارير السنوية", category: "التقارير السنوية", status: "بانتظار النشر", message: "سيتم النشر بعد اعتماد التقرير السنوي رسميًا." }
+  ]
+};
+const institution = site.institution ?? {
+  type: "مؤسسة أهلية تعليمية غير ربحية",
+  licenseNumber: "1100527000",
+  unifiedNationalNumber: "7049464931",
+  supervision: "وزارة التعليم",
+  licenseValidUntil: "2029-03-05",
+  verifyUrl: "https://ncnp.gov.sa/ar"
+};
 const meta = {
   ...site.meta,
   title: `${governance.title} | مؤسسة هدايات التعليمية`,
