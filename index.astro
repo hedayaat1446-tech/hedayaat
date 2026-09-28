@@ -161,13 +161,16 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <p class="ref-section-subtitle">{site.vision.subtitle}</p>
         </div>
 
-        <div class="ref-grid-2 report-grid-vision">
+        <div class="institution-statements">
           {site.vision.items.map((x, index) => (
-            <div id={index === 0 ? "vision-item" : "mission-item"} class="ref-card ref-feature reveal-on-scroll">
-              <div class="icon"><i class={x.icon} aria-hidden="true"></i></div>
-              <h3>{x.title}</h3>
-              <p>{x.text}</p>
-            </div>
+            <article id={index === 0 ? "vision-item" : "mission-item"} class="institution-statement reveal-on-scroll">
+              <div class="institution-statement-icon" aria-hidden="true"><i class={x.icon}></i></div>
+              <div class="institution-statement-copy">
+                <span class="institution-statement-kicker">{index === 0 ? "اتجاهنا" : "دورنا"}</span>
+                <h3>{x.title}</h3>
+                <p>{x.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -180,13 +183,16 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <p class="ref-section-subtitle">{site.goals.subtitle}</p>
         </div>
 
-        <div class="ref-grid-4 report-grid-goals">
-          {site.goals.items.map((g) => (
-            <div class="ref-card ref-feature goal-card reveal-on-scroll">
-              <div class="icon"><i class={g.icon} aria-hidden="true"></i></div>
-              <h3>{g.title}</h3>
-              <p>{g.text}</p>
-            </div>
+        <div class="strategic-goals-list">
+          {site.goals.items.map((g, index) => (
+            <article class="strategic-goal reveal-on-scroll">
+              <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+              <div class="strategic-goal-icon" aria-hidden="true"><i class={g.icon}></i></div>
+              <div class="strategic-goal-copy">
+                <h3>{g.title}</h3>
+                <p>{g.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -199,13 +205,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           <p class="ref-section-subtitle">{site.values.subtitle}</p>
         </div>
 
-        <div class="ref-grid-4 report-grid-values">
+        <div class="core-values-list">
           {site.values.items.map((v) => (
-            <div class="ref-card ref-feature reveal-on-scroll">
-              <div class="icon"><i class={v.icon} aria-hidden="true"></i></div>
-              <h3>{v.title}</h3>
-              <p>{v.text}</p>
-            </div>
+            <article class="core-value reveal-on-scroll">
+              <div class="core-value-icon" aria-hidden="true"><i class={v.icon}></i></div>
+              <div class="core-value-copy">
+                <h3>{v.title}</h3>
+                <p>{v.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>

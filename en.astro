@@ -165,17 +165,23 @@ const values = [
           <h2 class="ref-section-title">Our Vision & Mission</h2>
           <p class="ref-section-subtitle">The direction that guides our plans and programs</p>
         </div>
-        <div class="ref-grid-2 report-grid-vision">
-          <div id="vision-item-en" class="ref-card ref-feature reveal-on-scroll">
-            <div class="icon"><i class="bi bi-award-fill" aria-hidden="true"></i></div>
-            <h3>Our Vision</h3>
-            <p>A trusted and leading foundation specialized in providing reliable knowledge that supports the nation’s higher values and contributes to a generation that is aware, confident in its identity and grounded in its values.</p>
-          </div>
-          <div id="mission-item-en" class="ref-card ref-feature reveal-on-scroll">
-            <div class="icon"><i class="bi bi-compass-fill" aria-hidden="true"></i></div>
-            <h3>Our Mission</h3>
-            <p>A beacon of guidance that deepens community awareness and shares reliable knowledge through purposeful programs, qualified expertise and contemporary, accessible and engaging educational methods.</p>
-          </div>
+        <div class="institution-statements">
+          <article id="vision-item-en" class="institution-statement reveal-on-scroll">
+            <div class="institution-statement-icon" aria-hidden="true"><i class="bi bi-award-fill"></i></div>
+            <div class="institution-statement-copy">
+              <span class="institution-statement-kicker">Our direction</span>
+              <h3>Our Vision</h3>
+              <p>A trusted and leading foundation specialized in providing reliable knowledge that supports the nation’s higher values and contributes to a generation that is aware, confident in its identity and grounded in its values.</p>
+            </div>
+          </article>
+          <article id="mission-item-en" class="institution-statement reveal-on-scroll">
+            <div class="institution-statement-icon" aria-hidden="true"><i class="bi bi-compass-fill"></i></div>
+            <div class="institution-statement-copy">
+              <span class="institution-statement-kicker">Our role</span>
+              <h3>Our Mission</h3>
+              <p>A beacon of guidance that deepens community awareness and shares reliable knowledge through purposeful programs, qualified expertise and contemporary, accessible and engaging educational methods.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -186,13 +192,16 @@ const values = [
           <h2 class="ref-section-title">Our Strategic Goals</h2>
           <p class="ref-section-subtitle">Clear areas of work that support our long-term vision</p>
         </div>
-        <div class="ref-grid-4 report-grid-goals">
-          {goals.map((item) => (
-            <div class="ref-card ref-feature reveal-on-scroll">
-              <div class="icon"><i class={item.icon} aria-hidden="true"></i></div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
+        <div class="strategic-goals-list">
+          {goals.map((item, index) => (
+            <article class="strategic-goal reveal-on-scroll">
+              <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+              <div class="strategic-goal-icon" aria-hidden="true"><i class={item.icon}></i></div>
+              <div class="strategic-goal-copy">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -205,13 +214,15 @@ const values = [
           <h2 class="ref-section-title">Our Core Values</h2>
           <p class="ref-section-subtitle">Principles that guide our decisions, programs and partnerships</p>
         </div>
-        <div class="ref-grid-4 report-grid-values">
+        <div class="core-values-list">
           {values.map((item) => (
-            <div class="ref-card ref-feature reveal-on-scroll">
-              <div class="icon"><i class={item.icon} aria-hidden="true"></i></div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
+            <article class="core-value reveal-on-scroll">
+              <div class="core-value-icon" aria-hidden="true"><i class={item.icon}></i></div>
+              <div class="core-value-copy">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -404,8 +415,6 @@ const values = [
     :global(html[lang="en"] .hero-title),
     :global(html[lang="en"] .ref-feature h3),
     :global(html[lang="en"] .institutional-info-copy h3){font-family:Georgia,"Times New Roman",serif;font-feature-settings:normal;-webkit-text-stroke:0}
-    :global(html[lang="en"] .report-grid-goals),
-    :global(html[lang="en"] .report-grid-values){direction:ltr}
     :global(html[lang="en"] .contact-details),
     :global(html[lang="en"] .institutional-info-copy){text-align:left}
     :global(html[lang="en"] .en-doc-grid){max-width:920px;margin-inline:auto}
