@@ -25,8 +25,6 @@ const maps = [
   ['bootstrap-icons.min.css', 'public/vendor/bootstrap-icons.min.css'],
   ['index.html', 'public/admin/index.html'],
   ['hedayat-new-logo.png', 'public/hedayat-new-logo.png'],
-  ['1.png', 'public/1.png'],
-  ['2.png', 'public/2.png'],
   ['hedayat-official-logo-v5.png', 'public/hedayat-official-logo-v5.png'],
   ['hedayat-official-logo-hero-v7.png', 'public/hedayat-official-logo-hero-v7.png'],
   ['hero_image1.jpeg', 'public/hero_image1.jpeg'],
@@ -82,6 +80,23 @@ for (const [from, to] of maps) {
   const parent = new URL('./', dst);
   await mkdir(parent, { recursive: true });
   await copyFile(src, dst);
+}
+
+// Astro 5 does not bundle scripts referenced from public/. Any such script must be
+// explicitly marked is:inline. Harden the generated layout so a stale flat source
+// cannot break Railway builds even if BaseLayout.astro was not overwritten correctly.
+const generatedLayout = new URL('src/layouts/BaseLayout.astro', root);
+let layoutText = await readFile(generatedLayout, 'utf8');
+const publicScriptPattern = /<script(?![^>]*\bis:inline\b)([^>]*\bsrc=["']\/(?:vendor|media|styles|fonts|uploads)\/[^"']+["'][^>]*)><\/script>/gi;
+const hardenedLayoutText = layoutText.replace(publicScriptPattern, '<script is:inline$1></script>');
+if (hardenedLayoutText !== layoutText) {
+  await writeFile(generatedLayout, hardenedLayoutText, 'utf8');
+  layoutText = hardenedLayoutText;
+}
+
+// Fail fast with a clear message if the Bootstrap public asset ever loses is:inline.
+if (!/<script\s+is:inline\s+src=["']\/vendor\/bootstrap\.bundle\.min\.js\?v=536["']><\/script>/.test(layoutText)) {
+  throw new Error('BaseLayout.astro Bootstrap script must use is:inline because it is served from public/vendor.');
 }
 
 console.log('Prepared exact report structure.');

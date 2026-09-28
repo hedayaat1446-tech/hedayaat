@@ -2,11 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import site from "../../content/site.json";
 
-const institution = site.institution ?? {
-  licenseNumber: "1100527000",
-  unifiedNationalNumber: "7049464931",
-  verifyUrl: "https://ncnp.gov.sa/en"
-};
+const institution = site.institution;
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
 const waMessage = "Hello, I would like to inquire about Hedayat Educational Foundation programs.";
 const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;
@@ -334,7 +330,7 @@ const values = [
                 <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
                 <div class="contact-details social-contact-details">
                   <h3>Official social media</h3>
-                  {site.contact.socialUsername && <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>}
+                  <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
                   <div class="official-social-links" aria-label="Hedayat official social media accounts">
                     {site.contact.social.map((account) => (
                       <a class="official-social-link" href={account.url} target="_blank" rel="noopener noreferrer" aria-label={`Hedayat on ${account.name}`} title={`Hedayat on ${account.name}`}>
