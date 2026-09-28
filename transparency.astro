@@ -1,7 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import site from "../content/site.json";
-const governance = site.docs.governance;
+const governance = site.docs?.governance ?? {
+  policies: [
+    { title: "سياسة حماية البيانات والخصوصية", description: "السياسة المنشورة المتعلقة بحماية البيانات والخصوصية.", fileHref: "privacy-data-policy.pdf", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" },
+    { title: "سياسة الإفصاح والشفافية", description: "السياسة المنشورة المتعلقة بالإفصاح والشفافية.", fileHref: "disclosure-transparency-policy.pdf", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" },
+    { title: "سياسة الاحتفاظ بالسجلات وإتلافها", description: "السياسة المنشورة المتعلقة بالاحتفاظ بالسجلات والتخلص منها.", fileHref: "records-retention-disposal-policy.pdf", status: "منشور", approvalDate: "حسب الوثيقة المعتمدة", updated: "النسخة المنشورة", version: "النسخة المعتمدة" }
+  ]
+};
 const meta = {
   ...site.meta,
   title: "الشفافية والإفصاح | مؤسسة هدايات التعليمية",
