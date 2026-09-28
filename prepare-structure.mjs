@@ -25,6 +25,8 @@ const maps = [
   ['bootstrap-icons.min.css', 'public/vendor/bootstrap-icons.min.css'],
   ['index.html', 'public/admin/index.html'],
   ['hedayat-new-logo.png', 'public/hedayat-new-logo.png'],
+  ['1.png', 'public/1.png'],
+  ['2.png', 'public/2.png'],
   ['hedayat-official-logo-v5.png', 'public/hedayat-official-logo-v5.png'],
   ['hedayat-official-logo-hero-v7.png', 'public/hedayat-official-logo-hero-v7.png'],
   ['hero_image1.jpeg', 'public/hero_image1.jpeg'],
