@@ -1,16 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
-const meta = { ...site.meta, title: "تم استلام الرسالة | مؤسسة هدايات التعليمية", description: "تأكيد استلام رسالة التواصل." };
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
+const meta = { ...site.meta, title: "Message Received | Hedayat Educational Foundation", description: "Confirmation that your contact message was received." };
 ---
-<BaseLayout meta={meta}>
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="thank-page">
     <section class="thank-card" aria-labelledby="thank-title">
-      <a href="/" class="thank-logo" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+      <a href="/en/" class="thank-logo" aria-label="Back to Home"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
       <div class="thank-icon" aria-hidden="true"><i class="bi bi-check2-circle"></i></div>
-      <h1 id="thank-title">تم استلام رسالتك</h1>
-      <p>شكرًا لتواصلك مع مؤسسة هدايات التعليمية. تم تسجيل الرسالة بنجاح وسيتم الاطلاع عليها عبر القنوات الرسمية للمؤسسة.</p>
-      <a class="thank-action" href="/#contact"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى تواصل معنا</a>
+      <h1 id="thank-title">Your message has been received</h1>
+      <p>Thank you for contacting Hedayat Educational Foundation. Your message has been recorded successfully and will be reviewed through the Foundation’s official channels.</p>
+      <a class="thank-action" href="/en/#contact"><i class="bi bi-arrow-right" aria-hidden="true"></i> Back to Contact Us</a>
     </section>
   </main>
   <style>
