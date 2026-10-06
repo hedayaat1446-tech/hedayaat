@@ -70,7 +70,7 @@ const values = [
           <li class="nav-item dropdown hedayat-nav-group"><button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Media Center</button><ul class="dropdown-menu hedayat-dropdown"><li><a class="dropdown-item" href="/news/">News</a></li><li><a class="dropdown-item" href="/photos/">Photos</a></li><li><a class="dropdown-item" href="/en/videos/">Video</a></li></ul></li>
           <li class="nav-item"><a class="nav-link" href="/en/participation/">Beneficiary Participation</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link js-switch-ar" href="/" lang="ar" dir="rtl">العربية</a></li>
+          <li class="nav-item"><a class="nav-link" href="/index.html?lang=ar" lang="ar" dir="rtl">العربية</a></li>
         </ul>
 
         <div class="d-none d-lg-flex ms-lg-3">
@@ -385,7 +385,7 @@ const values = [
         <a href="/en/participation/">Beneficiary Participation</a><span aria-hidden="true">•</span>
         <a href="#contact">Contact</a><span aria-hidden="true">•</span>
         <a href="/privacy/">Privacy</a><span aria-hidden="true">•</span>
-        <a class="js-switch-ar" href="/" lang="ar" dir="rtl">العربية</a>
+        <a href="/index.html?lang=ar" lang="ar" dir="rtl">العربية</a>
       </nav>
     </div>
     <hr class="footer-divider" />
@@ -419,13 +419,6 @@ const values = [
     window.addEventListener('load', handleScroll);
 
     window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.js-switch-ar').forEach((link) => {
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-          window.location.assign('/');
-        });
-      });
-
       const revealEls = document.querySelectorAll('.reveal-on-scroll');
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries, obs) => {
