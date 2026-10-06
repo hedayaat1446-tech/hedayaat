@@ -1,0 +1,10 @@
+Hedayat Railway deployment
+
+1. Upload the CONTENTS of this folder to the GitHub repository root.
+2. Railway build command: npm run build
+3. Railway start command: npm start
+4. src/ and public/ are the canonical build sources. Do not move them into another nested folder.
+
+Critical imports:
+- src/pages/index.astro -> ../content/site.json
+- src/pages/en/index.astro -> ../../content/site.json
