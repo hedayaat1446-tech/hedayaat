@@ -8,6 +8,29 @@ const baseUrl = (meta.url || "").replace(/\/+$/, "");
 // canonical حسب المسار
 const canonical = `${baseUrl}${Astro.url.pathname}`;
 
+const localePairs = {
+  "/": "/en/",
+  "/board/": "/en/board/",
+  "/governance/": "/en/governance/",
+  "/transparency/": "/en/transparency/",
+  "/accessibility/": "/en/accessibility/",
+  "/privacy/": "/en/privacy/",
+  "/reports/": "/en/reports/",
+  "/news/": "/en/news/",
+  "/photos/": "/en/photos/",
+  "/videos/": "/en/videos/",
+  "/participation/": "/en/participation/",
+  "/thank/": "/en/thank/"
+};
+const reverseLocalePairs = Object.fromEntries(Object.entries(localePairs).map(([ar, en]) => [en, ar]));
+const currentPath = Astro.url.pathname.endsWith("/") || Astro.url.pathname.includes(".")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const arPath = currentPath.startsWith("/en/") ? (reverseLocalePairs[currentPath] || "/") : currentPath;
+const enPath = currentPath.startsWith("/en/") ? currentPath : (localePairs[currentPath] || "/en/");
+const alternateAr = `${baseUrl}${arPath}`;
+const alternateEn = `${baseUrl}${enPath}`;
+
 const ogImageAbs = meta.ogImage?.startsWith("http")
   ? meta.ogImage
   : `${baseUrl}${meta.ogImage?.startsWith("/") ? "" : "/"}${meta.ogImage || ""}`;
@@ -50,7 +73,7 @@ const feedback = lang === "ar" ? {
 ---
 
 <!doctype html>
-<html lang={lang} dir={dir}>
+<html lang={lang} dir={dir} data-site-lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,6 +86,8 @@ const feedback = lang === "ar" ? {
 
 
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ar" href={alternateAr} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
 
     <!-- Open Graph -->
     <meta property="og:locale" content={meta.locale || "ar_SA"} />
@@ -104,7 +129,46 @@ const feedback = lang === "ar" ? {
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=32" />
+    <script is:inline>
+      (() => {
+        const html = document.documentElement;
+        const currentLang = html.dataset.siteLang === 'en' ? 'en' : 'ar';
+        const arToEn = {
+          '/':'/en/','/board/':'/en/board/','/governance/':'/en/governance/','/transparency/':'/en/transparency/',
+          '/accessibility/':'/en/accessibility/','/privacy/':'/en/privacy/','/reports/':'/en/reports/','/news/':'/en/news/',
+          '/photos/':'/en/photos/','/videos/':'/en/videos/','/participation/':'/en/participation/','/thank/':'/en/thank/'
+        };
+        const enToAr = Object.fromEntries(Object.entries(arToEn).map(([ar,en]) => [en,ar]));
+        const normalize = (value) => {
+          if (!value) return '/';
+          let path = value.split('?')[0].split('#')[0];
+          if (!path.endsWith('/') && !path.includes('.')) path += '/';
+          return path || '/';
+        };
+
+        try {
+          const preferred = localStorage.getItem('hedayat-language');
+          const path = normalize(location.pathname);
+          if (preferred && preferred !== currentLang) {
+            const target = preferred === 'en' ? arToEn[path] : enToAr[path];
+            if (target && target !== path) {
+              location.replace(target + location.search + location.hash);
+              return;
+            }
+          }
+        } catch {}
+
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest('a[data-language-switch], a[lang="ar"], a[lang="en"]');
+          if (!link) return;
+          const requested = link.dataset.languageSwitch || link.getAttribute('lang');
+          if (requested !== 'ar' && requested !== 'en') return;
+          try { localStorage.setItem('hedayat-language', requested); } catch {}
+        }, true);
+      })();
+    </script>
+
+    <link rel="stylesheet" href="/styles/site.css?v=35" />
   </head>
 
   <body>

@@ -1,29 +1,29 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
 const meta = {
   ...site.meta,
-  title: "بيان إمكانية الوصول | مؤسسة هدايات التعليمية",
-  description: "بيان إمكانية الوصول الرقمي في موقع مؤسسة هدايات التعليمية ووسائل طلب المساعدة أو الإبلاغ عن عائق في الوصول."
+  title: "Accessibility Statement | Hedayat Educational Foundation",
+  description: "Digital accessibility statement for the Hedayat Educational Foundation website, including ways to request assistance or report an accessibility barrier."
 };
 ---
-<BaseLayout meta={meta}>
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="access-page">
     <header class="access-header">
       <div class="access-header-inner">
-        <a href="/" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
+        <a href="/en/" aria-label="Back to Home"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
         <div class="access-header-actions">
-          <a href="/en/accessibility/" data-language-switch="en" lang="en" dir="ltr">EN</a>
-          <a href="/"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+          <a href="/en/#accessibility" lang="en" dir="ltr">EN</a>
+          <a href="/en/"><i class="bi bi-house-door" aria-hidden="true"></i><span>Home</span></a>
         </div>
       </div>
     </header>
 
     <section class="access-hero" aria-labelledby="access-title">
       <div class="access-shell">
-        <span><i class="bi bi-person-check" aria-hidden="true"></i> الوصول الرقمي</span>
-        <h1 id="access-title">بيان إمكانية الوصول</h1>
-        <p>تعمل مؤسسة هدايات التعليمية على جعل موقعها أوضح وأسهل استخدامًا لأكبر عدد ممكن من الزوار، بمن فيهم مستخدمو لوحة المفاتيح وقارئات الشاشة وكبار السن وذوو الاحتياجات المختلفة في الوصول الرقمي.</p>
+        <span><i class="bi bi-person-check" aria-hidden="true"></i> Digital Accessibility</span>
+        <h1 id="access-title">Accessibility Statement</h1>
+        <p>Hedayat Educational Foundation works to make its website clearer and easier to use for as many visitors as possible, including keyboard and screen-reader users, older adults, and people with different accessibility needs.</p>
       </div>
     </section>
 
@@ -31,33 +31,33 @@ const meta = {
       <article class="access-callout">
         <div class="access-callout-icon"><i class="bi bi-check2-circle" aria-hidden="true"></i></div>
         <div>
-          <h2>مستوى الاستهداف</h2>
-          <p>صُممت التحسينات في الموقع بالاسترشاد بمبادئ إرشادات إتاحة محتوى الويب WCAG 2.2، مع استهداف مستوى AA قدر الإمكان. هذا البيان لا يمثل شهادة تدقيق خارجية أو ادعاءً باجتياز اعتماد رسمي.</p>
+          <h2>Target Level</h2>
+          <p>Website improvements are guided by WCAG 2.2 principles, with AA-level conformance targeted where reasonably possible. This statement is not an external audit certificate or a claim of formal certification.</p>
         </div>
       </article>
 
       <div class="access-grid">
-        <article><i class="bi bi-keyboard" aria-hidden="true"></i><h2>التنقل بلوحة المفاتيح</h2><p>يمكن الوصول إلى الروابط والأزرار وعناصر النماذج باستخدام لوحة المفاتيح، مع مؤشر تركيز واضح ورابط مباشر لتجاوز الترويسة إلى المحتوى الرئيسي.</p></article>
-        <article><i class="bi bi-fonts" aria-hidden="true"></i><h2>تكبير النص</h2><p>تتضمن جميع الصفحات أدوات لتصغير النص أو إعادته للحجم الافتراضي أو تكبيره، ويتم حفظ اختيار المستخدم على جهازه.</p></article>
-        <article><i class="bi bi-circle-half" aria-hidden="true"></i><h2>تباين أعلى</h2><p>يوفر الموقع خيار تباين مرتفع يرفع وضوح النصوص والحدود والروابط، ولا يعتمد على اللون وحده لنقل الحالات المهمة.</p></article>
-        <article><i class="bi bi-card-image" aria-hidden="true"></i><h2>بدائل نصية للصور</h2><p>الصور ذات المعنى مزودة بنصوص بديلة، بينما العناصر الزخرفية يتم تجاهلها بواسطة تقنيات المساعدة حتى لا تسبب تشويشًا.</p></article>
-        <article><i class="bi bi-camera-video" aria-hidden="true"></i><h2>محتوى الفيديو</h2><p>الفيديو المنشور حاليًا صامت، لذلك توفر صفحته وصفًا بصريًا منظمًا للمشاهد الرئيسية. وعند نشر فيديو يتضمن كلامًا ستُضاف ترجمة نصية عند توفرها.</p></article>
-        <article><i class="bi bi-phone" aria-hidden="true"></i><h2>الشاشات المختلفة</h2><p>تتغير البطاقات والقوائم وأحجام المحتوى لتناسب الهواتف والأجهزة اللوحية وشاشات الحاسب، مع تجنب التمرير الأفقي قدر الإمكان.</p></article>
+        <article><i class="bi bi-keyboard" aria-hidden="true"></i><h2>Keyboard Navigation</h2><p>Links, buttons, and form controls can be reached using the keyboard, with a visible focus indicator and a skip link to the main content.</p></article>
+        <article><i class="bi bi-fonts" aria-hidden="true"></i><h2>Text Resizing</h2><p>All pages include controls to decrease, reset, or increase text size, and the user’s preference is saved on the device.</p></article>
+        <article><i class="bi bi-circle-half" aria-hidden="true"></i><h2>High Contrast</h2><p>The website provides a high-contrast option that improves text, border, and link visibility and does not rely on color alone to communicate important states.</p></article>
+        <article><i class="bi bi-card-image" aria-hidden="true"></i><h2>Image Text Alternatives</h2><p>Meaningful images include alternative text, while decorative elements are ignored by assistive technologies to reduce unnecessary noise.</p></article>
+        <article><i class="bi bi-camera-video" aria-hidden="true"></i><h2>Video Content</h2><p>The currently published video is silent, so its page includes a structured visual description of the main scenes. Captions will be added when future published videos include speech and captions are available.</p></article>
+        <article><i class="bi bi-phone" aria-hidden="true"></i><h2>Responsive Layout</h2><p>Cards, menus, and content sizes adapt to phones, tablets, and desktop screens while avoiding horizontal scrolling where possible.</p></article>
       </div>
 
       <section class="access-help" aria-labelledby="access-help-title">
         <div>
-          <span>هل واجهت عائقًا؟</span>
-          <h2 id="access-help-title">ساعدنا على تحسين الوصول</h2>
-          <p>إذا واجهت صعوبة في قراءة محتوى أو استخدام عنصر في الموقع، أرسل وصفًا مختصرًا للمشكلة والصفحة التي ظهرت فيها، وسنعمل على مراجعتها.</p>
+          <span>Did you encounter a barrier?</span>
+          <h2 id="access-help-title">Help Us Improve Accessibility</h2>
+          <p>If you have difficulty reading content or using an element on the website, send a brief description of the issue and the page where it occurred, and we will review it.</p>
         </div>
         <div class="access-help-actions">
-          <a href={`mailto:${site.contact.email}?subject=${encodeURIComponent('ملاحظة حول إمكانية الوصول في موقع هدايات')}`}><i class="bi bi-envelope" aria-hidden="true"></i> البريد الإلكتروني</a>
-          <a href="/#contact"><i class="bi bi-chat-left-text" aria-hidden="true"></i> نموذج التواصل</a>
+          <a href={`mailto:${site.contact.email}?subject=${encodeURIComponent('Accessibility at Hedayat')}`}><i class="bi bi-envelope" aria-hidden="true"></i> Email</a>
+          <a href="/en/#contact"><i class="bi bi-chat-left-text" aria-hidden="true"></i> Contact Form</a>
         </div>
       </section>
 
-      <p class="access-updated"><i class="bi bi-calendar-check" aria-hidden="true"></i> آخر تحديث للبيان: 20 سبتمبر 2026</p>
+      <p class="access-updated"><i class="bi bi-calendar-check" aria-hidden="true"></i> Statement last updated: 20 September 2026</p>
     </section>
   </main>
 

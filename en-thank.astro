@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
+const meta = { ...site.meta, title: "Message Received | Hedayat Educational Foundation", description: "Confirmation that your contact message was received." };
+---
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <main id="main-content" class="thank-page">
+    <section class="thank-card" aria-labelledby="thank-title">
+      <a href="/en/" class="thank-logo" aria-label="Back to Home"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
+      <div class="thank-icon" aria-hidden="true"><i class="bi bi-check2-circle"></i></div>
+      <h1 id="thank-title">Your message has been received</h1>
+      <p>Thank you for contacting Hedayat Educational Foundation. Your message has been recorded successfully and will be reviewed through the Foundation’s official channels.</p>
+      <a class="thank-action" href="/en/#contact"><i class="bi bi-arrow-right" aria-hidden="true"></i> Back to Contact Us</a>
+    </section>
+  </main>
+  <style>
+    :global(body){margin:0;background:#f7f4ee;color:#173f4e}.thank-page{min-height:100vh;display:grid;place-items:center;padding:28px 16px;background:radial-gradient(circle at 50% 0%,rgba(11,95,114,.08),transparent 42%),#f7f4ee}.thank-card{width:min(100%,620px);background:#fff;border:1px solid rgba(11,95,114,.12);border-radius:24px;padding:38px 28px;text-align:center;box-shadow:0 20px 55px rgba(21,56,71,.08)}.thank-logo{display:inline-block;margin-bottom:24px}.thank-logo img{display:block;width:min(260px,70vw);height:auto}.thank-icon{width:72px;height:72px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:#eef7f3;color:#236c4b;font-size:2rem}.thank-card h1{margin:0 0 12px;font-size:clamp(1.8rem,5vw,2.5rem);font-weight:900}.thank-card p{margin:0 auto 24px;max-width:520px;color:#687b80;line-height:2}.thank-action{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:#0b5f72;color:#fff;border-radius:11px;padding:11px 17px;font-weight:800}.thank-action:hover{background:#084c5b;color:#fff}@media(max-width:520px){.thank-card{padding:30px 18px;border-radius:18px}}
+  </style>
+</BaseLayout>

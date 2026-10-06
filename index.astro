@@ -48,7 +48,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               </ul>
             </li>
           ) : (
-            <li class="nav-item"><a class="nav-link" href={item.href}>{item.label}</a></li>
+            <li class="nav-item"><a class="nav-link" href={item.href} lang={item.href === "/en/" ? "en" : undefined} dir={item.href === "/en/" ? "ltr" : undefined} data-language-switch={item.href === "/en/" ? "en" : undefined}>{item.label}</a></li>
           ))}
         </ul>
 
@@ -421,7 +421,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
         <span aria-hidden="true">•</span>
         <a href="/privacy/">سياسة الخصوصية</a>
         <span aria-hidden="true">•</span>
-        <a href="/en/" lang="en" dir="ltr">English</a>
+        <a href="/en/" lang="en" dir="ltr" data-language-switch="en">English</a>
       </nav>
     </div>
 

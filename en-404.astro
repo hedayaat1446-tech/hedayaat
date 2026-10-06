@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
+
+const meta = {
+  ...site.meta,
+  title: "Page Not Found | Hedayat Educational Foundation",
+  description: "The page you are looking for does not exist. You can return to the Hedayat Educational Foundation home page."
+};
+---
+
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <main id="main-content" class="not-found-page">
+    <section class="not-found-card" aria-labelledby="not-found-title">
+      <a href="/en/" class="not-found-logo-link" aria-label="Back to Home">
+        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="not-found-logo" />
+      </a>
+      <div class="not-found-code" aria-hidden="true">404</div>
+      <h1 id="not-found-title">Page Not Found</h1>
+      <p>The link may be incorrect or the page may have moved. Return to the home page to continue browsing Hedayat.</p>
+      <a href="/en/" class="not-found-home-btn">
+        <i class="bi bi-house-door" aria-hidden="true"></i>
+        <span>Back to Home</span>
+      </a>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
+
+const privacyMeta = {
+  ...site.meta,
+  title: "Privacy & Data Protection Policy | Hedayat Educational Foundation",
+  description: "Access the approved Privacy & Data Protection Policy of Hedayat Educational Foundation."
+};
+---
+
+<BaseLayout meta={privacyMeta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <main id="main-content" class="privacy-page">
+    <article class="privacy-shell">
+      <a href="/en/" aria-label="Back to Home">
+        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="privacy-logo" />
+      </a>
+
+      <span class="privacy-badge">Approved Governance Document</span>
+      <h1>Privacy & Data Protection Policy</h1>
+      <p class="privacy-intro">
+        This page provides access to the official published Privacy & Data Protection Policy of Hedayat Educational Foundation without creating a parallel text version that could differ from the approved document.
+      </p>
+
+      <section class="privacy-official-card" aria-labelledby="privacy-official-title">
+        <img src="/privacy-data-policy-preview.jpg" alt="Preview of the first page of the Privacy & Data Protection Policy" loading="eager" />
+        <div class="privacy-official-copy">
+          <h2 id="privacy-official-title">Official Version</h2>
+          <p>The document covers the scope of data, purposes of use, data security and sharing, data-subject rights, and policy approval.</p>
+          <div class="privacy-actions">
+            <a class="privacy-primary" href="/privacy-data-policy.pdf" target="_blank" rel="noopener">
+              <i class="bi bi-eye" aria-hidden="true"></i><span>View Policy</span>
+            </a>
+            <a class="privacy-secondary" href="/privacy-data-policy.pdf" download>
+              <i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <aside class="privacy-collection-note" aria-label="Note About Website Forms">
+        <i class="bi bi-shield-check" aria-hidden="true"></i>
+        <div><strong>Beneficiary Participation Forms</strong><p>Satisfaction feedback does not request a name or email address. In the participation form, email is requested only if the user chooses to receive a response, and submitted data is governed by the official policy published above.</p></div>
+      </aside>
+
+      <p class="privacy-contact">
+        For privacy-related inquiries, contact us by email:
+        <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
+
+      <div class="privacy-back"><a href="/en/#contact">Back to Website</a></div>
+    </article>
+  </main>
+
+  <style>
+    .privacy-badge{display:table;margin:0 auto 14px;padding:7px 14px;border-radius:999px;background:#eef5f3;color:#0b6170;font-size:.86rem;font-weight:800;border:1px solid rgba(11,97,112,.1)}
+    .privacy-official-card{display:grid;grid-template-columns:minmax(180px,32%) 1fr;gap:24px;align-items:center;margin-top:30px;padding:22px;border:1px solid rgba(11,97,112,.12);border-radius:20px;background:#fbfdfc;box-shadow:0 14px 38px rgba(37,64,56,.06)}
+    .privacy-official-card>img{display:block;width:100%;max-height:320px;object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 8px 22px rgba(25,55,50,.08)}
+    .privacy-official-copy h2{margin:0 0 8px}.privacy-official-copy p{margin:0 0 18px}
+    .privacy-actions{display:flex;gap:10px;flex-wrap:wrap}.privacy-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:800}
+    .privacy-primary{background:#667a52;color:#fff}.privacy-secondary{background:#fff;color:#667a52;border:1px solid rgba(102,122,82,.25)}
+    .privacy-collection-note{margin-top:22px;padding:16px 18px;border-radius:14px;background:#eef5f3;border:1px solid rgba(49,95,112,.12);display:flex;align-items:flex-start;gap:12px}.privacy-collection-note>i{color:#315f70;font-size:1.35rem;margin-top:2px}.privacy-collection-note strong{color:#315f70}.privacy-collection-note p{margin:3px 0 0;color:#5f6d66;line-height:1.8}.privacy-contact{margin-top:26px;padding:16px 18px;border-radius:14px;background:#f6f4ee;text-align:center}
+    @media(max-width:640px){.privacy-official-card{grid-template-columns:1fr;padding:16px}.privacy-official-card>img{max-height:280px}.privacy-actions{display:grid;grid-template-columns:1fr 1fr}.privacy-actions a{padding-inline:8px}}
+    @media(max-width:380px){.privacy-actions{grid-template-columns:1fr}}
+  
+    /* unified-mobile-v1: consistent internal-page scale */
+    @media(max-width:600px){
+      h1{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.35!important}
+      h2{line-height:1.45}
+      .media-hero p,.gov-hero p,.transparency-hero p,.institution-hero p,.participation-hero p,.access-hero p,.reports-hero p{font-size:.96rem!important;line-height:1.85!important}
+      .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
+      .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
+    }
+  </style>
+</BaseLayout>

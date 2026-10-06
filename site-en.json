@@ -1,0 +1,361 @@
+{
+  "meta": {
+    "title": "Hedayat Educational Foundation",
+    "description": "Hedayat Educational Foundation is a licensed educational foundation that promotes reliable knowledge and deeper community awareness through purposeful programs, qualified expertise, and accessible contemporary methods.",
+    "url": "https://hedayaat-production.up.railway.app",
+    "ogImage": "/social-preview.jpg",
+    "locale": "en_SA",
+    "siteName": "Hedayat Educational Foundation"
+  },
+  "assets": {
+    "logoNav": "/hedayat-official-logo-v5.png",
+    "logoHero": "/hedayat-official-logo-hero-v7.png",
+    "heroBackground": "/hero_image1.jpeg",
+    "nationalCenterLogo": "/national-center-logo.png",
+    "trusteesBoard": "/trustees-board.png"
+  },
+  "nav": [
+    {
+      "enabled": true,
+      "label": "About the Foundation",
+      "children": [
+        {
+          "label": "Who We Are",
+          "href": "#about"
+        },
+        {
+          "label": "Strategic Goals",
+          "href": "#goals"
+        },
+        {
+          "label": "Our Values",
+          "href": "#values"
+        },
+        {
+          "label": "Board of Trustees",
+          "href": "/en/board/"
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "label": "Programs",
+      "href": "#programs"
+    },
+    {
+      "enabled": true,
+      "label": "Partnerships",
+      "href": "#partners"
+    },
+    {
+      "enabled": true,
+      "label": "Governance",
+      "children": [
+        {
+          "label": "Governance Center",
+          "href": "/en/governance/"
+        },
+        {
+          "label": "Transparency & Disclosure",
+          "href": "/en/transparency/"
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "label": "Media Center",
+      "children": [
+        {
+          "label": "News",
+          "href": "/en/news/"
+        },
+        {
+          "label": "Photos",
+          "href": "/en/photos/"
+        },
+        {
+          "label": "Video",
+          "href": "/en/videos/"
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "label": "Beneficiary Participation",
+      "href": "/en/participation/"
+    },
+    {
+      "enabled": true,
+      "label": "Contact Us",
+      "href": "#contact"
+    },
+    {
+      "enabled": true,
+      "label": "Arabic",
+      "href": "/"
+    }
+  ],
+  "hero": {
+    "headline": "A Beacon of Guidance for Deeper Community Awareness",
+    "lead": "A trusted educational foundation specializing in reliable knowledge that supports the nation’s higher values through purposeful programs, qualified expertise, and accessible, engaging methods.",
+    "cta": [
+      {
+        "label": "Discover the Foundation",
+        "href": "#about",
+        "variant": "secondary"
+      }
+    ]
+  },
+  "about": {
+    "title": "Who We Are",
+    "subtitle": "A licensed educational foundation focused on reliable knowledge, well-grounded awareness, and contemporary learning methods.",
+    "cardTitle": "Licensed Educational Foundation",
+    "cardText": "We provide reliable knowledge through accessible and engaging educational methods.",
+    "textTitle": "Hedayat at a Glance",
+    "p1": "We work to build awareness that protects individuals and society from intellectual and values-based deviations through reliable content and purposeful educational programs.",
+    "p2": "We balance sound knowledge with contemporary learning methods to strengthen identity and values and create sustainable impact."
+  },
+  "goals": {
+    "title": "Our Strategic Goals",
+    "items": [
+      {
+        "text": "Empowering girls to distinguish reliable knowledge from misleading claims and build strong intellectual and values-based resilience.",
+        "icon": "bi bi-shield-check"
+      },
+      {
+        "text": "Preparing educational practitioners who can deepen understanding and conviction rather than merely transfer information.",
+        "icon": "bi bi-mortarboard-fill"
+      },
+      {
+        "text": "Helping teachers connect curricula with contemporary developments and current intellectual questions.",
+        "icon": "bi bi-lightning-charge-fill"
+      },
+      {
+        "text": "Achieving financial sustainability to maintain programs and expand community impact.",
+        "icon": "bi bi-cash-coin"
+      }
+    ]
+  },
+  "values": {
+    "title": "Our Values",
+    "items": [
+      {
+        "title": "Quality",
+        "text": "Delivering services and outputs to high standards that meet beneficiary expectations efficiently and effectively.",
+        "icon": "bi bi-star-fill"
+      },
+      {
+        "title": "Transparency & Credibility",
+        "text": "Clarity, honesty, and appropriate disclosure of relevant information and decisions to strengthen trust.",
+        "icon": "bi bi-patch-check-fill"
+      },
+      {
+        "title": "Collaboration",
+        "text": "Working as one team and integrating efforts to achieve shared objectives efficiently and effectively.",
+        "icon": "bi bi-people-fill"
+      },
+      {
+        "title": "Innovation",
+        "text": "Developing practical ideas and solutions that improve quality and respond to beneficiary needs.",
+        "icon": "bi bi-lightbulb-fill"
+      },
+      {
+        "title": "Flexibility",
+        "text": "Adapting to changing circumstances while maintaining core principles and achieving objectives efficiently.",
+        "icon": "bi bi-arrow-repeat"
+      }
+    ]
+  },
+  "docs": {
+    "reports": {
+      "title": "Financial Statements & Reports",
+      "subtitle": "Approved financial statements and reports are published here when they are officially available for publication.",
+      "items": []
+    },
+    "trustees": {
+      "title": "Board of Trustees",
+      "subtitle": "Board of Trustees of Hedayat Educational Foundation",
+      "imageHref": "/trustees-board.png"
+    },
+    "governance": {
+      "title": "Governance Center",
+      "official": [
+        {
+          "title": "Nonprofit Organization License Certificate",
+          "description": "The official license certificate of Hedayat Educational Foundation issued by the National Center for Non-Profit Sector.",
+          "fileHref": "organization-license.pdf",
+          "previewHref": "/organization-license-preview.jpg",
+          "meta": "License No. 1100527000",
+          "category": "License",
+          "status": "Published",
+          "updated": "06 March 2025",
+          "version": "Valid until 05 March 2029"
+        },
+        {
+          "title": "Basic Regulation",
+          "description": "The foundational regulation governing the establishment, objectives, administrative structure, and Board of Trustees of the Foundation.",
+          "fileHref": "basic-regulation.pdf",
+          "previewHref": "/basic-regulation-preview.jpg",
+          "meta": "Core Governance Document",
+          "category": "Basic Regulation",
+          "status": "Published",
+          "updated": "06 March 2025",
+          "version": "Approved Basic Regulation"
+        }
+      ],
+      "policies": [
+        {
+          "title": "Privacy & Data Protection Policy",
+          "description": "The approved policy governing personal-data privacy, scope of use, data security, and data-subject rights.",
+          "fileHref": "privacy-data-policy.pdf",
+          "previewHref": "/privacy-data-policy-preview.jpg",
+          "meta": "Approved Policy",
+          "status": "Published",
+          "approvalDate": "17 September 2026",
+          "updated": "17 September 2026",
+          "version": "First Cycle",
+          "category": "Policies"
+        },
+        {
+          "title": "Disclosure & Transparency Policy",
+          "description": "The policy governing institutional disclosure, official publication channels, exceptions, and conflict-of-interest management.",
+          "fileHref": "disclosure-transparency-policy.pdf",
+          "previewHref": "/disclosure-transparency-policy-preview.jpg",
+          "meta": "Approved Policy",
+          "status": "Published",
+          "approvalDate": "17 September 2026",
+          "updated": "17 September 2026",
+          "version": "First Cycle",
+          "category": "Policies"
+        },
+        {
+          "title": "Records Retention & Disposal Policy",
+          "description": "The policy governing records retention periods, preservation procedures, and secure disposal.",
+          "fileHref": "records-retention-disposal-policy.pdf",
+          "previewHref": "/records-retention-disposal-policy-preview.jpg",
+          "meta": "Approved Policy",
+          "status": "Published",
+          "approvalDate": "17 September 2026",
+          "updated": "17 September 2026",
+          "version": "First Cycle",
+          "category": "Policies"
+        }
+      ],
+      "planned": [
+        {
+          "title": "Operational Plan",
+          "category": "Operational Plan",
+          "status": "Pending Publication",
+          "message": "Will be published after formal approval."
+        },
+        {
+          "title": "Financial Reports",
+          "category": "Financial Reports",
+          "status": "Pending Publication",
+          "message": "Will be published after formal approval."
+        },
+        {
+          "title": "Annual Reports",
+          "category": "Annual Reports",
+          "status": "Pending Publication",
+          "message": "Will be published after formal approval."
+        }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We welcome your questions, suggestions, and requests for partnerships or tailored educational programs.",
+    "email": "hedayaat1446@gmail.com",
+    "phone": "+966 54 907 8774",
+    "address": "Jeddah, Saudi Arabia",
+    "iban": "",
+    "social": [
+      {
+        "name": "Instagram",
+        "label": "Instagram",
+        "icon": "bi-instagram",
+        "url": "https://www.instagram.com/hedayaat_edu/"
+      },
+      {
+        "name": "X",
+        "label": "X",
+        "icon": "",
+        "url": "https://x.com/hedayaat_edu"
+      },
+      {
+        "name": "TikTok",
+        "label": "TikTok",
+        "icon": "bi-tiktok",
+        "url": "https://www.tiktok.com/@hedayaat_edu"
+      },
+      {
+        "name": "Snapchat",
+        "label": "Snapchat",
+        "icon": "bi-snapchat",
+        "url": "https://www.snapchat.com/add/hedayaat_edu"
+      },
+      {
+        "name": "YouTube",
+        "label": "YouTube",
+        "icon": "bi-youtube",
+        "url": "https://www.youtube.com/@hedayaat_edu"
+      }
+    ],
+    "locationUrl": "https://maps.app.goo.gl/F3CqDs2bdyde1Rm68?g_st=iw",
+    "linktreeUrl": "",
+    "socialUsername": "hedayaat_edu"
+  },
+  "footer": {
+    "licenseText": "Licensed by the National Center for Non-Profit Sector under No. 1100527000",
+    "copyrightText": "All rights reserved © {year} Hedayat"
+  },
+  "programs": {
+    "title": "Programs",
+    "subtitle": "A clear and up-to-date view of the Foundation’s educational programs.",
+    "cardTitle": "Purposeful Educational Programs",
+    "cardText": "The Foundation develops educational programs using contemporary, accessible, and engaging methods aligned with its mission and objectives.",
+    "ctaLabel": "Ask about programs",
+    "ctaHref": "#contact"
+  },
+  "partners": {
+    "title": "Partnerships",
+    "subtitle": "Institutional collaboration that supports program quality and strengthens community impact.",
+    "cardTitle": "Institutional Partnerships",
+    "cardText": "For partnership and collaboration opportunities with Hedayat Educational Foundation, please use the official contact channels on this website.",
+    "ctaLabel": "Request a partnership",
+    "ctaHref": "#contact"
+  },
+  "institution": {
+    "type": "Licensed Civil Foundation",
+    "licenseNumber": "1100527000",
+    "unifiedNationalNumber": "7049464931",
+    "supervision": "Ministry of Education",
+    "licenseValidUntil": "05 March 2029",
+    "verifyUrl": "https://backendgateway.nawa.ncnp.gov.sa/documents/pdf/58967?preview=true&item_type=entity&doc_type=license"
+  },
+  "mediaCenter": {
+    "title": "Media Center",
+    "subtitle": "Foundation news and official visual media in one place.",
+    "items": [
+      {
+        "title": "News",
+        "text": "Approved announcements and news from the Foundation.",
+        "href": "/en/news/",
+        "icon": "bi bi-newspaper"
+      },
+      {
+        "title": "Photos",
+        "text": "Published photos from programs and events.",
+        "href": "/en/photos/",
+        "icon": "bi bi-images"
+      },
+      {
+        "title": "Video",
+        "text": "Official visual content from the Foundation.",
+        "href": "/en/videos/",
+        "icon": "bi bi-play-btn"
+      }
+    ]
+  }
+}
