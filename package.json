@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node prepare-structure.mjs && astro dev",
+    "build": "node prepare-structure.mjs && astro build",
     "preview": "astro preview",
     "start": "node server.mjs",
     "astro": "astro"
