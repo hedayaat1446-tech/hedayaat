@@ -28,5 +28,14 @@ const meta = { ...site.meta, title: "آخر الأخبار | مؤسسة هداي
     .media-tabs{max-width:760px;margin:-6px auto 42px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#fff;border:1px solid rgba(94,115,74,.14);border-radius:18px;box-shadow:0 14px 38px rgba(51,65,55,.08)} .media-tabs a{text-align:center;text-decoration:none;color:#465646;font-weight:800;padding:13px 10px;border-radius:13px;transition:.18s ease}.media-tabs a:hover,.media-tabs a:focus-visible,.media-tabs a.is-active{background:#eef2e8;color:#4d643e}.media-tabs a:focus-visible{outline:3px solid rgba(94,115,74,.22);outline-offset:2px}
     .media-content{max-width:980px;margin:0 auto;padding:0 20px 90px}.media-empty{background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:28px;padding:64px 26px;text-align:center;box-shadow:0 20px 56px rgba(51,65,55,.07)} .empty-mark{width:82px;height:82px;margin:0 auto 20px;display:grid;place-items:center;border-radius:50%;background:#f7f1df;color:#9a873c;font-size:34px}.media-empty h2{font-size:1.65rem;margin:0 0 12px;color:#334137}.media-empty p{font-size:1.05rem;color:#788078;margin:0 0 26px}.media-back{display:inline-flex;text-decoration:none;background:#667a52;color:#fff;padding:12px 24px;border-radius:999px;font-weight:800}
     @media(max-width:600px){.media-header-inner{padding:12px 16px}.media-brand img{width:150px}.media-home span{display:none}.media-home{width:42px;height:42px;justify-content:center;padding:0}.media-hero{padding:56px 18px 34px}.media-tabs{margin:0 16px 34px}.media-tabs a{font-size:.92rem;padding:12px 4px}.media-empty{padding:48px 18px;border-radius:22px}.media-content{padding-left:16px;padding-right:16px}}
+  
+    /* unified-mobile-v1: consistent internal-page scale */
+    @media(max-width:600px){
+      h1{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.35!important}
+      h2{line-height:1.45}
+      .media-hero p,.gov-hero p,.transparency-hero p,.institution-hero p,.participation-hero p,.access-hero p,.reports-hero p{font-size:.96rem!important;line-height:1.85!important}
+      .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
+      .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
+    }
   </style>
 </BaseLayout>

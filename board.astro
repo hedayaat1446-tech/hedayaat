@@ -49,5 +49,14 @@ const meta = {
     .institution-hero{padding:72px 20px 44px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)}.institution-shell{max-width:760px;margin:auto}.institution-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#eef2e8;color:#5e734a;font-weight:800;margin-bottom:22px}.institution-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#fff4ea;color:#de8f62;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)}h1{font-size:clamp(2.2rem,5vw,3.8rem);margin:0 0 14px;font-weight:900;color:#334137}.institution-hero p{margin:0 auto;max-width:720px;font-size:1.12rem;line-height:2;color:#667267}
     .institution-content{max-width:1100px;margin:0 auto;padding:0 20px 88px;scroll-margin-top:100px}.trustees-card{margin:0;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:26px;padding:16px;box-shadow:0 20px 56px rgba(51,65,55,.07);overflow:hidden}.trustees-card img{display:block;width:100%;height:auto;border-radius:18px}.institution-back{display:inline-flex;align-items:center;gap:8px;margin-top:26px;text-decoration:none;color:#5e734a;font-weight:800}
     @media(max-width:720px){.institution-header-inner{padding:12px 16px}.institution-brand img{width:150px}.institution-home span{display:none}.institution-home{width:42px;height:42px;justify-content:center;padding:0}.institution-hero{padding:52px 18px 34px}.institution-content{padding:0 12px 70px}.trustees-card{padding:8px;border-radius:18px}.trustees-card img{border-radius:12px}}
+  
+    /* unified-mobile-v1: consistent internal-page scale */
+    @media(max-width:600px){
+      h1{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.35!important}
+      h2{line-height:1.45}
+      .media-hero p,.gov-hero p,.transparency-hero p,.institution-hero p,.participation-hero p,.access-hero p,.reports-hero p{font-size:.96rem!important;line-height:1.85!important}
+      .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
+      .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
+    }
   </style>
 </BaseLayout>

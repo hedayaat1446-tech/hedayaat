@@ -29,7 +29,6 @@ const trustees = [
       <div class="tp-shell">
         <span class="tp-kicker"><i class="bi bi-eye" aria-hidden="true"></i> الشفافية المؤسسية</span>
         <h1 id="tp-title">الشفافية والإفصاح</h1>
-        <p>عرض واضح للمعلومات المنشورة عن مجلس الأمناء والسياسات المعتمدة وحالة نشر بيانات الحوكمة، دون إظهار بيانات غير معتمدة.</p>
       </div>
     </section>
 
@@ -101,5 +100,14 @@ const trustees = [
     .tp-disclosure{margin-top:34px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;background:#0b5f72;color:#fff;border-radius:20px;padding:24px}.tp-disclosure-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:15px;background:rgba(255,255,255,.12);font-size:25px}.tp-disclosure span{font-size:.82rem;font-weight:900;color:#e8d993}.tp-disclosure h2{margin:3px 0 6px;font-size:1.25rem;font-weight:900}.tp-disclosure p{margin:0;color:#e6eff1;line-height:1.75}.tp-disclosure>a{background:#fff;color:#0b5f72;text-decoration:none;font-weight:900;border-radius:10px;padding:10px 14px;text-align:center}
     @media(max-width:900px){.tp-board-grid,.tp-policy-grid{grid-template-columns:1fr 1fr}.tp-disclosure{grid-template-columns:auto 1fr}.tp-disclosure>a{grid-column:1/-1}}
     @media(max-width:620px){.tp-header-inner{padding:11px 14px}.tp-brand img{width:142px}.tp-actions a span{display:none}.tp-actions a{width:42px;height:42px;justify-content:center;padding:0}.tp-hero{padding:50px 16px 40px}.tp-content{padding:42px 14px 70px}.tp-section-head{align-items:flex-start;flex-direction:column}.tp-board-grid,.tp-policy-grid{grid-template-columns:1fr}.tp-exec-card{flex-direction:column}.tp-policy-card dl>div{display:block}.tp-policy-card dd{margin-top:2px}.tp-disclosure{display:flex;align-items:flex-start;flex-direction:column}.tp-disclosure>a{width:100%}}
+  
+    /* unified-mobile-v1: consistent internal-page scale */
+    @media(max-width:600px){
+      h1{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.35!important}
+      h2{line-height:1.45}
+      .media-hero p,.gov-hero p,.transparency-hero p,.institution-hero p,.participation-hero p,.access-hero p,.reports-hero p{font-size:.96rem!important;line-height:1.85!important}
+      .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
+      .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
+    }
   </style>
 </BaseLayout>

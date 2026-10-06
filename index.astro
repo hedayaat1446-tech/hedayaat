@@ -153,34 +153,10 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </div>
     </section>
 
-    <section id="vision" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.vision.title}</h2>
-          <p class="ref-section-subtitle">{site.vision.subtitle}</p>
-        </div>
-
-        <div class="institution-statements">
-          {site.vision.items.map((x, index) => (
-            <article id={index === 0 ? "vision-item" : "mission-item"} class="institution-statement reveal-on-scroll">
-              <div class="institution-statement-icon" aria-hidden="true"><i class={x.icon}></i></div>
-              <div class="institution-statement-copy">
-                <span class="institution-statement-kicker">{index === 0 ? "اتجاهنا" : "دورنا"}</span>
-                <h3>{x.title}</h3>
-                <p>{x.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
     <section id="goals" class="ref-wrap">
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.goals.title}</h2>
-          <p class="ref-section-subtitle">{site.goals.subtitle}</p>
         </div>
 
         <div class="strategic-goals-list">
@@ -189,7 +165,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
               <div class="strategic-goal-icon" aria-hidden="true"><i class={g.icon}></i></div>
               <div class="strategic-goal-copy">
-                <h3>{g.title}</h3>
                 <p>{g.text}</p>
               </div>
             </article>
@@ -202,7 +177,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">{site.values.title}</h2>
-          <p class="ref-section-subtitle">{site.values.subtitle}</p>
         </div>
 
         <div class="core-values-list">
@@ -252,6 +226,25 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
           </div>
           <a class="institutional-info-action" href={site.partners.ctaHref}>{site.partners.ctaLabel}</a>
         </article>
+      </div>
+    </section>
+
+    <section id="media" class="ref-wrap media-home-section">
+      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
+      <div class="ref-section">
+        <div class="ref-section-header">
+          <h2 class="ref-section-title">{site.mediaCenter.title}</h2>
+          <p class="ref-section-subtitle">{site.mediaCenter.subtitle}</p>
+        </div>
+        <div class="media-home-grid">
+          {site.mediaCenter.items.map((item) => (
+            <a class="media-home-card reveal-on-scroll" href={item.href}>
+              <span class="media-home-card-icon" aria-hidden="true"><i class={item.icon}></i></span>
+              <span class="media-home-card-copy"><strong>{item.title}</strong><small>{item.text}</small></span>
+              <i class="bi bi-arrow-left-short media-home-arrow" aria-hidden="true"></i>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
 

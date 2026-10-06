@@ -22,11 +22,11 @@ const goals = [
 ];
 
 const values = [
-  { title: "Quality", text: "High standards in program delivery and outcomes, supported by continuous review and improvement.", icon: "bi bi-star-fill" },
-  { title: "Credibility & transparency", text: "Clear objectives, measurable outcomes and transparent communication with stakeholders.", icon: "bi bi-patch-check-fill" },
-  { title: "Collaboration", text: "Effective partnerships with educational and non-profit entities to strengthen impact and reduce duplication.", icon: "bi bi-people-fill" },
-  { title: "Innovation", text: "Contemporary educational solutions and media that speak effectively to today’s generation.", icon: "bi bi-lightbulb-fill" },
-  { title: "Flexibility", text: "The ability to evolve and respond to emerging needs and community priorities.", icon: "bi bi-arrow-repeat" }
+  { title: "Quality", text: "Delivering services and outputs to high standards that meet beneficiary expectations efficiently and effectively.", icon: "bi bi-star-fill" },
+  { title: "Credibility & Transparency", text: "Clarity, honesty and appropriate disclosure of relevant information and decisions to strengthen trust.", icon: "bi bi-patch-check-fill" },
+  { title: "Collaboration", text: "Working as one team and integrating efforts to achieve shared objectives efficiently.", icon: "bi bi-people-fill" },
+  { title: "Innovation", text: "Creating practical ideas and solutions that improve quality and respond to beneficiary needs.", icon: "bi bi-lightbulb-fill" },
+  { title: "Flexibility", text: "Adapting to change while maintaining core principles and achieving objectives efficiently.", icon: "bi bi-arrow-repeat" }
 ];
 ---
 
@@ -52,7 +52,6 @@ const values = [
             <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">About the Foundation</button>
             <ul class="dropdown-menu hedayat-dropdown">
               <li><a class="dropdown-item" href="#about">Who we are</a></li>
-              <li><a class="dropdown-item" href="#vision">Vision & Mission</a></li>
               <li><a class="dropdown-item" href="#goals">Strategic Goals</a></li>
               <li><a class="dropdown-item" href="#values">Our Values</a></li>
               <li><a class="dropdown-item" href="/board/">Board of Trustees</a></li>
@@ -68,7 +67,7 @@ const values = [
               <li><a class="dropdown-item" href="/transparency/">Transparency & Disclosure</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="/en/videos/">Media Center</a></li>
+          <li class="nav-item dropdown hedayat-nav-group"><button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Media Center</button><ul class="dropdown-menu hedayat-dropdown"><li><a class="dropdown-item" href="/news/">News</a></li><li><a class="dropdown-item" href="/photos/">Photos</a></li><li><a class="dropdown-item" href="/en/videos/">Video</a></li></ul></li>
           <li class="nav-item"><a class="nav-link" href="/en/participation/">Beneficiary Participation</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item"><a class="nav-link" href="/" lang="ar" dir="rtl">العربية</a></li>
@@ -134,7 +133,7 @@ const values = [
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">Who We Are</h2>
-          <p class="ref-section-subtitle">Hedayat Educational Foundation was established to strengthen sound knowledge and build well-grounded awareness that helps individuals and communities respond thoughtfully to intellectual and values-based challenges.</p>
+          <p class="ref-section-subtitle">A licensed educational foundation focused on reliable knowledge, well-grounded awareness and contemporary learning methods.</p>
         </div>
 
         <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
@@ -150,38 +149,10 @@ const values = [
             </div>
             <div class="col-md-7">
               <h4 class="mb-3" style="color: var(--primary);">Our mission to deepen awareness</h4>
-              <p class="mb-3" style="color:var(--text-card-muted);">We work to strengthen reliable knowledge and build well-grounded awareness that protects individuals and communities from misleading intellectual and values-based influences through a balance of academic authenticity and contemporary educational methods.</p>
+              <p class="mb-3" style="color:var(--text-card-muted);">We build well-grounded awareness through reliable content and purposeful educational programs.</p>
               <p class="mb-0" style="color:var(--text-card-muted);">We believe that deep awareness is a first line of protection for national and Islamic identity, and that investing in sound understanding is an investment in the future of society.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="vision" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">Our Vision & Mission</h2>
-          <p class="ref-section-subtitle">The direction that guides our plans and programs</p>
-        </div>
-        <div class="institution-statements">
-          <article id="vision-item-en" class="institution-statement reveal-on-scroll">
-            <div class="institution-statement-icon" aria-hidden="true"><i class="bi bi-award-fill"></i></div>
-            <div class="institution-statement-copy">
-              <span class="institution-statement-kicker">Our direction</span>
-              <h3>Our Vision</h3>
-              <p>A trusted and leading foundation specialized in providing reliable knowledge that supports the nation’s higher values and contributes to a generation that is aware, confident in its identity and grounded in its values.</p>
-            </div>
-          </article>
-          <article id="mission-item-en" class="institution-statement reveal-on-scroll">
-            <div class="institution-statement-icon" aria-hidden="true"><i class="bi bi-compass-fill"></i></div>
-            <div class="institution-statement-copy">
-              <span class="institution-statement-kicker">Our role</span>
-              <h3>Our Mission</h3>
-              <p>A beacon of guidance that deepens community awareness and shares reliable knowledge through purposeful programs, qualified expertise and contemporary, accessible and engaging educational methods.</p>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -190,15 +161,13 @@ const values = [
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">Our Strategic Goals</h2>
-          <p class="ref-section-subtitle">Clear areas of work that support our long-term vision</p>
-        </div>
+                  </div>
         <div class="strategic-goals-list">
           {goals.map((item, index) => (
             <article class="strategic-goal reveal-on-scroll">
               <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
               <div class="strategic-goal-icon" aria-hidden="true"><i class={item.icon}></i></div>
               <div class="strategic-goal-copy">
-                <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </div>
             </article>
@@ -211,8 +180,7 @@ const values = [
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">Our Core Values</h2>
-          <p class="ref-section-subtitle">Principles that guide our decisions, programs and partnerships</p>
+          <h2 class="ref-section-title">Our Values</h2>
         </div>
         <div class="core-values-list">
           {values.map((item) => (
@@ -232,8 +200,8 @@ const values = [
       <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">Programs & Initiatives</h2>
-          <p class="ref-section-subtitle">A dedicated space for presenting the Foundation’s educational programs and initiatives clearly and as they are updated.</p>
+          <h2 class="ref-section-title">Programs</h2>
+          <p class="ref-section-subtitle">A clear, up-to-date space for the Foundation’s educational programs.</p>
         </div>
         <article class="ref-card institutional-info-card reveal-on-scroll">
           <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
@@ -281,6 +249,21 @@ const values = [
           <a class="ref-card en-doc-card reveal-on-scroll" href="/governance/">
             <i class="bi bi-grid-1x2" aria-hidden="true"></i><div><h3>Governance Center</h3><p>License, regulation, approved policies and publication status.</p></div>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="media" class="ref-wrap en-media-home">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
+      <div class="ref-section">
+        <div class="ref-section-header">
+          <h2 class="ref-section-title">Media Center</h2>
+          <p class="ref-section-subtitle">Official news and visual content from Hedayat Educational Foundation.</p>
+        </div>
+        <div class="media-home-grid">
+          <a class="media-home-card reveal-on-scroll" href="/news/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-newspaper"></i></span><span class="media-home-card-copy"><strong>News</strong><small>Official announcements and updates (Arabic).</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
+          <a class="media-home-card reveal-on-scroll" href="/photos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-images"></i></span><span class="media-home-card-copy"><strong>Photos</strong><small>Published program and event galleries.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
+          <a class="media-home-card reveal-on-scroll" href="/en/videos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-play-btn"></i></span><span class="media-home-card-copy"><strong>Video</strong><small>Official visual content from the Foundation.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>

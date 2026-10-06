@@ -62,5 +62,14 @@ const privacyMeta = {
     .privacy-collection-note{margin-top:22px;padding:16px 18px;border-radius:14px;background:#eef5f3;border:1px solid rgba(49,95,112,.12);display:flex;align-items:flex-start;gap:12px}.privacy-collection-note>i{color:#315f70;font-size:1.35rem;margin-top:2px}.privacy-collection-note strong{color:#315f70}.privacy-collection-note p{margin:3px 0 0;color:#5f6d66;line-height:1.8}.privacy-contact{margin-top:26px;padding:16px 18px;border-radius:14px;background:#f6f4ee;text-align:center}
     @media(max-width:640px){.privacy-official-card{grid-template-columns:1fr;padding:16px}.privacy-official-card>img{max-height:280px}.privacy-actions{display:grid;grid-template-columns:1fr 1fr}.privacy-actions a{padding-inline:8px}}
     @media(max-width:380px){.privacy-actions{grid-template-columns:1fr}}
+  
+    /* unified-mobile-v1: consistent internal-page scale */
+    @media(max-width:600px){
+      h1{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.35!important}
+      h2{line-height:1.45}
+      .media-hero p,.gov-hero p,.transparency-hero p,.institution-hero p,.participation-hero p,.access-hero p,.reports-hero p{font-size:.96rem!important;line-height:1.85!important}
+      .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
+      .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
+    }
   </style>
 </BaseLayout>
