@@ -1,61 +1,80 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site.json";
 
-const nav = (site.nav || []).filter((x) => x.enabled !== false);
+const institution = site.institution;
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
-const waMessage = "السلام عليكم، أرغب بالاستفسار عن برامج مؤسسة هدايات التعليمية";
+const waMessage = "Hello, I would like to inquire about Hedayat Educational Foundation programs.";
 const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;
+const meta = {
+  ...site.meta,
+  title: "Hedayat Educational Foundation",
+  description: "Official English website of Hedayat Educational Foundation — a licensed educational civil foundation providing reliable knowledge through purposeful programs, qualified expertise and accessible contemporary methods.",
+  locale: "en_SA",
+  siteName: "Hedayat Educational Foundation"
+};
+
+const goals = [
+  { title: "Empowering the next generation (girls)", text: "Enabling girls to distinguish reliable knowledge from misleading claims and build strong intellectual and values-based resilience.", icon: "bi bi-shield-check" },
+  { title: "Building educational capabilities", text: "Preparing educational practitioners who can deepen understanding and conviction rather than merely transfer information.", icon: "bi bi-mortarboard-fill" },
+  { title: "Keeping pace with emerging issues", text: "Helping educators connect learning content with contemporary developments and current intellectual questions.", icon: "bi bi-lightning-charge-fill" },
+  { title: "Financial sustainability", text: "Supporting long-term continuity of programs and expanding sustainable community impact.", icon: "bi bi-cash-coin" }
+];
+
+const values = [
+  { title: "Quality", text: "Delivering services and outputs to high standards that meet beneficiary expectations efficiently and effectively.", icon: "bi bi-star-fill" },
+  { title: "Credibility & Transparency", text: "Clarity, honesty and appropriate disclosure of relevant information and decisions to strengthen trust.", icon: "bi bi-patch-check-fill" },
+  { title: "Collaboration", text: "Working as one team and integrating efforts to achieve shared objectives efficiently.", icon: "bi bi-people-fill" },
+  { title: "Innovation", text: "Creating practical ideas and solutions that improve quality and respond to beneficiary needs.", icon: "bi bi-lightbulb-fill" },
+  { title: "Flexibility", text: "Adapting to change while maintaining core principles and achieving objectives efficiently.", icon: "bi bi-arrow-repeat" }
+];
 ---
 
-<BaseLayout meta={site.meta}>
-  <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="Primary navigation">
     <div class="container align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-nav" style="display:block; height:48px; width:auto; max-width:min(56vw,340px); object-fit:contain; background:transparent !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
+        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="official-logo official-logo-nav" style="display:block; height:48px; width:auto; max-width:min(56vw,340px); object-fit:contain; background:transparent !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
+        <span class="visually-hidden">Go to the top of the page</span>
       </a>
 
-      <a class="whatsapp-btn d-flex d-lg-none ms-auto me-2"
-         href={waLink} target="_blank" rel="noopener"
-         aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب">
+      <a class="whatsapp-btn d-flex d-lg-none ms-auto me-2" href={waLink} target="_blank" rel="noopener" aria-label="Contact us on WhatsApp" title="Contact us on WhatsApp">
         <i class="bi bi-whatsapp" aria-hidden="true"></i>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
-              aria-controls="navMain" aria-expanded="false" aria-label="إظهار القائمة">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMainEn" aria-controls="navMainEn" aria-expanded="false" aria-label="Open navigation menu">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navMain">
+      <div class="collapse navbar-collapse" id="navMainEn">
         <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
-          {nav.map((item) => item.children?.length ? (
-            <li class="nav-item dropdown hedayat-nav-group">
-              <button
-                class="nav-link dropdown-toggle nav-dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                data-bs-display="static"
-                aria-expanded="false"
-              >
-                {item.label}
-              </button>
-              <ul class="dropdown-menu hedayat-dropdown">
-                {item.children.map((child) => (
-                  <li><a class="dropdown-item" href={child.href}>{child.label}</a></li>
-                ))}
-              </ul>
-            </li>
-          ) : (
-            <li class="nav-item"><a class="nav-link" href={item.href}>{item.label}</a></li>
-          ))}
+          <li class="nav-item dropdown hedayat-nav-group">
+            <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">About the Foundation</button>
+            <ul class="dropdown-menu hedayat-dropdown">
+              <li><a class="dropdown-item" href="#about">Who we are</a></li>
+              <li><a class="dropdown-item" href="#goals">Strategic Goals</a></li>
+              <li><a class="dropdown-item" href="#values">Our Values</a></li>
+              <li><a class="dropdown-item" href="/board/">Board of Trustees</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#partners">Partnerships</a></li>
+          <li class="nav-item dropdown hedayat-nav-group">
+            <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Governance</button>
+            <ul class="dropdown-menu hedayat-dropdown">
+              <li><a class="dropdown-item" href="#governance">Governance overview</a></li>
+              <li><a class="dropdown-item" href="/governance/">Governance Center</a></li>
+              <li><a class="dropdown-item" href="/transparency/">Transparency & Disclosure</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown hedayat-nav-group"><button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Media Center</button><ul class="dropdown-menu hedayat-dropdown"><li><a class="dropdown-item" href="/news/">News</a></li><li><a class="dropdown-item" href="/photos/">Photos</a></li><li><a class="dropdown-item" href="/en/videos/">Video</a></li></ul></li>
+          <li class="nav-item"><a class="nav-link" href="/en/participation/">Beneficiary Participation</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/" lang="ar" dir="rtl">العربية</a></li>
         </ul>
 
         <div class="d-none d-lg-flex ms-lg-3">
-          <a class="whatsapp-btn"
-             href={waLink} target="_blank" rel="noopener"
-             aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب">
+          <a class="whatsapp-btn" href={waLink} target="_blank" rel="noopener" aria-label="Contact us on WhatsApp" title="Contact us on WhatsApp">
             <i class="bi bi-whatsapp" aria-hidden="true"></i>
           </a>
         </div>
@@ -66,42 +85,36 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
   <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
 
   <style is:inline>
-  /* v6: official transparent logo + light identity theme. Inline on purpose so an old cached stylesheet cannot restore the white card. */
-  .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .official-logo { padding: 0 !important; }
-  @media (max-width: 768px) {
-    .official-logo-nav { height: 39px !important; max-width: min(48vw, 190px) !important; }
-    .official-logo-hero { width: min(88vw, 470px) !important; }
-    .official-logo-footer { width: min(58vw, 220px) !important; }
-  }
-</style>
+    .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .official-logo { padding: 0 !important; }
+    @media (max-width: 768px) {
+      .official-logo-nav { height: 39px !important; max-width: min(48vw, 190px) !important; }
+      .official-logo-hero { width: min(88vw, 470px) !important; }
+      .official-logo-footer { width: min(58vw, 220px) !important; }
+    }
+  </style>
 
-<main id="main-content">
+  <main id="main-content">
     <section id="home" class="hero-section" style={{ "--hero-bg": `url(${site.assets.heroBackground})` }}>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
             <div class="official-logo-hero-wrap mb-5" style="display:flex; justify-content:center; align-items:center; width:100%; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important;">
-              <img src={site.assets.logoHero} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-hero" style="display:block; width:min(82vw,620px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 auto !important;" />
+              <img src={site.assets.logoHero} alt="Hedayat Educational Foundation logo" class="official-logo official-logo-hero" style="display:block; width:min(82vw,620px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 auto !important;" />
             </div>
             <div class="hero-copy">
-              <h1 class="display-6 fw-bold hero-title mb-3">{site.hero.headline}</h1>
-              <p class="lead hero-lead mb-4">{site.hero.lead}</p>
-
+              <h1 class="display-6 fw-bold hero-title mb-3">A Beacon of Guidance for Deeper Community Awareness</h1>
+              <p class="lead hero-lead mb-4">A trusted educational foundation specialized in providing reliable knowledge that supports the nation’s higher values through purposeful programs, qualified expertise and accessible, engaging methods.</p>
               <div class="d-flex flex-wrap justify-content-center gap-2 gap-md-3 mt-2">
-                {site.hero.cta.map((b) => (
-                  <a href={b.href} class={b.variant === "secondary" ? "btn-cta-secondary" : "btn-cta-primary"}>
-                    {b.label}
-                  </a>
-                ))}
+                <a href="#about" class="btn-cta-secondary">Discover the Foundation</a>
               </div>
             </div>
           </div>
@@ -115,14 +128,12 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </svg>
     </section>
 
-
-
     <section id="about" class="ref-wrap">
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.about.title}</h2>
-          <p class="ref-section-subtitle">{site.about.subtitle}</p>
+          <h2 class="ref-section-title">Who We Are</h2>
+          <p class="ref-section-subtitle">A licensed educational foundation focused on reliable knowledge, well-grounded awareness and contemporary learning methods.</p>
         </div>
 
         <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
@@ -131,22 +142,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
               <div class="p-4 rounded-3" style="background-color:var(--soft-sage);">
                 <div class="d-flex flex-column align-items-center text-center">
                   <i class="bi bi-patch-check-fill display-5 mb-3" style="color:var(--primary);" aria-hidden="true"></i>
-                  <h3 class="fw-bold" style="font-family: var(--font-family-arabic); color: var(--primary);">
-                    {site.about.cardTitle}
-                  </h3>
-                  <p class="mb-0" style="color:var(--text-card-muted);">
-                    {site.about.cardText}
-                  </p>
+                  <h3 class="fw-bold" style="color: var(--primary);">Registered Educational Foundation</h3>
+                  <p class="mb-0" style="color:var(--text-card-muted);">We combine authentic knowledge with contemporary, engaging methods to create meaningful and sustainable impact.</p>
                 </div>
               </div>
             </div>
-
             <div class="col-md-7">
-              <h4 class="mb-3" style="font-family: var(--font-family-arabic); color: var(--primary);">
-                {site.about.textTitle}
-              </h4>
-              <p class="mb-3" style="color:var(--text-card-muted);">{site.about.p1}</p>
-              <p class="mb-0" style="color:var(--text-card-muted);">{site.about.p2}</p>
+              <h4 class="mb-3" style="color: var(--primary);">Our mission to deepen awareness</h4>
+              <p class="mb-3" style="color:var(--text-card-muted);">We build well-grounded awareness through reliable content and purposeful educational programs.</p>
+              <p class="mb-0" style="color:var(--text-card-muted);">We believe that deep awareness is a first line of protection for national and Islamic identity, and that investing in sound understanding is an investment in the future of society.</p>
             </div>
           </div>
         </div>
@@ -156,16 +160,15 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     <section id="goals" class="ref-wrap">
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.goals.title}</h2>
-        </div>
-
+          <h2 class="ref-section-title">Our Strategic Goals</h2>
+                  </div>
         <div class="strategic-goals-list">
-          {site.goals.items.map((g, index) => (
+          {goals.map((item, index) => (
             <article class="strategic-goal reveal-on-scroll">
               <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-              <div class="strategic-goal-icon" aria-hidden="true"><i class={g.icon}></i></div>
+              <div class="strategic-goal-icon" aria-hidden="true"><i class={item.icon}></i></div>
               <div class="strategic-goal-copy">
-                <p>{g.text}</p>
+                <p>{item.text}</p>
               </div>
             </article>
           ))}
@@ -174,18 +177,18 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     </section>
 
     <section id="values" class="ref-wrap">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.values.title}</h2>
+          <h2 class="ref-section-title">Our Values</h2>
         </div>
-
         <div class="core-values-list">
-          {site.values.items.map((v) => (
+          {values.map((item) => (
             <article class="core-value reveal-on-scroll">
-              <div class="core-value-icon" aria-hidden="true"><i class={v.icon}></i></div>
+              <div class="core-value-icon" aria-hidden="true"><i class={item.icon}></i></div>
               <div class="core-value-copy">
-                <h3>{v.title}</h3>
-                <p>{v.text}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </div>
             </article>
           ))}
@@ -197,16 +200,16 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.programs.title}</h2>
-          <p class="ref-section-subtitle">{site.programs.subtitle}</p>
+          <h2 class="ref-section-title">Programs</h2>
+          <p class="ref-section-subtitle">A clear, up-to-date space for the Foundation’s educational programs.</p>
         </div>
         <article class="ref-card institutional-info-card reveal-on-scroll">
           <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
           <div class="institutional-info-copy">
-            <h3>{site.programs.cardTitle}</h3>
-            <p>{site.programs.cardText}</p>
+            <h3>Purposeful Educational Programs</h3>
+            <p>The Foundation develops educational programs using contemporary, accessible and engaging methods aligned with its mission and objectives.</p>
           </div>
-          <a class="institutional-info-action" href={site.programs.ctaHref}>{site.programs.ctaLabel}</a>
+          <a class="institutional-info-action" href="#contact">Ask about programs</a>
         </article>
       </div>
     </section>
@@ -215,35 +218,52 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.partners.title}</h2>
-          <p class="ref-section-subtitle">{site.partners.subtitle}</p>
+          <h2 class="ref-section-title">Partnerships</h2>
+          <p class="ref-section-subtitle">We build institutional collaboration that supports program quality and strengthens community impact.</p>
         </div>
         <article class="ref-card institutional-info-card reveal-on-scroll">
           <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
           <div class="institutional-info-copy">
-            <h3>{site.partners.cardTitle}</h3>
-            <p>{site.partners.cardText}</p>
+            <h3>Institutional Partnerships</h3>
+            <p>For partnership and collaboration opportunities with Hedayat Educational Foundation, please use the official contact channels on this website.</p>
           </div>
-          <a class="institutional-info-action" href={site.partners.ctaHref}>{site.partners.ctaLabel}</a>
+          <a class="institutional-info-action" href="#contact">Request a partnership</a>
         </article>
       </div>
     </section>
 
-    <section id="media" class="ref-wrap media-home-section">
+    <section id="governance" class="ref-wrap en-governance-home">
       <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.mediaCenter.title}</h2>
-          <p class="ref-section-subtitle">{site.mediaCenter.subtitle}</p>
+          <h2 class="ref-section-title">Governance & Official Documents</h2>
+          <p class="ref-section-subtitle">Key official documents are provided in their approved Arabic versions.</p>
+        </div>
+        <div class="ref-grid-3 en-doc-grid">
+          <a class="ref-card en-doc-card reveal-on-scroll" href="/organization-license.pdf" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-patch-check" aria-hidden="true"></i><div><h3>Organization License</h3><p>Official non-profit organization license certificate.</p></div>
+          </a>
+          <a class="ref-card en-doc-card reveal-on-scroll" href="/basic-regulation.pdf" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-journal-text" aria-hidden="true"></i><div><h3>Basic Regulation</h3><p>Foundation establishment, objectives and governance framework.</p></div>
+          </a>
+          <a class="ref-card en-doc-card reveal-on-scroll" href="/governance/">
+            <i class="bi bi-grid-1x2" aria-hidden="true"></i><div><h3>Governance Center</h3><p>License, regulation, approved policies and publication status.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="media" class="ref-wrap en-media-home">
+      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
+      <div class="ref-section">
+        <div class="ref-section-header">
+          <h2 class="ref-section-title">Media Center</h2>
+          <p class="ref-section-subtitle">Official news and visual content from Hedayat Educational Foundation.</p>
         </div>
         <div class="media-home-grid">
-          {site.mediaCenter.items.map((item) => (
-            <a class="media-home-card reveal-on-scroll" href={item.href}>
-              <span class="media-home-card-icon" aria-hidden="true"><i class={item.icon}></i></span>
-              <span class="media-home-card-copy"><strong>{item.title}</strong><small>{item.text}</small></span>
-              <i class="bi bi-arrow-left-short media-home-arrow" aria-hidden="true"></i>
-            </a>
-          ))}
+          <a class="media-home-card reveal-on-scroll" href="/news/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-newspaper"></i></span><span class="media-home-card-copy"><strong>News</strong><small>Official announcements and updates (Arabic).</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
+          <a class="media-home-card reveal-on-scroll" href="/photos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-images"></i></span><span class="media-home-card-copy"><strong>Photos</strong><small>Published program and event galleries.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
+          <a class="media-home-card reveal-on-scroll" href="/en/videos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-play-btn"></i></span><span class="media-home-card-copy"><strong>Video</strong><small>Official visual content from the Foundation.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>
@@ -252,144 +272,97 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.contact.title}</h2>
-          <p class="ref-section-subtitle">{site.contact.subtitle}</p>
+          <h2 class="ref-section-title">Contact Us</h2>
+          <p class="ref-section-subtitle">We welcome inquiries, suggestions, partnership requests and questions about the Foundation’s programs.</p>
         </div>
 
         <div class="contact-container report-contact">
           <div class="contact-form reveal-on-scroll">
-            <form id="contact-form" name="contact" method="POST" action="/api/contact">
-              <!-- Honeypot ضد الرسائل الآلية -->
+            <form id="contact-form-en" name="contact-en" method="POST" action="/api/contact">
+              <input type="hidden" name="lang" value="en" />
               <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-group">
-                <label class="form-label" for="name">الاسم الكامل</label>
-                <input class="form-input" id="name" name="name" type="text" autocomplete="name" maxlength="120" required />
+                <label class="form-label" for="name-en">Full name</label>
+                <input class="form-input" id="name-en" name="name" type="text" autocomplete="name" maxlength="120" required />
               </div>
-
               <div class="form-group">
-                <label class="form-label" for="email">البريد الإلكتروني</label>
-                <input class="form-input" id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+                <label class="form-label" for="email-en">Email address</label>
+                <input class="form-input" id="email-en" name="email" type="email" autocomplete="email" maxlength="254" required />
               </div>
-
               <div class="form-group">
-                <label class="form-label" for="subject">موضوع الرسالة</label>
-                <input class="form-input" id="subject" name="subject" type="text" maxlength="180" />
+                <label class="form-label" for="subject-en">Subject</label>
+                <input class="form-input" id="subject-en" name="subject" type="text" maxlength="180" />
               </div>
-
               <div class="form-group">
-                <label class="form-label" for="message">نص الرسالة</label>
-                <textarea class="form-textarea" id="message" name="message" maxlength="5000" required></textarea>
+                <label class="form-label" for="message-en">Message</label>
+                <textarea class="form-textarea" id="message-en" name="message" maxlength="5000" required></textarea>
               </div>
-
-              <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
-              <p class="form-privacy-note">
-                تُستخدم البيانات المرسلة لغرض التواصل والرد على الاستفسار فقط.
-                <a href="/privacy/">سياسة الخصوصية</a>
-              </p>
-              <div id="form-status" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
+              <button type="submit" class="btn-form-submit">Send message</button>
+              <p class="form-privacy-note">Submitted information is used only to contact you and respond to your inquiry. <a href="/privacy/">Privacy Policy</a></p>
+              <div id="form-status-en" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
             </form>
           </div>
 
           <div class="contact-info">
             <div class="contact-item reveal-on-scroll">
               <div class="contact-icon"><i class="bi bi-envelope" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>البريد الإلكتروني</h3>
-                <p><a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
-              </div>
+              <div class="contact-details"><h3>Email</h3><p><a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p></div>
             </div>
-
             <div class="contact-item reveal-on-scroll">
               <div class="contact-icon"><i class="bi bi-telephone" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>رقم الهاتف / واتساب</h3>
-                <p><a class="contact-link" href={`tel:${waDigits ? `+${waDigits}` : site.contact.phone}`}>{site.contact.phone}</a></p>
-              </div>
+              <div class="contact-details"><h3>Phone / WhatsApp</h3><p><a class="contact-link" href={`tel:${waDigits ? `+${waDigits}` : site.contact.phone}`}>{site.contact.phone}</a></p></div>
             </div>
-
             <div class="contact-item reveal-on-scroll">
               <div class="contact-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></div>
               <div class="contact-details">
-                <h3>العنوان</h3>
-                <p>{site.contact.address}</p>
-                {site.contact.locationUrl && (
-                  <a class="contact-action-link" href={site.contact.locationUrl} target="_blank" rel="noopener">
-                    <i class="bi bi-map" aria-hidden="true"></i>
-                    فتح الموقع على الخريطة
-                  </a>
-                )}
+                <h3>Address</h3><p>Jeddah, Saudi Arabia</p>
+                {site.contact.locationUrl && <a class="contact-action-link" href={site.contact.locationUrl} target="_blank" rel="noopener"><i class="bi bi-map" aria-hidden="true"></i> Open location on map</a>}
               </div>
             </div>
-
-            {site.contact.iban && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>معلومات الحساب البنكي</h3>
-                  <p>
-                    رقم الحساب البنكي (آيبان):
-                    <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
-                  </p>
-                </div>
-              </div>
-            )}
-
             {site.contact.social?.length > 0 && (
               <div class="contact-item contact-social-item reveal-on-scroll">
                 <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
                 <div class="contact-details social-contact-details">
-                  <h3>حسابات التواصل الاجتماعي</h3>
+                  <h3>Official social media</h3>
                   <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
-                  <div class="official-social-links" aria-label="حسابات هدايات الرسمية">
+                  <div class="official-social-links" aria-label="Hedayat official social media accounts">
                     {site.contact.social.map((account) => (
-                      <a
-                        class="official-social-link"
-                        href={account.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`هدايات على ${account.label}`}
-                        title={`هدايات على ${account.label}`}
-                      >
-                        {account.name === "X" ? (
-                          <span class="social-x-mark" aria-hidden="true">X</span>
-                        ) : (
-                          <i class={`bi ${account.icon}`} aria-hidden="true"></i>
-                        )}
-                        <span>{account.label}</span>
+                      <a class="official-social-link" href={account.url} target="_blank" rel="noopener noreferrer" aria-label={`Hedayat on ${account.name}`} title={`Hedayat on ${account.name}`}>
+                        {account.name === "X" ? <span class="social-x-mark" aria-hidden="true">X</span> : <i class={`bi ${account.icon}`} aria-hidden="true"></i>}
+                        <span>{account.name}</span>
                       </a>
                     ))}
                   </div>
                 </div>
               </div>
             )}
-
           </div>
         </div>
       </div>
     </section>
 
-    <section class="official-trust-bar" aria-label="بيانات المؤسسة الرسمية">
+    <section class="official-trust-bar" aria-label="Official foundation information">
       <div class="official-trust-inner">
         <div class="trust-item trust-item--type">
           <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-          <div><span>صفة المؤسسة</span><strong>{site.institution.type}</strong></div>
+          <div><span>Organization type</span><strong>Licensed Non-profit Foundation</strong></div>
         </div>
         <div class="trust-item">
           <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
-          <div><span>رقم الترخيص</span><strong dir="ltr">{site.institution.licenseNumber}</strong></div>
+          <div><span>License number</span><strong>{institution.licenseNumber}</strong></div>
         </div>
         <div class="trust-item">
           <i class="bi bi-building" aria-hidden="true"></i>
-          <div><span>الرقم الوطني الموحد</span><strong dir="ltr">{site.institution.unifiedNationalNumber}</strong></div>
+          <div><span>Unified National Number</span><strong>{institution.unifiedNationalNumber}</strong></div>
         </div>
         <div class="trust-item">
           <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
-          <div><span>جهة الإشراف</span><strong>{site.institution.supervision}</strong></div>
+          <div><span>Supervising authority</span><strong>Ministry of Education</strong></div>
         </div>
-        <a class="trust-verify" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
+        <a class="trust-verify" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer">
           <i class="bi bi-patch-check" aria-hidden="true"></i>
-          <span>التحقق من الترخيص</span>
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+          <span>Verify license</span>
+          <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
         </a>
       </div>
     </section>
@@ -400,42 +373,42 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--end" />
     <div class="footer-top">
       <div class="footer-logos">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" width="733" height="340" />
+        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
+        <img src={site.assets.nationalCenterLogo} alt="National Center for Non-Profit Sector logo" class="footer-logo national-center-footer-logo" width="733" height="340" />
       </div>
-
-      <p class="footer-license">{site.footer.licenseText}</p>
-
-      <nav class="footer-links" aria-label="روابط أسفل الصفحة">
-        <a href="/#home">الرئيسية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/governance/">مركز الحوكمة</a>
-        <span aria-hidden="true">•</span>
-        <a href="/transparency/">الشفافية والإفصاح</a>
-        <span aria-hidden="true">•</span>
-        <a href="/accessibility/">إمكانية الوصول</a>
-        <span aria-hidden="true">•</span>
-        <a href="/participation/">مشاركة المستفيد</a>
-        <span aria-hidden="true">•</span>
-        <a href="/#contact">تواصل معنا</a>
-        <span aria-hidden="true">•</span>
-        <a href="/privacy/">سياسة الخصوصية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/en/" lang="en" dir="ltr">English</a>
+      <p class="footer-license">Licensed by the National Center for Non-Profit Sector — License No. {institution.licenseNumber}</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/en/#home">Home</a><span aria-hidden="true">•</span>
+        <a href="#governance">Governance</a><span aria-hidden="true">•</span>
+        <a href="/transparency/">Transparency</a><span aria-hidden="true">•</span>
+        <a href="/accessibility/">Accessibility</a><span aria-hidden="true">•</span>
+        <a href="/en/participation/">Beneficiary Participation</a><span aria-hidden="true">•</span>
+        <a href="#contact">Contact</a><span aria-hidden="true">•</span>
+        <a href="/privacy/">Privacy</a><span aria-hidden="true">•</span>
+        <a href="/" lang="ar" dir="rtl">العربية</a>
       </nav>
     </div>
-
     <hr class="footer-divider" />
-
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        {site.footer.copyrightText.replace("{year}", String(new Date().getFullYear()))}
-      </div>
-    </div>
+    <div class="footer-bottom"><div class="footer-copy">All rights reserved © {new Date().getFullYear()} Hedayat</div></div>
   </footer>
 
+  <style is:inline>
+    :global(html[lang="en"] body){direction:ltr;text-align:left;font-family:Arial,"Helvetica Neue",sans-serif}
+    :global(html[lang="en"] .ref-section-title),
+    :global(html[lang="en"] .hero-title),
+    :global(html[lang="en"] .ref-feature h3),
+    :global(html[lang="en"] .institutional-info-copy h3){font-family:Georgia,"Times New Roman",serif;font-feature-settings:normal;-webkit-text-stroke:0}
+    :global(html[lang="en"] .contact-details),
+    :global(html[lang="en"] .institutional-info-copy){text-align:left}
+    :global(html[lang="en"] .en-doc-grid){max-width:920px;margin-inline:auto}
+    :global(html[lang="en"] .en-doc-card){padding:22px;display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:var(--text-card-main)}
+    :global(html[lang="en"] .en-doc-card>i){font-size:1.45rem;color:var(--brand-teal);margin-top:2px}
+    :global(html[lang="en"] .en-doc-card h3){margin:0 0 7px;font-size:1rem;font-weight:900;color:var(--text-card-main)}
+    :global(html[lang="en"] .en-doc-card p){margin:0;color:var(--text-card-muted);font-size:.82rem;line-height:1.7}
+    @media(max-width:991.98px){:global(html[lang="en"] .hdr .navbar-collapse){text-align:left}}
+  </style>
+
   <script is:inline>
-    // هيدر مع السكول
     const hdr = document.querySelector('.hdr');
     function handleScroll() {
       if (!hdr) return;
@@ -446,7 +419,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     window.addEventListener('load', handleScroll);
 
     window.addEventListener('DOMContentLoaded', () => {
-      // reveal
       const revealEls = document.querySelectorAll('.reveal-on-scroll');
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries, obs) => {
@@ -462,58 +434,47 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
         revealEls.forEach(el => el.classList.add('is-visible'));
       }
 
-      // إرسال نموذج التواصل إلى خادم Railway نفسه بدل الاعتماد على Netlify Forms.
-      const contactForm = document.getElementById('contact-form');
-      const formStatus = document.getElementById('form-status');
+      const contactForm = document.getElementById('contact-form-en');
+      const formStatus = document.getElementById('form-status-en');
       if (contactForm && formStatus) {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('sent') === '1') {
+          formStatus.className = 'form-status is-success';
+          formStatus.textContent = 'Your message has been received successfully.';
+        }
         contactForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           if (!contactForm.reportValidity()) return;
-
           const submitButton = contactForm.querySelector('button[type="submit"]');
-          const originalLabel = submitButton?.textContent || 'إرسال الرسالة';
-          if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'جارٍ الإرسال...';
-          }
+          const originalLabel = submitButton?.textContent || 'Send message';
+          if (submitButton) { submitButton.disabled = true; submitButton.textContent = 'Sending…'; }
           formStatus.className = 'form-status is-pending';
-          formStatus.textContent = 'يتم إرسال رسالتك الآن...';
-
+          formStatus.textContent = 'Sending your message…';
           try {
-            const params = new URLSearchParams(new FormData(contactForm));
+            const body = new URLSearchParams(new FormData(contactForm));
             const response = await fetch('/api/contact', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Accept': 'application/json'
-              },
-              body: params.toString()
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'Accept': 'application/json' },
+              body: body.toString()
             });
             const data = await response.json().catch(() => ({}));
-            if (!response.ok || !data.ok) throw new Error(data.message || 'تعذر إرسال الرسالة.');
-
+            if (!response.ok || !data.ok) throw new Error('Unable to send the message right now. Please try again.');
             contactForm.reset();
             formStatus.className = 'form-status is-success';
-            formStatus.textContent = data.message || 'تم استلام رسالتك بنجاح.';
+            formStatus.textContent = 'Your message has been received successfully.';
           } catch (error) {
             formStatus.className = 'form-status is-error';
-            formStatus.textContent = error?.message || 'تعذر إرسال الرسالة حاليًا. يرجى المحاولة مرة أخرى.';
+            formStatus.textContent = error?.message || 'Unable to send the message right now. Please try again.';
           } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalLabel;
-            }
+            if (submitButton) { submitButton.disabled = false; submitButton.textContent = originalLabel; }
           }
         });
       }
 
-      // إغلاق منيو الجوال فقط بعد اختيار رابط فعلي.
-      // لا نغلقها عند الضغط على عناوين القوائم الفرعية مثل "عن المؤسسة" و"الحوكمة".
-      const navMain    = document.getElementById('navMain');
+      const navMain = document.getElementById('navMainEn');
       const navToggler = document.querySelector('.navbar-toggler');
       if (navMain && navToggler) {
-        const destinationLinks = navMain.querySelectorAll('a.nav-link, a.dropdown-item');
-        destinationLinks.forEach(link => {
+        navMain.querySelectorAll('a.nav-link, a.dropdown-item').forEach(link => {
           link.addEventListener('click', () => {
             const isTogglerVisible = window.getComputedStyle(navToggler).display !== 'none';
             const isExpanded = navToggler.getAttribute('aria-expanded') === 'true';
