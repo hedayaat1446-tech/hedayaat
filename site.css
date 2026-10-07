@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'OYMandisa';
-  src: url('/fonts/OYMandisa.ttf') format('truetype');
+  src: url('/fonts/OYMandisa.woff2') format('woff2'), url('/fonts/OYMandisa.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: 'The Year of Handicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Regular.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Regular.woff2') format('woff2'), url('/fonts/TheYearofHandicrafts-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,7 +20,7 @@
 
 @font-face {
   font-family: 'The Year of Handicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Medium.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Medium.woff2') format('woff2'), url('/fonts/TheYearofHandicrafts-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -28,7 +28,7 @@
 
 @font-face {
   font-family: 'The Year of Handicrafts';
-  src: url('/fonts/TheYearofHandicrafts-SemiBold.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-SemiBold.woff2') format('woff2'), url('/fonts/TheYearofHandicrafts-SemiBold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -36,7 +36,7 @@
 
 @font-face {
   font-family: 'The Year of Handicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Bold.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Bold.woff2') format('woff2'), url('/fonts/TheYearofHandicrafts-Bold.otf') format('opentype');
   font-weight: 700 800;
   font-style: normal;
   font-display: swap;
@@ -44,7 +44,7 @@
 
 @font-face {
   font-family: 'The Year of Handicrafts';
-  src: url('/fonts/TheYearofHandicrafts-Black.otf') format('opentype');
+  src: url('/fonts/TheYearofHandicrafts-Black.woff2') format('woff2'), url('/fonts/TheYearofHandicrafts-Black.otf') format('opentype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -52,7 +52,7 @@
 
 @font-face {
   font-family: 'OYMandisa';
-  src: url('/fonts/OYMandisa.ttf') format('truetype');
+  src: url('/fonts/OYMandisa.woff2') format('woff2'), url('/fonts/OYMandisa.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -60,7 +60,7 @@
 
 @font-face {
   font-family: 'OYMandisa';
-  src: url('/fonts/OYMandisa.ttf') format('truetype');
+  src: url('/fonts/OYMandisa.woff2') format('woff2'), url('/fonts/OYMandisa.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -3099,6 +3099,7 @@ html[dir="ltr"] .hero-gov .hero-split-pattern { inset: 0 0 0 auto; background-po
   position: absolute; z-index: 0; top: 0; bottom: 0;
   inset-inline-end: 0; width: 64%;
   background: url("/hero-lighthouse-photo.jpg") center 30% / cover no-repeat;
+  background-image: image-set(url("/hero-lighthouse-photo.webp") type("image/webp"), url("/hero-lighthouse-photo.jpg") type("image/jpeg"));
   -webkit-mask-image: linear-gradient(to right, #000 52%, transparent 98%), linear-gradient(to top, transparent 0%, #000 26%);
   -webkit-mask-composite: source-in;
           mask-image: linear-gradient(to right, #000 52%, transparent 98%), linear-gradient(to top, transparent 0%, #000 26%);
@@ -3172,3 +3173,55 @@ html[lang="en"] .hero-photo-title { font-family: Georgia, "Times New Roman", ser
   .qa2-arrow { inset-inline-end: 50%; transform: translateX(50%); bottom: 12px; width: 34px; height: 34px; }
   html[dir="ltr"] .qa2-arrow { transform: translateX(50%); }
 }
+
+/* ===== Home cleanup: merged Programs & Partnerships, unified buttons ===== */
+.pp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.institutional-info-card.pp-card {
+  grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto 1fr auto;
+  align-items: start; gap: 14px 18px; padding: 28px; scroll-margin-top: 110px;
+}
+.pp-card .institutional-info-icon { grid-row: 1 / 3; }
+.pp-card .institutional-info-copy { grid-row: 1 / 3; }
+.pp-card .institutional-info-action { grid-column: 1 / -1; justify-self: start; margin-top: 6px; }
+@media (max-width: 767.98px) {
+  .pp-grid { grid-template-columns: 1fr; gap: 14px; }
+  .pp-card .institutional-info-action { justify-self: stretch; }
+}
+
+/* One button colour across the whole page (petrol blue, matching the hero) */
+.institutional-info-action,
+.btn-form-submit { background: #16404F !important; color: #fff !important; border-radius: 999px; }
+.institutional-info-action:hover,
+.btn-form-submit:hover { background: #0F2F3B !important; color: #fff !important; }
+
+/* Accessibility: text contrast at least 4.5:1 (WCAG AA) */
+.ref-section-subtitle { color: #56625A !important; }
+.footer-license { color: #515D55 !important; }
+.footer-links a { color: #4A5A3B !important; }
+
+/* ===== Shared chrome on inner pages: header, breadcrumb, active menu item, unified headings ===== */
+.inner-page .site-chrome-hdr .official-logo-nav { display: block; height: 48px; width: auto; max-width: min(56vw, 340px); object-fit: contain; }
+@media (max-width: 768px) { .inner-page .site-chrome-hdr .official-logo-nav { height: 39px; max-width: min(48vw, 190px); } }
+.hdr .nav-link.active, .hdr .dropdown-item.active,
+.hdr .hedayat-nav-group.is-current > .nav-dropdown-toggle { color: #16404F !important; font-weight: 900; }
+.hdr .nav-link.active { box-shadow: inset 0 -2px 0 #BEAE59; }
+.hdr .dropdown-item.active { background: #EAF1F3 !important; }
+
+.crumbs { background: #FBF9F4; border-bottom: 1px solid rgba(190,174,89,.22); }
+.crumbs ol { list-style: none; margin: 0 auto; padding: 12px 24px; max-width: 1180px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: .86rem; font-weight: 700; }
+.crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.crumbs a { color: #16404F; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.crumbs a:hover, .crumbs a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.crumbs li > span:not(.crumb-sep) { color: #56625A; }
+.crumbs [aria-current="page"] { color: #56625A; font-weight: 800; }
+.crumb-sep { color: #BEAE59; font-size: .8rem; }
+@media (max-width: 560px) { .crumbs ol { padding: 10px 14px; font-size: .8rem; } }
+
+.inner-page main h1 { color: #16404F !important; }
+.inner-page main h2 { color: #16404F; }
+.inner-page { padding-top: var(--nav-h); }
+.inner-page .brand-ribbon { margin-top: 0; }
+.not-found-home-btn { background: #16404F !important; border-color: #16404F !important; color: #fff !important; }
+.not-found-home-btn:hover, .not-found-home-btn:focus-visible { background: #0F2F3B !important; color: #fff !important; }
+/* Keep in-page section targets visible below the fixed header */
+html { scroll-padding-top: calc(var(--nav-h) + 24px); }

@@ -9,6 +9,7 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 ---
 
 <BaseLayout meta={site.meta} lang="ar" dir="rtl">
+  <link slot="head" rel="preload" as="image" href="/hero-lighthouse-photo.webp" type="image/webp" fetchpriority="high" />
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
     <div class="container align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
@@ -104,11 +105,6 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
             <a href="#about" class="hp-btn">تعرّف على المؤسسة <i class="bi bi-chevron-left" aria-hidden="true"></i></a>
             <a href="/videos/" class="hp-btn hp-btn--ghost"><i class="bi bi-play-circle" aria-hidden="true"></i> شاهد الفيديو التعريفي</a>
           </div>
-          <a class="hero-license" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-            <span>مرخّصة من المركز الوطني لتنمية القطاع غير الربحي — ترخيص رقم <strong>{site.institution.licenseNumber}</strong></span>
-            <em>تحقق <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></em>
-          </a>
         </div>
       </div>
     </section>
@@ -219,56 +215,28 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
     </section>
 
     <section id="programs" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.programs.title}</h2>
-          <p class="ref-section-subtitle">{site.programs.subtitle}</p>
+          <h2 class="ref-section-title">البرامج والشراكات</h2>
+          <p class="ref-section-subtitle">برامج تعليمية هادفة، وتعاون مؤسسي يعزز الأثر المجتمعي.</p>
         </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>{site.programs.cardTitle}</h3>
-            <p>{site.programs.cardText}</p>
-          </div>
-          <a class="institutional-info-action" href={site.programs.ctaHref}>{site.programs.ctaLabel}</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="partners" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.partners.title}</h2>
-          <p class="ref-section-subtitle">{site.partners.subtitle}</p>
-        </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>{site.partners.cardTitle}</h3>
-            <p>{site.partners.cardText}</p>
-          </div>
-          <a class="institutional-info-action" href={site.partners.ctaHref}>{site.partners.ctaLabel}</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="media" class="ref-wrap media-home-section">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.mediaCenter.title}</h2>
-          <p class="ref-section-subtitle">{site.mediaCenter.subtitle}</p>
-        </div>
-        <div class="media-home-grid">
-          {site.mediaCenter.items.map((item) => (
-            <a class="media-home-card reveal-on-scroll" href={item.href}>
-              <span class="media-home-card-icon" aria-hidden="true"><i class={item.icon}></i></span>
-              <span class="media-home-card-copy"><strong>{item.title}</strong><small>{item.text}</small></span>
-              <i class="bi bi-arrow-left-short media-home-arrow" aria-hidden="true"></i>
-            </a>
-          ))}
+        <div class="pp-grid">
+          <article id="programs-card" class="ref-card institutional-info-card pp-card reveal-on-scroll">
+            <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
+            <div class="institutional-info-copy">
+              <h3>{site.programs.cardTitle}</h3>
+              <p>{site.programs.cardText}</p>
+            </div>
+            <a class="institutional-info-action" href="{site.programs.ctaHref}">{site.programs.ctaLabel}</a>
+          </article>
+          <article id="partners" class="ref-card institutional-info-card pp-card reveal-on-scroll">
+            <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
+            <div class="institutional-info-copy">
+              <h3>{site.partners.cardTitle}</h3>
+              <p>{site.partners.cardText}</p>
+            </div>
+            <a class="institutional-info-action" href="{site.partners.ctaHref}">{site.partners.ctaLabel}</a>
+          </article>
         </div>
       </div>
     </section>
@@ -421,12 +389,12 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
   </main>
 
   <footer class="site-footer">
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--start" />
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--end" />
+    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--start" />
+    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--end" />
     <div class="footer-top">
       <div class="footer-logos">
         <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" width="733" height="340" />
+        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" loading="lazy" decoding="async" width="733" height="340" />
       </div>
 
       <p class="footer-license">{site.footer.licenseText}</p>

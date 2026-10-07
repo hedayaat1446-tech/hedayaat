@@ -2,6 +2,7 @@ import http from 'node:http';
 import { createReadStream } from 'node:fs';
 import { appendFile, mkdir, open, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { createHash, createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
+import { createBrotliCompress, createGzip, constants as zlibConstants } from 'node:zlib';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { dirname, extname, join, resolve, sep } from 'node:path';
@@ -1101,13 +1102,29 @@ async function serveStatic(req, res, pathname) {
   if (!s.isFile()) throw new Error('not a file');
   const ext = extname(file).toLowerCase();
   const contentType = types[ext] || 'application/octet-stream';
-  const noCache = ext === '.html' || ext === '.css' || ext === '.js' || ext === '.mjs' || file.endsWith('hedayat-official-logo-v5.png') || file.endsWith('hedayat-official-logo-hero-v7.png');
+  // Caching: HTML is always revalidated (so updates show immediately); CSS/JS loaded with ?v= are versioned
+  // and can be cached for a week; fonts/images for a week; everything is revalidated via Last-Modified.
+  const isVersioned = /[?&]v=/.test(String(req.url || ''));
+  const isAsset = ['.woff', '.woff2', '.ttf', '.otf', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.mp4'].includes(ext);
+  let cacheControl = 'no-cache';
+  if ((ext === '.css' || ext === '.js') && isVersioned) cacheControl = 'public, max-age=604800';
+  else if (isAsset) cacheControl = 'public, max-age=604800';
+  else if (ext === '.pdf') cacheControl = 'public, max-age=3600';
+  const lastModified = s.mtime.toUTCString();
   const commonHeaders = {
     ...securityHeadersFor(contentType),
     'Content-Type': contentType,
-    'Cache-Control': noCache ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600',
+    'Cache-Control': cacheControl,
+    'Last-Modified': lastModified,
     'Accept-Ranges': 'bytes'
   };
+
+  const ifModifiedSince = Date.parse(String(req.headers['if-modified-since'] || ''));
+  if (Number.isFinite(ifModifiedSince) && Math.floor(s.mtimeMs / 1000) <= Math.floor(ifModifiedSince / 1000) && !req.headers.range) {
+    res.writeHead(304, { 'Cache-Control': cacheControl, 'Last-Modified': lastModified });
+    res.end();
+    return;
+  }
 
   const range = String(req.headers.range || '');
   if (range && /^bytes=\d*-\d*$/.test(range)) {
@@ -1143,7 +1160,28 @@ async function serveStatic(req, res, pathname) {
     return;
   }
 
-  res.writeHead(200, { ...commonHeaders, 'Content-Length': String(s.size) });
+  // Compress text files (HTML, CSS, JS, JSON, SVG, XML, TXT) when the browser supports it.
+  const compressible = /^(text\/|application\/(json|xml|javascript)|image\/svg\+xml)/.test(contentType) && s.size > 1024;
+  const acceptEncoding = String(req.headers['accept-encoding'] || '');
+  const encoding = !compressible ? '' : /\bbr\b/.test(acceptEncoding) ? 'br' : /\bgzip\b/.test(acceptEncoding) ? 'gzip' : '';
+  if (encoding) {
+    res.writeHead(200, { ...commonHeaders, 'Content-Encoding': encoding, 'Vary': 'Accept-Encoding' });
+    if (req.method === 'HEAD') { res.end(); return; }
+    const compressor = encoding === 'br'
+      ? createBrotliCompress({ params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 5 } })
+      : createGzip({ level: 6 });
+    const source = createReadStream(file);
+    const fail = (error) => {
+      console.error('static compressed stream error:', error?.message || error);
+      if (!res.destroyed) res.destroy(error);
+    };
+    source.on('error', fail);
+    compressor.on('error', fail);
+    source.pipe(compressor).pipe(res);
+    return;
+  }
+
+  res.writeHead(200, { ...commonHeaders, 'Content-Length': String(s.size), ...(compressible ? { 'Vary': 'Accept-Encoding' } : {}) });
   if (req.method === 'HEAD') { res.end(); return; }
   const stream = createReadStream(file);
   stream.on('error', (error) => {

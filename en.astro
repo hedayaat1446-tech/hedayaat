@@ -31,6 +31,7 @@ const values = [
 ---
 
 <BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+  <link slot="head" rel="preload" as="image" href="/hero-lighthouse-photo.webp" type="image/webp" fetchpriority="high" />
   <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="Primary navigation">
     <div class="container align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
@@ -62,8 +63,7 @@ const values = [
           <li class="nav-item dropdown hedayat-nav-group">
             <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Governance</button>
             <ul class="dropdown-menu hedayat-dropdown">
-              <li><a class="dropdown-item" href="#governance">Governance overview</a></li>
-              <li><a class="dropdown-item" href="/en/governance/">Governance Center</a></li>
+                            <li><a class="dropdown-item" href="/en/governance/">Governance Center</a></li>
               <li><a class="dropdown-item" href="/en/transparency/">Transparency & Disclosure</a></li>
               <li><a class="dropdown-item" href="/en/reports/">Financial Reports</a></li>
             </ul>
@@ -115,11 +115,6 @@ const values = [
             <a href="#about" class="hp-btn">Discover the Foundation <i class="bi bi-chevron-right" aria-hidden="true"></i></a>
             <a href="/en/videos/" class="hp-btn hp-btn--ghost"><i class="bi bi-play-circle" aria-hidden="true"></i> Watch the introductory video</a>
           </div>
-          <a class="hero-license" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-            <span>Licensed by the National Center for Non-Profit Sector — License No. <strong>{institution.licenseNumber}</strong></span>
-            <em>Verify <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></em>
-          </a>
         </div>
       </div>
     </section>
@@ -200,7 +195,6 @@ const values = [
     </section>
 
     <section id="values" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
           <h2 class="ref-section-title">Our Values</h2>
@@ -220,71 +214,28 @@ const values = [
     </section>
 
     <section id="programs" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
       <div class="ref-section">
         <div class="ref-section-header">
-          <h2 class="ref-section-title">Programs</h2>
-          <p class="ref-section-subtitle">A clear, up-to-date space for the Foundation’s educational programs.</p>
+          <h2 class="ref-section-title">Programs & Partnerships</h2>
+          <p class="ref-section-subtitle">Purposeful educational programs and institutional collaboration that strengthens community impact.</p>
         </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>Purposeful Educational Programs</h3>
-            <p>The Foundation develops educational programs using contemporary, accessible and engaging methods aligned with its mission and objectives.</p>
-          </div>
-          <a class="institutional-info-action" href="#contact">Ask about programs</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="partners" class="ref-wrap institutional-info-section">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">Partnerships</h2>
-          <p class="ref-section-subtitle">We build institutional collaboration that supports program quality and strengthens community impact.</p>
-        </div>
-        <article class="ref-card institutional-info-card reveal-on-scroll">
-          <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
-          <div class="institutional-info-copy">
-            <h3>Institutional Partnerships</h3>
-            <p>For partnership and collaboration opportunities with Hedayat Educational Foundation, please use the official contact channels on this website.</p>
-          </div>
-          <a class="institutional-info-action" href="#contact">Request a partnership</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="governance" class="ref-wrap en-governance-home">
-      <div class="vertical-decor vertical-decor--start" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">Governance & Official Documents</h2>
-          <p class="ref-section-subtitle">Key official documents are provided in their approved Arabic versions.</p>
-        </div>
-        <div class="ref-grid-3 en-doc-grid">
-          <a class="ref-card en-doc-card reveal-on-scroll" href="/organization-license.pdf" target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-patch-check" aria-hidden="true"></i><div><h3>Organization License</h3><p>Official non-profit organization license certificate.</p></div>
-          </a>
-          <a class="ref-card en-doc-card reveal-on-scroll" href="/basic-regulation.pdf" target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-journal-text" aria-hidden="true"></i><div><h3>Basic Regulation</h3><p>Foundation establishment, objectives and governance framework.</p></div>
-          </a>
-          <a class="ref-card en-doc-card reveal-on-scroll" href="/en/governance/">
-            <i class="bi bi-grid-1x2" aria-hidden="true"></i><div><h3>Governance Center</h3><p>License, regulation, approved policies and publication status.</p></div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="media" class="ref-wrap en-media-home">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">Media Center</h2>
-          <p class="ref-section-subtitle">Official news and visual content from Hedayat Educational Foundation.</p>
-        </div>
-        <div class="media-home-grid">
-          <a class="media-home-card reveal-on-scroll" href="/en/videos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-play-btn"></i></span><span class="media-home-card-copy"><strong>Video</strong><small>Official visual content from the Foundation.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
+        <div class="pp-grid">
+          <article id="programs-card" class="ref-card institutional-info-card pp-card reveal-on-scroll">
+            <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
+            <div class="institutional-info-copy">
+              <h3>Purposeful Educational Programs</h3>
+              <p>The Foundation develops educational programs using contemporary, accessible and engaging methods aligned with its mission and objectives.</p>
+            </div>
+            <a class="institutional-info-action" href="#contact">Ask about programs</a>
+          </article>
+          <article id="partners" class="ref-card institutional-info-card pp-card reveal-on-scroll">
+            <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
+            <div class="institutional-info-copy">
+              <h3>Institutional Partnerships</h3>
+              <p>For partnership and collaboration opportunities with Hedayat Educational Foundation, please use the official contact channels on this website.</p>
+            </div>
+            <a class="institutional-info-action" href="#contact">Request a partnership</a>
+          </article>
         </div>
       </div>
     </section>
@@ -393,17 +344,17 @@ const values = [
   </main>
 
   <footer class="site-footer">
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--start" />
-    <img src="/identity-grid.png" alt="" aria-hidden="true" class="footer-watermark footer-watermark--end" />
+    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--start" />
+    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--end" />
     <div class="footer-top">
       <div class="footer-logos">
         <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="National Center for Non-Profit Sector logo" class="footer-logo national-center-footer-logo" width="733" height="340" />
+        <img src={site.assets.nationalCenterLogo} alt="National Center for Non-Profit Sector logo" class="footer-logo national-center-footer-logo" loading="lazy" decoding="async" width="733" height="340" />
       </div>
       <p class="footer-license">Licensed by the National Center for Non-Profit Sector — License No. {institution.licenseNumber}</p>
       <nav class="footer-links" aria-label="Footer links">
         <a href="/en/#home">Home</a><span aria-hidden="true">•</span>
-        <a href="#governance">Governance</a><span aria-hidden="true">•</span>
+        <a href="/en/governance/">Governance</a><span aria-hidden="true">•</span>
         <a href="/en/transparency/">Transparency</a><span aria-hidden="true">•</span>
         <a href="/en/accessibility/">Accessibility</a><span aria-hidden="true">•</span>
         <a href="/en/participation/">Beneficiary Participation</a><span aria-hidden="true">•</span>
