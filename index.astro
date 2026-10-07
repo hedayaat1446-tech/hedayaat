@@ -93,31 +93,52 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
 </style>
 
 <main id="main-content">
-    <section id="home" class="hero-section hero-split">
-      <div class="hero-split-pattern" aria-hidden="true"></div>
-      <div class="container hero-split-inner">
-        <div class="hero-split-copy">
-          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="hero-split-logo" width="1755" height="658" />
-          <h1 class="hero-split-title">{site.hero.headline}</h1>
-          <p class="hero-split-lead">{site.hero.lead}</p>
-          <div class="hero-split-actions">
-            {site.hero.cta.map((b, i) => (
-              <a href={b.href} class={i === 0 ? "hero-split-btn" : "hero-split-btn hero-split-btn--ghost"}>{b.label}</a>
-            ))}
-            <a href="#contact" class="hero-split-btn hero-split-btn--ghost">تواصل معنا</a>
+    <section id="home" class="hero-section hero-photo">
+      <div class="hero-photo-img" aria-hidden="true"></div>
+      <div class="container hero-photo-inner">
+        <div class="hero-photo-copy">
+          <span class="hero-eyebrow">مؤسسة هدايات التعليمية</span>
+          <h1 class="hero-photo-title">{site.hero.headline}</h1>
+          <p class="hero-photo-lead">{site.hero.lead}</p>
+          <div class="hero-photo-actions">
+            <a href="#about" class="hp-btn">تعرّف على المؤسسة <i class="bi bi-chevron-left" aria-hidden="true"></i></a>
+            <a href="/videos/" class="hp-btn hp-btn--ghost"><i class="bi bi-play-circle" aria-hidden="true"></i> شاهد الفيديو التعريفي</a>
           </div>
-        </div>
-        <div class="hero-split-art" aria-hidden="true">
-          <img src="/hero-lighthouse.svg" alt="" width="440" height="560" />
+          <a class="hero-license" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
+            <span>مرخّصة من المركز الوطني لتنمية القطاع غير الربحي — ترخيص رقم <strong>{site.institution.licenseNumber}</strong></span>
+            <em>تحقق <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></em>
+          </a>
         </div>
       </div>
-
-      <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" preserveAspectRatio="none">
-        <path fill="#F7F4EE" opacity="0.98" d="M0,80 C240,120 480,40 720,80 C960,120 1200,60 1440,90 L1440,160 L0,160 Z"></path>
-        <path fill="#EEF2E8" opacity="0.88" d="M0,90 C240,130 480,50 720,90 C960,130 1200,70 1440,100 L1440,160 L0,160 Z"></path>
-        <path fill="#E8F2F1" opacity="0.72" d="M0,100 C240,140 480,60 720,100 C960,140 1200,80 1440,110 L1440,160 L0,160 Z"></path>
-      </svg>
     </section>
+
+    <nav class="qa2" aria-label="وصول سريع">
+      <a class="qa2-card" href="#about">
+        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-info-circle-fill"></i></span>
+        <strong>عن هدايات</strong>
+        <small>تعرّف على رؤيتنا ورسالتنا وقيمنا.</small>
+        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+      </a>
+      <a class="qa2-card" href="#programs">
+        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-book-half"></i></span>
+        <strong>البرامج</strong>
+        <small>برامج تعليمية هادفة بأساليب معاصرة وميسّرة.</small>
+        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+      </a>
+      <a class="qa2-card" href="/governance/">
+        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-bank2"></i></span>
+        <strong>الحوكمة والشفافية</strong>
+        <small>الترخيص واللائحة والسياسات المعتمدة.</small>
+        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+      </a>
+      <a class="qa2-card" href="/participation/">
+        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
+        <strong>مشاركة المستفيد</strong>
+        <small>قيّم تجربتك وشاركنا مقترحاتك وتابع طلبك.</small>
+        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+      </a>
+    </nav>
 
 
 

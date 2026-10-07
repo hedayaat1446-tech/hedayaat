@@ -54,6 +54,9 @@ const maps = [
   ['favicon.ico', 'public/favicon.ico'],
   ['social-preview.jpg', 'public/social-preview.jpg'],
   ['hero-lighthouse.svg', 'public/hero-lighthouse.svg'],
+  ['hero-lighthouse-photo.jpg', 'public/hero-lighthouse-photo.jpg'],
+  ['Gold.png', 'public/hedayat-logo-gold.png'],
+  ['hedayat-logo-gold-light.png', 'public/hedayat-logo-gold-light.png'],
   ['national-center-logo.png', 'public/national-center-logo.png'],
 
   ['OYMandisa.ttf', 'public/fonts/OYMandisa.ttf'],
