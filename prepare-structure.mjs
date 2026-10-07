@@ -34,6 +34,9 @@ const maps = [
   ['en-thank.astro', 'src/pages/en/thank.astro'],
   ['en-404.astro', 'src/pages/en/404.astro'],
 
+  ['sitemap.xml.js', 'src/pages/sitemap.xml.js'],
+  ['robots.txt.js', 'src/pages/robots.txt.js'],
+
   ['site.json', 'src/content/site.json'],
   ['site-en.json', 'src/content/site-en.json'],
 
@@ -50,6 +53,7 @@ const maps = [
   ['hero_image1.jpeg', 'public/hero_image1.jpeg'],
   ['favicon.ico', 'public/favicon.ico'],
   ['social-preview.jpg', 'public/social-preview.jpg'],
+  ['hero-lighthouse.svg', 'public/hero-lighthouse.svg'],
   ['national-center-logo.png', 'public/national-center-logo.png'],
 
   ['OYMandisa.ttf', 'public/fonts/OYMandisa.ttf'],
@@ -64,6 +68,8 @@ const maps = [
   ['privacy-data-policy.pdf', 'public/privacy-data-policy.pdf'],
   ['disclosure-transparency-policy.pdf', 'public/disclosure-transparency-policy.pdf'],
   ['records-retention-disposal-policy.pdf', 'public/records-retention-disposal-policy.pdf'],
+  ['financial-report.pdf', 'public/financial-report.pdf'],
+  ['board-info.pdf', 'public/board-info.pdf'],
 
   ['organization-license-preview.jpg', 'public/organization-license-preview.jpg'],
   ['basic-regulation-preview.jpg', 'public/basic-regulation-preview.jpg'],
@@ -77,6 +83,7 @@ const maps = [
   ['identity-grid.png', 'public/identity-grid.png'],
   ['identity-corner.png', 'public/identity-corner.png'],
   ['trustees-board.png', 'public/trustees-board.png'],
+  ['org-structure.jpg', 'public/org-structure.jpg'],
 
   ['media-center-video-01.mp4', 'public/media/media-center-video-01.mp4'],
   ['media-center-video-01-poster.jpg', 'public/media/media-center-video-01-poster.jpg']

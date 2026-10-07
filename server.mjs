@@ -772,7 +772,8 @@ async function handleContact(req, res) {
     received: 'Your message has been received.',
     invalid: 'Please check your name, email address and message.',
     storage: 'Your message could not be saved right now. Please try again.',
-    success: 'Your message has been received and recorded successfully.'
+    success: 'Your message has been received and recorded successfully.',
+    consent: 'Please agree to the Privacy Policy before sending your message.'
   } : {
     rejected: 'تم رفض الطلب لأنه صادر من مصدر غير موثوق.',
     limited: 'تم تجاوز عدد المحاولات المسموح بها مؤقتًا. يرجى المحاولة لاحقًا.',
@@ -781,7 +782,8 @@ async function handleContact(req, res) {
     received: 'تم استلام الرسالة.',
     invalid: 'يرجى التأكد من الاسم والبريد الإلكتروني ونص الرسالة.',
     storage: 'تعذر حفظ الرسالة حاليًا. يرجى المحاولة مرة أخرى.',
-    success: 'تم استلام رسالتك وتسجيلها بنجاح.'
+    success: 'تم استلام رسالتك وتسجيلها بنجاح.',
+    consent: 'يرجى الموافقة على سياسة الخصوصية قبل إرسال الرسالة.'
   };
 
   // Honeypot: return a normal-looking success response without recording spam.
@@ -797,11 +799,20 @@ async function handleContact(req, res) {
     name: cleanText(body.name, 120),
     email: cleanText(body.email, 254).toLowerCase(),
     subject: cleanText(body.subject, 180),
-    message: cleanText(body.message, 5000)
+    message: cleanText(body.message, 5000),
+    privacyAccepted: true,
+    privacyAcceptedAt: new Date().toISOString()
   };
 
   if (message.name.length < 2 || !isValidEmail(message.email) || message.message.length < 3) {
     json(res, 422, { ok: false, message: contactText.invalid });
+    return;
+  }
+
+  // Personal Data Protection Law: the sender must accept the privacy policy before we store their data.
+  const consent = body.privacyAccepted;
+  if (!(consent === true || ['yes', 'on', 'true', '1'].includes(String(consent || '').toLowerCase()))) {
+    json(res, 422, { ok: false, message: contactText.consent });
     return;
   }
 

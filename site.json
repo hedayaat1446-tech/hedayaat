@@ -32,7 +32,7 @@
           "href": "#values"
         },
         {
-          "label": "أعضاء مجلس الأمناء",
+          "label": "الإدارة التنظيمية",
           "href": "/board/"
         }
       ]
@@ -58,26 +58,17 @@
         {
           "label": "الشفافية والإفصاح",
           "href": "/transparency/"
+        },
+        {
+          "label": "القوائم والتقارير المالية",
+          "href": "/reports/"
         }
       ]
     },
     {
       "enabled": true,
       "label": "المركز الإعلامي",
-      "children": [
-        {
-          "label": "آخر الأخبار",
-          "href": "/news/"
-        },
-        {
-          "label": "الصور",
-          "href": "/photos/"
-        },
-        {
-          "label": "الفيديو",
-          "href": "/videos/"
-        }
-      ]
+      "href": "/videos/"
     },
     {
       "enabled": true,
@@ -170,12 +161,23 @@
     "reports": {
       "title": "القوائم والتقارير المالية",
       "subtitle": "تُنشر هنا القوائم والتقارير المالية المعتمدة عند إتاحتها للنشر.",
-      "items": []
+      "items": [
+        {
+          "title": "التقرير المالي",
+          "description": "التقرير المالي لمؤسسة هدايات التعليمية.",
+          "href": "/financial-report.pdf",
+          "status": "نسخة أولية"
+        }
+      ]
     },
     "trustees": {
       "title": "أعضاء مجلس الأمناء",
       "subtitle": "مجلس أمناء مؤسسة هدايات التعليمية",
-      "imageHref": "/trustees-board.png"
+      "imageHref": "/trustees-board.png",
+      "boardFile": {
+        "href": "/board-info.pdf",
+        "status": "نسخة أولية"
+      }
     },
     "governance": {
       "title": "مركز الحوكمة",
@@ -338,18 +340,6 @@
     "title": "المركز الإعلامي",
     "subtitle": "أخبار المؤسسة وموادها المرئية في مكان واحد.",
     "items": [
-      {
-        "title": "آخر الأخبار",
-        "text": "الإعلانات والأخبار المعتمدة للمؤسسة.",
-        "href": "/news/",
-        "icon": "bi bi-newspaper"
-      },
-      {
-        "title": "الصور",
-        "text": "معرض صور البرامج والفعاليات المنشورة.",
-        "href": "/photos/",
-        "icon": "bi bi-images"
-      },
       {
         "title": "الفيديو",
         "text": "المحتوى المرئي الرسمي للمؤسسة.",

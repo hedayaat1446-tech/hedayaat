@@ -170,12 +170,23 @@
     "reports": {
       "title": "Financial Statements & Reports",
       "subtitle": "Approved financial statements and reports are published here when they are officially available for publication.",
-      "items": []
+      "items": [
+        {
+          "title": "Financial Report",
+          "description": "Financial report of Hedayat Educational Foundation (Arabic).",
+          "href": "/financial-report.pdf",
+          "status": "Preliminary version"
+        }
+      ]
     },
     "trustees": {
       "title": "Board of Trustees",
       "subtitle": "Board of Trustees of Hedayat Educational Foundation",
-      "imageHref": "/trustees-board.png"
+      "imageHref": "/trustees-board.png",
+      "boardFile": {
+        "href": "/board-info.pdf",
+        "status": "Preliminary version"
+      }
     },
     "governance": {
       "title": "Governance Center",

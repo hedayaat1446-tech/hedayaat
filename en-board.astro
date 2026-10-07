@@ -3,8 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import site from "../../content/site-en.json";
 const meta = {
   ...site.meta,
-  title: "Board of Trustees | Hedayat Educational Foundation",
-  description: "Board of Trustees of Hedayat Educational Foundation."
+  title: "Organizational Management | Hedayat Educational Foundation",
+  description: "Organizational structure and Board of Trustees of Hedayat Educational Foundation."
 };
 ---
 <BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
@@ -21,25 +21,63 @@ const meta = {
     <section class="institution-hero">
       <div class="institution-shell">
         <span class="institution-eyebrow">About the Foundation</span>
-        <div class="institution-icon"><i class="bi bi-people" aria-hidden="true"></i></div>
-        <h1 id="trustees-title">{site.docs.trustees.title}</h1>
-        {site.docs.trustees.subtitle && <p>{site.docs.trustees.subtitle}</p>}
+        <div class="institution-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
+        <h1 id="org-title">Organizational Management</h1>
+        <p>The organizational structure of Hedayat Educational Foundation and its Board of Trustees.</p>
+        <nav class="org-jump" aria-label="Page sections">
+          <a href="#structure"><i class="bi bi-diagram-3" aria-hidden="true"></i> Organizational Structure</a>
+          <a href="#trustees"><i class="bi bi-people" aria-hidden="true"></i> Board of Trustees</a>
+        </nav>
       </div>
     </section>
 
-    <section id="trustees" class="institution-content trustees-section" aria-labelledby="trustees-title">
-      <figure class="trustees-card">
-        <img
-          src={site.docs.trustees.imageHref}
-          alt="Board of Trustees of Hedayat Educational Foundation"
-          loading="eager"
-          decoding="async"
-        />
-        <figcaption class="visually-hidden">
-          Chair of the Board of Trustees: Haneen Fahad Al-Sudairi. Vice Chair: Jumana Talal Mahjoub. Board Member: Amani Bashir Al-Juhani.
-        </figcaption>
-      </figure>
-      <a class="institution-back" href="/en/#about"><i class="bi bi-arrow-right" aria-hidden="true"></i> Back to About the Foundation</a>
+    <section id="structure" class="institution-content org-block" aria-labelledby="structure-title">
+      <h2 id="structure-title" class="org-block-title">Organizational Structure</h2>
+      <div class="org-chart-en">
+        <ul class="org-tree">
+          <li>
+            <span class="org-node org-node--top">Board of Trustees</span>
+            <ul>
+              <li>
+                <span class="org-node org-node--top">Executive Director</span>
+                <ul class="org-depts">
+                  <li><span class="org-node org-node--dept">Financial Affairs</span><ul><li><span class="org-node">Accountant</span></li></ul></li>
+                  <li><span class="org-node org-node--dept">Program Supervision</span><ul class="org-pair"><li><span class="org-node">Program Officer</span></li><li><span class="org-node">Program Officer</span></li></ul></li>
+                  <li><span class="org-node org-node--dept">Media &amp; Design</span><ul><li><span class="org-node">Designer</span></li></ul></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="org-separator" aria-hidden="true"><span></span><i class="bi bi-diamond-fill"></i><span></span></div>
+
+    <section id="trustees" class="institution-content org-block trustees-section" aria-labelledby="trustees-title">
+      <h2 id="trustees-title" class="org-block-title">Board of Trustees</h2>
+      <ul class="trustees-list-en" aria-label="Board of Trustees members">
+        {[
+          { role: "Chair of the Board of Trustees", name: "Haneen Fahad Al-Sudairi", icon: "bi bi-award" },
+          { role: "Vice Chair of the Board", name: "Jumana Talal Mahjoub", icon: "bi bi-person-badge" },
+          { role: "Board Member", name: "Amani Bashir Al-Juhani", icon: "bi bi-person" }
+        ].map((m) => (
+          <li class="trustee-en-card">
+            <span class="trustee-en-icon" aria-hidden="true"><i class={m.icon}></i></span>
+            <strong>{m.name}</strong>
+            <span class="trustee-en-role">{m.role}</span>
+          </li>
+        ))}
+      </ul>
+      {site.docs.trustees.boardFile && (
+        <div class="board-file-row">
+          <a class="board-file-btn" href={site.docs.trustees.boardFile.href} target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Board profile (Arabic PDF)
+            {site.docs.trustees.boardFile.status && <em>{site.docs.trustees.boardFile.status}</em>}
+          </a>
+        </div>
+      )}
+      <a class="institution-back" href="/en/#about"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to About the Foundation</a>
     </section>
   </main>
 
@@ -58,5 +96,55 @@ const meta = {
       .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
       .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
     }
+    .trustees-list-en{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .trustee-en-card{background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:22px;padding:30px 22px;text-align:center;box-shadow:0 20px 56px rgba(51,65,55,.07);display:flex;flex-direction:column;align-items:center;gap:8px}
+    .trustee-en-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:#eef2e8;color:#5e734a;font-size:25px;margin-bottom:6px}
+    .trustee-en-card strong{font-size:1.12rem;color:#334137}
+    .trustee-en-role{color:#667267;font-size:.95rem}
+    @media(max-width:820px){.trustees-list-en{grid-template-columns:1fr}}
+
+    .org-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+    .org-jump a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(40,101,131,.2);color:#286583;font-weight:800;text-decoration:none}
+    .org-jump a:hover{background:#e7f0f4}
+    .org-block{padding-bottom:0}
+    .org-block-title{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:900;color:#286583}
+    .org-block-title::before{content:"";width:6px;height:1.4em;border-radius:6px;background:linear-gradient(#BEAE59,#E69D74)}
+    .org-separator{max-width:1100px;margin:56px auto;padding:0 20px;display:flex;align-items:center;gap:14px;color:#BEAE59}
+    .org-separator span{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(190,174,89,.6),transparent)}
+    .org-separator i{font-size:.8rem}
+    #trustees{padding-bottom:88px}
+    .org-chart-en{background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:26px;padding:40px 20px;box-shadow:0 20px 56px rgba(51,65,55,.07);overflow-x:auto}
+    .org-tree,.org-tree ul{list-style:none;margin:0;padding:0}
+    .org-tree ul{display:flex;justify-content:center;position:relative}
+    .org-tree li{position:relative;display:flex;flex-direction:column;align-items:center;padding:26px 10px 0}
+    .org-tree>li{padding-top:0}
+    .org-tree li::before{content:"";position:absolute;top:0;left:50%;height:26px;border-left:2px solid #96BDBC}
+    .org-tree>li::before{display:none}
+    .org-tree ul::before{content:"";position:absolute;top:-26px;left:50%;height:26px;border-left:2px solid #96BDBC}
+    .org-tree ul>li{padding-top:26px}
+    .org-tree ul>li::after{content:"";position:absolute;top:0;left:0;right:0;border-top:2px solid #96BDBC}
+    .org-tree ul>li:first-child::after{left:50%}
+    .org-tree ul>li:last-child::after{right:50%}
+    .org-tree ul>li:only-child::after{display:none}
+    .org-tree ul{padding-top:0;margin-top:26px}
+    .org-node{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-width:150px;min-height:52px;padding:10px 18px;border-radius:12px;background:#1F5A78;color:#fff;font-weight:800;line-height:1.35}
+    .org-node--top{min-width:220px}
+    .org-node--dept{background:#96BDBC;color:#173f4e;min-width:180px}
+    .org-pair .org-node{min-width:120px}
+    @media(max-width:820px){
+      .org-chart-en{padding:24px 14px}
+      .org-depts{flex-direction:column;align-items:stretch}
+      .org-depts::before{display:none}
+      .org-depts>li::after{display:none}
+      .org-depts>li{padding-top:18px}
+      .org-depts>li::before{height:18px}
+      .org-node,.org-node--top,.org-node--dept{min-width:0;width:min(100%,260px)}
+      .org-pair .org-node{min-width:0;width:auto}
+      .org-separator{margin:36px auto}#trustees{padding-bottom:70px}
+    }
+    .board-file-row{display:flex;justify-content:center;margin-top:24px}
+    .board-file-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;background:#286583;color:#fff;font-weight:800;text-decoration:none}
+    .board-file-btn:hover{background:#1f5169;color:#fff}
+    .board-file-btn em{font-style:normal;font-size:.75rem;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.18)}
   </style>
 </BaseLayout>

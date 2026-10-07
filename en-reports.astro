@@ -24,11 +24,27 @@ const meta = {
       </div>
     </section>
     <section id="financial-statements" class="institution-content">
+      {site.docs.reports.items.length > 0 ? (
+        <div class="report-list">
+          {site.docs.reports.items.map((doc) => (
+            <a class="report-item" href={doc.href} target="_blank" rel="noopener noreferrer">
+              <span class="report-item-icon" aria-hidden="true"><i class="bi bi-file-earmark-pdf"></i></span>
+              <span class="report-item-copy">
+                <strong>{doc.title}</strong>
+                {doc.description && <small>{doc.description}</small>}
+                {doc.status && <em class="report-item-status">{doc.status}</em>}
+              </span>
+              <span class="report-item-action">Open file <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
+            </a>
+          ))}
+        </div>
+      ) : (
       <div class="status-card" role="status">
         <i class="bi bi-shield-check" aria-hidden="true"></i>
         <div><strong>No approved financial files are currently published</strong><span>The website does not publish draft or unapproved files. Approved documents intended for publication will appear on this page.</span></div>
       </div>
-      <a class="institution-back" href="/en/governance/"><i class="bi bi-arrow-right" aria-hidden="true"></i> Back to Governance</a>
+      )}
+      <a class="institution-back" href="/en/governance/"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Governance</a>
     </section>
   </main>
   <style>
@@ -46,5 +62,16 @@ const meta = {
       .media-hero,.gov-hero,.transparency-hero,.institution-hero,.participation-hero,.access-hero,.reports-hero{padding-top:42px!important;padding-bottom:34px!important}
       .media-brand img,.gov-brand img,.institution-brand img,.access-header img,.reports-header img{width:138px!important}
     }
+
+    .report-list{display:grid;gap:14px}
+    .report-item{display:flex;align-items:center;gap:16px;padding:20px 22px;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:20px;box-shadow:0 14px 36px rgba(51,65,55,.06);text-decoration:none;color:#334137;transition:transform .2s,box-shadow .2s}
+    .report-item:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(51,65,55,.1)}
+    .report-item-icon{flex:0 0 auto;width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:#fbe9de;color:#e06659;font-size:24px}
+    .report-item-copy{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+    .report-item-copy strong{font-size:1.08rem}
+    .report-item-copy small{color:#667267;font-size:.9rem}
+    .report-item-status{align-self:flex-start;margin-top:4px;padding:2px 10px;border-radius:999px;background:#f7f2dd;color:#8a7a2c;font-style:normal;font-size:.78rem;font-weight:800}
+    .report-item-action{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;color:#286583;font-weight:800}
+    @media(max-width:600px){.report-item{flex-wrap:wrap}.report-item-action{width:100%;justify-content:center;padding-top:10px;border-top:1px solid rgba(94,115,74,.12)}}
   </style>
 </BaseLayout>

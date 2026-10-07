@@ -54,7 +54,7 @@ const values = [
               <li><a class="dropdown-item" href="#about">Who we are</a></li>
               <li><a class="dropdown-item" href="#goals">Strategic Goals</a></li>
               <li><a class="dropdown-item" href="#values">Our Values</a></li>
-              <li><a class="dropdown-item" href="/en/board/">Board of Trustees</a></li>
+              <li><a class="dropdown-item" href="/en/board/">Organizational Management</a></li>
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
@@ -65,9 +65,10 @@ const values = [
               <li><a class="dropdown-item" href="#governance">Governance overview</a></li>
               <li><a class="dropdown-item" href="/en/governance/">Governance Center</a></li>
               <li><a class="dropdown-item" href="/en/transparency/">Transparency & Disclosure</a></li>
+              <li><a class="dropdown-item" href="/en/reports/">Financial Reports</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown hedayat-nav-group"><button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">Media Center</button><ul class="dropdown-menu hedayat-dropdown"><li><a class="dropdown-item" href="/en/news/">News</a></li><li><a class="dropdown-item" href="/en/photos/">Photos</a></li><li><a class="dropdown-item" href="/en/videos/">Video</a></li></ul></li>
+          <li class="nav-item"><a class="nav-link" href="/en/videos/">Media Center</a></li>
           <li class="nav-item"><a class="nav-link" href="/en/participation/">Beneficiary Participation</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item"><a class="nav-link" href="/" lang="ar" dir="rtl" data-language-switch="ar">Arabic</a></li>
@@ -103,21 +104,20 @@ const values = [
   </style>
 
   <main id="main-content">
-    <section id="home" class="hero-section" style={{ "--hero-bg": `url(${site.assets.heroBackground})` }}>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
-            <div class="official-logo-hero-wrap mb-5" style="display:flex; justify-content:center; align-items:center; width:100%; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important;">
-              <img src={site.assets.logoHero} alt="Hedayat Educational Foundation logo" class="official-logo official-logo-hero" style="display:block; width:min(82vw,620px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 auto !important;" />
-            </div>
-            <div class="hero-copy">
-              <h1 class="display-6 fw-bold hero-title mb-3">A Beacon of Guidance for Deeper Community Awareness</h1>
-              <p class="lead hero-lead mb-4">A trusted educational foundation specialized in providing reliable knowledge that supports the nation’s higher values through purposeful programs, qualified expertise and accessible, engaging methods.</p>
-              <div class="d-flex flex-wrap justify-content-center gap-2 gap-md-3 mt-2">
-                <a href="#about" class="btn-cta-secondary">Discover the Foundation</a>
-              </div>
-            </div>
+    <section id="home" class="hero-section hero-split">
+      <div class="hero-split-pattern" aria-hidden="true"></div>
+      <div class="container hero-split-inner">
+        <div class="hero-split-copy">
+          <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="hero-split-logo" width="1755" height="658" />
+          <h1 class="hero-split-title">A Beacon of Guidance for Deeper Community Awareness</h1>
+          <p class="hero-split-lead">A trusted educational foundation specialized in providing reliable knowledge that supports the nation’s higher values through purposeful programs, qualified expertise and accessible, engaging methods.</p>
+          <div class="hero-split-actions">
+            <a href="#about" class="hero-split-btn">Discover the Foundation</a>
+            <a href="#contact" class="hero-split-btn hero-split-btn--ghost">Contact Us</a>
           </div>
+        </div>
+        <div class="hero-split-art" aria-hidden="true">
+          <img src="/hero-lighthouse.svg" alt="" width="440" height="560" />
         </div>
       </div>
 
@@ -261,8 +261,6 @@ const values = [
           <p class="ref-section-subtitle">Official news and visual content from Hedayat Educational Foundation.</p>
         </div>
         <div class="media-home-grid">
-          <a class="media-home-card reveal-on-scroll" href="/en/news/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-newspaper"></i></span><span class="media-home-card-copy"><strong>News</strong><small>Official announcements and updates (Arabic).</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
-          <a class="media-home-card reveal-on-scroll" href="/en/photos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-images"></i></span><span class="media-home-card-copy"><strong>Photos</strong><small>Published program and event galleries.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
           <a class="media-home-card reveal-on-scroll" href="/en/videos/"><span class="media-home-card-icon" aria-hidden="true"><i class="bi bi-play-btn"></i></span><span class="media-home-card-copy"><strong>Video</strong><small>Official visual content from the Foundation.</small></span><i class="bi bi-arrow-right-short media-home-arrow" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -297,8 +295,11 @@ const values = [
                 <label class="form-label" for="message-en">Message</label>
                 <textarea class="form-textarea" id="message-en" name="message" maxlength="5000" required></textarea>
               </div>
+              <label class="form-consent">
+                <input type="checkbox" name="privacyAccepted" value="yes" required />
+                <span>I have read the <a href="/en/privacy/" target="_blank" rel="noopener">Privacy Policy</a> and agree to my information being used only to contact me and respond to my inquiry.</span>
+              </label>
               <button type="submit" class="btn-form-submit">Send message</button>
-              <p class="form-privacy-note">Submitted information is used only to contact you and respond to your inquiry. <a href="/en/privacy/">Privacy Policy</a></p>
               <div id="form-status-en" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
             </form>
           </div>
@@ -393,19 +394,19 @@ const values = [
   </footer>
 
   <style is:inline>
-    :global(html[lang="en"] body){direction:ltr;text-align:left;font-family:Arial,"Helvetica Neue",sans-serif}
-    :global(html[lang="en"] .ref-section-title),
-    :global(html[lang="en"] .hero-title),
-    :global(html[lang="en"] .ref-feature h3),
-    :global(html[lang="en"] .institutional-info-copy h3){font-family:Georgia,"Times New Roman",serif;font-feature-settings:normal;-webkit-text-stroke:0}
-    :global(html[lang="en"] .contact-details),
-    :global(html[lang="en"] .institutional-info-copy){text-align:left}
-    :global(html[lang="en"] .en-doc-grid){max-width:920px;margin-inline:auto}
-    :global(html[lang="en"] .en-doc-card){padding:22px;display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:var(--text-card-main)}
-    :global(html[lang="en"] .en-doc-card>i){font-size:1.45rem;color:var(--brand-teal);margin-top:2px}
-    :global(html[lang="en"] .en-doc-card h3){margin:0 0 7px;font-size:1rem;font-weight:900;color:var(--text-card-main)}
-    :global(html[lang="en"] .en-doc-card p){margin:0;color:var(--text-card-muted);font-size:.82rem;line-height:1.7}
-    @media(max-width:991.98px){:global(html[lang="en"] .hdr .navbar-collapse){text-align:left}}
+    html[lang="en"] body{direction:ltr;text-align:left;font-family:Arial,"Helvetica Neue",sans-serif}
+    html[lang="en"] .ref-section-title,
+    html[lang="en"] .hero-title,
+    html[lang="en"] .ref-feature h3,
+    html[lang="en"] .institutional-info-copy h3{font-family:Georgia,"Times New Roman",serif;font-feature-settings:normal;-webkit-text-stroke:0}
+    html[lang="en"] .contact-details,
+    html[lang="en"] .institutional-info-copy{text-align:left}
+    html[lang="en"] .en-doc-grid{max-width:920px;margin-inline:auto}
+    html[lang="en"] .en-doc-card{padding:22px;display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:var(--text-card-main)}
+    html[lang="en"] .en-doc-card>i{font-size:1.45rem;color:var(--brand-teal);margin-top:2px}
+    html[lang="en"] .en-doc-card h3{margin:0 0 7px;font-size:1rem;font-weight:900;color:var(--text-card-main)}
+    html[lang="en"] .en-doc-card p{margin:0;color:var(--text-card-muted);font-size:.82rem;line-height:1.7}
+    @media(max-width:991.98px){html[lang="en"] .hdr .navbar-collapse{text-align:left}}
   </style>
 
   <script is:inline>
