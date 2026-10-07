@@ -1,41 +1,41 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
 const governance = site.docs.governance;
 const meta = {
   ...site.meta,
-  title: "الشفافية والإفصاح | مؤسسة هدايات التعليمية",
-  description: "صفحة الشفافية والإفصاح لمؤسسة هدايات التعليمية، وتعرض مجلس الأمناء والسياسات المعتمدة وحالة نشر بيانات الحوكمة."
+  title: "Transparency & Disclosure | Hedayat Educational Foundation",
+  description: "Transparency and disclosure page for Hedayat Educational Foundation, showing the Board of Trustees, approved policies, and governance publication status."
 };
 const trustees = [
-  { role: "رئيس مجلس الأمناء", name: "حنين فهد السديري" },
-  { role: "نائب رئيس مجلس الأمناء", name: "جمانة طلال محجوب" },
-  { role: "عضو مجلس الأمناء", name: "أماني بشير الجهني" }
+  { role: "Chair of the Board of Trustees", name: "Haneen Fahad Al-Sudairi" },
+  { role: "Vice Chair of the Board of Trustees", name: "Jumana Talal Mahjoub" },
+  { role: "Board Member", name: "Amani Bashir Al-Juhani" }
 ];
 ---
-<BaseLayout meta={meta} lang="ar" dir="rtl">
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="transparency-page">
     <header class="tp-header">
       <div class="tp-header-inner">
-        <a href="/" class="tp-brand" aria-label="العودة إلى الرئيسية"><img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" /></a>
-        <nav aria-label="التنقل" class="tp-actions">
-          <a href="/governance/"><i class="bi bi-shield-check" aria-hidden="true"></i><span>مركز الحوكمة</span></a>
-          <a href="/"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+        <a href="/en/" class="tp-brand" aria-label="Back to Home"><img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" /></a>
+        <nav aria-label="Navigation" class="tp-actions">
+          <a href="/en/governance/"><i class="bi bi-shield-check" aria-hidden="true"></i><span>Governance Center</span></a>
+          <a href="/en/"><i class="bi bi-house-door" aria-hidden="true"></i><span>Home</span></a>
         </nav>
       </div>
     </header>
 
     <section class="tp-hero" aria-labelledby="tp-title">
       <div class="tp-shell">
-        <span class="tp-kicker"><i class="bi bi-eye" aria-hidden="true"></i> الشفافية المؤسسية</span>
-        <h1 id="tp-title">الشفافية والإفصاح</h1>
+        <span class="tp-kicker"><i class="bi bi-eye" aria-hidden="true"></i> Institutional Transparency</span>
+        <h1 id="tp-title">Transparency & Disclosure</h1>
       </div>
     </section>
 
     <section class="tp-content">
       <div class="tp-section-head">
-        <div><span>القيادة والحوكمة</span><h2>مجلس الأمناء</h2></div>
-        <a href="/board/">عرض صفحة المجلس <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+        <div><span>Leadership & Governance</span><h2>Board of Trustees</h2></div>
+        <a href="/en/board/">View Board Page <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
       </div>
       <div class="tp-board-grid">
         {trustees.map((member) => (
@@ -50,15 +50,15 @@ const trustees = [
       <article class="tp-exec-card" aria-labelledby="exec-title">
         <div class="tp-exec-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
         <div>
-          <span class="tp-status"><i class="bi bi-clock" aria-hidden="true"></i> غير منشور حاليًا</span>
-          <h2 id="exec-title">الإدارة التنفيذية</h2>
-          <p>لا تتضمن الملفات المنشورة حاليًا بيانات معتمدة بأسماء الإدارة التنفيذية، لذلك لا يتم عرض أسماء أو مناصب غير موثقة. سيتم تحديث هذا القسم عند اعتماد البيانات للنشر.</p>
+          <span class="tp-status"><i class="bi bi-clock" aria-hidden="true"></i> Not Currently Published</span>
+          <h2 id="exec-title">Executive Management</h2>
+          <p>The currently published documents do not include approved details naming executive management, so no unverified names or positions are displayed. This section will be updated when the information is formally approved for publication.</p>
         </div>
       </article>
 
       <div class="tp-section-head tp-section-head--policies">
-        <div><span>الوثائق المعتمدة</span><h2>السياسات المنشورة</h2></div>
-        <a href="/governance/#policies">فتح مركز الحوكمة <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+        <div><span>Approved Documents</span><h2>Published Policies</h2></div>
+        <a href="/en/governance/#policies">Open Governance Center <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
       </div>
       <div class="tp-policy-grid">
         {governance.policies.map((doc) => (
@@ -70,11 +70,11 @@ const trustees = [
             <h3>{doc.title}</h3>
             <p>{doc.description}</p>
             <dl>
-              <div><dt>تاريخ الاعتماد</dt><dd>{doc.approvalDate}</dd></div>
-              <div><dt>آخر تحديث منشور</dt><dd>{doc.updated}</dd></div>
-              <div><dt>الدورة/الإصدار</dt><dd>{doc.version}</dd></div>
+              <div><dt>Approval Date</dt><dd>{doc.approvalDate}</dd></div>
+              <div><dt>Latest Published Update</dt><dd>{doc.updated}</dd></div>
+              <div><dt>Cycle / Version</dt><dd>{doc.version}</dd></div>
             </dl>
-            <a href={`/${doc.fileHref}`} target="_blank" rel="noopener">عرض الوثيقة <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></a>
+            <a href={`/${doc.fileHref}`} target="_blank" rel="noopener">View Document <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></a>
           </article>
         ))}
       </div>
@@ -82,11 +82,11 @@ const trustees = [
       <section class="tp-disclosure" aria-labelledby="disclosure-title">
         <div class="tp-disclosure-icon"><i class="bi bi-megaphone" aria-hidden="true"></i></div>
         <div>
-          <span>سياسة الإفصاح</span>
-          <h2 id="disclosure-title">نشر المعلومات وفق الوثائق المعتمدة</h2>
-          <p>تلتزم الصفحة بعرض ما هو منشور ومعتمد فقط. المعلومات التي لم تُنشر رسميًا تظهر بحالة واضحة بدل استخدام ملفات مؤقتة أو بيانات تقديرية.</p>
+          <span>Disclosure Policy</span>
+          <h2 id="disclosure-title">Publishing information based on approved documents</h2>
+          <p>This page displays only information that has been formally approved and published. Information that has not been officially published is shown with a clear status rather than temporary files or estimated data.</p>
         </div>
-        <a href="/disclosure-transparency-policy.pdf" target="_blank" rel="noopener">عرض سياسة الإفصاح والشفافية</a>
+        <a href="/disclosure-transparency-policy.pdf" target="_blank" rel="noopener">View Disclosure & Transparency Policy</a>
       </section>
     </section>
   </main>

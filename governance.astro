@@ -1,85 +1,85 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
 
 const governance = site.docs.governance;
 const institution = site.institution;
 const meta = {
   ...site.meta,
-  title: `${governance.title} | مؤسسة هدايات التعليمية`,
+  title: `${governance.title} | Hedayat Educational Foundation`,
   description: governance.subtitle
 };
 
-const licenseDoc = governance.official.find((doc) => doc.category === "الترخيص") || governance.official[0];
-const regulationDoc = governance.official.find((doc) => doc.category === "اللائحة الأساسية") || governance.official[1];
+const licenseDoc = governance.official.find((doc) => doc.category === "License") || governance.official[0];
+const regulationDoc = governance.official.find((doc) => doc.category === "Basic Regulation") || governance.official[1];
 const plannedByCategory = Object.fromEntries((governance.planned || []).map((item) => [item.category, item]));
 ---
 
-<BaseLayout meta={meta} lang="ar" dir="rtl">
+<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="governance-page">
     <header class="gov-header">
       <div class="gov-header-inner">
-        <a href="/" class="gov-brand" aria-label="العودة إلى الرئيسية">
-          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" />
+        <a href="/en/" class="gov-brand" aria-label="Back to Home">
+          <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" />
         </a>
-        <nav class="gov-header-actions" aria-label="التنقل في الحوكمة">
-          <a href="/transparency/" class="gov-header-link"><i class="bi bi-eye" aria-hidden="true"></i><span>الشفافية</span></a>
-          <a href="/en/#governance" class="gov-header-link" lang="en" dir="ltr" data-language-switch="en"><span>EN</span></a>
-          <a href="/" class="gov-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
+        <nav class="gov-header-actions" aria-label="Governance navigation">
+          <a href="/en/transparency/" class="gov-header-link"><i class="bi bi-eye" aria-hidden="true"></i><span>Transparency</span></a>
+          <a href="/governance/" class="gov-header-link" lang="ar" dir="rtl" data-language-switch="ar"><span>Arabic</span></a>
+          <a href="/en/" class="gov-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>Home</span></a>
         </nav>
       </div>
     </header>
 
     <section class="gov-hero" aria-labelledby="gov-title">
       <div class="gov-shell">
-        <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> الحوكمة المؤسسية</span>
+        <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> Institutional Governance</span>
         <h1 id="gov-title">{governance.title}</h1>
-        <div class="gov-summary" aria-label="ملخص مركز الحوكمة">
-          <div><strong>{governance.official.length}</strong><span>وثائق نظامية منشورة</span></div>
+        <div class="gov-summary" aria-label="Governance Center summary">
+          <div><strong>{governance.official.length}</strong><span>Published regulatory documents</span></div>
           <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.policies.length}</strong><span>سياسات معتمدة</span></div>
+          <div><strong>{governance.policies.length}</strong><span>Approved policies</span></div>
           <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.planned?.length || 0}</strong><span>أقسام بانتظار الاعتماد</span></div>
+          <div><strong>{governance.planned?.length || 0}</strong><span>Sections pending approval</span></div>
         </div>
       </div>
     </section>
 
-    <section class="gov-content" aria-label="وثائق الحوكمة">
+    <section class="gov-content" aria-label="Governance documents">
       <div class="gov-tabs-shell">
-        <div class="gov-tabs" role="tablist" aria-label="أقسام مركز الحوكمة">
-          <button type="button" role="tab" id="tab-license" aria-controls="panel-license" aria-selected="true" tabindex="0" data-gov-tab="license"><i class="bi bi-patch-check" aria-hidden="true"></i><span>الترخيص</span></button>
-          <button type="button" role="tab" id="tab-regulation" aria-controls="panel-regulation" aria-selected="false" tabindex="-1" data-gov-tab="regulation"><i class="bi bi-journal-text" aria-hidden="true"></i><span>اللائحة الأساسية</span></button>
-          <button type="button" role="tab" id="tab-policies" aria-controls="panel-policies" aria-selected="false" tabindex="-1" data-gov-tab="policies"><i class="bi bi-shield-lock" aria-hidden="true"></i><span>السياسات</span></button>
-          <button type="button" role="tab" id="tab-operational" aria-controls="panel-operational" aria-selected="false" tabindex="-1" data-gov-tab="operational"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>الخطة التشغيلية</span></button>
-          <button type="button" role="tab" id="tab-financial" aria-controls="panel-financial" aria-selected="false" tabindex="-1" data-gov-tab="financial"><i class="bi bi-bar-chart" aria-hidden="true"></i><span>التقارير المالية</span></button>
-          <button type="button" role="tab" id="tab-annual" aria-controls="panel-annual" aria-selected="false" tabindex="-1" data-gov-tab="annual"><i class="bi bi-calendar3" aria-hidden="true"></i><span>التقارير السنوية</span></button>
+        <div class="gov-tabs" role="tablist" aria-label="Governance Center sections">
+          <button type="button" role="tab" id="tab-license" aria-controls="panel-license" aria-selected="true" tabindex="0" data-gov-tab="license"><i class="bi bi-patch-check" aria-hidden="true"></i><span>License</span></button>
+          <button type="button" role="tab" id="tab-regulation" aria-controls="panel-regulation" aria-selected="false" tabindex="-1" data-gov-tab="regulation"><i class="bi bi-journal-text" aria-hidden="true"></i><span>Basic Regulation</span></button>
+          <button type="button" role="tab" id="tab-policies" aria-controls="panel-policies" aria-selected="false" tabindex="-1" data-gov-tab="policies"><i class="bi bi-shield-lock" aria-hidden="true"></i><span>Policies</span></button>
+          <button type="button" role="tab" id="tab-operational" aria-controls="panel-operational" aria-selected="false" tabindex="-1" data-gov-tab="operational"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>Operational Plan</span></button>
+          <button type="button" role="tab" id="tab-financial" aria-controls="panel-financial" aria-selected="false" tabindex="-1" data-gov-tab="financial"><i class="bi bi-bar-chart" aria-hidden="true"></i><span>Financial Reports</span></button>
+          <button type="button" role="tab" id="tab-annual" aria-controls="panel-annual" aria-selected="false" tabindex="-1" data-gov-tab="annual"><i class="bi bi-calendar3" aria-hidden="true"></i><span>Annual Reports</span></button>
         </div>
       </div>
 
       <section id="panel-license" class="gov-panel" role="tabpanel" aria-labelledby="tab-license" data-gov-panel="license">
         <div class="gov-section-heading">
           <div class="gov-section-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></div>
-          <div><span>الوضع النظامي</span><h2>شهادة الترخيص</h2><p>الشهادة الرسمية للمؤسسة، مع بيانات الترخيص الأساسية ورابط التحقق الرسمي.</p></div>
+          <div><span>Regulatory Status</span><h2>License Certificate</h2><p>The Foundation’s official license certificate, including key license details and the official verification link.</p></div>
         </div>
         <article class="gov-doc-card gov-doc-card--featured">
           <div class="gov-doc-preview">
-            <img src={licenseDoc.previewHref} alt={`معاينة ${licenseDoc.title}`} loading="eager" />
-            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> منشور</span>
+            <img src={licenseDoc.previewHref} alt={`Preview of ${licenseDoc.title}`} loading="eager" />
+            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> Published</span>
           </div>
           <div class="gov-doc-body">
             <div class="gov-doc-meta"><i class="bi bi-building" aria-hidden="true"></i><span>{institution.type}</span></div>
             <h3>{licenseDoc.title}</h3>
             <p>{licenseDoc.description}</p>
             <dl class="gov-facts">
-              <div><dt>رقم الترخيص</dt><dd dir="ltr">{institution.licenseNumber}</dd></div>
-              <div><dt>الرقم الوطني الموحد</dt><dd dir="ltr">{institution.unifiedNationalNumber}</dd></div>
-              <div><dt>جهة الإشراف</dt><dd>{institution.supervision}</dd></div>
-              <div><dt>سريان الشهادة</dt><dd>حتى {institution.licenseValidUntil}</dd></div>
+              <div><dt>License Number</dt><dd dir="ltr">{institution.licenseNumber}</dd></div>
+              <div><dt>Unified National Number</dt><dd dir="ltr">{institution.unifiedNationalNumber}</dd></div>
+              <div><dt>Supervising Authority</dt><dd>{institution.supervision}</dd></div>
+              <div><dt>Certificate Validity</dt><dd>Until {institution.licenseValidUntil}</dd></div>
             </dl>
             <div class="gov-doc-actions">
-              <a class="gov-btn gov-btn--primary" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer"><i class="bi bi-patch-check" aria-hidden="true"></i><span>التحقق من الترخيص</span></a>
-              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الشهادة</span></a>
-              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+              <a class="gov-btn gov-btn--primary" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer"><i class="bi bi-patch-check" aria-hidden="true"></i><span>Verify License</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Certificate</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
             </div>
           </div>
         </article>
@@ -88,12 +88,12 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
       <section id="panel-regulation" class="gov-panel" role="tabpanel" aria-labelledby="tab-regulation" data-gov-panel="regulation">
         <div class="gov-section-heading">
           <div class="gov-section-icon"><i class="bi bi-journal-text" aria-hidden="true"></i></div>
-          <div><span>الوثائق التنظيمية</span><h2>اللائحة الأساسية</h2><p>الوثيقة المنظمة لتأسيس المؤسسة وأهدافها وتنظيمها الإداري وأحكام مجلس الأمناء.</p></div>
+          <div><span>Regulatory Documents</span><h2>Basic Regulation</h2><p>The document governing the Foundation’s establishment, objectives, administrative structure, and Board of Trustees provisions.</p></div>
         </div>
         <article class="gov-doc-card gov-doc-card--featured">
           <div class="gov-doc-preview">
-            <img src={regulationDoc.previewHref} alt={`معاينة ${regulationDoc.title}`} loading="lazy" />
-            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> منشور</span>
+            <img src={regulationDoc.previewHref} alt={`Preview of ${regulationDoc.title}`} loading="lazy" />
+            <span class="gov-doc-badge"><i class="bi bi-check2-circle" aria-hidden="true"></i> Published</span>
           </div>
           <div class="gov-doc-body">
             <div class="gov-doc-meta"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span>{regulationDoc.meta}</span></div>
@@ -101,8 +101,8 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
             <p>{regulationDoc.description}</p>
             <div class="gov-publish-row"><span><i class="bi bi-calendar-check" aria-hidden="true"></i> {regulationDoc.updated}</span><span><i class="bi bi-tag" aria-hidden="true"></i> {regulationDoc.version}</span></div>
             <div class="gov-doc-actions">
-              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض اللائحة</span></a>
-              <a class="gov-btn gov-btn--secondary" href={`/${regulationDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Regulation</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${regulationDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
             </div>
           </div>
         </article>
@@ -111,27 +111,27 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
       <section id="panel-policies" class="gov-panel" role="tabpanel" aria-labelledby="tab-policies" data-gov-panel="policies">
         <div class="gov-section-heading">
           <div class="gov-section-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-          <div><span>السياسات المعتمدة</span><h2>السياسات المنشورة</h2><p>وثائق الحوكمة المنشورة بصيغتها الأصلية، مع تاريخ الاعتماد والدورة المنشورة.</p></div>
+          <div><span>Approved Policies</span><h2>Published Policies</h2><p>Governance documents published in their original approved form, including approval dates and published versions.</p></div>
         </div>
         <div class="gov-doc-grid">
           {governance.policies.map((doc) => (
             <article class="gov-doc-card">
               <div class="gov-doc-preview gov-doc-preview--policy">
-                <img src={doc.previewHref} alt={`معاينة الصفحة الأولى من ${doc.title}`} loading="lazy" />
+                <img src={doc.previewHref} alt={`Preview of the first page of ${doc.title}`} loading="lazy" />
                 <span class="gov-doc-badge gov-doc-badge--policy"><i class="bi bi-shield-check" aria-hidden="true"></i> {doc.status}</span>
               </div>
               <div class="gov-doc-body">
                 <div class="gov-doc-meta"><i class="bi bi-file-earmark-text" aria-hidden="true"></i><span>{doc.meta}</span></div>
                 <h3>{doc.title}</h3>
                 <p>{doc.description}</p>
-                <div class="gov-policy-meta" aria-label={`بيانات ${doc.title}`}>
-                  <span><b>تاريخ الاعتماد:</b> {doc.approvalDate}</span>
-                  <span><b>آخر تحديث منشور:</b> {doc.updated}</span>
-                  <span><b>الدورة/الإصدار:</b> {doc.version}</span>
+                <div class="gov-policy-meta" aria-label={`Details for ${doc.title}`}>
+                  <span><b>Approval Date:</b> {doc.approvalDate}</span>
+                  <span><b>Latest Published Update:</b> {doc.updated}</span>
+                  <span><b>Cycle / Version:</b> {doc.version}</span>
                 </div>
                 <div class="gov-doc-actions">
-                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span></a>
-                  <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
+                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Policy</span></a>
+                  <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
                 </div>
               </div>
             </article>
@@ -140,26 +140,26 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
       </section>
 
       {[
-        ['operational', plannedByCategory['الخطة التشغيلية'], 'bi-clipboard-check', 'الخطة التشغيلية'],
-        ['financial', plannedByCategory['التقارير المالية'], 'bi-bar-chart', 'التقارير المالية'],
-        ['annual', plannedByCategory['التقارير السنوية'], 'bi-calendar3', 'التقارير السنوية']
+        ['operational', plannedByCategory['Operational Plan'], 'bi-clipboard-check', 'Operational Plan'],
+        ['financial', plannedByCategory['Financial Reports'], 'bi-bar-chart', 'Financial Reports'],
+        ['annual', plannedByCategory['Annual Reports'], 'bi-calendar3', 'Annual Reports']
       ].map(([key, item, icon, title]) => (
         <section id={`panel-${key}`} class="gov-panel" role="tabpanel" aria-labelledby={`tab-${key}`} data-gov-panel={key}>
           <div class="gov-section-heading">
             <div class="gov-section-icon"><i class={`bi ${icon}`} aria-hidden="true"></i></div>
-            <div><span>الوثائق المؤسسية</span><h2>{title}</h2><p>يظهر هذا القسم عند نشر الوثيقة المعتمدة رسميًا.</p></div>
+            <div><span>Institutional Documents</span><h2>{title}</h2><p>This section appears when the formally approved document is published.</p></div>
           </div>
           <div class="gov-empty" role="status">
             <i class="bi bi-hourglass-split" aria-hidden="true"></i>
-            <div><h3>{item?.status || 'بانتظار النشر'}</h3><p>{item?.message || 'سيتم النشر بعد الاعتماد.'}</p></div>
+            <div><h3>{item?.status || 'Pending Publication'}</h3><p>{item?.message || 'Will be published after formal approval.'}</p></div>
           </div>
         </section>
       ))}
 
       <div class="gov-bottom-links">
-        <a href="/transparency/"><i class="bi bi-eye" aria-hidden="true"></i> صفحة الشفافية والإفصاح</a>
-        <a href="/accessibility/"><i class="bi bi-person-check" aria-hidden="true"></i> بيان إمكانية الوصول</a>
-        <a href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى موقع المؤسسة</a>
+        <a href="/en/transparency/"><i class="bi bi-eye" aria-hidden="true"></i> Transparency & Disclosure</a>
+        <a href="/en/accessibility/"><i class="bi bi-person-check" aria-hidden="true"></i> Accessibility Statement</a>
+        <a href="/en/"><i class="bi bi-arrow-right" aria-hidden="true"></i> Back to the Foundation website</a>
       </div>
     </section>
   </main>

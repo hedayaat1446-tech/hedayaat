@@ -1,54 +1,54 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import site from "../content/site.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import site from "../../content/site-en.json";
 
 const privacyMeta = {
   ...site.meta,
-  title: "سياسة الخصوصية وحماية البيانات | مؤسسة هدايات التعليمية",
-  description: "الوصول إلى سياسة الخصوصية وحماية البيانات المعتمدة لمؤسسة هدايات التعليمية."
+  title: "Privacy & Data Protection Policy | Hedayat Educational Foundation",
+  description: "Access the approved Privacy & Data Protection Policy of Hedayat Educational Foundation."
 };
 ---
 
-<BaseLayout meta={privacyMeta} lang="ar" dir="rtl">
+<BaseLayout meta={privacyMeta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="privacy-page">
     <article class="privacy-shell">
-      <a href="/" aria-label="العودة إلى الصفحة الرئيسية">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="privacy-logo" />
+      <a href="/en/" aria-label="Back to Home">
+        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="privacy-logo" />
       </a>
 
-      <span class="privacy-badge">وثيقة حوكمة معتمدة</span>
-      <h1>سياسة الخصوصية وحماية البيانات</h1>
+      <span class="privacy-badge">Approved Governance Document</span>
+      <h1>Privacy & Data Protection Policy</h1>
       <p class="privacy-intro">
-        هذه الصفحة مخصصة للوصول إلى النسخة الرسمية المنشورة من سياسة الخصوصية وحماية البيانات في مؤسسة هدايات التعليمية، دون إنشاء نسخة نصية موازية قد تختلف عن الوثيقة المعتمدة.
+        This page provides access to the official published Privacy & Data Protection Policy of Hedayat Educational Foundation without creating a parallel text version that could differ from the approved document.
       </p>
 
       <section class="privacy-official-card" aria-labelledby="privacy-official-title">
-        <img src="/privacy-data-policy-preview.jpg" alt="معاينة الصفحة الأولى من سياسة الخصوصية وحماية البيانات" loading="eager" />
+        <img src="/privacy-data-policy-preview.jpg" alt="Preview of the first page of the Privacy & Data Protection Policy" loading="eager" />
         <div class="privacy-official-copy">
-          <h2 id="privacy-official-title">النسخة الرسمية</h2>
-          <p>تتضمن الوثيقة نطاق البيانات، وأغراض استخدامها، وأمن البيانات ومشاركتها، وحقوق صاحب البيانات، واعتماد السياسة.</p>
+          <h2 id="privacy-official-title">Official Version</h2>
+          <p>The document covers the scope of data, purposes of use, data security and sharing, data-subject rights, and policy approval.</p>
           <div class="privacy-actions">
             <a class="privacy-primary" href="/privacy-data-policy.pdf" target="_blank" rel="noopener">
-              <i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span>
+              <i class="bi bi-eye" aria-hidden="true"></i><span>View Policy</span>
             </a>
             <a class="privacy-secondary" href="/privacy-data-policy.pdf" download>
-              <i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span>
+              <i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span>
             </a>
           </div>
         </div>
       </section>
 
-      <aside class="privacy-collection-note" aria-label="تنبيه حول نماذج الموقع">
+      <aside class="privacy-collection-note" aria-label="Note About Website Forms">
         <i class="bi bi-shield-check" aria-hidden="true"></i>
-        <div><strong>نماذج مشاركة المستفيد</strong><p>قياس الرضا لا يطلب اسمًا أو بريدًا إلكترونيًا. وفي نموذج المشاركة لا يتم طلب البريد الإلكتروني إلا عند اختيار الرغبة في الحصول على رد، وتخضع البيانات المقدمة للسياسة الرسمية المنشورة أعلاه.</p></div>
+        <div><strong>Beneficiary Participation Forms</strong><p>Satisfaction feedback does not request a name or email address. In the participation form, email is requested only if the user chooses to receive a response, and submitted data is governed by the official policy published above.</p></div>
       </aside>
 
       <p class="privacy-contact">
-        للاستفسارات المتعلقة بالخصوصية يمكن التواصل عبر البريد الإلكتروني:
+        For privacy-related inquiries, contact us by email:
         <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
       </p>
 
-      <div class="privacy-back"><a href="/#contact">العودة إلى الموقع</a></div>
+      <div class="privacy-back"><a href="/en/#contact">Back to Website</a></div>
     </article>
   </main>
 
