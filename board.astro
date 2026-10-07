@@ -9,14 +9,6 @@ const meta = {
 ---
 <BaseLayout meta={meta} lang="ar" dir="rtl">
   <main id="main-content" class="institution-page">
-    <header class="institution-header">
-      <div class="institution-header-inner">
-        <a href="/" class="institution-brand" aria-label="العودة إلى الرئيسية">
-          <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" />
-        </a>
-        <a href="/" class="institution-home"><i class="bi bi-house-door" aria-hidden="true"></i><span>الرئيسية</span></a>
-      </div>
-    </header>
 
     <section class="institution-hero">
       <div class="institution-shell">
@@ -65,9 +57,9 @@ const meta = {
 
   <style>
     :global(body){margin:0;background:#f7f4ee;color:#334137}.institution-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-arabic)}
-    .institution-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.institution-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.institution-brand img{display:block;width:190px;max-width:47vw;height:auto}.institution-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#5e734a;font-weight:800;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}
-    .institution-hero{padding:72px 20px 44px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)}.institution-shell{max-width:760px;margin:auto}.institution-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#eef2e8;color:#5e734a;font-weight:800;margin-bottom:22px}.institution-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#fff4ea;color:#de8f62;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)}h1{font-size:clamp(2.2rem,5vw,3.8rem);margin:0 0 14px;font-weight:900;color:#334137}.institution-hero p{margin:0 auto;max-width:720px;font-size:1.12rem;line-height:2;color:#667267}
-    .institution-content{max-width:1100px;margin:0 auto;padding:0 20px 88px;scroll-margin-top:100px}.trustees-card{margin:0;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:26px;padding:16px;box-shadow:0 20px 56px rgba(51,65,55,.07);overflow:hidden}.trustees-card img{display:block;width:100%;height:auto;border-radius:18px}.institution-back{display:inline-flex;align-items:center;gap:8px;margin-top:26px;text-decoration:none;color:#5e734a;font-weight:800}
+    .institution-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.institution-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.institution-brand img{display:block;width:190px;max-width:47vw;height:auto}.institution-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#16404F;font-weight:800;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}
+    .institution-hero{padding:72px 20px 44px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(231,158,113,.14),transparent 42%)}.institution-shell{max-width:760px;margin:auto}.institution-eyebrow{display:inline-flex;padding:7px 16px;border-radius:999px;background:#EAF1F3;color:#16404F;font-weight:800;margin-bottom:22px}.institution-icon{width:74px;height:74px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;background:#FBF6E6;color:#9C8E45;font-size:31px;box-shadow:0 12px 30px rgba(51,65,55,.08)}h1{font-size:clamp(2.2rem,5vw,3.8rem);margin:0 0 14px;font-weight:900;color:#334137}.institution-hero p{margin:0 auto;max-width:720px;font-size:1.12rem;line-height:2;color:#667267}
+    .institution-content{max-width:1100px;margin:0 auto;padding:0 20px 88px;scroll-margin-top:100px}.trustees-card{margin:0;background:#fff;border:1px solid rgba(94,115,74,.13);border-radius:26px;padding:16px;box-shadow:0 20px 56px rgba(51,65,55,.07);overflow:hidden}.trustees-card img{display:block;width:100%;height:auto;border-radius:18px}.institution-back{display:inline-flex;align-items:center;gap:8px;margin-top:26px;text-decoration:none;color:#16404F;font-weight:800}
     @media(max-width:720px){.institution-header-inner{padding:12px 16px}.institution-brand img{width:150px}.institution-home span{display:none}.institution-home{width:42px;height:42px;justify-content:center;padding:0}.institution-hero{padding:52px 18px 34px}.institution-content{padding:0 12px 70px}.trustees-card{padding:8px;border-radius:18px}.trustees-card img{border-radius:12px}}
   
     /* unified-mobile-v1: consistent internal-page scale */
@@ -80,10 +72,10 @@ const meta = {
     }
 
     .org-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
-    .org-jump a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(40,101,131,.2);color:#286583;font-weight:800;text-decoration:none}
+    .org-jump a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(40,101,131,.2);color:#16404F;font-weight:800;text-decoration:none}
     .org-jump a:hover{background:#e7f0f4}
     .org-block{padding-bottom:0}
-    .org-block-title{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:900;color:#286583}
+    .org-block-title{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:900;color:#16404F}
     .org-block-title::before{content:"";width:6px;height:1.4em;border-radius:6px;background:linear-gradient(#BEAE59,#E69D74)}
     .org-separator{max-width:1100px;margin:56px auto;padding:0 20px;display:flex;align-items:center;gap:14px;color:#BEAE59}
     .org-separator span{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(190,174,89,.6),transparent)}
@@ -91,7 +83,7 @@ const meta = {
     #trustees{padding-bottom:88px}
     @media(max-width:720px){.org-separator{margin:36px auto}#trustees{padding-bottom:70px}}
     .board-file-row{display:flex;justify-content:center;margin-top:24px}
-    .board-file-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;background:#286583;color:#fff;font-weight:800;text-decoration:none}
+    .board-file-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;background:#16404F;color:#fff;font-weight:800;text-decoration:none}
     .board-file-btn:hover{background:#1f5169;color:#fff}
     .board-file-btn em{font-style:normal;font-size:.75rem;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.18)}
   </style>

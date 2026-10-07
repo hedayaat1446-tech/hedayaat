@@ -70,6 +70,70 @@ const feedback = lang === "ar" ? {
   thanks: "Thank you. Your feedback has been recorded.",
   center: "Beneficiary Participation & Satisfaction"
 };
+// ===== Shared site chrome (header + breadcrumb + footer) for every inner page =====
+import siteAr from "../content/site.json";
+import siteEn from "../content/site-en.json";
+const { chrome } = Astro.props;
+const normPath = (p) => {
+  let x = (p || "/").split("?")[0].split("#")[0];
+  if (x.endsWith("/index.html")) x = x.slice(0, -10);
+  if (x.endsWith(".html")) x = x.slice(0, -5) + "/";
+  if (!x.endsWith("/")) x += "/";
+  return x;
+};
+const here = normPath(Astro.url.pathname);
+const isHomePage = here === "/" || here === "/en/";
+const showChrome = chrome ?? !isHomePage;
+const isAr = lang === "ar";
+const chromeSite = isAr ? siteAr : siteEn;
+const homeHref = isAr ? "/" : "/en/";
+const fixHref = (h) => (h && h.startsWith("#") ? `${homeHref}${h}` : h);
+const navItems = isAr
+  ? siteAr.nav.filter((i) => i.enabled !== false).map((i) => ({ ...i, href: fixHref(i.href), children: i.children?.map((c) => ({ ...c, href: fixHref(c.href) })) }))
+  : [
+      { label: "About the Foundation", children: [
+        { label: "Who we are", href: "/en/#about" }, { label: "Strategic Goals", href: "/en/#goals" },
+        { label: "Our Values", href: "/en/#values" }, { label: "Organizational Management", href: "/en/board/" } ] },
+      { label: "Programs", href: "/en/#programs" },
+      { label: "Partnerships", href: "/en/#partners" },
+      { label: "Governance", children: [
+        { label: "Governance Center", href: "/en/governance/" }, { label: "Transparency & Disclosure", href: "/en/transparency/" },
+        { label: "Financial Reports", href: "/en/reports/" } ] },
+      { label: "Media Center", href: "/en/videos/" },
+      { label: "Beneficiary Participation", href: "/en/participation/" },
+      { label: "Contact", href: "/en/#contact" },
+      { label: "Arabic", href: "/" }
+    ];
+const isCurrent = (h) => !!h && !h.includes("#") && normPath(h) === here && h !== homeHref;
+const crumbMap = {
+  "/board/": [["عن المؤسسة", "/#about"], ["الإدارة التنظيمية"]],
+  "/governance/": [["الحوكمة"], ["مركز الحوكمة"]],
+  "/transparency/": [["الحوكمة", "/governance/"], ["الشفافية والإفصاح"]],
+  "/reports/": [["الحوكمة", "/governance/"], ["القوائم والتقارير المالية"]],
+  "/videos/": [["المركز الإعلامي"], ["الفيديو"]],
+  "/news/": [["المركز الإعلامي"], ["آخر الأخبار"]],
+  "/photos/": [["المركز الإعلامي"], ["الصور"]],
+  "/participation/": [["مشاركة المستفيد"]],
+  "/privacy/": [["سياسة الخصوصية"]],
+  "/accessibility/": [["بيان إمكانية الوصول"]],
+  "/thank/": [["تواصل معنا", "/#contact"], ["تم استلام رسالتك"]],
+  "/en/board/": [["About the Foundation", "/en/#about"], ["Organizational Management"]],
+  "/en/governance/": [["Governance"], ["Governance Center"]],
+  "/en/transparency/": [["Governance", "/en/governance/"], ["Transparency & Disclosure"]],
+  "/en/reports/": [["Governance", "/en/governance/"], ["Financial Reports"]],
+  "/en/videos/": [["Media Center"], ["Video"]],
+  "/en/news/": [["Media Center"], ["News"]],
+  "/en/photos/": [["Media Center"], ["Photos"]],
+  "/en/participation/": [["Beneficiary Participation"]],
+  "/en/privacy/": [["Privacy Policy"]],
+  "/en/accessibility/": [["Accessibility Statement"]],
+  "/en/thank/": [["Contact", "/en/#contact"], ["Message received"]]
+};
+const crumbs = crumbMap[here] || (isNotFound ? [[isAr ? "الصفحة غير موجودة" : "Page not found"]] : null);
+const waDigitsChrome = String(chromeSite.contact?.phone || siteAr.contact?.phone || "").replace(/\D/g, "");
+const waLinkChrome = `https://wa.me/${waDigitsChrome}`;
+const licenseNo = siteAr.institution?.licenseNumber || "";
+
 ---
 
 <!doctype html>
@@ -197,21 +261,111 @@ const feedback = lang === "ar" ? {
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=43" />
+    <link rel="stylesheet" href="/styles/site.css?v=46" />
+    <slot name="head" />
   </head>
 
-  <body>
+  <body class={showChrome ? "inner-page" : undefined}>
     <a class="skip-link" href="#main-content">{skipLabel}</a>
 
     <aside class="a11y-tools" aria-label={accessibilityLabel}>
-      <a class="a11y-lang-switch" href={lang === "ar" ? enPath : arPath} data-language-switch={lang === "ar" ? "en" : "ar"} data-keep-hash hreflang={lang === "ar" ? "en" : "ar"} aria-label={lang === "ar" ? "عرض هذه الصفحة باللغة الإنجليزية" : "View this page in Arabic"} title={lang === "ar" ? "الإنجليزية" : "Arabic"}><i class="bi bi-globe2" aria-hidden="true"></i><span>{lang === "ar" ? "EN" : "AR"}</span></a>
-      <button type="button" dir="ltr" data-a11y="decrease" aria-label={lang === "ar" ? "تصغير حجم النص" : "Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
-      <button type="button" data-a11y="reset" aria-label={lang === "ar" ? "إعادة حجم النص للوضع الافتراضي" : "Reset text size"} title={lang === "ar" ? "الحجم الافتراضي" : "Default size"}>A</button>
-      <button type="button" dir="ltr" data-a11y="increase" aria-label={lang === "ar" ? "تكبير حجم النص" : "Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
+      <a class="a11y-lang-switch" href={lang === "ar" ? enPath : arPath} data-language-switch={lang === "ar" ? "en" : "ar"} data-keep-hash hreflang={lang === "ar" ? "en" : "ar"} aria-label={lang === "ar" ? "EN — عرض هذه الصفحة باللغة الإنجليزية" : "AR — View this page in Arabic"} title={lang === "ar" ? "الإنجليزية" : "Arabic"}><i class="bi bi-globe2" aria-hidden="true"></i><span>{lang === "ar" ? "EN" : "AR"}</span></a>
+      <button type="button" dir="ltr" data-a11y="decrease" aria-label={lang === "ar" ? "A− تصغير حجم النص" : "A− Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
+      <button type="button" data-a11y="reset" aria-label={lang === "ar" ? "A إعادة حجم النص للوضع الافتراضي" : "A Reset text size"} title={lang === "ar" ? "الحجم الافتراضي" : "Default size"}>A</button>
+      <button type="button" dir="ltr" data-a11y="increase" aria-label={lang === "ar" ? "A+ تكبير حجم النص" : "A+ Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
       <button type="button" data-a11y="contrast" aria-pressed="false" aria-label={lang === "ar" ? "تفعيل التباين العالي" : "Toggle high contrast"} title={lang === "ar" ? "تباين عالٍ" : "High contrast"}><i class="bi bi-circle-half" aria-hidden="true"></i></button>
     </aside>
 
+
+    {showChrome && (
+      <>
+        <nav class="navbar navbar-expand-lg fixed-top hdr site-chrome-hdr" aria-label={isAr ? "القائمة الرئيسية" : "Primary navigation"}>
+          <div class="container align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href={homeHref}>
+              <img src={chromeSite.assets?.logoNav || "/hedayat-logo-gold.png"} alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="official-logo official-logo-nav" width="900" height="337" />
+              <span class="visually-hidden">{isAr ? "الصفحة الرئيسية" : "Home page"}</span>
+            </a>
+            <a class="whatsapp-btn d-flex d-lg-none ms-auto me-2" href={waLinkChrome} target="_blank" rel="noopener" aria-label={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"} title={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"}><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navChrome" aria-controls="navChrome" aria-expanded="false" aria-label={isAr ? "إظهار القائمة" : "Open navigation menu"}><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navChrome">
+              <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
+                {navItems.map((item) => item.children?.length ? (
+                  <li class={`nav-item dropdown hedayat-nav-group${item.children.some((c) => isCurrent(c.href)) ? " is-current" : ""}`}>
+                    <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">{item.label}</button>
+                    <ul class="dropdown-menu hedayat-dropdown">
+                      {item.children.map((c) => (<li><a class={`dropdown-item${isCurrent(c.href) ? " active" : ""}`} href={c.href} aria-current={isCurrent(c.href) ? "page" : undefined}>{c.label}</a></li>))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li class="nav-item">
+                    {(item.href === "/en/" || item.href === "/")
+                      ? <a class="nav-link" href={isAr ? enPath : arPath} lang={isAr ? "en" : "ar"} dir={isAr ? "ltr" : "rtl"} data-language-switch={isAr ? "en" : "ar"}>{item.label}</a>
+                      : <a class={`nav-link${isCurrent(item.href) ? " active" : ""}`} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>}
+                  </li>
+                ))}
+              </ul>
+              <div class="d-none d-lg-flex ms-lg-3">
+                <a class="whatsapp-btn" href={waLinkChrome} target="_blank" rel="noopener" aria-label={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"} title={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"}><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
+        {crumbs && (
+          <nav class="crumbs" aria-label={isAr ? "مسار الصفحة" : "Breadcrumb"}>
+            <ol>
+              <li><a href={homeHref}><i class="bi bi-house-door" aria-hidden="true"></i> {isAr ? "الرئيسية" : "Home"}</a></li>
+              {crumbs.map(([label, href], i) => (
+                <li>
+                  <span class="crumb-sep" aria-hidden="true">{isAr ? "‹" : "›"}</span>
+                  {i === crumbs.length - 1
+                    ? <span aria-current="page">{label}</span>
+                    : href ? <a href={href}>{label}</a> : <span>{label}</span>}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </>
+    )}
+
     <slot />
+
+
+    {showChrome && (
+      <footer class="site-footer">
+        <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--start" />
+        <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--end" />
+        <div class="footer-top">
+          <div class="footer-logos">
+            <img src={chromeSite.assets?.logoNav || "/hedayat-logo-gold.png"} alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="official-logo official-logo-footer" loading="lazy" decoding="async" width="900" height="337" />
+            <img src={chromeSite.assets?.nationalCenterLogo || "/national-center-logo.png"} alt={isAr ? "شعار المركز الوطني لتنمية القطاع غير الربحي" : "National Center for Non-Profit Sector logo"} class="footer-logo national-center-footer-logo" loading="lazy" decoding="async" width="660" height="306" />
+          </div>
+          <p class="footer-license">{isAr ? siteAr.footer.licenseText : `Licensed by the National Center for Non-Profit Sector — License No. ${licenseNo}`}</p>
+          <nav class="footer-links" aria-label={isAr ? "روابط أسفل الصفحة" : "Footer links"}>
+            {(isAr
+              ? [["الرئيسية", "/"], ["مركز الحوكمة", "/governance/"], ["الشفافية والإفصاح", "/transparency/"], ["إمكانية الوصول", "/accessibility/"], ["مشاركة المستفيد", "/participation/"], ["تواصل معنا", "/#contact"], ["سياسة الخصوصية", "/privacy/"]]
+              : [["Home", "/en/"], ["Governance", "/en/governance/"], ["Transparency", "/en/transparency/"], ["Accessibility", "/en/accessibility/"], ["Beneficiary Participation", "/en/participation/"], ["Contact", "/en/#contact"], ["Privacy", "/en/privacy/"]]
+            ).map(([label, href]) => (<><a href={href}>{label}</a><span aria-hidden="true">•</span></>))}
+            <a href={isAr ? enPath : arPath} lang={isAr ? "en" : "ar"} dir={isAr ? "ltr" : "rtl"} data-language-switch={isAr ? "en" : "ar"}>{isAr ? "English" : "Arabic"}</a>
+          </nav>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom"><div class="footer-copy">{isAr ? siteAr.footer.copyrightText.replace("{year}", String(new Date().getFullYear())) : `All rights reserved © ${new Date().getFullYear()} Hedayat`}</div></div>
+      </footer>
+    )}
+
+    {showChrome && (
+      <script is:inline>
+        (() => {
+          const hdr = document.querySelector('.site-chrome-hdr');
+          if (!hdr) return;
+          const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 60);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        })();
+      </script>
+    )}
 
     {!isNotFound && (
       <div class="page-feedback" data-feedback-root data-lang={lang} data-sending={feedback.sending} data-choose={feedback.choose} data-failed={feedback.failed} data-thanks={feedback.thanks}>
