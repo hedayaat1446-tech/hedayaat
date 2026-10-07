@@ -1,26 +1,26 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import site from "../../content/site-en.json";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import site from "../content/site.json";
 
 const meta = {
   ...site.meta,
-  title: "Page Not Found | Hedayat Educational Foundation",
-  description: "The page you are looking for does not exist. You can return to the Hedayat Educational Foundation home page."
+  title: "الصفحة غير موجودة | مؤسسة هدايات التعليمية",
+  description: "الصفحة التي تبحث عنها غير موجودة. يمكنك العودة إلى الصفحة الرئيسية لمؤسسة هدايات التعليمية."
 };
 ---
 
-<BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
+<BaseLayout meta={meta} lang="ar" dir="rtl">
   <main id="main-content" class="not-found-page">
     <section class="not-found-card" aria-labelledby="not-found-title">
-      <a href="/en/" class="not-found-logo-link" aria-label="Back to Home">
-        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="not-found-logo" />
+      <a href="/" class="not-found-logo-link" aria-label="العودة إلى الرئيسية">
+        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="not-found-logo" />
       </a>
       <div class="not-found-code" aria-hidden="true">404</div>
-      <h1 id="not-found-title">Page Not Found</h1>
-      <p>The link may be incorrect or the page may have moved. Return to the home page to continue browsing Hedayat.</p>
-      <a href="/en/" class="not-found-home-btn">
+      <h1 id="not-found-title">الصفحة غير موجودة</h1>
+      <p>يبدو أن الرابط غير صحيح أو أن الصفحة نُقلت. يمكنك العودة إلى الواجهة الرئيسية ومتابعة تصفح موقع هدايات.</p>
+      <a href="/" class="not-found-home-btn">
         <i class="bi bi-house-door" aria-hidden="true"></i>
-        <span>Back to Home</span>
+        <span>العودة إلى الرئيسية</span>
       </a>
     </section>
   </main>

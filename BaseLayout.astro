@@ -133,42 +133,80 @@ const feedback = lang === "ar" ? {
       (() => {
         const html = document.documentElement;
         const currentLang = html.dataset.siteLang === 'en' ? 'en' : 'ar';
+
         const arToEn = {
-          '/':'/en/','/board/':'/en/board/','/governance/':'/en/governance/','/transparency/':'/en/transparency/',
-          '/accessibility/':'/en/accessibility/','/privacy/':'/en/privacy/','/reports/':'/en/reports/','/news/':'/en/news/',
-          '/photos/':'/en/photos/','/videos/':'/en/videos/','/participation/':'/en/participation/','/thank/':'/en/thank/'
+          '/': '/en/',
+          '/board/': '/en/board/',
+          '/governance/': '/en/governance/',
+          '/transparency/': '/en/transparency/',
+          '/accessibility/': '/en/accessibility/',
+          '/privacy/': '/en/privacy/',
+          '/reports/': '/en/reports/',
+          '/news/': '/en/news/',
+          '/photos/': '/en/photos/',
+          '/videos/': '/en/videos/',
+          '/participation/': '/en/participation/',
+          '/thank/': '/en/thank/'
         };
-        const enToAr = Object.fromEntries(Object.entries(arToEn).map(([ar,en]) => [en,ar]));
+        const enToAr = Object.fromEntries(
+          Object.entries(arToEn).map(([ar, en]) => [en, ar])
+        );
+
         const normalize = (value) => {
           if (!value) return '/';
-          let path = value.split('?')[0].split('#')[0];
+          let path = value.split('?')[0].split('#')[0] || '/';
+          if (path === '/index.html') return '/';
+          if (path === '/en/index.html') return '/en/';
           if (!path.endsWith('/') && !path.includes('.')) path += '/';
-          return path || '/';
+          return path;
+        };
+
+        const languageTarget = (path, lang) => {
+          const normalized = normalize(path);
+          if (lang === 'en') {
+            return arToEn[normalized] || (normalized.startsWith('/en/') ? normalized : null);
+          }
+          return enToAr[normalized] || (!normalized.startsWith('/en/') ? normalized : null);
         };
 
         try {
           const preferred = localStorage.getItem('hedayat-language');
-          const path = normalize(location.pathname);
-          if (preferred && preferred !== currentLang) {
-            const target = preferred === 'en' ? arToEn[path] : enToAr[path];
-            if (target && target !== path) {
-              location.replace(target + location.search + location.hash);
-              return;
-            }
+          const target = preferred === 'ar' || preferred === 'en'
+            ? languageTarget(location.pathname, preferred)
+            : null;
+
+          if (preferred && preferred !== currentLang && target && target !== normalize(location.pathname)) {
+            location.replace(target + location.search + location.hash);
+            return;
           }
         } catch {}
 
         document.addEventListener('click', (event) => {
-          const link = event.target.closest('a[data-language-switch], a[lang="ar"], a[lang="en"]');
+          const link = event.target.closest('a[href]');
           if (!link) return;
+
           const requested = link.dataset.languageSwitch || link.getAttribute('lang');
-          if (requested !== 'ar' && requested !== 'en') return;
-          try { localStorage.setItem('hedayat-language', requested); } catch {}
+          if (requested === 'ar' || requested === 'en') {
+            try { localStorage.setItem('hedayat-language', requested); } catch {}
+            const target = languageTarget(link.pathname, requested);
+            if (target && target !== normalize(link.pathname)) {
+              link.href = target + (link.search || '') + (link.hash || '');
+            }
+            return;
+          }
+
+          // Keep all internal navigation in the language currently being viewed.
+          // This also protects against an accidental Arabic URL inside an English page (and vice versa).
+          if (link.origin !== location.origin) return;
+          const target = languageTarget(link.pathname, currentLang);
+          if (!target || target === normalize(link.pathname)) return;
+
+          link.href = target + (link.search || '') + (link.hash || '');
         }, true);
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=35" />
+    <link rel="stylesheet" href="/styles/site.css?v=37" />
   </head>
 
   <body>
