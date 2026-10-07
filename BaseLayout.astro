@@ -169,29 +169,20 @@ const feedback = lang === "ar" ? {
           return enToAr[normalized] || (!normalized.startsWith('/en/') ? normalized : null);
         };
 
-        try {
-          const preferred = localStorage.getItem('hedayat-language');
-          const target = preferred === 'ar' || preferred === 'en'
-            ? languageTarget(location.pathname, preferred)
-            : null;
-
-          if (preferred && preferred !== currentLang && target && target !== normalize(location.pathname)) {
-            location.replace(target + location.search + location.hash);
-            return;
-          }
-        } catch {}
+        // The URL alone decides the language: /en/... is always English, everything else is always Arabic.
+        // (A previous version remembered the last choice in localStorage and force-redirected every page to it,
+        // which made it impossible to open the other language and caused pages to "bounce" between languages.)
+        try { localStorage.removeItem('hedayat-language'); } catch {}
 
         document.addEventListener('click', (event) => {
           const link = event.target.closest('a[href]');
           if (!link) return;
 
-          const requested = link.dataset.languageSwitch || link.getAttribute('lang');
+          const requested = link.dataset.languageSwitch;
           if (requested === 'ar' || requested === 'en') {
-            try { localStorage.setItem('hedayat-language', requested); } catch {}
-            const target = languageTarget(link.pathname, requested);
-            if (target && target !== normalize(link.pathname)) {
-              link.href = target + (link.search || '') + (link.hash || '');
-            }
+            const target = languageTarget(link.pathname, requested) || (requested === 'en' ? '/en/' : '/');
+            const hash = link.hash || (link.hasAttribute('data-keep-hash') ? location.hash : '');
+            link.href = target + (link.search || '') + hash;
             return;
           }
 
@@ -206,16 +197,17 @@ const feedback = lang === "ar" ? {
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=37" />
+    <link rel="stylesheet" href="/styles/site.css?v=40" />
   </head>
 
   <body>
     <a class="skip-link" href="#main-content">{skipLabel}</a>
 
     <aside class="a11y-tools" aria-label={accessibilityLabel}>
-      <button type="button" data-a11y="decrease" aria-label={lang === "ar" ? "تصغير حجم النص" : "Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
+      <a class="a11y-lang-switch" href={lang === "ar" ? enPath : arPath} data-language-switch={lang === "ar" ? "en" : "ar"} data-keep-hash hreflang={lang === "ar" ? "en" : "ar"} aria-label={lang === "ar" ? "عرض هذه الصفحة باللغة الإنجليزية" : "View this page in Arabic"} title={lang === "ar" ? "الإنجليزية" : "Arabic"}><i class="bi bi-globe2" aria-hidden="true"></i><span>{lang === "ar" ? "EN" : "AR"}</span></a>
+      <button type="button" dir="ltr" data-a11y="decrease" aria-label={lang === "ar" ? "تصغير حجم النص" : "Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
       <button type="button" data-a11y="reset" aria-label={lang === "ar" ? "إعادة حجم النص للوضع الافتراضي" : "Reset text size"} title={lang === "ar" ? "الحجم الافتراضي" : "Default size"}>A</button>
-      <button type="button" data-a11y="increase" aria-label={lang === "ar" ? "تكبير حجم النص" : "Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
+      <button type="button" dir="ltr" data-a11y="increase" aria-label={lang === "ar" ? "تكبير حجم النص" : "Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
       <button type="button" data-a11y="contrast" aria-pressed="false" aria-label={lang === "ar" ? "تفعيل التباين العالي" : "Toggle high contrast"} title={lang === "ar" ? "تباين عالٍ" : "High contrast"}><i class="bi bi-circle-half" aria-hidden="true"></i></button>
     </aside>
 
