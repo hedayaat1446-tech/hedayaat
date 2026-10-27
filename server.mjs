@@ -880,6 +880,39 @@ function secureCookie(req) {
   return String(req.headers['x-forwarded-proto'] || '').split(',')[0].trim().toLowerCase() === 'https' || Boolean(req.socket.encrypted);
 }
 
+
+// ===== Admin deletion of stored records (contact messages, page feedback, satisfaction, participation) =====
+const fileLocks = new Map();
+function withFileLock(filePath, task) {
+  const previous = fileLocks.get(filePath) || Promise.resolve();
+  const next = previous.catch(() => {}).then(task);
+  fileLocks.set(filePath, next.finally(() => { if (fileLocks.get(filePath) === next) fileLocks.delete(filePath); }));
+  return next;
+}
+
+// Rewrites a JSONL file without the lines matching `shouldRemove`. Writes to a temp file first, then renames,
+// so the file is never left half-written. Returns how many records were removed.
+async function removeJsonlRecords(filePath, shouldRemove) {
+  return withFileLock(filePath, async () => {
+    let raw;
+    try { raw = await readFile(filePath, 'utf8'); }
+    catch (error) { if (error?.code === 'ENOENT') return 0; throw error; }
+    let removed = 0;
+    const kept = raw.split('\n').filter((line) => {
+      if (!line.trim()) return false;
+      let record;
+      try { record = JSON.parse(line); } catch { return true; }
+      if (shouldRemove(record)) { removed += 1; return false; }
+      return true;
+    });
+    if (!removed) return 0;
+    const temp = `${filePath}.${process.pid}.${Date.now()}.tmp`;
+    await writeFile(temp, kept.length ? `${kept.join('\n')}\n` : '', { encoding: 'utf8', mode: 0o600 });
+    await rename(temp, filePath);
+    return removed;
+  });
+}
+
 async function readRecentJsonl(filePath, maxLines = 200, maxBytes = 2 * 1024 * 1024) {
   const handle = await open(filePath, 'r');
   try {
@@ -1007,6 +1040,40 @@ async function handleAdminApi(req, res, pathname) {
       json(res, 500, { ok: false, message: 'تعذر تطبيق التعديل. لم تُحفظ النسخة غير الصالحة وتمت استعادة النسخة السابقة.' });
     } finally {
       adminSaveInProgress = false;
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/info' && req.method === 'GET') {
+    json(res, 200, { ok: true, data: { persistentStorage: Boolean(process.env.DATA_DIR) } });
+    return true;
+  }
+
+  if (pathname === '/api/admin/delete' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 4 * 1024)); }
+    catch { json(res, 400, { ok: false, message: 'طلب غير صالح.' }); return true; }
+    const kind = cleanText(body.kind, 30).toLowerCase();
+    const id = cleanText(body.id, 80);
+    const files = { messages: contactMessagesFile, feedback: feedbackMessagesFile, satisfaction: satisfactionResponsesFile, participation: participationRequestsFile };
+    if (!files[kind] || !/^[A-Za-z0-9-]{8,80}$/.test(id)) {
+      json(res, 422, { ok: false, message: 'بيانات الحذف غير صالحة.' });
+      return true;
+    }
+    try {
+      let reference = '';
+      const removed = await removeJsonlRecords(files[kind], (record) => {
+        if (record?.id === id) { reference = record.reference || ''; return true; }
+        return false;
+      });
+      if (!removed) { json(res, 404, { ok: false, message: 'العنصر غير موجود أو تم حذفه مسبقًا.' }); return true; }
+      if (kind === 'participation' && reference) {
+        await removeJsonlRecords(participationUpdatesFile, (record) => record?.reference === reference);
+      }
+      json(res, 200, { ok: true, message: 'تم الحذف بنجاح.' });
+    } catch (error) {
+      console.error('admin delete error:', error?.message || error);
+      json(res, 500, { ok: false, message: 'تعذر الحذف حاليًا. حاولي مرة أخرى.' });
     }
     return true;
   }
