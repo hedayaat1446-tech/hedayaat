@@ -170,6 +170,23 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
     <meta name="twitter:image" content={ogImageAbs} />
 
     <!-- Core UI assets are self-hosted so navigation/layout keep working even if an external CDN is unavailable. -->
+    <script is:inline>
+      // Automatic, continuous scaling: the layout is designed for ~1366px wide. On wider screens the whole
+      // interface grows in exact proportion to the screen width (live on resize). Phones/tablets/laptops keep
+      // their own responsive layout (scale 1). The CSS steps in site.css remain as a fallback without JS.
+      (() => {
+        const BASE = 1366, MAX = 3.2, root = document.documentElement;
+        const fit = () => {
+          const w = window.innerWidth || root.clientWidth;
+          const z = w > BASE ? Math.min(w / BASE, MAX) : 1;
+          root.style.zoom = z === 1 ? '' : z.toFixed(4);
+          root.style.setProperty('--auto-zoom', z);
+        };
+        fit();
+        let t; window.addEventListener('resize', () => { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }, { passive: true });
+      })();
+    </script>
+
     <link rel="stylesheet" href="/vendor/bootstrap.min.css?v=536" />
     <link rel="stylesheet" href="/vendor/bootstrap-icons.min.css?v=local" />
 
@@ -261,7 +278,7 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=47" />
+    <link rel="stylesheet" href="/styles/site.css?v=48" />
     <slot name="head" />
   </head>
 
