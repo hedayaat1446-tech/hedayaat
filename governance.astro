@@ -66,7 +66,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
             </dl>
             <div class="gov-doc-actions">
               <a class="gov-btn gov-btn--primary" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer"><i class="bi bi-patch-check" aria-hidden="true"></i><span>التحقق من الترخيص</span></a>
-              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الشهادة</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الوثيقة</span></a>
               <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
             </div>
           </div>
@@ -89,7 +89,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
             <p>{regulationDoc.description}</p>
             <div class="gov-publish-row"><span><i class="bi bi-calendar-check" aria-hidden="true"></i> {regulationDoc.updated}</span><span><i class="bi bi-tag" aria-hidden="true"></i> {regulationDoc.version}</span></div>
             <div class="gov-doc-actions">
-              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض اللائحة</span></a>
+              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الوثيقة</span></a>
               <a class="gov-btn gov-btn--secondary" href={`/${regulationDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
             </div>
           </div>
@@ -118,7 +118,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
                   <span><b>الدورة/الإصدار:</b> {doc.version}</span>
                 </div>
                 <div class="gov-doc-actions">
-                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span></a>
+                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>عرض الوثيقة</span></a>
                   <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span></a>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
         <a href="/transparency/"><i class="bi bi-eye" aria-hidden="true"></i> صفحة الشفافية والإفصاح</a>
         <a href="/reports/"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i> القوائم والتقارير المالية</a>
         <a href="/accessibility/"><i class="bi bi-person-check" aria-hidden="true"></i> بيان إمكانية الوصول</a>
-        <a href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى موقع المؤسسة</a>
+        <a href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى الرئيسية</a>
       </div>
     </section>
   </main>

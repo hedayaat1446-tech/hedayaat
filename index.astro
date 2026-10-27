@@ -2,98 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import site from "../content/site.json";
 
-const nav = (site.nav || []).filter((x) => x.enabled !== false);
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
-const waMessage = "السلام عليكم، أرغب بالاستفسار عن برامج مؤسسة هدايات التعليمية";
-const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`;
+const pillars = site.about.pillars || [];
+const tracks = site.programs.tracks || [];
 ---
 
 <BaseLayout meta={site.meta} lang="ar" dir="rtl">
   <link slot="head" rel="preload" as="image" href="/hero-lighthouse-photo.webp" type="image/webp" fetchpriority="high" />
-  <nav class="navbar navbar-expand-lg fixed-top hdr" aria-label="التنقل الرئيسي">
-    <div class="container align-items-center">
-      <a class="navbar-brand d-flex align-items-center" href="#home" style="background:transparent !important; background-color:transparent !important; box-shadow:none !important; border:0 !important; border-radius:0 !important; padding:0 !important;">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-nav" style="display:block; height:48px; width:auto; max-width:min(56vw,340px); object-fit:contain; background:transparent !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <span class="visually-hidden">الانتقال إلى بداية الصفحة</span>
-      </a>
 
-      <a class="whatsapp-btn d-flex d-lg-none ms-auto me-2"
-         href={waLink} target="_blank" rel="noopener"
-         aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب">
-        <i class="bi bi-whatsapp" aria-hidden="true"></i>
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
-              aria-controls="navMain" aria-expanded="false" aria-label="إظهار القائمة">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
-          {nav.map((item) => item.children?.length ? (
-            <li class="nav-item dropdown hedayat-nav-group">
-              <button
-                class="nav-link dropdown-toggle nav-dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                data-bs-display="static"
-                aria-expanded="false"
-              >
-                {item.label}
-              </button>
-              <ul class="dropdown-menu hedayat-dropdown">
-                {item.children.map((child) => (
-                  <li><a class="dropdown-item" href={child.href}>{child.label}</a></li>
-                ))}
-              </ul>
-            </li>
-          ) : (
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href={item.href}
-                lang={item.href?.startsWith("/en/") ? "en" : undefined}
-                dir={item.href?.startsWith("/en/") ? "ltr" : undefined}
-                data-language-switch={item.href?.startsWith("/en/") ? "en" : undefined}
-              >{item.label}</a>
-            </li>
-          ))}
-        </ul>
-
-        <div class="d-none d-lg-flex ms-lg-3">
-          <a class="whatsapp-btn"
-             href={waLink} target="_blank" rel="noopener"
-             aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب">
-            <i class="bi bi-whatsapp" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
-
-  <style is:inline>
-  /* v6: official transparent logo + light identity theme. Inline on purpose so an old cached stylesheet cannot restore the white card. */
-  .official-logo, .official-logo-hero-wrap, .navbar-brand:has(.official-logo) {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .official-logo { padding: 0 !important; }
-  @media (max-width: 768px) {
-    .official-logo-nav { height: 39px !important; max-width: min(48vw, 190px) !important; }
-    .official-logo-hero { width: min(88vw, 470px) !important; }
-    .official-logo-footer { width: min(58vw, 220px) !important; }
-  }
-</style>
-
-<main id="main-content">
+  <main id="main-content">
     <section id="home" class="hero-section hero-photo">
       <div class="hero-photo-img" aria-hidden="true"></div>
       <div class="container hero-photo-inner">
@@ -109,411 +26,208 @@ const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent(waMessage)}`
       </div>
     </section>
 
-    <nav class="qa2" aria-label="وصول سريع">
-      <a class="qa2-card" href="#about">
-        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-info-circle-fill"></i></span>
-        <strong>عن هدايات</strong>
-        <small>تعرّف على رؤيتنا ورسالتنا وقيمنا.</small>
-        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-      </a>
-      <a class="qa2-card" href="#programs">
-        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-book-half"></i></span>
-        <strong>البرامج</strong>
-        <small>برامج تعليمية هادفة بأساليب معاصرة وميسّرة.</small>
-        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-      </a>
-      <a class="qa2-card" href="/governance/">
-        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-bank2"></i></span>
-        <strong>الحوكمة والشفافية</strong>
-        <small>الترخيص واللائحة والسياسات المعتمدة.</small>
-        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-      </a>
-      <a class="qa2-card" href="/participation/">
-        <span class="qa2-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
-        <strong>مشاركة المستفيد</strong>
-        <small>قيّم تجربتك وشاركنا مقترحاتك وتابع طلبك.</small>
-        <span class="qa2-arrow" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-      </a>
+    <nav class="qa2 qa2--compact" aria-label="وصول سريع">
+      <a class="qa2-card" href="#about"><span class="qa2-icon" aria-hidden="true"><i class="bi bi-info-circle"></i></span><strong>عن هدايات</strong></a>
+      <a class="qa2-card" href="#programs"><span class="qa2-icon" aria-hidden="true"><i class="bi bi-book-half"></i></span><strong>البرامج</strong></a>
+      <a class="qa2-card" href="/governance/"><span class="qa2-icon" aria-hidden="true"><i class="bi bi-bank2"></i></span><strong>الحوكمة والشفافية</strong></a>
+      <a class="qa2-card" href="/participation/"><span class="qa2-icon" aria-hidden="true"><i class="bi bi-people"></i></span><strong>مشاركة المستفيد</strong></a>
     </nav>
 
-
-
-    <section id="about" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.about.title}</h2>
-          <p class="ref-section-subtitle">{site.about.subtitle}</p>
+    <section id="about" class="home-section">
+      <div class="home-section-inner">
+        <header class="home-head reveal-on-scroll">
+          <h2>{site.about.title}</h2>
+          <p>{site.about.subtitle}</p>
+        </header>
+        <div class="pillars">
+          {pillars.map((x, i) => (
+            <article class="pillar reveal-on-scroll" style={`--d:${i * 90}ms`}>
+              <span class="pillar-icon" aria-hidden="true"><i class={x.icon}></i></span>
+              <h3>{x.title}</h3>
+              <p>{x.text}</p>
+            </article>
+          ))}
         </div>
+      </div>
+    </section>
 
-        <div class="ref-card report-about-card p-4 p-md-5 reveal-on-scroll">
-          <div class="row g-4 align-items-center">
-            <div class="col-md-5">
-              <div class="p-4 rounded-3" style="background-color:var(--soft-sage);">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <i class="bi bi-patch-check-fill display-5 mb-3" style="color:var(--primary);" aria-hidden="true"></i>
-                  <h3 class="fw-bold" style="font-family: var(--font-family-arabic); color: var(--primary);">
-                    {site.about.cardTitle}
-                  </h3>
-                  <p class="mb-0" style="color:var(--text-card-muted);">
-                    {site.about.cardText}
-                  </p>
-                </div>
+    <section id="goals" class="home-section home-section--tint">
+      <div class="home-section-inner">
+        <header class="home-head reveal-on-scroll">
+          <h2>{site.goals.title}</h2>
+          <p>{site.goals.subtitle}</p>
+        </header>
+        <ol class="goals-grid">
+          {site.goals.items.map((g, i) => (
+            <li class="goal-card reveal-on-scroll" style={`--d:${i * 90}ms`}>
+              <span class="goal-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <span class="goal-icon" aria-hidden="true"><i class={g.icon}></i></span>
+              <h3>{g.title}</h3>
+              <p>{g.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section id="values" class="home-section">
+      <div class="home-section-inner">
+        <header class="home-head reveal-on-scroll">
+          <h2>{site.values.title}</h2>
+          <p>{site.values.subtitle}</p>
+        </header>
+        <ul class="values-grid">
+          {site.values.items.map((v, i) => (
+            <li class="value-card reveal-on-scroll" style={`--d:${i * 70}ms`} tabindex="0">
+              <span class="value-icon" aria-hidden="true"><i class={v.icon}></i></span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="programs" class="home-section home-section--tint">
+      <div class="home-section-inner">
+        <header class="home-head reveal-on-scroll">
+          <h2>{site.programs.title}</h2>
+          <p>{site.programs.subtitle}</p>
+        </header>
+        <div class="tracks">
+          {tracks.map((t, i) => (
+            <article class="track-card reveal-on-scroll" style={`--d:${i * 100}ms`}>
+              <span class="track-icon" aria-hidden="true"><i class={t.icon}></i></span>
+              <div>
+                <h3>{t.title}</h3>
+                <p class="track-audience"><i class="bi bi-person-check" aria-hidden="true"></i> الفئة المستهدفة: {t.audience}</p>
+                <p>{t.text}</p>
               </div>
-            </div>
-
-            <div class="col-md-7">
-              <h4 class="mb-3" style="font-family: var(--font-family-arabic); color: var(--primary);">
-                {site.about.textTitle}
-              </h4>
-              <p class="mb-3" style="color:var(--text-card-muted);">{site.about.p1}</p>
-              <p class="mb-0" style="color:var(--text-card-muted);">{site.about.p2}</p>
-            </div>
+            </article>
+          ))}
+        </div>
+        <div class="pp-actions reveal-on-scroll">
+          <a class="hp-btn" href={site.programs.ctaHref} data-subject={site.programs.ctaLabel}>{site.programs.ctaLabel}</a>
+        </div>
+        <article id="partners" class="partner-strip reveal-on-scroll">
+          <span class="track-icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+          <div>
+            <h3>{site.partners.cardTitle}</h3>
+            <p>{site.partners.cardText}</p>
           </div>
-        </div>
+          <a class="hp-btn hp-btn--ghost" href={site.partners.ctaHref} data-subject={site.partners.ctaLabel}>{site.partners.ctaLabel}</a>
+        </article>
       </div>
     </section>
 
-    <section id="goals" class="ref-wrap">
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.goals.title}</h2>
-        </div>
+    <section id="contact" class="home-section">
+      <div class="home-section-inner">
+        <header class="home-head reveal-on-scroll">
+          <h2>{site.contact.title}</h2>
+          <p>{site.contact.subtitle}</p>
+        </header>
 
-        <div class="strategic-goals-list">
-          {site.goals.items.map((g, index) => (
-            <article class="strategic-goal reveal-on-scroll">
-              <div class="strategic-goal-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-              <div class="strategic-goal-icon" aria-hidden="true"><i class={g.icon}></i></div>
-              <div class="strategic-goal-copy">
-                <p>{g.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="values" class="ref-wrap">
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.values.title}</h2>
-        </div>
-
-        <div class="core-values-list">
-          {site.values.items.map((v) => (
-            <article class="core-value reveal-on-scroll">
-              <div class="core-value-icon" aria-hidden="true"><i class={v.icon}></i></div>
-              <div class="core-value-copy">
-                <h3>{v.title}</h3>
-                <p>{v.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="programs" class="ref-wrap institutional-info-section">
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">البرامج والشراكات</h2>
-          <p class="ref-section-subtitle">برامج تعليمية هادفة، وتعاون مؤسسي يعزز الأثر المجتمعي.</p>
-        </div>
-        <div class="pp-grid">
-          <article id="programs-card" class="ref-card institutional-info-card pp-card reveal-on-scroll">
-            <div class="institutional-info-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></div>
-            <div class="institutional-info-copy">
-              <h3>{site.programs.cardTitle}</h3>
-              <p>{site.programs.cardText}</p>
-            </div>
-            <a class="institutional-info-action" href="{site.programs.ctaHref}">{site.programs.ctaLabel}</a>
-          </article>
-          <article id="partners" class="ref-card institutional-info-card pp-card reveal-on-scroll">
-            <div class="institutional-info-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></div>
-            <div class="institutional-info-copy">
-              <h3>{site.partners.cardTitle}</h3>
-              <p>{site.partners.cardText}</p>
-            </div>
-            <a class="institutional-info-action" href="{site.partners.ctaHref}">{site.partners.ctaLabel}</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="ref-wrap">
-      <div class="vertical-decor vertical-decor--end" aria-hidden="true"></div>
-      <div class="ref-section">
-        <div class="ref-section-header">
-          <h2 class="ref-section-title">{site.contact.title}</h2>
-          <p class="ref-section-subtitle">{site.contact.subtitle}</p>
-        </div>
-
-        <div class="contact-container report-contact">
+        <div class="contact-split">
           <div class="contact-form reveal-on-scroll">
             <form id="contact-form" name="contact" method="POST" action="/api/contact">
-              <!-- Honeypot ضد الرسائل الآلية -->
               <input class="form-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
-              <div class="form-group">
-                <label class="form-label" for="name">الاسم الكامل</label>
-                <input class="form-input" id="name" name="name" type="text" autocomplete="name" maxlength="120" required />
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="name">الاسم الكامل</label>
+                  <input class="form-input" id="name" name="name" type="text" autocomplete="name" maxlength="120" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="email">البريد الإلكتروني</label>
+                  <input class="form-input" id="email" name="email" type="email" autocomplete="email" maxlength="254" required dir="ltr" />
+                </div>
               </div>
-
-              <div class="form-group">
-                <label class="form-label" for="email">البريد الإلكتروني</label>
-                <input class="form-input" id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
-              </div>
-
               <div class="form-group">
                 <label class="form-label" for="subject">موضوع الرسالة</label>
                 <input class="form-input" id="subject" name="subject" type="text" maxlength="180" />
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="message">نص الرسالة</label>
                 <textarea class="form-textarea" id="message" name="message" maxlength="5000" required></textarea>
               </div>
-
               <label class="form-consent">
                 <input type="checkbox" name="privacyAccepted" value="yes" required />
-                <span>اطلعت على <a href="/privacy/" target="_blank" rel="noopener">سياسة الخصوصية</a> وأوافق على استخدام بياناتي للتواصل والرد على استفساري فقط.</span>
+                <span>اطلعت على <a href="/privacy/">سياسة الخصوصية</a> وأوافق على استخدام بياناتي للتواصل والرد على استفساري فقط.</span>
               </label>
               <button type="submit" class="btn-form-submit">إرسال الرسالة</button>
-              <div id="form-status" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.85rem;"></div>
+              <div id="form-status" class="form-status mt-2" role="status" aria-live="polite" aria-atomic="true"></div>
             </form>
           </div>
 
-          <div class="contact-info">
-            <div class="contact-item reveal-on-scroll">
-              <div class="contact-icon"><i class="bi bi-envelope" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>البريد الإلكتروني</h3>
-                <p><a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
-              </div>
-            </div>
-
-            <div class="contact-item reveal-on-scroll">
-              <div class="contact-icon"><i class="bi bi-telephone" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>رقم الهاتف / واتساب</h3>
-                <p><a class="contact-link" href={`tel:${waDigits ? `+${waDigits}` : site.contact.phone}`}>{site.contact.phone}</a></p>
-              </div>
-            </div>
-
-            <div class="contact-item reveal-on-scroll">
-              <div class="contact-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></div>
-              <div class="contact-details">
-                <h3>العنوان</h3>
-                <p>{site.contact.address}</p>
-                {site.contact.locationUrl && (
-                  <a class="contact-action-link" href={site.contact.locationUrl} target="_blank" rel="noopener">
-                    <i class="bi bi-map" aria-hidden="true"></i>
-                    فتح الموقع على الخريطة
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {site.contact.iban && (
-              <div class="contact-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
-                <div class="contact-details">
-                  <h3>معلومات الحساب البنكي</h3>
-                  <p>
-                    رقم الحساب البنكي (آيبان):
-                    <span dir="ltr" style="font-family: monospace;">{site.contact.iban}</span>
-                  </p>
-                </div>
-              </div>
-            )}
-
+          <aside class="contact-side reveal-on-scroll" aria-label="معلومات التواصل">
+            <a class="contact-line" href={`mailto:${site.contact.email}`}>
+              <span class="contact-icon"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+              <span><small>البريد الإلكتروني</small><strong dir="ltr">{site.contact.email}</strong></span>
+            </a>
+            <a class="contact-line" href={`tel:+${waDigits}`}>
+              <span class="contact-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span>
+              <span><small>الهاتف / واتساب</small><strong dir="ltr">{site.contact.phone}</strong></span>
+            </a>
+            <a class="contact-line" href={site.contact.locationUrl || "#"} target="_blank" rel="noopener">
+              <span class="contact-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></span>
+              <span><small>العنوان</small><strong>{site.contact.address}</strong><em>فتح الموقع على الخريطة</em></span>
+            </a>
             {site.contact.social?.length > 0 && (
-              <div class="contact-item contact-social-item reveal-on-scroll">
-                <div class="contact-icon"><i class="bi bi-share" aria-hidden="true"></i></div>
-                <div class="contact-details social-contact-details">
-                  <h3>حسابات التواصل الاجتماعي</h3>
-                  <p class="social-username" dir="ltr">@{site.contact.socialUsername}</p>
-                  <div class="official-social-links" aria-label="حسابات هدايات الرسمية">
-                    {site.contact.social.map((account) => (
-                      <a
-                        class="official-social-link"
-                        href={account.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`هدايات على ${account.label}`}
-                        title={`هدايات على ${account.label}`}
-                      >
-                        {account.name === "X" ? (
-                          <span class="social-x-mark" aria-hidden="true">X</span>
-                        ) : (
-                          <i class={`bi ${account.icon}`} aria-hidden="true"></i>
-                        )}
-                        <span>{account.label}</span>
-                      </a>
-                    ))}
-                  </div>
+              <div class="contact-social">
+                <small>حسابات التواصل الاجتماعي <span dir="ltr">@{site.contact.socialUsername}</span></small>
+                <div class="official-social-links" aria-label="حسابات هدايات الرسمية">
+                  {site.contact.social.map((account) => (
+                    <a class="official-social-link" href={account.url} target="_blank" rel="noopener noreferrer" aria-label={`هدايات على ${account.label}`} title={account.label}>
+                      {account.name === "X" ? <span class="social-x-mark" aria-hidden="true">X</span> : <i class={`bi ${account.icon}`} aria-hidden="true"></i>}
+                      <span>{account.label}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
             )}
-
-          </div>
+          </aside>
         </div>
-      </div>
-    </section>
-
-    <section class="official-trust-bar" aria-label="بيانات المؤسسة الرسمية">
-      <div class="official-trust-inner">
-        <div class="trust-item trust-item--type">
-          <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
-          <div><span>صفة المؤسسة</span><strong>{site.institution.type}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
-          <div><span>رقم الترخيص</span><strong dir="ltr">{site.institution.licenseNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-building" aria-hidden="true"></i>
-          <div><span>الرقم الوطني الموحد</span><strong dir="ltr">{site.institution.unifiedNationalNumber}</strong></div>
-        </div>
-        <div class="trust-item">
-          <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
-          <div><span>جهة الإشراف</span><strong>{site.institution.supervision}</strong></div>
-        </div>
-        <a class="trust-verify" href={site.institution.verifyUrl} target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-patch-check" aria-hidden="true"></i>
-          <span>التحقق من الترخيص</span>
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-        </a>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--start" />
-    <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--end" />
-    <div class="footer-top">
-      <div class="footer-logos">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="official-logo official-logo-footer" style="display:block; width:min(72vw,320px); height:auto; max-width:100%; object-fit:contain; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:0 !important;" />
-        <img src={site.assets.nationalCenterLogo} alt="شعار المركز الوطني لتنمية القطاع غير الربحي" class="footer-logo national-center-footer-logo" loading="lazy" decoding="async" width="733" height="340" />
-      </div>
-
-      <p class="footer-license">{site.footer.licenseText}</p>
-
-      <nav class="footer-links" aria-label="روابط أسفل الصفحة">
-        <a href="/#home">الرئيسية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/governance/">مركز الحوكمة</a>
-        <span aria-hidden="true">•</span>
-        <a href="/transparency/">الشفافية والإفصاح</a>
-        <span aria-hidden="true">•</span>
-        <a href="/accessibility/">إمكانية الوصول</a>
-        <span aria-hidden="true">•</span>
-        <a href="/participation/">مشاركة المستفيد</a>
-        <span aria-hidden="true">•</span>
-        <a href="/#contact">تواصل معنا</a>
-        <span aria-hidden="true">•</span>
-        <a href="/privacy/">سياسة الخصوصية</a>
-        <span aria-hidden="true">•</span>
-        <a href="/en/" lang="en" dir="ltr" data-language-switch="en">English</a>
-      </nav>
-    </div>
-
-    <hr class="footer-divider" />
-
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        {site.footer.copyrightText.replace("{year}", String(new Date().getFullYear()))}
-      </div>
-    </div>
-  </footer>
-
   <script is:inline>
-    // هيدر مع السكول
-    const hdr = document.querySelector('.hdr');
-    function handleScroll() {
-      if (!hdr) return;
-      if (window.scrollY > 60) hdr.classList.add('scrolled');
-      else hdr.classList.remove('scrolled');
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('load', handleScroll);
+    (() => {
+      // "الاستفسار عن البرامج" / "طلب شراكة" pre-fill the subject of the contact form.
+      document.querySelectorAll('[data-subject]').forEach((a) => a.addEventListener('click', () => {
+        const subject = document.getElementById('subject');
+        if (subject && !subject.value) subject.value = a.dataset.subject;
+        setTimeout(() => document.getElementById('name')?.focus({ preventScroll: true }), 600);
+      }));
 
-    window.addEventListener('DOMContentLoaded', () => {
-      // reveal
-      const revealEls = document.querySelectorAll('.reveal-on-scroll');
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, obs) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              obs.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.15 });
-        revealEls.forEach(el => observer.observe(el));
-      } else {
-        revealEls.forEach(el => el.classList.add('is-visible'));
-      }
-
-      // إرسال نموذج التواصل إلى خادم Railway نفسه بدل الاعتماد على Netlify Forms.
       const contactForm = document.getElementById('contact-form');
       const formStatus = document.getElementById('form-status');
-      if (contactForm && formStatus) {
-        contactForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          if (!contactForm.reportValidity()) return;
-
-          const submitButton = contactForm.querySelector('button[type="submit"]');
-          const originalLabel = submitButton?.textContent || 'إرسال الرسالة';
-          if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'جارٍ الإرسال...';
-          }
-          formStatus.className = 'form-status is-pending';
-          formStatus.textContent = 'يتم إرسال رسالتك الآن...';
-
-          try {
-            const params = new URLSearchParams(new FormData(contactForm));
-            const response = await fetch('/api/contact', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Accept': 'application/json'
-              },
-              body: params.toString()
-            });
-            const data = await response.json().catch(() => ({}));
-            if (!response.ok || !data.ok) throw new Error(data.message || 'تعذر إرسال الرسالة.');
-
-            contactForm.reset();
-            formStatus.className = 'form-status is-success';
-            formStatus.textContent = data.message || 'تم استلام رسالتك بنجاح.';
-          } catch (error) {
-            formStatus.className = 'form-status is-error';
-            formStatus.textContent = error?.message || 'تعذر إرسال الرسالة حاليًا. يرجى المحاولة مرة أخرى.';
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalLabel;
-            }
-          }
-        });
-      }
-
-      // إغلاق منيو الجوال فقط بعد اختيار رابط فعلي.
-      // لا نغلقها عند الضغط على عناوين القوائم الفرعية مثل "عن المؤسسة" و"الحوكمة".
-      const navMain    = document.getElementById('navMain');
-      const navToggler = document.querySelector('.navbar-toggler');
-      if (navMain && navToggler) {
-        const destinationLinks = navMain.querySelectorAll('a.nav-link, a.dropdown-item');
-        destinationLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            const isTogglerVisible = window.getComputedStyle(navToggler).display !== 'none';
-            const isExpanded = navToggler.getAttribute('aria-expanded') === 'true';
-            if (isTogglerVisible && isExpanded) navToggler.click();
+      if (!contactForm || !formStatus) return;
+      contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!contactForm.reportValidity()) return;
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalLabel = submitButton?.textContent || 'إرسال الرسالة';
+        if (submitButton) { submitButton.disabled = true; submitButton.textContent = 'جارٍ الإرسال...'; }
+        formStatus.className = 'form-status is-pending';
+        formStatus.textContent = 'يتم إرسال رسالتك الآن...';
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'Accept': 'application/json' },
+            body: new URLSearchParams(new FormData(contactForm)).toString()
           });
-        });
-      }
-    });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.ok) throw new Error(data.message || 'تعذر إرسال الرسالة.');
+          contactForm.reset();
+          formStatus.className = 'form-status is-success';
+          formStatus.textContent = data.message || 'تم استلام رسالتك بنجاح.';
+        } catch (error) {
+          formStatus.className = 'form-status is-error';
+          formStatus.textContent = error?.message || 'تعذر إرسال الرسالة حاليًا. يرجى المحاولة مرة أخرى.';
+        } finally {
+          if (submitButton) { submitButton.disabled = false; submitButton.textContent = originalLabel; }
+        }
+      });
+    })();
   </script>
 </BaseLayout>
