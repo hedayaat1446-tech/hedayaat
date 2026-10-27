@@ -28,8 +28,129 @@ const types = {
   '.mjs':'text/javascript; charset=utf-8', '.json':'application/json; charset=utf-8', '.png':'image/png', '.jpg':'image/jpeg',
   '.jpeg':'image/jpeg', '.webp':'image/webp', '.svg':'image/svg+xml', '.ico':'image/x-icon', '.pdf':'application/pdf',
   '.mp4':'video/mp4', '.woff':'font/woff', '.woff2':'font/woff2', '.ttf':'font/ttf', '.otf':'font/otf',
-  '.txt':'text/plain; charset=utf-8', '.xml':'application/xml; charset=utf-8'
+  '.txt':'text/plain; charset=utf-8', '.xml':'application/xml; charset=utf-8',
+  '.webmanifest':'application/manifest+json; charset=utf-8'
 };
+
+// ===== Privacy-friendly visitor analytics (no cookies, no third parties) =====
+// Only aggregate counters are stored. Unique visitors are estimated with a salted daily hash
+// of IP + browser that is kept in memory only and discarded every day, so no personal data is saved.
+const analyticsFile = process.env.ANALYTICS_FILE || join(dataDir, 'analytics.json');
+const ANALYTICS_KEEP_DAYS = 400;
+const analyticsSalt = createHash('sha256').update(`${adminSecret || 'hedayat'}:${randomUUID()}`).digest('hex');
+let analytics = { days: {} };
+let analyticsDirty = false;
+let analyticsVisitorDay = '';
+let analyticsVisitors = new Set();
+const BOT_UA = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|quora|pinterest|vkshare|w3c_validator|lighthouse|pagespeed|headless|phantom|puppeteer|playwright|curl|wget|python|axios|node-fetch|go-http|java\/|okhttp|monitor|uptime|preview|^whatsapp|telegrambot|discordbot|slackbot|twitterbot|linkedinbot/i;
+
+function riyadhDay(date = new Date()) {
+  return new Date(date.getTime() + 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+function classifyReferrer(ref, host) {
+  if (!ref) return 'direct';
+  let h;
+  try { h = new URL(ref).hostname.toLowerCase(); } catch { return 'other'; }
+  if (host && h === String(host).split(':')[0].toLowerCase()) return null;
+  if (/(^|\.)google\./.test(h)) return 'google';
+  if (/(^|\.)(bing|duckduckgo|yahoo|yandex)\./.test(h)) return 'search';
+  if (/whatsapp|wa\.me/.test(h)) return 'whatsapp';
+  if (/instagram|l\.instagram/.test(h)) return 'instagram';
+  if (/(^|\.)(t\.co|x\.com|twitter\.com)$/.test(h)) return 'x';
+  if (/tiktok/.test(h)) return 'tiktok';
+  if (/snapchat/.test(h)) return 'snapchat';
+  if (/facebook|fb\./.test(h)) return 'facebook';
+  if (/linkedin|lnkd/.test(h)) return 'linkedin';
+  if (/youtube|youtu\.be/.test(h)) return 'youtube';
+  return 'other';
+}
+function bump(obj, key, by = 1) { obj[key] = (obj[key] || 0) + by; }
+async function loadAnalytics() {
+  try {
+    const parsed = JSON.parse(await readFile(analyticsFile, 'utf8'));
+    if (parsed && typeof parsed === 'object' && parsed.days) analytics = parsed;
+  } catch {}
+}
+async function flushAnalytics() {
+  if (!analyticsDirty) return;
+  analyticsDirty = false;
+  const keys = Object.keys(analytics.days).sort();
+  while (keys.length > ANALYTICS_KEEP_DAYS) delete analytics.days[keys.shift()];
+  try {
+    await mkdir(dirname(analyticsFile), { recursive: true });
+    const tmp = `${analyticsFile}.${process.pid}.tmp`;
+    await writeFile(tmp, JSON.stringify(analytics), { encoding: 'utf8', mode: 0o600 });
+    await rename(tmp, analyticsFile);
+  } catch (error) {
+    analyticsDirty = true;
+    console.error('analytics storage error:', error?.message || error);
+  }
+}
+function recordPageView(req, pathname) {
+  try {
+    const ua = String(req.headers['user-agent'] || '');
+    if (!ua || BOT_UA.test(ua)) return;
+    const purpose = String(req.headers['sec-purpose'] || req.headers['purpose'] || req.headers['x-purpose'] || '');
+    if (/prefetch|prerender/i.test(purpose)) return;
+    if (req.headers['service-worker']) return;
+    let page = pathname.replace(/index\.html$/, '');
+    if (!page.endsWith('/') && !/\.[a-z0-9]+$/i.test(page)) page += '/';
+    if (page.startsWith('/admin') || page === '/offline.html' || page === '/404.html' || page.length > 120) return;
+    const day = riyadhDay();
+    const d = analytics.days[day] || (analytics.days[day] = { views: 0, visitors: 0, pages: {}, sources: {}, devices: {}, langs: {} });
+    d.views += 1;
+    bump(d.pages, page);
+    bump(d.langs, page.startsWith('/en/') || page === '/en' ? 'en' : 'ar');
+    if (analyticsVisitorDay !== day) { analyticsVisitorDay = day; analyticsVisitors = new Set(); }
+    const visitor = createHash('sha256').update(`${analyticsSalt}|${day}|${clientIp(req)}|${ua}`).digest('base64').slice(0, 16);
+    if (!analyticsVisitors.has(visitor)) {
+      analyticsVisitors.add(visitor);
+      d.visitors += 1;
+      bump(d.devices, /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop');
+    }
+    const source = classifyReferrer(String(req.headers.referer || ''), req.headers.host);
+    if (source) bump(d.sources, source);
+    analyticsDirty = true;
+  } catch {}
+}
+function analyticsSummary(daysWanted) {
+  const n = Math.min(Math.max(Number(daysWanted) || 30, 1), ANALYTICS_KEEP_DAYS);
+  const series = [];
+  const totals = { views: 0, visitors: 0, pages: {}, sources: {}, devices: {}, langs: {} };
+  const now = new Date();
+  for (let i = n - 1; i >= 0; i -= 1) {
+    const day = riyadhDay(new Date(now.getTime() - i * 86400000));
+    const d = analytics.days[day];
+    series.push({ day, views: d?.views || 0, visitors: d?.visitors || 0 });
+    if (!d) continue;
+    totals.views += d.views || 0;
+    totals.visitors += d.visitors || 0;
+    for (const k of ['pages', 'sources', 'devices', 'langs']) for (const [key, v] of Object.entries(d[k] || {})) bump(totals[k], key, v);
+  }
+  const top = (o, limit) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, limit).map(([key, count]) => ({ key, count }));
+  const today = analytics.days[riyadhDay()] || {};
+  return {
+    days: n, series, today: { views: today.views || 0, visitors: today.visitors || 0 },
+    totals: { views: totals.views, visitors: totals.visitors },
+    pages: top(totals.pages, 15), sources: top(totals.sources, 12), devices: top(totals.devices, 4), langs: top(totals.langs, 4)
+  };
+}
+
+// ===== Public satisfaction average (aggregate only) =====
+let satisfactionSummaryCache = { at: 0, data: null };
+async function satisfactionSummary() {
+  if (satisfactionSummaryCache.data && Date.now() - satisfactionSummaryCache.at < 60000) return satisfactionSummaryCache.data;
+  const rows = await safeReadRecentJsonl(satisfactionResponsesFile, 5000, 8 * 1024 * 1024).catch(() => []);
+  const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  let sum = 0, count = 0;
+  for (const r of rows) {
+    const s = Number(r?.score);
+    if (Number.isInteger(s) && s >= 1 && s <= 5) { distribution[s] += 1; sum += s; count += 1; }
+  }
+  const data = { count, average: count ? Math.round((sum / count) * 10) / 10 : null, distribution };
+  satisfactionSummaryCache = { at: Date.now(), data };
+  return data;
+}
 
 const rateBuckets = new Map();
 const feedbackRateBuckets = new Map();
@@ -252,7 +373,7 @@ function validateSiteConfig(site) {
 
   needObject(site, 'site');
   if (!isPlainObject(site)) return errors;
-  for (const key of ['meta','assets','institution','hero','about','vision','goals','values','docs','contact','footer','programs','partners']) needObject(site[key], key);
+  for (const key of ['meta','assets','institution','hero','about','goals','values','docs','contact','footer','programs','partners']) needObject(site[key], key);
   if (errors.length) return errors;
 
   needString(site.meta.title, 'meta.title', 180);
@@ -313,9 +434,35 @@ function validateSiteConfig(site) {
       needString(item.icon, `${name}.items[${index}].icon`, 120);
     });
   };
-  validateFeatureGroup(site.vision, 'vision');
+  if (site.vision !== undefined) validateFeatureGroup(site.vision, 'vision');
   validateFeatureGroup(site.goals, 'goals');
   validateFeatureGroup(site.values, 'values');
+  const validateCards = (items, name, keys) => {
+    if (items === undefined) return;
+    needArray(items, name);
+    if (Array.isArray(items)) items.forEach((item, index) => {
+      if (!isPlainObject(item)) { errors.push(`${name}[${index}] must be an object`); return; }
+      for (const key of keys) needString(item[key], `${name}[${index}].${key}`, 1200);
+    });
+  };
+  validateCards(site.about.pillars, 'about.pillars', ['title', 'text', 'icon']);
+  validateCards(site.programs.tracks, 'programs.tracks', ['title', 'audience', 'text', 'icon']);
+  if (isPlainObject(site.docs.trustees)) validateCards(site.docs.trustees.members, 'docs.trustees.members', ['role', 'name']);
+  if (site.docs.orgChart !== undefined) {
+    let nodes = 0;
+    const walkNode = (node, path, depth) => {
+      if (!isPlainObject(node)) { errors.push(`${path} must be an object`); return; }
+      needString(node.title, `${path}.title`, 120);
+      if (++nodes > 60) { errors.push('docs.orgChart has too many positions'); return; }
+      if (node.children !== undefined) {
+        if (!Array.isArray(node.children)) { errors.push(`${path}.children must be an array`); return; }
+        if (depth >= 4 && node.children.length) { errors.push(`${path}: the chart supports up to 5 levels`); return; }
+        node.children.forEach((child, i) => walkNode(child, `${path}.children[${i}]`, depth + 1));
+      }
+    };
+    if (!isPlainObject(site.docs.orgChart)) errors.push('docs.orgChart must be an object');
+    else walkNode(site.docs.orgChart.root, 'docs.orgChart.root', 0);
+  }
 
   for (const [name, group] of [['programs', site.programs], ['partners', site.partners]]) {
     for (const key of ['title','subtitle','cardTitle','cardText','ctaLabel']) needString(group[key], `${name}.${key}`, 1500);
@@ -612,6 +759,7 @@ async function handleSatisfaction(req, res) {
   try {
     await mkdir(dirname(satisfactionResponsesFile), { recursive: true });
     await appendFile(satisfactionResponsesFile, `${JSON.stringify(entry)}\n`, { encoding: 'utf8', mode: 0o600 });
+    satisfactionSummaryCache.at = 0;
   } catch (error) {
     console.error('satisfaction storage error:', error?.message || error);
     json(res, 500, { ok: false, message: t.storage });
@@ -1044,6 +1192,12 @@ async function handleAdminApi(req, res, pathname) {
     return true;
   }
 
+  if (pathname === '/api/admin/analytics' && req.method === 'GET') {
+    const days = new URL(req.url || '/', 'http://x').searchParams.get('days');
+    json(res, 200, { ok: true, data: analyticsSummary(days) });
+    return true;
+  }
+
   if (pathname === '/api/admin/info' && req.method === 'GET') {
     json(res, 200, { ok: true, data: { persistentStorage: Boolean(process.env.DATA_DIR) } });
     return true;
@@ -1070,6 +1224,7 @@ async function handleAdminApi(req, res, pathname) {
       if (kind === 'participation' && reference) {
         await removeJsonlRecords(participationUpdatesFile, (record) => record?.reference === reference);
       }
+      satisfactionSummaryCache.at = 0;
       json(res, 200, { ok: true, message: 'تم الحذف بنجاح.' });
     } catch (error) {
       console.error('admin delete error:', error?.message || error);
@@ -1169,6 +1324,7 @@ async function serveStatic(req, res, pathname) {
   if (!s.isFile()) throw new Error('not a file');
   const ext = extname(file).toLowerCase();
   const contentType = types[ext] || 'application/octet-stream';
+  if (ext === '.html' && req.method === 'GET') recordPageView(req, safePath);
   // Caching: HTML is always revalidated (so updates show immediately); CSS/JS loaded with ?v= are versioned
   // and can be cached for a week; fonts/images for a week; everything is revalidated via Last-Modified.
   const isVersioned = /[?&]v=/.test(String(req.url || ''));
@@ -1287,6 +1443,9 @@ async function bootstrapPersistentSite() {
 }
 
 await bootstrapPersistentSite();
+await loadAnalytics();
+setInterval(() => { flushAnalytics(); }, 60000).unref();
+for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, async () => { await flushAnalytics(); process.exit(0); });
 
 const server = http.createServer(async (req, res) => {
   try {
@@ -1310,6 +1469,11 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/participation' && req.method === 'POST') {
       await handleParticipationRequest(req, res);
+      return;
+    }
+
+    if (pathname === '/api/satisfaction/summary' && req.method === 'GET') {
+      json(res, 200, { ok: true, data: await satisfactionSummary() }, { 'Cache-Control': 'public, max-age=60' });
       return;
     }
 

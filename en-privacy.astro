@@ -12,9 +12,6 @@ const privacyMeta = {
 <BaseLayout meta={privacyMeta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
   <main id="main-content" class="privacy-page">
     <article class="privacy-shell">
-      <a href="/en/" aria-label="Back to Home">
-        <img src={site.assets.logoNav} alt="Hedayat Educational Foundation logo" class="privacy-logo" />
-      </a>
 
       <span class="privacy-badge">Approved Governance Document</span>
       <h1>Privacy & Data Protection Policy</h1>
@@ -29,7 +26,7 @@ const privacyMeta = {
           <p>The document covers the scope of data, purposes of use, data security and sharing, data-subject rights, and policy approval.</p>
           <div class="privacy-actions">
             <a class="privacy-primary" href="/privacy-data-policy.pdf" target="_blank" rel="noopener">
-              <i class="bi bi-eye" aria-hidden="true"></i><span>View Policy</span>
+              <i class="bi bi-eye" aria-hidden="true"></i><span>View document</span>
             </a>
             <a class="privacy-secondary" href="/privacy-data-policy.pdf" download>
               <i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span>
@@ -48,7 +45,7 @@ const privacyMeta = {
         <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
       </p>
 
-      <div class="privacy-back"><a href="/en/#contact">Back to Website</a></div>
+      <div class="privacy-back"><a href="/en/">Back to Home</a></div>
     </article>
   </main>
 

@@ -62,11 +62,11 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
               <div><dt>License Number</dt><dd dir="ltr">{institution.licenseNumber}</dd></div>
               <div><dt>Unified National Number</dt><dd dir="ltr">{institution.unifiedNationalNumber}</dd></div>
               <div><dt>Supervising Authority</dt><dd>{institution.supervision}</dd></div>
-              <div><dt>Certificate Validity</dt><dd>Until {institution.licenseValidUntil}</dd></div>
+              <div><dt>Valid Until</dt><dd>{institution.licenseValidUntil}</dd></div>
             </dl>
             <div class="gov-doc-actions">
               <a class="gov-btn gov-btn--primary" href={institution.verifyUrl} target="_blank" rel="noopener noreferrer"><i class="bi bi-patch-check" aria-hidden="true"></i><span>Verify License</span></a>
-              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Certificate</span></a>
+              <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View document</span></a>
               <a class="gov-btn gov-btn--secondary" href={`/${licenseDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
             </div>
           </div>
@@ -89,7 +89,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
             <p>{regulationDoc.description}</p>
             <div class="gov-publish-row"><span><i class="bi bi-calendar-check" aria-hidden="true"></i> {regulationDoc.updated}</span><span><i class="bi bi-tag" aria-hidden="true"></i> {regulationDoc.version}</span></div>
             <div class="gov-doc-actions">
-              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Regulation</span></a>
+              <a class="gov-btn gov-btn--primary" href={`/${regulationDoc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View document</span></a>
               <a class="gov-btn gov-btn--secondary" href={`/${regulationDoc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
             </div>
           </div>
@@ -115,10 +115,10 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
                 <div class="gov-policy-meta" aria-label={`Details for ${doc.title}`}>
                   <span><b>Approval Date:</b> {doc.approvalDate}</span>
                   <span><b>Latest Published Update:</b> {doc.updated}</span>
-                  <span><b>Cycle / Version:</b> {doc.version}</span>
+                  <span><b>Version:</b> {doc.version}</span>
                 </div>
                 <div class="gov-doc-actions">
-                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View Policy</span></a>
+                  <a class="gov-btn gov-btn--primary" href={`/${doc.fileHref}`} target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i><span>View document</span></a>
                   <a class="gov-btn gov-btn--secondary" href={`/${doc.fileHref}`} download><i class="bi bi-download" aria-hidden="true"></i><span>Download PDF</span></a>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
         <a href="/en/transparency/"><i class="bi bi-eye" aria-hidden="true"></i> Transparency & Disclosure</a>
         <a href="/en/reports/"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i> Financial Reports</a>
         <a href="/en/accessibility/"><i class="bi bi-person-check" aria-hidden="true"></i> Accessibility Statement</a>
-        <a href="/en/"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to the Foundation website</a>
+        <a href="/en/"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Home</a>
       </div>
     </section>
   </main>

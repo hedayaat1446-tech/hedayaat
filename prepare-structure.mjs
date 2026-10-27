@@ -96,7 +96,16 @@ const maps = [
   ['org-structure.jpg', 'public/org-structure.jpg'],
 
   ['media-center-video-01.mp4', 'public/media/media-center-video-01.mp4'],
-  ['media-center-video-01-poster.jpg', 'public/media/media-center-video-01-poster.jpg']
+  ['media-center-video-01-poster.jpg', 'public/media/media-center-video-01-poster.jpg'],
+
+  ['manifest.webmanifest', 'public/manifest.webmanifest'],
+  ['manifest-en.webmanifest', 'public/manifest-en.webmanifest'],
+  ['sw.js', 'public/sw.js'],
+  ['offline.html', 'public/offline.html'],
+  ['icon-192.png', 'public/icons/icon-192.png'],
+  ['icon-512.png', 'public/icons/icon-512.png'],
+  ['icon-maskable-512.png', 'public/icons/icon-maskable-512.png'],
+  ['apple-touch-icon.png', 'public/icons/apple-touch-icon.png']
 ];
 
 // تأكد من وجود كل الملفات المطلوبة قبل حذف src و public

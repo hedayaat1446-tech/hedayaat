@@ -14,6 +14,46 @@ const meta = {
 
     <section class="participation-hero" aria-labelledby="participation-title"><div class="participation-shell"><span class="participation-kicker"><i class="bi bi-people" aria-hidden="true"></i> Your voice supports improvement</span><h1 id="participation-title">Beneficiary Participation & Satisfaction</h1><p>A single place to rate your experience, send suggestions or inquiries, and track submitted requests using a clear reference number.</p><div class="participation-hero-actions"><a href="#satisfaction" class="participation-primary"><i class="bi bi-star" aria-hidden="true"></i> Satisfaction survey</a><a href="#request" class="participation-secondary"><i class="bi bi-chat-square-text" aria-hidden="true"></i> Submit feedback</a><a href="#track" class="participation-secondary"><i class="bi bi-search" aria-hidden="true"></i> Track request</a></div></div></section>
 
+    <section class="sat-wrap" aria-labelledby="sat-title">
+      <div class="sat-summary" data-sat-summary>
+        <div class="sat-score" style="--p:0"><strong data-sat-avg>–</strong><span>out of 5</span></div>
+        <div class="sat-copy">
+          <h2 id="sat-title">Average beneficiary satisfaction</h2>
+          <p>Based on <b data-sat-count>0</b> ratings submitted through the satisfaction survey.</p>
+          <div class="sat-bars" data-sat-bars data-empty-html='<p class="sat-empty">No ratings have been submitted yet. <a href="#satisfaction">Be the first to rate your experience</a>.</p>' data-star="stars"></div>
+        </div>
+      </div>
+    </section>
+    <script is:inline>
+      (() => {
+        const box = document.querySelector('[data-sat-summary]'); if (!box) return;
+        const load = async () => {
+          try {
+            const r = await fetch('/api/satisfaction/summary', { headers: { Accept: 'application/json' }, cache: 'no-store' });
+            const j = await r.json(); const d = j && j.data; const bars0 = box.querySelector('[data-sat-bars]');
+            if (!d || !d.count || d.average == null) { box.classList.add('is-empty'); box.querySelector('.sat-copy > p').hidden = true; bars0.innerHTML = bars0.dataset.emptyHtml; return; }
+            box.classList.remove('is-empty'); box.querySelector('.sat-copy > p').hidden = false;
+            const avgEl = box.querySelector('[data-sat-avg]');
+            box.querySelector('[data-sat-count]').textContent = d.count.toLocaleString('en-US');
+            const bars = box.querySelector('[data-sat-bars]');
+            bars.innerHTML = [5,4,3,2,1].map((s) => { const n = d.distribution[s] || 0; const pct = Math.round(n / d.count * 100); return `<div class="sat-bar"><span>${s} <i class="bi bi-star-fill" aria-hidden="true" style="color:#BEAE59"></i></span><span class="sat-bar-track" role="img" aria-label="${s} ${bars.dataset.star}: ${pct}%"><span class="sat-bar-fill" data-w="${pct}"></span></span><span>${pct}%</span></div>`; }).join('');
+            const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const start = () => {
+              bars.querySelectorAll('.sat-bar-fill').forEach((f) => { f.style.width = f.dataset.w + '%'; });
+              const target = d.average, ring = box.querySelector('.sat-score');
+              if (reduce) { avgEl.textContent = target.toFixed(1); ring.style.setProperty('--p', target / 5 * 100); return; }
+              const t0 = performance.now();
+              const step = (t) => { const k = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - k, 3); avgEl.textContent = (target * e).toFixed(1); ring.style.setProperty('--p', (target / 5 * 100 * e).toFixed(1)); if (k < 1) requestAnimationFrame(step); };
+              requestAnimationFrame(step);
+            };
+            if ('IntersectionObserver' in window) { const io = new IntersectionObserver((en) => { if (en.some((x) => x.isIntersecting)) { io.disconnect(); start(); } }, { threshold: .3 }); io.observe(box); } else start();
+          } catch {}
+        };
+        load();
+        document.getElementById('satisfactionForm')?.addEventListener('submit', () => setTimeout(load, 1800));
+      })();
+    </script>
+
     <section class="participation-intro" aria-label="Participation options"><article><i class="bi bi-bar-chart-line" aria-hidden="true"></i><h2>Satisfaction measurement</h2><p>Rate your experience from 1 to 5 and help us identify improvement opportunities.</p></article><article><i class="bi bi-lightbulb" aria-hidden="true"></i><h2>Suggestion or inquiry</h2><p>Share an idea, feedback, inquiry or a technical issue through one structured form.</p></article><article><i class="bi bi-journal-check" aria-hidden="true"></i><h2>Clear tracking</h2><p>Each submission receives a reference number that can be used to check its status without exposing its content.</p></article></section>
 
     <section id="satisfaction" class="participation-section" aria-labelledby="satisfaction-title"><div class="participation-section-head"><span>Satisfaction indicator</span><h2 id="satisfaction-title">How would you rate your website experience?</h2><p>Select a score from 1 to 5. This form does not ask for your name or email address.</p></div><form id="satisfactionForm" class="participation-card participation-form" novalidate><fieldset class="score-fieldset"><legend>Satisfaction level</legend><div class="score-options" role="radiogroup" aria-label="Satisfaction score from 1 to 5"><label><input type="radio" name="score" value="1" required /><span><strong>1</strong><small>Very low</small></span></label><label><input type="radio" name="score" value="2" /><span><strong>2</strong><small>Low</small></span></label><label><input type="radio" name="score" value="3" /><span><strong>3</strong><small>Fair</small></span></label><label><input type="radio" name="score" value="4" /><span><strong>4</strong><small>Good</small></span></label><label><input type="radio" name="score" value="5" /><span><strong>5</strong><small>Excellent</small></span></label></div></fieldset><div class="form-grid"><label class="field"><span>Area being rated</span><select name="reason"><option value="overall">Overall experience</option><option value="clarity">Content clarity</option><option value="ease">Ease of use</option><option value="content">Content quality</option><option value="accessibility">Accessibility</option><option value="speed">Finding information quickly</option><option value="other">Other</option></select></label><label class="field field-full"><span>Additional comment <small>(optional)</small></span><textarea name="comment" maxlength="1500" rows="4" placeholder="Share a brief comment..."></textarea></label></div><input class="participation-honeypot" type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" /><div class="form-submit-row"><button type="submit" class="participation-submit"><i class="bi bi-send" aria-hidden="true"></i> Submit rating</button><div id="satisfactionStatus" class="form-status" role="status" aria-live="polite"></div></div></form></section>

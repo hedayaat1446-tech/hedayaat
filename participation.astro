@@ -23,6 +23,46 @@ const meta = {
       </div>
     </section>
 
+    <section class="sat-wrap" aria-labelledby="sat-title">
+      <div class="sat-summary" data-sat-summary>
+        <div class="sat-score" style="--p:0"><strong data-sat-avg>–</strong><span>من 5</span></div>
+        <div class="sat-copy">
+          <h2 id="sat-title">متوسط رضا المستفيدين</h2>
+          <p>بناءً على <b data-sat-count>0</b> من تقييمات المستفيدين المسجّلة في نموذج قياس الرضا.</p>
+          <div class="sat-bars" data-sat-bars data-empty-html='<p class="sat-empty">لم تُسجَّل تقييمات بعد. <a href="#satisfaction">كن أول من يقيّم تجربته</a>.</p>' data-star="نجوم"></div>
+        </div>
+      </div>
+    </section>
+    <script is:inline>
+      (() => {
+        const box = document.querySelector('[data-sat-summary]'); if (!box) return;
+        const load = async () => {
+          try {
+            const r = await fetch('/api/satisfaction/summary', { headers: { Accept: 'application/json' }, cache: 'no-store' });
+            const j = await r.json(); const d = j && j.data; const bars0 = box.querySelector('[data-sat-bars]');
+            if (!d || !d.count || d.average == null) { box.classList.add('is-empty'); box.querySelector('.sat-copy > p').hidden = true; bars0.innerHTML = bars0.dataset.emptyHtml; return; }
+            box.classList.remove('is-empty'); box.querySelector('.sat-copy > p').hidden = false;
+            const avgEl = box.querySelector('[data-sat-avg]');
+            box.querySelector('[data-sat-count]').textContent = d.count.toLocaleString('en-US');
+            const bars = box.querySelector('[data-sat-bars]');
+            bars.innerHTML = [5,4,3,2,1].map((s) => { const n = d.distribution[s] || 0; const pct = Math.round(n / d.count * 100); return `<div class="sat-bar"><span>${s} <i class="bi bi-star-fill" aria-hidden="true" style="color:#BEAE59"></i></span><span class="sat-bar-track" role="img" aria-label="${s} ${bars.dataset.star}: ${pct}%"><span class="sat-bar-fill" data-w="${pct}"></span></span><span>${pct}%</span></div>`; }).join('');
+            const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const start = () => {
+              bars.querySelectorAll('.sat-bar-fill').forEach((f) => { f.style.width = f.dataset.w + '%'; });
+              const target = d.average, ring = box.querySelector('.sat-score');
+              if (reduce) { avgEl.textContent = target.toFixed(1); ring.style.setProperty('--p', target / 5 * 100); return; }
+              const t0 = performance.now();
+              const step = (t) => { const k = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - k, 3); avgEl.textContent = (target * e).toFixed(1); ring.style.setProperty('--p', (target / 5 * 100 * e).toFixed(1)); if (k < 1) requestAnimationFrame(step); };
+              requestAnimationFrame(step);
+            };
+            if ('IntersectionObserver' in window) { const io = new IntersectionObserver((en) => { if (en.some((x) => x.isIntersecting)) { io.disconnect(); start(); } }, { threshold: .3 }); io.observe(box); } else start();
+          } catch {}
+        };
+        load();
+        document.getElementById('satisfactionForm')?.addEventListener('submit', () => setTimeout(load, 1800));
+      })();
+    </script>
+
     <section class="participation-intro" aria-label="خيارات المشاركة">
       <article><i class="bi bi-bar-chart-line" aria-hidden="true"></i><h2>قياس الرضا</h2><p>قيّم تجربتك من 1 إلى 5 وساعدنا على تحديد جوانب التحسين.</p></article>
       <article><i class="bi bi-lightbulb" aria-hidden="true"></i><h2>اقتراح أو استفسار</h2><p>شارك فكرة، ملاحظة، استفسارًا أو بلاغًا تقنيًا من خلال نموذج موحد.</p></article>

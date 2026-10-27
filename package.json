@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "node prepare-structure.mjs && astro dev",
-    "build": "node prepare-structure.mjs && astro build",
+    "build": "node prepare-structure.mjs && astro build && node build-search-index.mjs",
     "preview": "astro preview",
     "start": "node server.mjs",
     "astro": "astro"

@@ -6,6 +6,16 @@ const meta = {
   title: "الإدارة التنظيمية | مؤسسة هدايات التعليمية",
   description: "الهيكل التنظيمي وأعضاء مجلس أمناء مؤسسة هدايات التعليمية."
 };
+const escHtml = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const renderOrgNode = (node, depth = 0) => {
+  const kids = Array.isArray(node.children) ? node.children : [];
+  const leaves = kids.length > 1 && kids.every((c) => !(c.children || []).length);
+  return `<li><span class="org-node org-node--d${Math.min(depth, 3)}" tabindex="0">${escHtml(node.title)}</span>${kids.length ? `<ul${leaves ? ' class="org-leaves"' : depth === 1 ? ' class="org-depts"' : ""}>${kids.map((c) => renderOrgNode(c, depth + 1)).join("")}</ul>` : ""}</li>`;
+};
+const orgChart = site.docs.orgChart;
+const orgHtml = orgChart?.root ? `<ul class="org-tree">${renderOrgNode(orgChart.root)}</ul>` : "";
+const members = site.docs.trustees.members || [];
+
 ---
 <BaseLayout meta={meta} lang="ar" dir="rtl">
   <main id="main-content" class="institution-page">
@@ -25,36 +35,56 @@ const meta = {
 
     <section id="structure" class="institution-content org-block" aria-labelledby="structure-title">
       <h2 id="structure-title" class="org-block-title">الهيكل التنظيمي</h2>
-      <figure class="trustees-card">
-        <img src="/org-structure.jpg" alt="الهيكل التنظيمي لمؤسسة هدايات التعليمية" width="1600" height="1131" loading="eager" decoding="async" />
-        <figcaption class="visually-hidden">
-          مجلس الأمناء، ويتبعه المدير التنفيذي. يتبع المدير التنفيذي: إشراف البرامج ويتبعه مسؤولا البرامج، والشؤون المالية ويتبعها المحاسب، والإعلام والتصميم ويتبعه المصمم.
-        </figcaption>
-      </figure>
+      <div class="org-chart" data-org-chart>
+        <p class="org-hint"><i class="bi bi-hand-index" aria-hidden="true"></i> مرّر المؤشر أو اضغط على أي وظيفة لإبراز تسلسلها الإداري.</p>
+        <div class="org-scroll" set:html={orgHtml} />
+      </div>
     </section>
 
     <div class="org-separator" aria-hidden="true"><span></span><i class="bi bi-diamond-fill"></i><span></span></div>
 
     <section id="trustees" class="institution-content org-block trustees-section" aria-labelledby="trustees-title">
       <h2 id="trustees-title" class="org-block-title">أعضاء مجلس الأمناء</h2>
-      <figure class="trustees-card">
-        <img src={site.docs.trustees.imageHref} alt="أعضاء مجلس الأمناء في مؤسسة هدايات التعليمية" width="1600" height="1131" loading="lazy" decoding="async" />
-        <figcaption class="visually-hidden">
-          رئيس مجلس الأمناء: حنين فهد السديري. نائب رئيس مجلس الأمناء: جمانة طلال محجوب. عضو مجلس الأمناء: أماني بشير الجهني.
-        </figcaption>
-      </figure>
+      <ul class="trustee-cards" aria-label="أعضاء مجلس الأمناء">
+        {members.map((m) => (
+          <li class="trustee-card">
+            <span class="trustee-icon" aria-hidden="true"><i class={m.icon || "bi bi-person"}></i></span>
+            <strong>{m.name}</strong>
+            <span class="trustee-role">{m.role}</span>
+          </li>
+        ))}
+      </ul>
       {site.docs.trustees.boardFile && (
         <div class="board-file-row">
-          <a class="board-file-btn" href={site.docs.trustees.boardFile.href} target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> ملف مجلس الإدارة
+          <a class="board-file-btn" href={site.docs.trustees.boardFile.href}>
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> عرض ملف مجلس الأمناء
             {site.docs.trustees.boardFile.status && <em>{site.docs.trustees.boardFile.status}</em>}
           </a>
         </div>
       )}
-      <a class="institution-back" href="/#about"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى عن المؤسسة</a>
+      <a class="institution-back" href="/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى الرئيسية</a>
     </section>
   </main>
 
+
+  <script is:inline>
+    (() => {
+      const chart = document.querySelector('[data-org-chart]'); if (!chart) return;
+      const clear = () => chart.querySelectorAll('.is-lit,.is-active').forEach((n) => n.classList.remove('is-lit', 'is-active'));
+      const light = (node) => {
+        clear(); chart.classList.add('has-focus'); node.classList.add('is-active');
+        let li = node.closest('li');
+        while (li && chart.contains(li)) { li.querySelector(':scope > .org-node')?.classList.add('is-lit'); li = li.parentElement?.closest('li'); }
+        node.closest('li').querySelectorAll('.org-node').forEach((n) => n.classList.add('is-lit'));
+      };
+      chart.querySelectorAll('.org-node').forEach((n) => {
+        n.addEventListener('mouseenter', () => light(n)); n.addEventListener('focus', () => light(n));
+        n.addEventListener('click', () => light(n));
+      });
+      chart.addEventListener('mouseleave', () => { if (!chart.contains(document.activeElement)) { clear(); chart.classList.remove('has-focus'); } });
+      chart.addEventListener('focusout', (e) => { if (!chart.contains(e.relatedTarget)) { clear(); chart.classList.remove('has-focus'); } });
+    })();
+  </script>
   <style>
     :global(body){margin:0;background:#f7f4ee;color:#334137}.institution-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-arabic)}
     .institution-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.institution-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.institution-brand img{display:block;width:190px;max-width:47vw;height:auto}.institution-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#16404F;font-weight:800;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}

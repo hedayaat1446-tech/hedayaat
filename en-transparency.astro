@@ -26,7 +26,7 @@ const trustees = [
     <section class="tp-content">
       <div class="tp-section-head">
         <div><span>Leadership & Governance</span><h2>Board of Trustees</h2></div>
-        <a href="/en/board/#trustees">View Board Page <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        <a href="/en/board/#trustees">View Board page <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
       </div>
       <div class="tp-board-grid">
         {trustees.map((member) => (
@@ -49,7 +49,7 @@ const trustees = [
 
       <div class="tp-section-head tp-section-head--policies">
         <div><span>Approved Documents</span><h2>Published Policies</h2></div>
-        <a href="/en/governance/#policies">Open Governance Center <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        <a href="/en/governance/#policies">Go to the Governance Center <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
       </div>
       <div class="tp-policy-grid">
         {governance.policies.map((doc) => (
@@ -63,9 +63,9 @@ const trustees = [
             <dl>
               <div><dt>Approval Date</dt><dd>{doc.approvalDate}</dd></div>
               <div><dt>Latest Published Update</dt><dd>{doc.updated}</dd></div>
-              <div><dt>Cycle / Version</dt><dd>{doc.version}</dd></div>
+              <div><dt>Version</dt><dd>{doc.version}</dd></div>
             </dl>
-            <a href={`/${doc.fileHref}`} target="_blank" rel="noopener">View Document <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></a>
+            <a href={`/${doc.fileHref}`} target="_blank" rel="noopener">View document <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i></a>
           </article>
         ))}
       </div>

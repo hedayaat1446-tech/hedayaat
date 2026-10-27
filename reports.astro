@@ -28,17 +28,19 @@ const meta = {
                 {doc.description && <small>{doc.description}</small>}
                 {doc.status && <em class="report-item-status">{doc.status}</em>}
               </span>
-              <span class="report-item-action">عرض الملف <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
+              <span class="report-item-action">عرض الوثيقة <i class="bi bi-eye" aria-hidden="true"></i></span>
             </a>
           ))}
         </div>
       ) : (
-      <div class="status-card" role="status">
-        <i class="bi bi-shield-check" aria-hidden="true"></i>
-        <div><strong>لا توجد ملفات مالية معتمدة منشورة حاليًا</strong><span>لن يعرض الموقع ملفات أولية أو غير معتمدة. عند اعتماد ملفات مخصصة للنشر ستظهر في هذه الصفحة.</span></div>
+      <div class="empty-state" role="status">
+        <div class="empty-state-icon"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i></div>
+        <h2>لا توجد قوائم مالية منشورة حاليًا</h2>
+        <p>تُنشر القوائم والتقارير المالية هنا بعد اعتمادها رسميًا. وحتى ذلك الحين، تجد الترخيص والسياسات المعتمدة في مركز الحوكمة.</p>
+        <div class="empty-state-actions"><a class="hp-btn" href="/governance/"><i class="bi bi-bank2" aria-hidden="true"></i> الانتقال إلى مركز الحوكمة</a></div>
       </div>
       )}
-      <a class="institution-back" href="/governance/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى الحوكمة</a>
+      <a class="institution-back" href="/governance/"><i class="bi bi-arrow-right" aria-hidden="true"></i> العودة إلى مركز الحوكمة</a>
     </section>
   </main>
   <style>

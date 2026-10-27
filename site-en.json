@@ -134,7 +134,8 @@
         "text": "Achieving financial sustainability to maintain programs and expand community impact.",
         "icon": "bi bi-cash-coin"
       }
-    ]
+    ],
+    "subtitle": "Four goals that guide our programs and decisions."
   },
   "values": {
     "title": "Our Values",
@@ -164,7 +165,8 @@
         "text": "Adapting to changing circumstances while maintaining core principles and achieving objectives efficiently.",
         "icon": "bi bi-arrow-repeat"
       }
-    ]
+    ],
+    "subtitle": "Principles we uphold in everything we do."
   },
   "docs": {
     "reports": {
@@ -186,13 +188,30 @@
       "boardFile": {
         "href": "/board-info.pdf",
         "status": "Preliminary version"
-      }
+      },
+      "members": [
+        {
+          "role": "Chair of the Board of Trustees",
+          "name": "Haneen Fahad Al-Sudairi",
+          "icon": "bi bi-award"
+        },
+        {
+          "role": "Vice Chair of the Board of Trustees",
+          "name": "Jumana Talal Mahjoub",
+          "icon": "bi bi-person-badge"
+        },
+        {
+          "role": "Board Member",
+          "name": "Amani Bashir Al-Juhani",
+          "icon": "bi bi-person"
+        }
+      ]
     },
     "governance": {
       "title": "Governance Center",
       "official": [
         {
-          "title": "Nonprofit Organization License Certificate",
+          "title": "Non-Profit Organization License Certificate",
           "description": "The official license certificate of Hedayat Educational Foundation issued by the National Center for Non-Profit Sector.",
           "fileHref": "organization-license.pdf",
           "previewHref": "/organization-license-preview.jpg",
@@ -224,7 +243,7 @@
           "status": "Published",
           "approvalDate": "17 September 2026",
           "updated": "17 September 2026",
-          "version": "First Cycle",
+          "version": "First edition",
           "category": "Policies"
         },
         {
@@ -236,7 +255,7 @@
           "status": "Published",
           "approvalDate": "17 September 2026",
           "updated": "17 September 2026",
-          "version": "First Cycle",
+          "version": "First edition",
           "category": "Policies"
         },
         {
@@ -248,7 +267,7 @@
           "status": "Published",
           "approvalDate": "17 September 2026",
           "updated": "17 September 2026",
-          "version": "First Cycle",
+          "version": "First edition",
           "category": "Policies"
         }
       ],
@@ -272,6 +291,46 @@
           "message": "Will be published after formal approval."
         }
       ]
+    },
+    "orgChart": {
+      "title": "Organizational Structure",
+      "root": {
+        "title": "Board of Trustees",
+        "children": [
+          {
+            "title": "Executive Director",
+            "children": [
+              {
+                "title": "Financial Affairs",
+                "children": [
+                  {
+                    "title": "Accountant"
+                  }
+                ]
+              },
+              {
+                "title": "Program Supervision",
+                "children": [
+                  {
+                    "title": "Program Officer"
+                  },
+                  {
+                    "title": "Program Officer"
+                  }
+                ]
+              },
+              {
+                "title": "Media & Design",
+                "children": [
+                  {
+                    "title": "Designer"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "contact": {
@@ -338,7 +397,7 @@
     "ctaHref": "#contact"
   },
   "institution": {
-    "type": "Licensed Civil Foundation",
+    "type": "Licensed Non-Profit Foundation",
     "licenseNumber": "1100527000",
     "unifiedNationalNumber": "7049464931",
     "supervision": "Ministry of Education",

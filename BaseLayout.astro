@@ -83,7 +83,7 @@ const normPath = (p) => {
 };
 const here = normPath(Astro.url.pathname);
 const isHomePage = here === "/" || here === "/en/";
-const showChrome = chrome ?? !isHomePage;
+const showChrome = chrome ?? true;
 const isAr = lang === "ar";
 const chromeSite = isAr ? siteAr : siteEn;
 const homeHref = isAr ? "/" : "/en/";
@@ -94,14 +94,13 @@ const navItems = isAr
       { label: "About the Foundation", children: [
         { label: "Who we are", href: "/en/#about" }, { label: "Strategic Goals", href: "/en/#goals" },
         { label: "Our Values", href: "/en/#values" }, { label: "Organizational Management", href: "/en/board/" } ] },
-      { label: "Programs", href: "/en/#programs" },
-      { label: "Partnerships", href: "/en/#partners" },
+      { label: "Programs & Partnerships", href: "/en/#programs" },
       { label: "Governance", children: [
         { label: "Governance Center", href: "/en/governance/" }, { label: "Transparency & Disclosure", href: "/en/transparency/" },
         { label: "Financial Reports", href: "/en/reports/" } ] },
       { label: "Media Center", href: "/en/videos/" },
       { label: "Beneficiary Participation", href: "/en/participation/" },
-      { label: "Contact", href: "/en/#contact" },
+      { label: "Contact Us", href: "/en/#contact", cta: true },
       { label: "Arabic", href: "/" }
     ];
 const isCurrent = (h) => !!h && !h.includes("#") && normPath(h) === here && h !== homeHref;
@@ -133,6 +132,43 @@ const crumbs = crumbMap[here] || (isNotFound ? [[isAr ? "الصفحة غير م�
 const waDigitsChrome = String(chromeSite.contact?.phone || siteAr.contact?.phone || "").replace(/\D/g, "");
 const waLinkChrome = `https://wa.me/${waDigitsChrome}`;
 const licenseNo = siteAr.institution?.licenseNumber || "";
+const inst = siteAr.institution || {};
+const contactInfo = siteAr.contact || {};
+const menuItems = navItems.filter((i) => !i.cta && i.href !== "/" && i.href !== "/en/");
+const ctaItem = navItems.find((i) => i.cta) || { label: isAr ? "تواصل معنا" : "Contact Us", href: `${homeHref}#contact` };
+const bodyClass = isHomePage ? "home-page" : "inner-page";
+const buildDate = new Date();
+const lastUpdated = isAr
+  ? new Intl.DateTimeFormat("ar-SA-u-nu-latn-ca-gregory", { day: "numeric", month: "long", year: "numeric" }).format(buildDate)
+  : new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(buildDate);
+const T = isAr ? {
+  search: "بحث في الموقع", searchPh: "ابحث في الصفحات والوثائق والسياسات…", searchHint: "اكتب كلمتين أو أكثر، مثل: الترخيص، الخصوصية، مجلس الأمناء",
+  noResults: "لا توجد نتائج مطابقة. جرّب كلمة أخرى.", close: "إغلاق", dark: "الوضع الليلي", light: "الوضع النهاري",
+  a11y: "أدوات إمكانية الوصول", smaller: "A− تصغير النص", reset: "A الحجم الافتراضي", larger: "A+ تكبير النص", contrast: "تباين عالٍ",
+  feedback: "شاركنا رأيك", top: "العودة إلى أعلى الصفحة", whatsapp: "تواصل عبر واتساب", menu: "فتح القائمة",
+  tabHome: "الرئيسية", tabGov: "الحوكمة", tabPart: "المشاركة", tabContact: "تواصل",
+  fAbout: "عن المؤسسة", fGov: "الحوكمة", fServices: "الخدمات", fContact: "تواصل معنا",
+  blurb: "مؤسسة تعليمية أهلية مرخّصة تحت إشراف وزارة التعليم، تُعنى ببناء الوعي وتعزيز القيم.",
+  type: "صفة المؤسسة", license: "رقم الترخيص", unified: "الرقم الوطني الموحد", supervision: "جهة الإشراف", verify: "التحقق من الترخيص",
+  updated: "آخر تحديث للموقع", viewer: "عارض الوثائق", download: "تحميل PDF", newTab: "فتح في نافذة جديدة", doc: "وثيقة"
+} : {
+  search: "Search the site", searchPh: "Search pages, documents and policies…", searchHint: "Try words such as: license, privacy, board of trustees",
+  noResults: "No matching results. Try another word.", close: "Close", dark: "Dark mode", light: "Light mode",
+  a11y: "Accessibility tools", smaller: "A− Decrease text size", reset: "A Default text size", larger: "A+ Increase text size", contrast: "High contrast",
+  feedback: "Share feedback", top: "Back to top", whatsapp: "Contact us on WhatsApp", menu: "Open menu",
+  tabHome: "Home", tabGov: "Governance", tabPart: "Participate", tabContact: "Contact",
+  fAbout: "About", fGov: "Governance", fServices: "Services", fContact: "Contact Us",
+  blurb: "A licensed non-profit educational foundation under the supervision of the Ministry of Education, dedicated to building awareness and strengthening values.",
+  type: "Organization type", license: "License No.", unified: "Unified National No.", supervision: "Supervising authority", verify: "Verify license",
+  updated: "Site last updated", viewer: "Document viewer", download: "Download PDF", newTab: "Open in new tab", doc: "Document"
+};
+const p = (ar, en) => (isAr ? ar : en);
+const footerCols = [
+  { title: T.fAbout, links: [[p("من نحن","Who We Are"), `${homeHref}#about`], [p("الأهداف الاستراتيجية","Strategic Goals"), `${homeHref}#goals`], [p("قيمنا","Our Values"), `${homeHref}#values`], [p("الإدارة التنظيمية","Organizational Management"), p("/board/","/en/board/")], [p("البرامج والشراكات","Programs & Partnerships"), `${homeHref}#programs`]] },
+  { title: T.fGov, links: [[p("مركز الحوكمة","Governance Center"), p("/governance/","/en/governance/")], [p("الشفافية والإفصاح","Transparency & Disclosure"), p("/transparency/","/en/transparency/")], [p("القوائم والتقارير المالية","Financial Reports"), p("/reports/","/en/reports/")], [p("سياسة الخصوصية","Privacy Policy"), p("/privacy/","/en/privacy/")]] },
+  { title: T.fServices, links: [[p("مشاركة المستفيد","Beneficiary Participation"), p("/participation/","/en/participation/")], [p("متابعة طلب","Track a Request"), p("/participation/#track","/en/participation/#track")], [p("المركز الإعلامي","Media Center"), p("/videos/","/en/videos/")], [p("بيان إمكانية الوصول","Accessibility Statement"), p("/accessibility/","/en/accessibility/")]] }
+];
+const socials = (contactInfo.social || []).filter((x) => x.url);
 
 ---
 
@@ -175,17 +211,34 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
       // interface grows in exact proportion to the screen width (live on resize). Phones/tablets/laptops keep
       // their own responsive layout (scale 1). The CSS steps in site.css remain as a fallback without JS.
       (() => {
-        const BASE = 1366, MAX = 3.2, root = document.documentElement;
+        // Phones (portrait, under 600px) are scaled the same way around a 390px design width, so the page
+        // fills small and large phones alike (between 88% and 112%); tablets and laptops keep scale 1.
+        const BASE = 1366, MAX = 3.2, PHONE = 390, PMIN = 0.88, PMAX = 1.12, root = document.documentElement;
         const fit = () => {
           const w = window.innerWidth || root.clientWidth;
-          const z = w > BASE ? Math.min(w / BASE, MAX) : 1;
+          const h = window.innerHeight || root.clientHeight;
+          let z = 1;
+          if (w > BASE) z = Math.min(w / BASE, MAX);
+          else if (w < 600 && h >= w) z = Math.min(Math.max(w / PHONE, PMIN), PMAX);
+          if (Math.abs(z - 1) < 0.015) z = 1;
           root.style.zoom = z === 1 ? '' : z.toFixed(4);
           root.style.setProperty('--auto-zoom', z);
         };
         fit();
-        let t; window.addEventListener('resize', () => { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }, { passive: true });
+        let t; const refit = () => { cancelAnimationFrame(t); t = requestAnimationFrame(fit); };
+        window.addEventListener('resize', refit, { passive: true });
+        window.addEventListener('orientationchange', refit, { passive: true });
       })();
     </script>
+
+    <script is:inline>
+      // Apply the saved light/dark preference before the page paints (no flash).
+      try { if (localStorage.getItem('hedayat-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch {}
+    </script>
+    <link rel="manifest" href={isAr ? "/manifest.webmanifest" : "/manifest-en.webmanifest"} />
+    <meta name="theme-color" content="#16404F" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content={isAr ? "هدايات" : "Hedayat"} />
 
     <link rel="stylesheet" href="/vendor/bootstrap.min.css?v=536" />
     <link rel="stylesheet" href="/vendor/bootstrap-icons.min.css?v=local" />
@@ -278,35 +331,29 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=48" />
+    <link rel="stylesheet" href="/styles/site.css?v=61" />
     <slot name="head" />
   </head>
 
-  <body class={showChrome ? "inner-page" : undefined}>
+  <body class={bodyClass}>
     <a class="skip-link" href="#main-content">{skipLabel}</a>
-
-    <aside class="a11y-tools" aria-label={accessibilityLabel}>
-      <a class="a11y-lang-switch" href={lang === "ar" ? enPath : arPath} data-language-switch={lang === "ar" ? "en" : "ar"} data-keep-hash hreflang={lang === "ar" ? "en" : "ar"} aria-label={lang === "ar" ? "EN — عرض هذه الصفحة باللغة الإنجليزية" : "AR — View this page in Arabic"} title={lang === "ar" ? "الإنجليزية" : "Arabic"}><i class="bi bi-globe2" aria-hidden="true"></i><span>{lang === "ar" ? "EN" : "AR"}</span></a>
-      <button type="button" dir="ltr" data-a11y="decrease" aria-label={lang === "ar" ? "A− تصغير حجم النص" : "A− Decrease text size"} title={lang === "ar" ? "تصغير النص" : "Decrease text"}>A−</button>
-      <button type="button" data-a11y="reset" aria-label={lang === "ar" ? "A إعادة حجم النص للوضع الافتراضي" : "A Reset text size"} title={lang === "ar" ? "الحجم الافتراضي" : "Default size"}>A</button>
-      <button type="button" dir="ltr" data-a11y="increase" aria-label={lang === "ar" ? "A+ تكبير حجم النص" : "A+ Increase text size"} title={lang === "ar" ? "تكبير النص" : "Increase text"}>A+</button>
-      <button type="button" data-a11y="contrast" aria-pressed="false" aria-label={lang === "ar" ? "تفعيل التباين العالي" : "Toggle high contrast"} title={lang === "ar" ? "تباين عالٍ" : "High contrast"}><i class="bi bi-circle-half" aria-hidden="true"></i></button>
-    </aside>
-
 
     {showChrome && (
       <>
         <nav class="navbar navbar-expand-lg fixed-top hdr site-chrome-hdr" aria-label={isAr ? "القائمة الرئيسية" : "Primary navigation"}>
-          <div class="container align-items-center">
-            <a class="navbar-brand d-flex align-items-center" href={homeHref}>
+          <div class="container align-items-center hdr-inner">
+            <a class="navbar-brand hdr-brand" href={homeHref}>
               <img src={chromeSite.assets?.logoNav || "/hedayat-logo-gold.png"} alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="official-logo official-logo-nav" width="900" height="337" />
+              {!isAr && <span class="brand-en-name" aria-hidden="true"><strong>Hedayat</strong><span>Educational Foundation</span></span>}
               <span class="visually-hidden">{isAr ? "الصفحة الرئيسية" : "Home page"}</span>
             </a>
-            <a class="whatsapp-btn d-flex d-lg-none ms-auto me-2" href={waLinkChrome} target="_blank" rel="noopener" aria-label={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"} title={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"}><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navChrome" aria-controls="navChrome" aria-expanded="false" aria-label={isAr ? "إظهار القائمة" : "Open navigation menu"}><span class="navbar-toggler-icon"></span></button>
+            <div class="hdr-mobile-actions d-flex d-lg-none">
+              <button class="hdr-icon-btn" type="button" data-search-open aria-label={T.search} title={T.search}><i class="bi bi-search" aria-hidden="true"></i></button>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navChrome" aria-controls="navChrome" aria-expanded="false" aria-label={T.menu}><span class="navbar-toggler-icon"></span></button>
+            </div>
             <div class="collapse navbar-collapse" id="navChrome">
-              <ul class="navbar-nav nav-rtl mx-auto gap-lg-2">
-                {navItems.map((item) => item.children?.length ? (
+              <ul class="navbar-nav nav-rtl mx-auto gap-lg-1">
+                {menuItems.map((item) => item.children?.length ? (
                   <li class={`nav-item dropdown hedayat-nav-group${item.children.some((c) => isCurrent(c.href)) ? " is-current" : ""}`}>
                     <button class="nav-link dropdown-toggle nav-dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-display="static" aria-expanded="false">{item.label}</button>
                     <ul class="dropdown-menu hedayat-dropdown">
@@ -314,21 +361,21 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
                     </ul>
                   </li>
                 ) : (
-                  <li class="nav-item">
-                    {(item.href === "/en/" || item.href === "/")
-                      ? <a class="nav-link" href={isAr ? enPath : arPath} lang={isAr ? "en" : "ar"} dir={isAr ? "ltr" : "rtl"} data-language-switch={isAr ? "en" : "ar"}>{item.label}</a>
-                      : <a class={`nav-link${isCurrent(item.href) ? " active" : ""}`} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>}
-                  </li>
+                  <li class="nav-item"><a class={`nav-link${isCurrent(item.href) ? " active" : ""}`} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a></li>
                 ))}
               </ul>
-              <div class="d-none d-lg-flex ms-lg-3">
-                <a class="whatsapp-btn" href={waLinkChrome} target="_blank" rel="noopener" aria-label={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"} title={isAr ? "تواصل عبر واتساب" : "Contact us on WhatsApp"}><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+              <div class="hdr-actions">
+                <button class="hdr-icon-btn d-none d-lg-inline-flex" type="button" data-search-open aria-label={T.search} title={T.search}><i class="bi bi-search" aria-hidden="true"></i></button>
+                <button class="hdr-icon-btn" type="button" data-theme-toggle aria-pressed="false" aria-label={T.dark} title={T.dark} data-label-dark={T.dark} data-label-light={T.light}><i class="bi bi-moon-stars" aria-hidden="true"></i><span class="d-lg-none">{T.dark}</span></button>
+                <a class="hdr-icon-btn hdr-whatsapp" href={waLinkChrome} target="_blank" rel="noopener" aria-label={T.whatsapp} title={T.whatsapp}><i class="bi bi-whatsapp" aria-hidden="true"></i><span class="d-lg-none">{isAr ? "واتساب" : "WhatsApp"}</span></a>
+                <a class="hdr-lang" href={isAr ? enPath : arPath} lang={isAr ? "en" : "ar"} dir={isAr ? "ltr" : "rtl"} hreflang={isAr ? "en" : "ar"} data-language-switch={isAr ? "en" : "ar"} data-keep-hash>{isAr ? "English" : "العربية"}</a>
+                <a class="hdr-cta" href={ctaItem.href}>{ctaItem.label}</a>
               </div>
             </div>
           </div>
         </nav>
         <div class="brand-ribbon" role="presentation" aria-hidden="true"></div>
-        {crumbs && (
+        {!isHomePage && crumbs && (
           <nav class="crumbs" aria-label={isAr ? "مسار الصفحة" : "Breadcrumb"}>
             <ol>
               <li><a href={homeHref}><i class="bi bi-house-door" aria-hidden="true"></i> {isAr ? "الرئيسية" : "Home"}</a></li>
@@ -348,47 +395,103 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
 
     <slot />
 
-
     {showChrome && (
-      <footer class="site-footer">
-        <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--start" />
-        <img src="/identity-grid.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="footer-watermark footer-watermark--end" />
-        <div class="footer-top">
-          <div class="footer-logos">
-            <img src={chromeSite.assets?.logoNav || "/hedayat-logo-gold.png"} alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="official-logo official-logo-footer" loading="lazy" decoding="async" width="900" height="337" />
-            <img src={chromeSite.assets?.nationalCenterLogo || "/national-center-logo.png"} alt={isAr ? "شعار المركز الوطني لتنمية القطاع غير الربحي" : "National Center for Non-Profit Sector logo"} class="footer-logo national-center-footer-logo" loading="lazy" decoding="async" width="660" height="306" />
+      <footer class="site-footer site-footer-v2">
+        <div class="footer-v2">
+          <div class="footer-col footer-brand-col">
+            <img src="/hedayat-logo-gold-light.png" alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="footer-v2-logo" loading="lazy" decoding="async" width="900" height="337" />
+            <p>{T.blurb}</p>
+            <img src={chromeSite.assets?.nationalCenterLogo || "/national-center-logo.png"} alt={isAr ? "شعار المركز الوطني لتنمية القطاع غير الربحي" : "National Center for Non-Profit Sector logo"} class="footer-v2-ncnp" loading="lazy" decoding="async" width="660" height="306" />
           </div>
-          <p class="footer-license">{isAr ? siteAr.footer.licenseText : `Licensed by the National Center for Non-Profit Sector — License No. ${licenseNo}`}</p>
-          <nav class="footer-links" aria-label={isAr ? "روابط أسفل الصفحة" : "Footer links"}>
-            {(isAr
-              ? [["الرئيسية", "/"], ["مركز الحوكمة", "/governance/"], ["الشفافية والإفصاح", "/transparency/"], ["إمكانية الوصول", "/accessibility/"], ["مشاركة المستفيد", "/participation/"], ["تواصل معنا", "/#contact"], ["سياسة الخصوصية", "/privacy/"]]
-              : [["Home", "/en/"], ["Governance", "/en/governance/"], ["Transparency", "/en/transparency/"], ["Accessibility", "/en/accessibility/"], ["Beneficiary Participation", "/en/participation/"], ["Contact", "/en/#contact"], ["Privacy", "/en/privacy/"]]
-            ).map(([label, href]) => (<><a href={href}>{label}</a><span aria-hidden="true">•</span></>))}
-            <a href={isAr ? enPath : arPath} lang={isAr ? "en" : "ar"} dir={isAr ? "ltr" : "rtl"} data-language-switch={isAr ? "en" : "ar"}>{isAr ? "English" : "Arabic"}</a>
-          </nav>
+          {footerCols.map((col) => (
+            <nav class="footer-col" aria-label={col.title}>
+              <h2>{col.title}</h2>
+              <ul>{col.links.map(([label, href]) => (<li><a href={href}>{label}</a></li>))}</ul>
+            </nav>
+          ))}
+          <div class="footer-col footer-contact-col">
+            <h2>{T.fContact}</h2>
+            <ul>
+              <li><i class="bi bi-envelope" aria-hidden="true"></i><a href={`mailto:${contactInfo.email}`} dir="ltr">{contactInfo.email}</a></li>
+              <li><i class="bi bi-telephone" aria-hidden="true"></i><a href={`tel:+${waDigitsChrome}`} dir="ltr">{contactInfo.phone}</a></li>
+              <li><i class="bi bi-geo-alt" aria-hidden="true"></i><span>{isAr ? contactInfo.address : "Jeddah, Saudi Arabia"}</span></li>
+            </ul>
+            {socials.length > 0 && (
+              <div class="footer-social" aria-label={isAr ? "حسابات التواصل الاجتماعي" : "Social media"}>
+                {socials.map((a) => (
+                  <a href={a.url} target="_blank" rel="noopener noreferrer" aria-label={isAr ? `هدايات على ${a.label || a.name}` : `Hedayat on ${a.name}`} title={isAr ? (a.label || a.name) : a.name}>
+                    {a.name === "X" ? <span class="social-x-mark" aria-hidden="true">X</span> : <i class={`bi ${a.icon}`} aria-hidden="true"></i>}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        <hr class="footer-divider" />
-        <div class="footer-bottom"><div class="footer-copy">{isAr ? siteAr.footer.copyrightText.replace("{year}", String(new Date().getFullYear())) : `All rights reserved © ${new Date().getFullYear()} Hedayat`}</div></div>
+        <div class="footer-official" aria-label={isAr ? "بيانات المؤسسة الرسمية" : "Official information"}>
+          <div><span>{T.type}</span><strong>{isAr ? inst.type : "Licensed non-profit foundation"}</strong></div>
+          <div><span>{T.license}</span><strong dir="ltr">{inst.licenseNumber}</strong></div>
+          <div><span>{T.unified}</span><strong dir="ltr">{inst.unifiedNationalNumber}</strong></div>
+          <div><span>{T.supervision}</span><strong>{isAr ? inst.supervision : "Ministry of Education"}</strong></div>
+          <a href={inst.verifyUrl} target="_blank" rel="noopener noreferrer" data-no-viewer><i class="bi bi-patch-check" aria-hidden="true"></i> {T.verify}</a>
+        </div>
+        <div class="footer-bottom-v2">
+          <span>{isAr ? siteAr.footer.copyrightText.replace("{year}", String(buildDate.getFullYear())) : `© ${buildDate.getFullYear()} Hedayat Educational Foundation. All rights reserved.`}</span>
+          <span>{T.updated}: {lastUpdated}</span>
+        </div>
       </footer>
     )}
 
     {showChrome && (
-      <script is:inline>
-        (() => {
-          const hdr = document.querySelector('.site-chrome-hdr');
-          if (!hdr) return;
-          const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 60);
-          window.addEventListener('scroll', onScroll, { passive: true });
-          onScroll();
-        })();
-      </script>
+      <nav class="mobile-tabbar" aria-label={isAr ? "تنقل سريع" : "Quick navigation"}>
+        {[[T.tabHome, homeHref, "bi-house-door", isHomePage], [T.tabGov, p("/governance/","/en/governance/"), "bi-bank2", here.includes("/governance/") || here.includes("/transparency/") || here.includes("/reports/")], [T.tabPart, p("/participation/","/en/participation/"), "bi-people", here.includes("/participation/")], [T.tabContact, `${homeHref}#contact`, "bi-chat-dots", false]].map(([label, href, icon, active]) => (
+          <a href={href} class={active ? "is-active" : undefined} aria-current={active ? "page" : undefined}><i class={`bi ${icon}`} aria-hidden="true"></i><span>{label}</span></a>
+        ))}
+      </nav>
     )}
+
+    <div class="float-tools">
+      <div class="a11y-wrap">
+        <button class="float-btn a11y-toggle" type="button" data-a11y-toggle aria-expanded="false" aria-controls="a11yPanel" aria-label={T.a11y} title={T.a11y}><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="4.2" r="2.2" fill="currentColor"/><path d="M4.5 8.2c2.4.6 4.9.9 7.5.9s5.1-.3 7.5-.9l.5 1.9c-1.9.5-3.9.8-6 .9v3.3l2.4 7.1-1.9.7-2.5-6.6-2.5 6.6-1.9-.7 2.4-7.1V11c-2.1-.1-4.1-.4-6-.9z" fill="currentColor"/></svg></button>
+        <div id="a11yPanel" class="a11y-panel" role="group" aria-label={T.a11y} hidden>
+          <p class="a11y-panel-title">{T.a11y}</p>
+          <div class="a11y-panel-row">
+            <button type="button" dir="ltr" data-a11y="decrease" aria-label={T.smaller} title={T.smaller}>A−</button>
+            <button type="button" data-a11y="reset" aria-label={T.reset} title={T.reset}>A</button>
+            <button type="button" dir="ltr" data-a11y="increase" aria-label={T.larger} title={T.larger}>A+</button>
+          </div>
+          <button type="button" class="a11y-wide" data-a11y="contrast" aria-pressed="false"><i class="bi bi-circle-half" aria-hidden="true"></i> {T.contrast}</button>
+          <button type="button" class="a11y-wide" data-theme-toggle aria-pressed="false" data-label-dark={T.dark} data-label-light={T.light}><i class="bi bi-moon-stars" aria-hidden="true"></i> <span>{T.dark}</span></button>
+        </div>
+      </div>
+      <button class="float-btn back-to-top" type="button" data-back-to-top aria-label={T.top} title={T.top} hidden><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+    </div>
+
+    <dialog id="siteSearch" class="search-dialog" aria-label={T.search}>
+      <form class="search-box" role="search" onsubmit="return false">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input id="siteSearchInput" type="search" autocomplete="off" placeholder={T.searchPh} aria-label={T.search} data-lang={lang} />
+        <button type="button" class="search-close" data-search-close aria-label={T.close}><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      </form>
+      <div class="search-results" id="siteSearchResults" aria-live="polite" data-empty={T.noResults} data-hint={T.searchHint}><p class="search-hint">{T.searchHint}</p></div>
+    </dialog>
+
+    <dialog id="docViewer" class="doc-viewer" aria-label={T.viewer}>
+      <div class="doc-viewer-bar">
+        <strong class="doc-viewer-title">{T.doc}</strong>
+        <div class="doc-viewer-actions">
+          <a class="doc-viewer-download" href="#" download data-no-viewer><i class="bi bi-download" aria-hidden="true"></i> {T.download}</a>
+          <a class="doc-viewer-open" href="#" target="_blank" rel="noopener" data-no-viewer><i class="bi bi-box-arrow-up-left" aria-hidden="true"></i> <span>{T.newTab}</span></a>
+          <button type="button" class="doc-viewer-close" data-doc-close aria-label={T.close}><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <iframe class="doc-viewer-frame" title={T.viewer} src="about:blank"></iframe>
+    </dialog>
 
     {!isNotFound && (
       <div class="page-feedback" data-feedback-root data-lang={lang} data-sending={feedback.sending} data-choose={feedback.choose} data-failed={feedback.failed} data-thanks={feedback.thanks}>
-        <button class="feedback-launcher" type="button" data-feedback-open aria-haspopup="dialog" aria-controls="feedbackDialog">
+        <button class="feedback-launcher feedback-launcher-v2" type="button" data-feedback-open aria-haspopup="dialog" aria-controls="feedbackDialog" title={feedback.launcher}>
           <i class="bi bi-chat-dots" aria-hidden="true"></i>
-          <span>{feedback.launcher}</span>
+          <span class="feedback-launcher-label">{feedback.launcher}</span>
         </button>
 
         <dialog id="feedbackDialog" class="feedback-dialog" aria-labelledby="feedbackTitle" aria-describedby="feedbackSubtitle">
@@ -591,6 +694,169 @@ const licenseNo = siteAr.institution?.licenseNumber || "";
           if (action === 'decrease') applyScale(allowedScales[Math.max(index - 1, 0)]);
           if (action === 'reset') applyScale(1);
         });
+      })();
+    </script>
+
+    <script is:inline>
+      // ===== Site UI: header, theme, accessibility menu, back-to-top, reveal, count-up, search, document viewer, PWA =====
+      (() => {
+        const root = document.documentElement;
+        const isAr = root.lang !== 'en';
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Header shrinks after scrolling; back-to-top appears.
+        const hdr = document.querySelector('.site-chrome-hdr');
+        const toTop = document.querySelector('[data-back-to-top]');
+        const onScroll = () => {
+          const y = window.scrollY;
+          if (hdr) hdr.classList.toggle('scrolled', y > 40);
+          if (toTop) toTop.hidden = y < 700;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+        toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+        // Close the mobile menu after choosing a destination link.
+        document.addEventListener('click', (e) => {
+          const link = e.target.closest('#navChrome a.nav-link, #navChrome a.dropdown-item, #navChrome a.hdr-cta');
+          const toggler = document.querySelector('.site-chrome-hdr .navbar-toggler');
+          if (link && toggler && getComputedStyle(toggler).display !== 'none' && toggler.getAttribute('aria-expanded') === 'true') toggler.click();
+        });
+
+        // Light / dark theme.
+        const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+        const paintTheme = () => {
+          const dark = root.getAttribute('data-theme') === 'dark';
+          themeButtons.forEach((b) => {
+            b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+            const label = dark ? b.dataset.labelLight : b.dataset.labelDark;
+            b.setAttribute('aria-label', label); b.title = label;
+            const icon = b.querySelector('i'); if (icon) icon.className = `bi ${dark ? 'bi-sun' : 'bi-moon-stars'}`;
+            const span = b.querySelector('span'); if (span) span.textContent = label;
+          });
+          const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.content = dark ? '#0B1418' : '#16404F';
+        };
+        themeButtons.forEach((b) => b.addEventListener('click', () => {
+          const dark = root.getAttribute('data-theme') !== 'dark';
+          if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+          try { localStorage.setItem('hedayat-theme', dark ? 'dark' : 'light'); } catch {}
+          paintTheme();
+        }));
+        paintTheme();
+
+        // Accessibility menu (one button that opens the tools).
+        const a11yBtn = document.querySelector('[data-a11y-toggle]');
+        const a11yPanel = document.getElementById('a11yPanel');
+        const setA11y = (open) => { if (!a11yBtn || !a11yPanel) return; a11yPanel.hidden = !open; a11yBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+        a11yBtn?.addEventListener('click', (e) => { e.stopPropagation(); setA11y(a11yPanel.hidden); });
+        document.addEventListener('click', (e) => { if (a11yPanel && !a11yPanel.hidden && !e.target.closest('.a11y-wrap')) setA11y(false); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && a11yPanel && !a11yPanel.hidden) { setA11y(false); a11yBtn.focus(); } });
+
+        // Reveal on scroll + count-up numbers.
+        const countUp = (el) => {
+          const target = parseFloat(el.dataset.countTo); if (!Number.isFinite(target)) return;
+          const decimals = (el.dataset.countTo.split('.')[1] || '').length;
+          if (reduceMotion) { el.textContent = target.toFixed(decimals); return; }
+          const start = performance.now(), dur = 1100;
+          const step = (t) => { const k = Math.min(1, (t - start) / dur); const v = target * (1 - Math.pow(1 - k, 3)); el.textContent = v.toFixed(decimals); if (k < 1) requestAnimationFrame(step); };
+          requestAnimationFrame(step);
+        };
+        window.hedayatCountUp = countUp;
+        const revealEls = document.querySelectorAll('.reveal-on-scroll, [data-count-to]');
+        if ('IntersectionObserver' in window && !reduceMotion) {
+          const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            en.target.classList.add('is-visible');
+            if (en.target.dataset.countTo) countUp(en.target);
+            io.unobserve(en.target);
+          }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+          revealEls.forEach((el) => io.observe(el));
+        } else revealEls.forEach((el) => { el.classList.add('is-visible'); if (el.dataset.countTo) countUp(el); });
+
+        // Site search (index generated at build time).
+        const dlg = document.getElementById('siteSearch');
+        const input = document.getElementById('siteSearchInput');
+        const results = document.getElementById('siteSearchResults');
+        let index = null;
+        const norm = (t) => String(t || '').toLowerCase()
+          .replace(/[ً-ْـ]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي')
+          .replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+        const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const loadIndex = async () => {
+          if (index) return index;
+          try { const r = await fetch('/search-index.json', { cache: 'no-cache' }); const all = await r.json(); index = all.filter((d) => d.lang === (isAr ? 'ar' : 'en')).map((d) => ({ ...d, _t: norm(d.title), _h: norm((d.headings || []).join(' ')), _x: norm(d.text) })); }
+          catch { index = []; }
+          return index;
+        };
+        const snippet = (text, words) => {
+          const low = text.toLowerCase(); let pos = -1;
+          for (const w of words) { const i = norm(low).indexOf(w); if (i >= 0) { pos = i; break; } }
+          const startAt = Math.max(0, pos - 60);
+          return (startAt > 0 ? '…' : '') + text.slice(startAt, startAt + 170) + (text.length > startAt + 170 ? '…' : '');
+        };
+        const render = async () => {
+          const q = norm(input.value);
+          if (q.length < 2) { results.innerHTML = `<p class="search-hint">${esc(results.dataset.hint)}</p>`; return; }
+          const words = q.split(' ').filter((w) => w.length > 1);
+          const docs = await loadIndex();
+          const scored = docs.map((d) => {
+            let score = 0;
+            for (const w of words) {
+              if (d._t.includes(w)) score += 10;
+              if (d._h.includes(w)) score += 4;
+              if (d._x.includes(w)) score += 1;
+              else if (!d._t.includes(w) && !d._h.includes(w)) return { d, score: 0 };
+            }
+            return { d, score };
+          }).filter((x) => x.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
+          if (!scored.length) { results.innerHTML = `<p class="search-empty">${esc(results.dataset.empty)}</p>`; return; }
+          results.innerHTML = '<ul>' + scored.map(({ d }) => `<li><a href="${esc(d.url)}"${d.type === 'pdf' ? ' data-doc-title="' + esc(d.title) + '"' : ''}><span class="sr-type">${esc(d.section || '')}</span><strong>${esc(d.title)}</strong><small>${esc(snippet(d.text || '', words))}</small></a></li>`).join('') + '</ul>';
+        };
+        let tm; input?.addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(render, 120); });
+        input?.addEventListener('keydown', (e) => {
+          const links = [...results.querySelectorAll('a')]; if (!links.length) return;
+          if (e.key === 'ArrowDown' || e.key === 'Enter') { e.preventDefault(); if (e.key === 'Enter') links[0].click(); else links[0].focus(); }
+        });
+        results?.addEventListener('keydown', (e) => {
+          const links = [...results.querySelectorAll('a')]; const i = links.indexOf(document.activeElement); if (i < 0) return;
+          if (e.key === 'ArrowDown') { e.preventDefault(); links[Math.min(i + 1, links.length - 1)].focus(); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); (i === 0 ? input : links[i - 1]).focus(); }
+        });
+        const openSearch = () => { if (!dlg) return; dlg.showModal?.(); loadIndex(); setTimeout(() => input?.focus(), 30); };
+        document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', openSearch));
+        document.querySelector('[data-search-close]')?.addEventListener('click', () => dlg.close());
+        dlg?.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+        results?.addEventListener('click', (e) => { if (e.target.closest('a')) dlg.close(); });
+        document.addEventListener('keydown', (e) => {
+          const typing = /input|textarea|select/i.test(document.activeElement?.tagName || '') || document.activeElement?.isContentEditable;
+          if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) { e.preventDefault(); openSearch(); }
+        });
+
+        // In-page PDF viewer (desktop & tablets); phones keep the native PDF viewer.
+        const viewer = document.getElementById('docViewer');
+        const frame = viewer?.querySelector('iframe');
+        const canEmbedPdf = () => window.innerWidth >= 768 && !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        document.addEventListener('click', (e) => {
+          const a = e.target.closest('a[href]'); if (!a || !viewer || e.defaultPrevented) return;
+          if (a.hasAttribute('download') || a.hasAttribute('data-no-viewer') || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          let url; try { url = new URL(a.href, location.href); } catch { return; }
+          if (url.origin !== location.origin || !/\.pdf$/i.test(url.pathname) || !canEmbedPdf()) return;
+          e.preventDefault();
+          const title = a.dataset.docTitle || a.closest('article,section,li,div')?.querySelector('h2,h3,strong')?.textContent?.trim() || a.textContent.trim();
+          viewer.querySelector('.doc-viewer-title').textContent = title || viewer.querySelector('.doc-viewer-title').textContent;
+          viewer.querySelector('.doc-viewer-download').href = url.pathname;
+          viewer.querySelector('.doc-viewer-open').href = url.pathname;
+          frame.src = url.pathname + '#view=FitH';
+          if (dlg?.open) dlg.close();
+          viewer.showModal?.();
+        });
+        viewer?.querySelector('[data-doc-close]')?.addEventListener('click', () => viewer.close());
+        viewer?.addEventListener('close', () => { if (frame) frame.src = 'about:blank'; });
+        viewer?.addEventListener('click', (e) => { if (e.target === viewer) viewer.close(); });
+
+        // Installable app: register the service worker.
+        if ('serviceWorker' in navigator && location.protocol === 'https:') {
+          window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+        }
       })();
     </script>
 

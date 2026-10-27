@@ -12,9 +12,6 @@ const privacyMeta = {
 <BaseLayout meta={privacyMeta} lang="ar" dir="rtl">
   <main id="main-content" class="privacy-page">
     <article class="privacy-shell">
-      <a href="/" aria-label="العودة إلى الصفحة الرئيسية">
-        <img src={site.assets.logoNav} alt="شعار مؤسسة هدايات التعليمية" class="privacy-logo" />
-      </a>
 
       <span class="privacy-badge">وثيقة حوكمة معتمدة</span>
       <h1>سياسة الخصوصية وحماية البيانات</h1>
@@ -29,7 +26,7 @@ const privacyMeta = {
           <p>تتضمن الوثيقة نطاق البيانات، وأغراض استخدامها، وأمن البيانات ومشاركتها، وحقوق صاحب البيانات، واعتماد السياسة.</p>
           <div class="privacy-actions">
             <a class="privacy-primary" href="/privacy-data-policy.pdf" target="_blank" rel="noopener">
-              <i class="bi bi-eye" aria-hidden="true"></i><span>عرض السياسة</span>
+              <i class="bi bi-eye" aria-hidden="true"></i><span>عرض الوثيقة</span>
             </a>
             <a class="privacy-secondary" href="/privacy-data-policy.pdf" download>
               <i class="bi bi-download" aria-hidden="true"></i><span>تحميل PDF</span>
@@ -48,7 +45,7 @@ const privacyMeta = {
         <a class="contact-link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
       </p>
 
-      <div class="privacy-back"><a href="/#contact">العودة إلى الموقع</a></div>
+      <div class="privacy-back"><a href="/">العودة إلى الرئيسية</a></div>
     </article>
   </main>
 

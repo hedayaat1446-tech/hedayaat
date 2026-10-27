@@ -28,17 +28,19 @@ const meta = {
                 {doc.description && <small>{doc.description}</small>}
                 {doc.status && <em class="report-item-status">{doc.status}</em>}
               </span>
-              <span class="report-item-action">Open file <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
+              <span class="report-item-action">View document <i class="bi bi-eye" aria-hidden="true"></i></span>
             </a>
           ))}
         </div>
       ) : (
-      <div class="status-card" role="status">
-        <i class="bi bi-shield-check" aria-hidden="true"></i>
-        <div><strong>No approved financial files are currently published</strong><span>The website does not publish draft or unapproved files. Approved documents intended for publication will appear on this page.</span></div>
+      <div class="empty-state" role="status">
+        <div class="empty-state-icon"><i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i></div>
+        <h2>No financial statements published yet</h2>
+        <p>Financial statements and reports are published here once they are officially approved. In the meantime, the license and approved policies are available in the Governance Center.</p>
+        <div class="empty-state-actions"><a class="hp-btn" href="/en/governance/"><i class="bi bi-bank2" aria-hidden="true"></i> Go to the Governance Center</a></div>
       </div>
       )}
-      <a class="institution-back" href="/en/governance/"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Governance</a>
+      <a class="institution-back" href="/en/governance/"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Governance Center</a>
     </section>
   </main>
   <style>
