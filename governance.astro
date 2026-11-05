@@ -22,13 +22,6 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
       <div class="gov-shell">
         <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> الحوكمة المؤسسية</span>
         <h1 id="gov-title">{governance.title}</h1>
-        <div class="gov-summary" aria-label="ملخص مركز الحوكمة">
-          <div><strong>{governance.official.length}</strong><span>وثائق نظامية منشورة</span></div>
-          <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.policies.length}</strong><span>سياسات معتمدة</span></div>
-          <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.planned?.length || 0}</strong><span>أقسام بانتظار الاعتماد</span></div>
-        </div>
       </div>
     </section>
 

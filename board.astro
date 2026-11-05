@@ -45,15 +45,12 @@ const members = site.docs.trustees.members || [];
 
     <section id="trustees" class="institution-content org-block trustees-section" aria-labelledby="trustees-title">
       <h2 id="trustees-title" class="org-block-title">أعضاء مجلس الأمناء</h2>
-      <ul class="trustee-cards" aria-label="أعضاء مجلس الأمناء">
-        {members.map((m) => (
-          <li class="trustee-card">
-            <span class="trustee-icon" aria-hidden="true"><i class={m.icon || "bi bi-person"}></i></span>
-            <strong>{m.name}</strong>
-            <span class="trustee-role">{m.role}</span>
-          </li>
-        ))}
-      </ul>
+      <figure class="trustees-figure">
+        <picture>
+          <source srcset="/trustees-board.webp?v=2" type="image/webp" />
+          <img src="/trustees-board.png?v=2" width="1600" height="1131" loading="lazy" decoding="async" alt={`أعضاء مجلس الأمناء: ${members.map((m) => `${m.name} (${m.role})`).join("، ")}`} />
+        </picture>
+      </figure>
       {site.docs.trustees.boardFile && (
         <div class="board-file-row">
           <a class="board-file-btn" href={site.docs.trustees.boardFile.href}>

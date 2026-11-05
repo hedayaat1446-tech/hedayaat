@@ -3,7 +3,7 @@ const { meta, lang = "ar", dir = lang === "ar" ? "rtl" : "ltr", skipLabel = lang
 const isNotFound = Astro.url.pathname === "/404" || Astro.url.pathname === "/404/" || Astro.url.pathname.endsWith("/404.html");
 
 // تنظيف الدومين
-const baseUrl = (meta.url || "").replace(/\/+$/, "");
+const baseUrl = ((process.env.CANONICAL_HOST ? `https://${process.env.CANONICAL_HOST.trim().toLowerCase()}` : "") || meta.url || "").replace(/\/+$/, "");
 
 // canonical حسب المسار
 const canonical = `${baseUrl}${Astro.url.pathname}`;
@@ -91,15 +91,16 @@ const fixHref = (h) => (h && h.startsWith("#") ? `${homeHref}${h}` : h);
 const navItems = isAr
   ? siteAr.nav.filter((i) => i.enabled !== false).map((i) => ({ ...i, href: fixHref(i.href), children: i.children?.map((c) => ({ ...c, href: fixHref(c.href) })) }))
   : [
-      { label: "About the Foundation", children: [
+      { label: "About Us", children: [
         { label: "Who we are", href: "/en/#about" }, { label: "Strategic Goals", href: "/en/#goals" },
         { label: "Our Values", href: "/en/#values" }, { label: "Organizational Management", href: "/en/board/" } ] },
-      { label: "Programs & Partnerships", href: "/en/#programs" },
+      { label: "Programs", href: "/en/#programs" },
       { label: "Governance", children: [
         { label: "Governance Center", href: "/en/governance/" }, { label: "Transparency & Disclosure", href: "/en/transparency/" },
         { label: "Financial Reports", href: "/en/reports/" } ] },
-      { label: "Media Center", href: "/en/videos/" },
-      { label: "Beneficiary Participation", href: "/en/participation/" },
+      { label: "Media Center", children: [
+        { label: "News", href: "/en/news/" }, { label: "Photos", href: "/en/photos/" }, { label: "Video", href: "/en/videos/" } ] },
+      { label: "Participation", href: "/en/participation/" },
       { label: "Contact Us", href: "/en/#contact", cta: true },
       { label: "Arabic", href: "/" }
     ];
@@ -331,7 +332,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=61" />
+    <link rel="stylesheet" href="/styles/site.css?v=65" />
+    <link rel="stylesheet" href="/styles/dark-theme.css?v=65" />
     <slot name="head" />
   </head>
 

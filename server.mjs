@@ -341,7 +341,7 @@ function validateSiteConfig(site) {
   const needString = (value, name, max = 1000) => { if (!nonEmptyString(value, max)) errors.push(`${name} must be a non-empty string`); };
   const needArray = (value, name) => { if (!Array.isArray(value)) errors.push(`${name} must be an array`); };
   const allowedFragments = new Set(['home','about','vision-item','mission-item','goals','values','programs','partners','contact']);
-  const allowedRoutes = new Set(['/','/board/','/governance/','/transparency/','/accessibility/','/participation/','/en/','/en/videos/','/en/participation/','/videos/','/reports/','/privacy/','/thank/']);
+  const allowedRoutes = new Set(['/','/board/','/governance/','/transparency/','/accessibility/','/participation/','/en/','/en/videos/','/en/participation/','/videos/','/news/','/photos/','/en/news/','/en/photos/','/reports/','/privacy/','/thank/']);
   const validHref = (value, name, { externalOnly = false } = {}) => {
     if (!nonEmptyString(value, 1000)) { errors.push(`${name} must be a non-empty link`); return; }
     if (externalOnly) {
@@ -1451,6 +1451,18 @@ const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
     const pathname = url.pathname;
+
+    // Official domain: when CANONICAL_HOST is set (e.g. hedayatedu.org), visits to the Railway
+    // address or to www. are sent permanently (301) to the official domain, keeping the same page.
+    const canonicalHost = String(process.env.CANONICAL_HOST || '').trim().toLowerCase();
+    if (canonicalHost && (req.method === 'GET' || req.method === 'HEAD')) {
+      const host = String(req.headers.host || '').split(':')[0].toLowerCase();
+      if (host && host !== canonicalHost && (host.endsWith('.up.railway.app') || host === `www.${canonicalHost}`)) {
+        res.writeHead(301, { Location: `https://${canonicalHost}${req.url || '/'}`, 'Cache-Control': 'public, max-age=3600' });
+        res.end();
+        return;
+      }
+    }
 
     if (pathname === '/api/contact' && req.method === 'POST') {
       await handleContact(req, res);

@@ -1,7 +1,8 @@
 import site from "../content/site.json";
 
 // Generated at build time. Uses meta.url from site.json, so it updates automatically when the domain changes.
-const base = (site.meta?.url || "").replace(/\/+$/, "");
+// CANONICAL_HOST (Railway variable) wins, so the official domain is used without editing content.
+const base = ((process.env.CANONICAL_HOST ? `https://${process.env.CANONICAL_HOST.trim().toLowerCase()}` : "") || site.meta?.url || "").replace(/\/+$/, "");
 const pages = ["/", "/board/", "/governance/", "/transparency/", "/accessibility/", "/privacy/", "/reports/", "/videos/", "/participation/"];
 
 export function GET() {

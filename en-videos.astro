@@ -15,8 +15,8 @@ const meta = {
       <span class="media-eyebrow">Media Center</span>
       <div class="media-icon"><i class="bi bi-play-btn" aria-hidden="true"></i></div>
       <h1>Introductory Video</h1>
-      <p>Official video content published by Hedayat Educational Foundation.</p>
     </div></section>
+    <nav class="media-tabs" aria-label="Media Center sections"><a href="/en/news/">News</a><a href="/en/photos/">Photos</a><a href="/en/videos/" class="is-active" aria-current="page">Video</a></nav>
     <section class="media-content">
       <div class="video-grid">
         <article class="video-card">
@@ -50,6 +50,7 @@ const meta = {
     </section>
   </main>
   <style>
+    .media-tabs{max-width:760px;margin:-6px auto 42px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#fff;border:1px solid rgba(94,115,74,.14);border-radius:18px;box-shadow:0 14px 38px rgba(51,65,55,.08)} .media-tabs a{text-align:center;text-decoration:none;color:#465646;font-weight:800;padding:13px 10px;border-radius:12px}.media-tabs a:hover,.media-tabs a:focus-visible{background:#f3f5ef}.media-tabs a.is-active{background:#16404F;color:#fff}
     :global(body){margin:0;background:#f7f4ee;color:#334137}.media-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-english,Arial,sans-serif)}
     .media-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)}.media-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
     .media-brand img{display:block;width:190px;max-width:47vw;height:auto}.media-home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#16404F;font-weight:700;border:1px solid rgba(94,115,74,.22);padding:9px 16px;border-radius:999px;background:#fff}

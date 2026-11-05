@@ -29,17 +29,14 @@ const values = [
   { title: "Innovation", icon: "bi bi-lightbulb-fill", text: "Creative ideas and solutions that raise quality and meet real needs." },
   { title: "Flexibility", icon: "bi bi-arrow-repeat", text: "Adapting to change while staying true to our principles." }
 ];
-const tracks = [
-  { title: "Girls’ Track", audience: "Girls and female students", icon: "bi bi-stars", text: "Programs that build intellectual and moral resilience and develop the skill of verifying information." },
-  { title: "Educators’ Track", audience: "Female teachers and educators", icon: "bi bi-mortarboard", text: "Programs that prepare educators to deepen convictions and connect the curriculum with contemporary issues." }
-];
 ---
 
 <BaseLayout meta={meta} lang="en" dir="ltr" skipLabel="Skip to main content" accessibilityLabel="Accessibility tools">
-  <link slot="head" rel="preload" as="image" href="/hero-lighthouse-photo.webp" type="image/webp" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/hero-beam.webp" type="image/webp" fetchpriority="high" media="(min-width: 700px)" />
+  <link slot="head" rel="preload" as="image" href="/hero-beam-sm.webp" type="image/webp" fetchpriority="high" media="(max-width: 699.98px)" />
 
   <main id="main-content">
-    <section id="home" class="hero-section hero-photo">
+    <section id="home" class="hero-section hero-photo hero-v6">
       <div class="hero-photo-img" aria-hidden="true"></div>
       <div class="container hero-photo-inner">
         <div class="hero-photo-copy">
@@ -65,7 +62,6 @@ const tracks = [
       <div class="home-section-inner">
         <header class="home-head reveal-on-scroll">
           <h2>Who We Are</h2>
-          <p>A licensed non-profit educational foundation, established in Jeddah in 1446 AH to strengthen awareness among girls and educators.</p>
         </header>
         <div class="pillars">
           {pillars.map((x, i) => (
@@ -120,31 +116,25 @@ const tracks = [
       <div class="home-section-inner">
         <header class="home-head reveal-on-scroll">
           <h2>Programs &amp; Partnerships</h2>
-          <p>Two clear learning tracks, and partnerships that extend our impact.</p>
         </header>
         <div class="tracks">
-          {tracks.map((t, i) => (
-            <article class="track-card reveal-on-scroll" style={`--d:${i * 100}ms`}>
-              <span class="track-icon" aria-hidden="true"><i class={t.icon}></i></span>
-              <div>
-                <h3>{t.title}</h3>
-                <p class="track-audience"><i class="bi bi-person-check" aria-hidden="true"></i> Target group: {t.audience}</p>
-                <p>{t.text}</p>
-              </div>
-            </article>
-          ))}
+          <article class="track-card pp-card2 reveal-on-scroll">
+            <span class="track-icon" aria-hidden="true"><i class="bi bi-book-half"></i></span>
+            <div class="pp-body">
+              <h3>Quality Educational Programs</h3>
+              <p>The Foundation offers educational programs through modern, accessible and engaging methods, in line with its mission and goals.</p>
+              <a class="hp-btn" href="#contact" data-subject="Program inquiry">Ask about our programs</a>
+            </div>
+          </article>
+          <article id="partners" class="track-card pp-card2 reveal-on-scroll" style="--d:100ms">
+            <span class="track-icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <div class="pp-body">
+              <h3>Institutional Partnerships</h3>
+              <p>We welcome collaboration with educational and community organizations to design joint programs.</p>
+              <a class="hp-btn hp-btn--ghost" href="#contact" data-subject="Partnership request">Request a partnership</a>
+            </div>
+          </article>
         </div>
-        <div class="pp-actions reveal-on-scroll">
-          <a class="hp-btn" href="#contact" data-subject="Program inquiry">Ask about our programs</a>
-        </div>
-        <article id="partners" class="partner-strip reveal-on-scroll">
-          <span class="track-icon" aria-hidden="true"><i class="bi bi-people"></i></span>
-          <div>
-            <h3>Institutional Partnerships</h3>
-            <p>We welcome collaboration with educational and community organizations to design joint programs.</p>
-          </div>
-          <a class="hp-btn hp-btn--ghost" href="#contact" data-subject="Partnership request">Request a partnership</a>
-        </article>
       </div>
     </section>
 

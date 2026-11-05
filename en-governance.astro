@@ -22,13 +22,6 @@ const plannedByCategory = Object.fromEntries((governance.planned || []).map((ite
       <div class="gov-shell">
         <span class="gov-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> Institutional Governance</span>
         <h1 id="gov-title">{governance.title}</h1>
-        <div class="gov-summary" aria-label="Governance Center summary">
-          <div><strong>{governance.official.length}</strong><span>Published regulatory documents</span></div>
-          <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.policies.length}</strong><span>Approved policies</span></div>
-          <span class="gov-summary-separator" aria-hidden="true"></span>
-          <div><strong>{governance.planned?.length || 0}</strong><span>Sections pending approval</span></div>
-        </div>
       </div>
     </section>
 
