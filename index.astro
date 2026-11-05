@@ -4,14 +4,14 @@ import site from "../content/site.json";
 
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
 const pillars = site.about.pillars || [];
-const tracks = site.programs.tracks || [];
 ---
 
 <BaseLayout meta={site.meta} lang="ar" dir="rtl">
-  <link slot="head" rel="preload" as="image" href="/hero-lighthouse-photo.webp" type="image/webp" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/hero-beam.webp" type="image/webp" fetchpriority="high" media="(min-width: 700px)" />
+  <link slot="head" rel="preload" as="image" href="/hero-beam-sm.webp" type="image/webp" fetchpriority="high" media="(max-width: 699.98px)" />
 
   <main id="main-content">
-    <section id="home" class="hero-section hero-photo">
+    <section id="home" class="hero-section hero-photo hero-v6">
       <div class="hero-photo-img" aria-hidden="true"></div>
       <div class="container hero-photo-inner">
         <div class="hero-photo-copy">
@@ -37,7 +37,6 @@ const tracks = site.programs.tracks || [];
       <div class="home-section-inner">
         <header class="home-head reveal-on-scroll">
           <h2>{site.about.title}</h2>
-          <p>{site.about.subtitle}</p>
         </header>
         <div class="pillars">
           {pillars.map((x, i) => (
@@ -92,31 +91,25 @@ const tracks = site.programs.tracks || [];
       <div class="home-section-inner">
         <header class="home-head reveal-on-scroll">
           <h2>{site.programs.title}</h2>
-          <p>{site.programs.subtitle}</p>
         </header>
         <div class="tracks">
-          {tracks.map((t, i) => (
-            <article class="track-card reveal-on-scroll" style={`--d:${i * 100}ms`}>
-              <span class="track-icon" aria-hidden="true"><i class={t.icon}></i></span>
-              <div>
-                <h3>{t.title}</h3>
-                <p class="track-audience"><i class="bi bi-person-check" aria-hidden="true"></i> الفئة المستهدفة: {t.audience}</p>
-                <p>{t.text}</p>
-              </div>
-            </article>
-          ))}
+          <article class="track-card pp-card2 reveal-on-scroll">
+            <span class="track-icon" aria-hidden="true"><i class="bi bi-book-half"></i></span>
+            <div class="pp-body">
+              <h3>{site.programs.cardTitle}</h3>
+              <p>{site.programs.cardText}</p>
+              <a class="hp-btn" href={site.programs.ctaHref} data-subject={site.programs.ctaLabel}>{site.programs.ctaLabel}</a>
+            </div>
+          </article>
+          <article id="partners" class="track-card pp-card2 reveal-on-scroll" style="--d:100ms">
+            <span class="track-icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <div class="pp-body">
+              <h3>{site.partners.cardTitle}</h3>
+              <p>{site.partners.cardText}</p>
+              <a class="hp-btn hp-btn--ghost" href={site.partners.ctaHref} data-subject={site.partners.ctaLabel}>{site.partners.ctaLabel}</a>
+            </div>
+          </article>
         </div>
-        <div class="pp-actions reveal-on-scroll">
-          <a class="hp-btn" href={site.programs.ctaHref} data-subject={site.programs.ctaLabel}>{site.programs.ctaLabel}</a>
-        </div>
-        <article id="partners" class="partner-strip reveal-on-scroll">
-          <span class="track-icon" aria-hidden="true"><i class="bi bi-people"></i></span>
-          <div>
-            <h3>{site.partners.cardTitle}</h3>
-            <p>{site.partners.cardText}</p>
-          </div>
-          <a class="hp-btn hp-btn--ghost" href={site.partners.ctaHref} data-subject={site.partners.ctaLabel}>{site.partners.ctaLabel}</a>
-        </article>
       </div>
     </section>
 
