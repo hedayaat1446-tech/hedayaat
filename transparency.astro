@@ -12,6 +12,11 @@ const trustees = [
   { role: "نائب رئيس مجلس الأمناء", name: "جمانة طلال محجوب" },
   { role: "عضو مجلس الأمناء", name: "أماني بشير الجهني" }
 ];
+
+const pdfDocs = new Set();
+const walkDocs = (o) => { if (Array.isArray(o)) o.forEach(walkDocs); else if (o && typeof o === "object") for (const v of Object.values(o)) { if (typeof v === "string" && /\.pdf(\?|$)/i.test(v)) pdfDocs.add(v.split("?")[0].replace(/^\//, "")); else walkDocs(v); } };
+walkDocs(site.docs);
+const docsCount = pdfDocs.size;
 ---
 <BaseLayout meta={meta} lang="ar" dir="rtl">
   <main id="main-content" class="transparency-page">
@@ -21,6 +26,72 @@ const trustees = [
         <span class="tp-kicker"><i class="bi bi-eye" aria-hidden="true"></i> الشفافية المؤسسية</span>
         <h1 id="tp-title">الشفافية والإفصاح</h1>
       </div>
+    </section>
+
+    <section class="live-kpi" aria-labelledby="live-kpi-title" data-live-kpi>
+      <div class="live-kpi-shell">
+        <div class="live-kpi-head">
+          <div>
+            <span class="live-kpi-kicker">بيانات حقيقية <span class="live-dot" aria-hidden="true"></span> تتحدّث تلقائيًا</span>
+            <h2 id="live-kpi-title">مؤشرات الأداء الحيّة</h2>
+            <p>أرقام مجمّعة تُحسب مباشرة من تقييمات المستفيدين وطلباتهم في الموقع، دون عرض أي بيانات شخصية.</p>
+          </div>
+          <a class="hp-btn hp-btn--ghost" href="/participation/">شاركنا رأيك أو أرسل طلبًا</a>
+        </div>
+        <div class="live-kpi-grid">
+          <article class="kpi-card kpi-card--hero">
+            <div class="kpi-ring" style="--p:0" data-kpi-ring="sat"><strong data-kpi="sat">–</strong><span>من 5</span></div>
+            <div><h3>متوسط رضا المستفيدين</h3><p data-kpi-sub="sat">لا توجد بيانات كافية بعد</p></div>
+          </article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-inbox"></i></span><strong data-kpi="req">–</strong><h3>الطلبات المستلمة</h3><p>اقتراح واستفسار وملاحظة</p></article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-check2-circle"></i></span><strong data-kpi="done">–</strong><h3>نسبة الطلبات المعالجة</h3><p>تمت معالجتها أو إغلاقها</p></article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-hourglass-split"></i></span><strong data-kpi="review">–</strong><h3>طلبات قيد المراجعة</h3><p>يعمل الفريق عليها الآن</p></article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-stopwatch"></i></span><strong data-kpi="resp">–</strong><h3>متوسط مدة الرد</h3><p>من الاستلام إلى أول تحديث</p></article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-file-earmark-check"></i></span><strong data-count-to={docsCount}>{docsCount}</strong><h3>الوثائق المنشورة</h3><p>ترخيص ولوائح وسياسات وتقارير</p></article>
+          <article class="kpi-card"><span class="kpi-icon" aria-hidden="true"><i class="bi bi-hand-thumbs-up"></i></span><strong data-kpi="help">–</strong><h3>الصفحات المفيدة</h3><p>من تقييمات «هل كانت الصفحة مفيدة؟»</p></article>
+        </div>
+        <p class="live-kpi-updated"><i class="bi bi-arrow-repeat" aria-hidden="true"></i> آخر تحديث: <time data-kpi-updated>–</time></p>
+      </div>
+      <script is:inline>
+        (() => {
+          const root = document.querySelector('[data-live-kpi]'); if (!root) return;
+          const T = {"none": "لا توجد بيانات كافية بعد", "ratings": "تقييمًا", "hour": "ساعة", "hours": "ساعات", "lessHour": "أقل من ساعة", "day": "يوم", "days": "أيام", "locale": "ar-SA-u-nu-latn-ca-gregory"};
+          const en = T.locale.startsWith('en');
+          const nf = (n, d = 0) => Number(n).toLocaleString(T.locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+          const plural = (n, one, many) => (en ? (n === 1 ? one : many) : (n > 2 && n <= 10 ? many : one));
+          const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const tween = (fn, done) => { if (reduce) { fn(1); return; } const t0 = performance.now(); const step = (t) => { const k = Math.min(1, (t - t0) / 1100); fn(1 - Math.pow(1 - k, 3)); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
+          const empty = (el) => { el.textContent = '–'; const card = el.closest('.kpi-card'); card.classList.add('is-empty'); const p = card.querySelector('p'); if (p) p.textContent = T.none; };
+          const set = (key, value, fmt) => { const el = root.querySelector(`[data-kpi="${key}"]`); if (!el) return; if (value == null) return empty(el); tween((e) => { el.textContent = fmt(value * e); }); };
+          const duration = (h) => {
+            if (h == null) return null;
+            if (h < 1) return T.lessHour;
+            if (h < 48) { const n = Math.round(h); return `${nf(n)} ${plural(n, T.hour, T.hours)}`; }
+            const d = Math.round(h / 24 * 10) / 10; return `${nf(d, d % 1 ? 1 : 0)} ${plural(d, T.day, T.days)}`;
+          };
+          const run = async () => {
+            try {
+              const r = await fetch('/api/transparency/summary', { headers: { Accept: 'application/json' }, cache: 'no-store' });
+              const d = (await r.json()).data; if (!d) return;
+              const s = d.satisfaction, ring = root.querySelector('[data-kpi-ring="sat"]');
+              if (s.average != null) {
+                set('sat', s.average, (v) => nf(v, 1));
+                root.querySelector('[data-kpi-sub="sat"]').textContent = `${nf(s.count)} ${T.ratings}`;
+                tween((e) => ring.style.setProperty('--p', (s.average / 5 * 100 * e).toFixed(1)));
+              } else empty(root.querySelector('[data-kpi="sat"]'));
+              set('req', d.requests.total || null, (v) => nf(Math.round(v)));
+              set('done', d.requests.total ? d.requests.resolvedPercent : null, (v) => `${nf(Math.round(v))}%`);
+              set('review', d.requests.total ? d.requests.inReview : null, (v) => nf(Math.round(v)));
+              const resp = root.querySelector('[data-kpi="resp"]'); const txt = duration(d.response.averageHours);
+              if (txt) resp.textContent = txt; else empty(resp);
+              set('help', d.pages.helpfulPercent, (v) => `${nf(Math.round(v))}%`);
+              const up = root.querySelector('[data-kpi-updated]');
+              up.dateTime = d.updatedAt; up.textContent = new Date(d.updatedAt).toLocaleString(T.locale, { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Riyadh' });
+            } catch {}
+          };
+          if ('IntersectionObserver' in window) { const io = new IntersectionObserver((e) => { if (e.some((x) => x.isIntersecting)) { io.disconnect(); run(); } }, { threshold: .15 }); io.observe(root); } else run();
+        })();
+      </script>
     </section>
 
     <section class="tp-content">

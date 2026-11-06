@@ -437,5 +437,9 @@
         "icon": "bi bi-play-btn"
       }
     ]
+  },
+  "occasions": {
+    "enabled": true,
+    "force": ""
   }
 }

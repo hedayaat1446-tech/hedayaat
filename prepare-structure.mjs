@@ -105,6 +105,7 @@ const maps = [
   ['manifest.webmanifest', 'public/manifest.webmanifest'],
   ['manifest-en.webmanifest', 'public/manifest-en.webmanifest'],
   ['sw.js', 'public/sw.js'],
+  ['occasions.js', 'public/occasions.js'],
   ['dark-theme.css', 'public/styles/dark-theme.css'],
   ['offline.html', 'public/offline.html'],
   ['icon-192.png', 'public/icons/icon-192.png'],

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import site from "../../content/site-en.json";
+import siteAr from "../../content/site.json";
 
 const waDigits = (site.contact.phone || "").replace(/\D/g, "");
 const meta = {
@@ -37,9 +38,10 @@ const values = [
 
   <main id="main-content">
     <section id="home" class="hero-section hero-photo hero-v6">
-      <div class="hero-photo-img" aria-hidden="true"></div>
+      <div class="hero-photo-img" aria-hidden="true"><div class="occasion-layer" data-occasion-layer data-enabled={String(siteAr.occasions?.enabled !== false)} data-force={siteAr.occasions?.force || ""} hidden></div></div>
       <div class="container hero-photo-inner">
         <div class="hero-photo-copy">
+          <p class="occasion-greeting" data-occasion-greeting hidden></p>
           <span class="hero-eyebrow">Hedayat Educational Foundation</span>
           <h1 class="hero-photo-title">A Beacon of Guidance for Deeper Community Awareness</h1>
           <p class="hero-photo-lead">We provide authentic knowledge that reinforces the nation’s core values, through purposeful programs delivered by qualified specialists using modern, engaging learning methods.</p>
@@ -250,4 +252,5 @@ const values = [
       });
     })();
   </script>
+  <script is:inline src="/occasions.js?v=1" defer></script>
 </BaseLayout>

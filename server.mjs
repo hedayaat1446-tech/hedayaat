@@ -136,6 +136,45 @@ function analyticsSummary(daysWanted) {
   };
 }
 
+// ===== Public live transparency indicators (aggregate numbers only, never individual records) =====
+let transparencyCache = { at: 0, data: null };
+async function transparencySummary() {
+  if (transparencyCache.data && Date.now() - transparencyCache.at < 5 * 60 * 1000) return transparencyCache.data;
+  const [requests, updates, feedback, sat] = await Promise.all([
+    safeReadRecentJsonl(participationRequestsFile, 20000, 16 * 1024 * 1024).catch(() => []),
+    safeReadRecentJsonl(participationUpdatesFile, 20000, 8 * 1024 * 1024).catch(() => []),
+    safeReadRecentJsonl(feedbackMessagesFile, 20000, 8 * 1024 * 1024).catch(() => []),
+    satisfactionSummary()
+  ]);
+  const latest = new Map(), first = new Map();
+  for (const u of updates) {
+    const ref = String(u?.reference || ''); const t = Date.parse(u?.updatedAt || '');
+    if (!ref || Number.isNaN(t)) continue;
+    if (!latest.has(ref)) latest.set(ref, u.status);           // newest first
+    if (u.status !== 'received') first.set(ref, Math.min(first.get(ref) ?? Infinity, t));
+  }
+  let total = 0, done = 0, inReview = 0; const waits = [];
+  for (const r of requests) {
+    if (!r?.reference) continue;
+    total += 1;
+    const status = latest.get(r.reference) || r.status || 'received';
+    if (status === 'resolved' || status === 'closed') done += 1; else if (status === 'in_review') inReview += 1;
+    const received = Date.parse(r.receivedAt || ''); const answered = first.get(r.reference);
+    if (!Number.isNaN(received) && Number.isFinite(answered) && answered >= received) waits.push((answered - received) / 3600000);
+  }
+  const helpful = feedback.filter((f) => f?.choice === 'yes').length;
+  const rated = feedback.filter((f) => ['yes', 'somewhat', 'no'].includes(f?.choice)).length;
+  const data = {
+    satisfaction: { average: sat.average, count: sat.count },
+    requests: { total, resolved: done, inReview, resolvedPercent: total ? Math.round((done / total) * 100) : null },
+    response: { averageHours: waits.length ? Math.round((waits.reduce((a, b) => a + b, 0) / waits.length) * 10) / 10 : null, measured: waits.length },
+    pages: { helpfulPercent: rated ? Math.round((helpful / rated) * 100) : null, count: rated },
+    updatedAt: new Date().toISOString()
+  };
+  transparencyCache = { at: Date.now(), data };
+  return data;
+}
+
 // ===== Public satisfaction average (aggregate only) =====
 let satisfactionSummaryCache = { at: 0, data: null };
 async function satisfactionSummary() {
@@ -664,6 +703,7 @@ async function handleFeedback(req, res) {
   try {
     await mkdir(dirname(feedbackMessagesFile), { recursive: true });
     await appendFile(feedbackMessagesFile, `${JSON.stringify(feedback)}\n`, { encoding: 'utf8', mode: 0o600 });
+    transparencyCache.at = 0;
   } catch (error) {
     console.error('feedback storage error:', error?.message || error);
     json(res, 500, { ok: false, message: text.storage });
@@ -759,7 +799,7 @@ async function handleSatisfaction(req, res) {
   try {
     await mkdir(dirname(satisfactionResponsesFile), { recursive: true });
     await appendFile(satisfactionResponsesFile, `${JSON.stringify(entry)}\n`, { encoding: 'utf8', mode: 0o600 });
-    satisfactionSummaryCache.at = 0;
+    satisfactionSummaryCache.at = 0; transparencyCache.at = 0;
   } catch (error) {
     console.error('satisfaction storage error:', error?.message || error);
     json(res, 500, { ok: false, message: t.storage });
@@ -842,6 +882,7 @@ async function handleParticipationRequest(req, res) {
   try {
     await mkdir(dirname(participationRequestsFile), { recursive: true });
     await appendFile(participationRequestsFile, `${JSON.stringify(request)}\n`, { encoding: 'utf8', mode: 0o600 });
+    transparencyCache.at = 0;
   } catch (error) {
     console.error('participation storage error:', error?.message || error);
     json(res, 500, { ok: false, message: t.storage });
@@ -1224,7 +1265,7 @@ async function handleAdminApi(req, res, pathname) {
       if (kind === 'participation' && reference) {
         await removeJsonlRecords(participationUpdatesFile, (record) => record?.reference === reference);
       }
-      satisfactionSummaryCache.at = 0;
+      satisfactionSummaryCache.at = 0; transparencyCache.at = 0;
       json(res, 200, { ok: true, message: 'تم الحذف بنجاح.' });
     } catch (error) {
       console.error('admin delete error:', error?.message || error);
@@ -1294,6 +1335,7 @@ async function handleAdminApi(req, res, pathname) {
     try {
       await mkdir(dirname(participationUpdatesFile), { recursive: true });
       await appendFile(participationUpdatesFile, `${JSON.stringify(update)}\n`, { encoding: 'utf8', mode: 0o600 });
+      transparencyCache.at = 0;
       json(res, 200, { ok: true, message: 'تم تحديث حالة الطلب.', data: update });
     } catch {
       json(res, 500, { ok: false, message: 'تعذر تحديث حالة الطلب.' });
@@ -1481,6 +1523,11 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/participation' && req.method === 'POST') {
       await handleParticipationRequest(req, res);
+      return;
+    }
+
+    if (pathname === '/api/transparency/summary' && req.method === 'GET') {
+      json(res, 200, { ok: true, data: await transparencySummary() }, { 'Cache-Control': 'public, max-age=120' });
       return;
     }
 

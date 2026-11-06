@@ -95,8 +95,8 @@ function mapColor(c, ctx) {
 const COLOR_RE = /#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)|\b(?:white|black)\b/g;
 function mapValue(value, ctx, vars) {
   if (/url\(/i.test(value) && !/gradient/i.test(value)) return null;
-  let v = value.replace(/var\((--[\w-]+)(?:\s*,\s*([^)]+))?\)/g, (m, name, fb) => (vars[name] ?? fb ?? m));
-  if (/var\(/.test(v)) return null;
+  // Only global tokens are resolved; local custom properties (e.g. --p for progress rings) stay live.
+  let v = value.replace(/var\((--[\w-]+)(?:\s*,\s*([^)]+))?\)/g, (m, name) => (vars[name] ?? m));
   let changed = false;
   const out = v.replace(COLOR_RE, (tok) => {
     const mapped = mapColor(parseColor(tok), ctx);
