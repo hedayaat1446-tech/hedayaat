@@ -164,10 +164,13 @@ const T = isAr ? {
   updated: "Site last updated", viewer: "Document viewer", download: "Download PDF", newTab: "Open in new tab", doc: "Document"
 };
 const p = (ar, en) => (isAr ? ar : en);
-const footerCols = [
-  { title: T.fAbout, links: [[p("من نحن","Who We Are"), `${homeHref}#about`], [p("الأهداف الاستراتيجية","Strategic Goals"), `${homeHref}#goals`], [p("قيمنا","Our Values"), `${homeHref}#values`], [p("الإدارة التنظيمية","Organizational Management"), p("/board/","/en/board/")], [p("البرامج والشراكات","Programs & Partnerships"), `${homeHref}#programs`]] },
-  { title: T.fGov, links: [[p("مركز الحوكمة","Governance Center"), p("/governance/","/en/governance/")], [p("الشفافية والإفصاح","Transparency & Disclosure"), p("/transparency/","/en/transparency/")], [p("القوائم والتقارير المالية","Financial Reports"), p("/reports/","/en/reports/")], [p("سياسة الخصوصية","Privacy Policy"), p("/privacy/","/en/privacy/")]] },
-  { title: T.fServices, links: [[p("مشاركة المستفيد","Beneficiary Participation"), p("/participation/","/en/participation/")], [p("متابعة طلب","Track a Request"), p("/participation/#track","/en/participation/#track")], [p("المركز الإعلامي","Media Center"), p("/videos/","/en/videos/")], [p("بيان إمكانية الوصول","Accessibility Statement"), p("/accessibility/","/en/accessibility/")]] }
+const footerLinks = [
+  [p("من نحن","About Us"), `${homeHref}#about`],
+  [p("مركز الحوكمة","Governance Center"), p("/governance/","/en/governance/")],
+  [p("البرامج والشراكات","Programs & Partnerships"), `${homeHref}#programs`],
+  [p("الشفافية والإفصاح","Transparency & Disclosure"), p("/transparency/","/en/transparency/")],
+  [p("الإدارة التنظيمية","Organizational Management"), p("/board/","/en/board/")],
+  [p("مشاركة المستفيد","Beneficiary Participation"), p("/participation/","/en/participation/")]
 ];
 const socials = (contactInfo.social || []).filter((x) => x.url);
 
@@ -332,8 +335,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=65" />
-    <link rel="stylesheet" href="/styles/dark-theme.css?v=65" />
+    <link rel="stylesheet" href="/styles/site.css?v=66" />
+    <link rel="stylesheet" href="/styles/dark-theme.css?v=66" />
     <slot name="head" />
   </head>
 
@@ -399,25 +402,10 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
 
     {showChrome && (
       <footer class="site-footer site-footer-v2">
-        <div class="footer-v2">
+        <div class="footer-v2 footer-v3">
           <div class="footer-col footer-brand-col">
             <img src="/hedayat-logo-gold-light.png" alt={isAr ? "شعار مؤسسة هدايات التعليمية" : "Hedayat Educational Foundation logo"} class="footer-v2-logo" loading="lazy" decoding="async" width="900" height="337" />
             <p>{T.blurb}</p>
-            <img src={chromeSite.assets?.nationalCenterLogo || "/national-center-logo.png"} alt={isAr ? "شعار المركز الوطني لتنمية القطاع غير الربحي" : "National Center for Non-Profit Sector logo"} class="footer-v2-ncnp" loading="lazy" decoding="async" width="660" height="306" />
-          </div>
-          {footerCols.map((col) => (
-            <nav class="footer-col" aria-label={col.title}>
-              <h2>{col.title}</h2>
-              <ul>{col.links.map(([label, href]) => (<li><a href={href}>{label}</a></li>))}</ul>
-            </nav>
-          ))}
-          <div class="footer-col footer-contact-col">
-            <h2>{T.fContact}</h2>
-            <ul>
-              <li><i class="bi bi-envelope" aria-hidden="true"></i><a href={`mailto:${contactInfo.email}`} dir="ltr">{contactInfo.email}</a></li>
-              <li><i class="bi bi-telephone" aria-hidden="true"></i><a href={`tel:+${waDigitsChrome}`} dir="ltr">{contactInfo.phone}</a></li>
-              <li><i class="bi bi-geo-alt" aria-hidden="true"></i><span>{isAr ? contactInfo.address : "Jeddah, Saudi Arabia"}</span></li>
-            </ul>
             {socials.length > 0 && (
               <div class="footer-social" aria-label={isAr ? "حسابات التواصل الاجتماعي" : "Social media"}>
                 {socials.map((a) => (
@@ -428,9 +416,21 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
               </div>
             )}
           </div>
+          <nav class="footer-col footer-links-col" aria-label={isAr ? "روابط سريعة" : "Quick links"}>
+            <h2>{isAr ? "روابط سريعة" : "Quick Links"}</h2>
+            <ul>{footerLinks.map(([label, href]) => (<li><a href={href}>{label}</a></li>))}</ul>
+          </nav>
+          <div class="footer-col footer-contact-col">
+            <h2>{T.fContact}</h2>
+            <ul>
+              <li><i class="bi bi-envelope" aria-hidden="true"></i><a href={`mailto:${contactInfo.email}`} dir="ltr">{contactInfo.email}</a></li>
+              <li><i class="bi bi-telephone" aria-hidden="true"></i><a href={`tel:+${waDigitsChrome}`} dir="ltr">{contactInfo.phone}</a></li>
+              <li><i class="bi bi-geo-alt" aria-hidden="true"></i><span>{isAr ? contactInfo.address : "Jeddah, Saudi Arabia"}</span></li>
+            </ul>
+          </div>
         </div>
-        <div class="footer-official" aria-label={isAr ? "بيانات المؤسسة الرسمية" : "Official information"}>
-          <div><span>{T.type}</span><strong>{isAr ? inst.type : "Licensed non-profit foundation"}</strong></div>
+        <div class="footer-official footer-official-v3" aria-label={isAr ? "بيانات المؤسسة الرسمية" : "Official information"}>
+          <img src={chromeSite.assets?.nationalCenterLogo || "/national-center-logo.png"} alt={isAr ? "شعار المركز الوطني لتنمية القطاع غير الربحي" : "National Center for Non-Profit Sector logo"} class="footer-v2-ncnp" loading="lazy" decoding="async" width="660" height="306" />
           <div><span>{T.license}</span><strong dir="ltr">{inst.licenseNumber}</strong></div>
           <div><span>{T.unified}</span><strong dir="ltr">{inst.unifiedNationalNumber}</strong></div>
           <div><span>{T.supervision}</span><strong>{isAr ? inst.supervision : "Ministry of Education"}</strong></div>
@@ -438,6 +438,10 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
         </div>
         <div class="footer-bottom-v2">
           <span>{isAr ? siteAr.footer.copyrightText.replace("{year}", String(buildDate.getFullYear())) : `© ${buildDate.getFullYear()} Hedayat Educational Foundation. All rights reserved.`}</span>
+          <nav class="footer-legal" aria-label={isAr ? "روابط قانونية" : "Legal links"}>
+            <a href={p("/privacy/","/en/privacy/")}>{p("سياسة الخصوصية","Privacy Policy")}</a>
+            <a href={p("/accessibility/","/en/accessibility/")}>{p("بيان إمكانية الوصول","Accessibility Statement")}</a>
+          </nav>
           <span>{T.updated}: {lastUpdated}</span>
         </div>
       </footer>
