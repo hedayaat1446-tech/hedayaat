@@ -12,9 +12,10 @@ const pillars = site.about.pillars || [];
 
   <main id="main-content">
     <section id="home" class="hero-section hero-photo hero-v6">
-      <div class="hero-photo-img" aria-hidden="true"></div>
+      <div class="hero-photo-img" aria-hidden="true"><div class="occasion-layer" data-occasion-layer data-enabled={String(site.occasions?.enabled !== false)} data-force={site.occasions?.force || ""} hidden></div></div>
       <div class="container hero-photo-inner">
         <div class="hero-photo-copy">
+          <p class="occasion-greeting" data-occasion-greeting hidden></p>
           <span class="hero-eyebrow">مؤسسة هدايات التعليمية</span>
           <h1 class="hero-photo-title">{site.hero.headline}</h1>
           <p class="hero-photo-lead">{site.hero.lead}</p>
@@ -223,4 +224,5 @@ const pillars = site.about.pillars || [];
       });
     })();
   </script>
+  <script is:inline src="/occasions.js?v=1" defer></script>
 </BaseLayout>
