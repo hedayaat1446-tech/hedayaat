@@ -3918,3 +3918,24 @@ html[data-theme="dark"]:not(#_):not(#__) .nw-card-body time, html[data-theme="da
 html[data-theme="dark"]:not(#_):not(#__) .nw-back, html[data-theme="dark"]:not(#_):not(#__) .nw-share { background: #0E1F26 !important; color: #E4E0D4 !important; border-color: rgba(215,199,123,.25) !important; }
 html[data-theme="dark"]:not(#_):not(#__) .nw-card-media--empty { background: #0E1F26 !important; color: #D7C77B !important; }
 .nw-article h2:focus, html[data-theme="dark"]:not(#_):not(#__) .nw-article h2:focus { outline: none !important; box-shadow: none !important; }
+
+/* ===== Phones: readable small text + comfortable tap targets (min ~13px text, ~40px taps) ===== */
+@media (max-width: 599.98px) {
+  .mobile-tabbar a span { font-size: 12px !important; }
+  .footer-official span, .footer-bottom-v2, .footer-bottom-v2 span, .footer-legal a, .footer-official a,
+  .official-social-link span, .contact-line small, .contact-social small, .form-consent span, .form-consent a,
+  .breadcrumb, .breadcrumb li, .breadcrumb a, ol.breadcrumb, nav[aria-label] ol li,
+  .score-options small, .tp-status, .live-kpi-kicker, .live-kpi-updated, .kpi-card p, .kpi-ring span,
+  .sat-score span, .feedback-launcher-label, .tp-disclosure span, .privacy-check span, .response-toggle span { font-size: 13px !important; }
+  .brand-en-name span { font-size: 10.5px !important; }
+  /* Tap targets */
+  .site-footer ul li a { display: inline-block; padding: 9px 0; }
+  .footer-legal a { display: inline-block; padding: 9px 4px; }
+  nav[aria-label] ol li a, .breadcrumb a { display: inline-block; padding: 9px 2px; }
+  input[type=checkbox], input[type=radio] { width: 20px !important; height: 20px !important; flex: none; }
+  .tp-section-head a, .tp-policy-card a, .institution-back { min-height: 40px; display: inline-flex !important; align-items: center; }
+  .hdr-icon-btn { min-width: 40px; min-height: 40px; }
+  .hdr-mobile-actions .navbar-toggler { min-width: 42px; flex: none; }
+  .response-toggle small, .privacy-check small { font-size: 12.5px !important; }
+  .form-consent a, .privacy-check a { padding: 6px 0; }
+}

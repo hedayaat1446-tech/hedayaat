@@ -19,6 +19,91 @@
 @media(max-width:640px){.nw-item{grid-template-columns:80px minmax(0,1fr)}.nw-item img,.nw-item .nw-noimg{width:80px;height:60px}.nw-item .item-actions{grid-column:1/-1}}
 @media(max-width:800px){.an-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.an-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.feedback-summary.satisfaction-summary{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:640px){.feedback-summary,.feedback-summary.satisfaction-summary{grid-template-columns:1fr}.shell{padding:16px 12px 42px}.top{align-items:flex-start}.brand img{width:135px}.brand h1{font-size:1.05rem}.card{padding:16px;border-radius:14px}.login{margin:38px auto}textarea{min-height:440px}.logout{margin-inline-start:0}}
+/* ===== admin v2 layout ===== */
+@font-face{font-family:"Handicrafts";src:url("/fonts/TheYearofHandicrafts-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Handicrafts";src:url("/fonts/TheYearofHandicrafts-Bold.woff2") format("woff2");font-weight:700 900;font-display:swap}
+:root{--ink:#16404F;--teal:#16404F;--teal2:#0E2F3A;--gold:#9C8E45;--gold2:#BEAE59;--bg:#F6F4EE;--line:#E3E6E0;--muted:#6B7770;--side:#16404F}
+body{font-family:"Handicrafts",Tahoma,Arial,sans-serif;background:var(--bg)}
+.shell{max-width:none;padding:0}
+.top{max-width:1180px;margin:0 auto;padding:28px 18px 0}
+body.authed .top{display:none}
+.login{box-shadow:0 24px 60px rgba(22,64,79,.10);border-radius:22px}
+.app{display:grid;grid-template-columns:262px minmax(0,1fr);min-height:100vh}
+.app.hidden{display:none!important}
+.side{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--side);color:#E4E0D4;display:flex;flex-direction:column;padding:22px 14px 16px;gap:4px}
+.side-brand{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:2px 10px 18px;margin-bottom:6px;border-bottom:1px solid rgba(228,224,212,.14)}
+.side-brand img{width:150px;height:auto;filter:brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(673%) hue-rotate(10deg) brightness(92%)}
+.side-brand span{font-size:.8rem;color:rgba(228,224,212,.7)}
+.side-group{font-size:.74rem;font-weight:700;letter-spacing:.02em;color:rgba(215,199,123,.85);padding:14px 12px 6px}
+.side .tabs{display:flex;flex-direction:column;gap:2px;margin:0}
+.side .tab{justify-content:flex-start;width:100%;background:transparent;border:0;color:#E4E0D4;font-weight:700;padding:10px 12px;border-radius:11px;text-align:start;gap:11px;font-size:.95rem}
+.side .tab .ic{width:22px;display:inline-grid;place-items:center;font-size:1.05rem;opacity:.9}
+.side .tab:hover{background:rgba(255,255,255,.07)}
+.side .tab.active{background:#E4E0D4;color:var(--side)}
+.side .tab .badge{margin-inline-start:auto;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#D7C77B;color:#16404F;font-size:.75rem;font-weight:900;display:inline-grid;place-items:center}
+.side .tab.active .badge{background:var(--side);color:#E4E0D4}
+.side .tab .badge:empty{display:none}
+.side-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(228,224,212,.14);display:grid;gap:6px}
+.side-foot a,.side-foot button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:11px;border:0;background:transparent;color:rgba(228,224,212,.85);font:inherit;font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer}
+.side-foot a:hover,.side-foot button:hover{background:rgba(255,255,255,.07);color:#fff}
+.side-foot .danger:hover{background:rgba(220,90,90,.18);color:#ffd9d9}
+.main{min-width:0;padding:26px clamp(16px,3vw,40px) 60px}
+.main-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.main-head h1{margin:0;font-size:1.6rem;font-weight:900;color:var(--ink)}
+.main-head p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.main .card{border-radius:20px;border-color:var(--line);box-shadow:0 10px 30px rgba(22,64,79,.05);padding:24px}
+.main .card>.toolbar>div:first-child{display:none}
+.main .card>.toolbar{justify-content:flex-end}
+.main .card>.toolbar{margin-bottom:18px}
+.btn-primary{background:var(--teal)}.btn-primary:hover{background:var(--teal2)}
+.btn-secondary{background:#EEF2EF;color:var(--teal);border-color:#DCE4DF}
+.feedback-stat{border-radius:16px;background:#fff;border-color:var(--line);padding:16px}
+.feedback-stat strong{color:var(--teal);font-size:1.6rem}
+.message{background:#fff;border-radius:16px}
+.ph-form{background:#FBFAF6;border:1px solid #E3E6E0}
+/* overview */
+.ov-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.ov-kpi{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;text-decoration:none;color:inherit;transition:.15s;cursor:pointer;font:inherit;text-align:start}
+.ov-kpi:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(22,64,79,.08)}
+.ov-kpi .ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.35rem;background:#EAF1F3}
+.ov-kpi:nth-child(2) .ic{background:#FBF6E6}.ov-kpi:nth-child(3) .ic{background:#FCEDE4}.ov-kpi:nth-child(4) .ic{background:#EEF3E8}
+.ov-kpi strong{display:block;font-size:1.65rem;line-height:1.2;color:var(--ink)}
+.ov-kpi span{font-size:.84rem;color:var(--muted)}
+.ov-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
+.ov-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
+.ov-box h3{margin:0 0 12px;font-size:1.05rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ov-box h3 button{font:inherit;font-size:.82rem;font-weight:700;color:var(--gold);background:none;border:0;cursor:pointer}
+.ov-actions{display:grid;gap:10px}
+.ov-action{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1px solid var(--line);background:#FBFAF6;color:var(--ink);font:inherit;font-weight:800;text-decoration:none;cursor:pointer;text-align:start}
+.ov-action:hover{border-color:var(--gold2);background:#fff}
+.ov-action .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:1.05rem;flex:none}
+.ov-action small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.ov-msg{display:grid;gap:2px;padding:11px 0;border-bottom:1px solid var(--line)}
+.ov-msg:last-child{border-bottom:0}
+.ov-msg b{font-size:.92rem}.ov-msg span{font-size:.84rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ov-msg time{font-size:.75rem;color:var(--gold)}
+.ph-grid .empty,.nw-list .empty{grid-column:1/-1}
+@media(max-width:1100px){.ov-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:sticky;top:0;z-index:30;height:auto;flex-direction:row;align-items:center;flex-wrap:wrap;padding:10px 12px;gap:8px}
+  .side-brand{flex-direction:row;align-items:center;border:0;padding:0;margin:0}
+  .side-brand img{width:108px}.side-brand span{display:none}
+  .side-group{display:none}
+  .side .tabs{order:3;flex:1 1 100%;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:2px;scrollbar-width:none}
+  .side .tabs .side-group{display:none}
+  .side{position:static}
+  .side .tabs::-webkit-scrollbar{display:none}
+  .side .tab{width:auto;white-space:nowrap;flex:none;padding:8px 12px;font-size:.88rem;background:rgba(255,255,255,.06)}
+  .side-foot{margin:0 auto 0 0;padding:0;border:0;display:flex;gap:4px}
+  .side-foot a span:last-child,.side-foot button span:last-child{display:none}
+  .side-foot a,.side-foot button{font-size:1.1rem;background:rgba(255,255,255,.06)}
+  .side-foot a,.side-foot button{width:auto;padding:8px 10px}
+  .ov-grid{grid-template-columns:1fr}
+  .main{padding:18px 12px 48px}
+  .main-head h1{font-size:1.3rem}
+}
+@media(max-width:520px){.ov-kpis{gap:10px}.ov-kpi{padding:13px;gap:10px}.ov-kpi .ic{width:40px;height:40px;font-size:1.1rem}.ov-kpi strong{font-size:1.3rem}}
   </style>
 </head>
 <body>
@@ -38,20 +123,52 @@
       </form>
     </section>
 
-    <section id="dashboard" class="hidden">
-      <div class="notice hidden" id="storageNotice">للاحتفاظ بالتعديلات والرسائل بعد إعادة تشغيل Railway، اربط Volume وحدد <b>DATA_DIR=/data</b>. بدون Volume ستعمل اللوحة، لكن تخزين Railway المحلي قد لا يكون دائمًا بعد إعادة النشر.</div>
-      <div class="tabs" role="tablist">
-        <button class="btn tab active" data-tab="content" type="button">محتوى الموقع</button>
-        <button class="btn tab" data-tab="news" type="button">الأخبار</button>
-        <button class="btn tab" data-tab="photos" type="button">معرض الصور</button>
-        <button class="btn tab" data-tab="messages" type="button">رسائل التواصل</button>
-        <button class="btn tab" data-tab="feedback" type="button">تقييم الصفحات</button>
-        <button class="btn tab" data-tab="satisfaction" type="button">قياس الرضا</button>
-        <button class="btn tab" data-tab="participation" type="button">طلبات المستفيدين</button>
-        <button class="btn tab" data-tab="analytics" type="button">إحصائيات الزوار</button>
-      </div>
+    </main>
+    <section id="dashboard" class="app hidden">
+      <aside class="side" aria-label="أقسام لوحة التحكم">
+        <div class="side-brand"><img src="/hedayat-official-logo-v5.png" alt="هدايات التعليمية" /><span>لوحة التحكم</span></div>
+        <nav class="tabs" role="tablist">
+          <button class="btn tab active" data-tab="overview" data-title="الرئيسية" data-sub="نظرة سريعة على الموقع اليوم" type="button"><span class="ic" aria-hidden="true">🏠</span>الرئيسية</button>
+          <div class="side-group">المحتوى</div>
+          <button class="btn tab" data-tab="news" data-title="الأخبار" data-sub="اكتبي الخبر هنا وينشر مباشرة في صفحة «آخر الأخبار» بالعربي والإنجليزي." type="button"><span class="ic" aria-hidden="true">📰</span>الأخبار</button>
+          <button class="btn tab" data-tab="photos" data-title="معرض الصور" data-sub="ارفعي الصور هنا وتظهر مباشرة في صفحة «الصور» بالعربي والإنجليزي." type="button"><span class="ic" aria-hidden="true">🖼️</span>معرض الصور</button>
+          <div class="side-group">التواصل</div>
+          <button class="btn tab" data-tab="messages" data-title="رسائل التواصل" data-sub="آخر 200 رسالة استقبلها نموذج الموقع." type="button"><span class="ic" aria-hidden="true">✉️</span>رسائل التواصل<span class="badge" data-badge="messages"></span></button>
+          <button class="btn tab" data-tab="participation" data-title="طلبات المستفيدين" data-sub="الاقتراحات والاستفسارات والملاحظات مع إمكانية تحديث حالة الطلب." type="button"><span class="ic" aria-hidden="true">📥</span>طلبات المستفيدين<span class="badge" data-badge="participation"></span></button>
+          <div class="side-group">القياس</div>
+          <button class="btn tab" data-tab="analytics" data-title="إحصائيات الزوار" data-sub="إحصائيات مجمّعة بدون كوكيز وبدون أي جهة خارجية." type="button"><span class="ic" aria-hidden="true">📊</span>إحصائيات الزوار</button>
+          <button class="btn tab" data-tab="satisfaction" data-title="قياس الرضا" data-sub="نتائج نموذج الرضا من 1 إلى 5 وآخر التقييمات المسجلة." type="button"><span class="ic" aria-hidden="true">⭐</span>قياس الرضا</button>
+          <button class="btn tab" data-tab="feedback" data-title="تقييم الصفحات" data-sub="آخر 500 تقييم للصفحات مع ملخص سريع للنتائج." type="button"><span class="ic" aria-hidden="true">👍</span>تقييم الصفحات</button>
+          <div class="side-group">متقدم</div>
+          <button class="btn tab" data-tab="content" data-title="إعدادات المحتوى (متقدم)" data-sub="ملف المحتوى المركزي للموقع. عدّليه بحذر: أي خطأ في الصيغة يمنع الحفظ." type="button"><span class="ic" aria-hidden="true">⚙️</span>إعدادات المحتوى</button>
+        </nav>
+        <div class="side-foot">
+          <a href="/" target="_blank" rel="noopener"><span aria-hidden="true">↗</span><span>عرض الموقع</span></a>
+          <button id="sideLogout" class="danger" type="button"><span aria-hidden="true">⎋</span><span>تسجيل الخروج</span></button>
+        </div>
+      </aside>
+      <div class="main">
+        <div class="notice hidden" id="storageNotice">للاحتفاظ بالتعديلات والرسائل بعد إعادة تشغيل Railway، اربط Volume وحدد <b>DATA_DIR=/data</b>. بدون Volume ستعمل اللوحة، لكن تخزين Railway المحلي قد لا يكون دائمًا بعد إعادة النشر.</div>
+        <div class="main-head"><div><h1 id="pageTitle">الرئيسية</h1><p id="pageSub">نظرة سريعة على الموقع اليوم</p></div></div>
 
-      <div id="contentPanel" class="card">
+        <div id="overviewPanel">
+          <div class="ov-kpis">
+            <button type="button" class="ov-kpi" data-go="analytics"><span class="ic" aria-hidden="true">👥</span><div><strong data-ov="today">—</strong><span>زوار اليوم</span></div></button>
+            <button type="button" class="ov-kpi" data-go="messages"><span class="ic" aria-hidden="true">✉️</span><div><strong data-ov="msgs">—</strong><span>رسائل آخر 7 أيام</span></div></button>
+            <button type="button" class="ov-kpi" data-go="participation"><span class="ic" aria-hidden="true">📥</span><div><strong data-ov="pending">—</strong><span>طلبات تحتاج متابعة</span></div></button>
+            <button type="button" class="ov-kpi" data-go="satisfaction"><span class="ic" aria-hidden="true">⭐</span><div><strong data-ov="sat">—</strong><span>متوسط الرضا من 5</span></div></button>
+          </div>
+          <div class="ov-grid">
+            <div class="ov-box"><h3>آخر الرسائل <button type="button" data-go="messages">عرض الكل ←</button></h3><div id="ovMessages"><div class="empty" style="padding:22px">جارٍ التحميل...</div></div></div>
+            <div class="ov-box"><h3>إجراءات سريعة</h3><div class="ov-actions">
+              <button type="button" class="ov-action" data-go="news"><span class="ic" aria-hidden="true">📰</span><span>نشر خبر جديد<small>يظهر فورًا في صفحة الأخبار</small></span></button>
+              <button type="button" class="ov-action" data-go="photos"><span class="ic" aria-hidden="true">🖼️</span><span>رفع صور للمعرض<small>تقدرين ترفعين أكثر من صورة مرة وحدة</small></span></button>
+              <a class="ov-action" href="/transparency/" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">📈</span><span>لوحة الشفافية العامة<small>المؤشرات اللي يشوفها الزوار</small></span></a>
+            </div></div>
+          </div>
+        </div>
+
+      <div id="contentPanel" class="card hidden">
         <div class="toolbar"><div><h2>محتوى الموقع</h2><p>تعديل ملف المحتوى المركزي. يتم التحقق منه ثم إعادة بناء الموقع تلقائيًا.</p></div><div><button id="reloadSite" class="btn btn-secondary" type="button">إعادة تحميل</button> <button id="saveSite" class="btn btn-primary" type="button">حفظ وتطبيق</button></div></div>
         <div class="field"><label for="siteJson">بيانات الموقع (JSON)</label><textarea id="siteJson" spellcheck="false"></textarea></div>
         <div id="siteStatus" class="status muted" aria-live="polite"></div>
@@ -130,8 +247,8 @@
         <p class="an-note">الزائر يُحتسب مرة واحدة في اليوم عبر بصمة مشفّرة مؤقتة تُحذف يوميًا، ولا تُحفظ عناوين IP. لا تُحتسب محركات البحث والروبوتات وزيارات لوحة الإدارة.</p>
         <div id="analyticsStatus" class="status muted" aria-live="polite"></div>
       </div>
+      </div>
     </section>
-  </main>
 
   <script>
     const $ = (s) => document.querySelector(s);
@@ -167,8 +284,8 @@
       return wrap;
     }
     async function checkStorage(){ try{ const r=await api('/api/admin/info'); document.getElementById('storageNotice').classList.toggle('hidden', !!r.data?.persistentStorage); }catch{} }
-    function showDashboard(){ loginCard.classList.add('hidden'); dashboard.classList.remove('hidden'); logout.classList.remove('hidden'); }
-    function showLogin(){ dashboard.classList.add('hidden'); logout.classList.add('hidden'); loginCard.classList.remove('hidden'); }
+    function showDashboard(){ const first=dashboard.classList.contains('hidden'); loginCard.classList.add('hidden'); dashboard.classList.remove('hidden'); logout.classList.remove('hidden'); document.body.classList.add('authed'); if(first){ let t='overview'; try{ t=sessionStorage.getItem('hedayat-admin-tab')||'overview'; }catch{} goTab(t); } }
+    function showLogin(){ dashboard.classList.add('hidden'); logout.classList.add('hidden'); loginCard.classList.remove('hidden'); document.body.classList.remove('authed'); }
 
     async function loadSite() {
       setStatus(siteStatus,'جارٍ تحميل المحتوى...');
@@ -502,25 +619,40 @@
       }catch(e){ if(e.status===401){showLogin();return;} newsList.innerHTML=''; setStatus(newsStatus,e.message,'err'); }
     }
     $('#reloadNews').addEventListener('click',()=>loadNews());
-    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
-      document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
-      const tab=btn.dataset.tab;
-      $('#contentPanel').classList.toggle('hidden',tab!=='content');
-      $('#newsPanel').classList.toggle('hidden',tab!=='news');
-      $('#photosPanel').classList.toggle('hidden',tab!=='photos');
-      $('#messagesPanel').classList.toggle('hidden',tab!=='messages');
-      $('#feedbackPanel').classList.toggle('hidden',tab!=='feedback');
-      $('#satisfactionPanel').classList.toggle('hidden',tab!=='satisfaction');
-      $('#participationPanel').classList.toggle('hidden',tab!=='participation');
-      $('#analyticsPanel').classList.toggle('hidden',tab!=='analytics');
-      if(tab==='analytics')loadAnalytics();
-      if(tab==='news')loadNews();
-      if(tab==='photos')loadPhotos();
-      if(tab==='messages')loadMessages();
-      if(tab==='feedback')loadFeedback();
-      if(tab==='satisfaction')loadSatisfaction();
-      if(tab==='participation')loadParticipation();
-    }));
+    const loaders={overview:()=>loadOverview(),news:()=>loadNews(),photos:()=>loadPhotos(),messages:()=>loadMessages(),feedback:()=>loadFeedback(),satisfaction:()=>loadSatisfaction(),participation:()=>loadParticipation(),analytics:()=>loadAnalytics()};
+    function goTab(tab){
+      const btn=document.querySelector(`.tab[data-tab="${tab}"]`); if(!btn) return;
+      document.querySelectorAll('.tab').forEach(x=>{x.classList.toggle('active',x===btn); x.setAttribute('aria-selected', x===btn?'true':'false');});
+      document.querySelectorAll('.main > [id$="Panel"]').forEach(p=>p.classList.toggle('hidden',p.id!==`${tab}Panel`));
+      $('#pageTitle').textContent=btn.dataset.title||btn.textContent.trim(); $('#pageSub').textContent=btn.dataset.sub||'';
+      try{ sessionStorage.setItem('hedayat-admin-tab',tab); }catch{}
+      if(loaders[tab]) loaders[tab]();
+      if(window.matchMedia('(max-width:900px)').matches) btn.scrollIntoView({inline:'center',block:'nearest'});
+      window.scrollTo({top:0});
+    }
+    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>goTab(btn.dataset.tab)));
+    document.addEventListener('click',e=>{ const g=e.target.closest('[data-go]'); if(g){ e.preventDefault(); goTab(g.dataset.go); } });
+    $('#sideLogout').addEventListener('click',()=>$('#logout').click());
+    // Overview: quick numbers + badges in the sidebar
+    async function loadOverview(){
+      const set=(k,v)=>{ const el=document.querySelector(`[data-ov="${k}"]`); if(el) el.textContent=v; };
+      const nf=(n)=>Number(n||0).toLocaleString('en-US');
+      const weekAgo=Date.now()-7*864e5;
+      const [an,msgs,parts,tp]=await Promise.allSettled([api('/api/admin/analytics?days=7'),api('/api/admin/messages'),api('/api/admin/participation'),fetch('/api/transparency/summary').then(r=>r.json())]);
+      if([an,msgs,parts].some(x=>x.status==='rejected'&&x.reason?.status===401)){ showLogin(); return; }
+      if(an.status==='fulfilled') set('today',nf(an.value.data?.today?.visitors));
+      const ml=msgs.status==='fulfilled'?(msgs.value.data||[]):[];
+      const recent=ml.filter(m=>Date.parse(m.receivedAt)>=weekAgo).length; set('msgs',nf(recent));
+      document.querySelector('[data-badge="messages"]').textContent=recent?String(recent):'';
+      const pl=parts.status==='fulfilled'?(parts.value.data||[]):[];
+      const pending=pl.filter(x=>x.status==='received'||x.status==='in_review').length; set('pending',nf(pending));
+      document.querySelector('[data-badge="participation"]').textContent=pending?String(pending):'';
+      const avg=tp.status==='fulfilled'?tp.value.data?.satisfaction?.average:null; set('sat',avg?Number(avg).toFixed(1):'—');
+      const box=$('#ovMessages');
+      if(!ml.length){ box.innerHTML='<div class="empty" style="padding:22px">لا توجد رسائل بعد.</div>'; return; }
+      box.innerHTML='';
+      ml.slice(0,4).forEach(m=>{ const d=new Date(m.receivedAt); const el=document.createElement('div'); el.className='ov-msg'; el.innerHTML='<b></b><span></span><time></time>'; el.querySelector('b').textContent=m.name||'بدون اسم'; el.querySelector('span').textContent=m.subject||m.message||''; el.querySelector('time').textContent=Number.isNaN(d.getTime())?'':d.toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'}); box.appendChild(el); });
+    }
 
     loadSite();
   </script>
