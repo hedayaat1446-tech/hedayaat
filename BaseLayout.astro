@@ -184,6 +184,7 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
 
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />
+    {process.env.GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={String(process.env.GOOGLE_SITE_VERIFICATION).trim().replace(/^.*content="([^"]+)".*$/s, "$1")} />}
     {isNotFound && <meta name="robots" content="noindex, nofollow" />}
 
 <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any">
