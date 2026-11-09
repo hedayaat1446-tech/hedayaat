@@ -216,8 +216,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
       // their own responsive layout (scale 1). The CSS steps in site.css remain as a fallback without JS.
       (() => {
         // Phones (portrait, under 600px) are scaled the same way around a 390px design width, so the page
-        // fills small and large phones alike (between 88% and 112%); tablets and laptops keep scale 1.
-        const BASE = 1366, MAX = 3.2, PHONE = 390, PMIN = 0.88, PMAX = 1.12, root = document.documentElement;
+        // grows on larger phones (up to 112%) but never shrinks below 100% on small phones, so text stays readable.
+        const BASE = 1366, MAX = 3.2, PHONE = 390, PMIN = 1, PMAX = 1.12, root = document.documentElement;
         const fit = () => {
           const w = window.innerWidth || root.clientWidth;
           const h = window.innerHeight || root.clientHeight;
@@ -335,8 +335,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=69" />
-    <link rel="stylesheet" href="/styles/dark-theme.css?v=69" />
+    <link rel="stylesheet" href="/styles/site.css?v=70" />
+    <link rel="stylesheet" href="/styles/dark-theme.css?v=70" />
     <slot name="head" />
   </head>
 
