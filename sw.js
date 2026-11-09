@@ -1,8 +1,8 @@
 // Hedayat service worker: fast repeat visits and a friendly offline page.
 // HTML: network first (always fresh), falling back to the cached copy, then to /offline.html.
 // Static assets: stale-while-revalidate. API calls, admin and PDFs/videos are never cached here.
-const VERSION = 'hedayat-v67';
-const CORE = ['/offline.html', '/styles/site.css?v=67', '/styles/dark-theme.css?v=67', '/vendor/bootstrap.min.css?v=536', '/vendor/bootstrap-icons.min.css?v=local',
+const VERSION = 'hedayat-v69';
+const CORE = ['/offline.html', '/styles/site.css?v=69', '/styles/dark-theme.css?v=69', '/vendor/bootstrap.min.css?v=536', '/vendor/bootstrap-icons.min.css?v=local',
   '/vendor/bootstrap.bundle.min.js?v=536', '/hedayat-logo-gold.png', '/icons/icon-192.png', '/fonts/TheYearofHandicrafts-Regular.woff2',
   '/fonts/TheYearofHandicrafts-Bold.woff2'];
 
@@ -18,7 +18,7 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
-  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin') || /\.(pdf|mp4)$/i.test(url.pathname)) return;
+  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin') || url.pathname.startsWith('/uploads/') || /\.(pdf|mp4)$/i.test(url.pathname)) return;
 
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {

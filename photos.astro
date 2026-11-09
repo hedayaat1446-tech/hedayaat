@@ -11,13 +11,14 @@ const meta = { ...site.meta, title: "الصور | مؤسسة هدايات الت
       <h1>الصور</h1><p>معرض صور برامج وفعاليات مؤسسة هدايات التعليمية.</p>
     </div></section>
     <nav class="media-tabs" aria-label="أقسام المركز الإعلامي"><a href="/news/">آخر الأخبار</a><a href="/photos/" class="is-active" aria-current="page">الصور</a><a href="/videos/">الفيديو</a></nav>
-    <section class="media-content"><div class="empty-state" role="status">
+    <section class="media-content"><div class="pg-gallery" data-photo-gallery hidden><div class="pg-grid" data-photo-grid></div></div><div class="empty-state" role="status" data-photo-empty>
       <div class="empty-state-icon"><i class="bi bi-images" aria-hidden="true"></i></div>
       <h2>لا يوجد محتوى منشور حتى الآن</h2>
       <p>نعمل على تجهيز محتوى ألبوم الصور، وسيُنشر هنا فور اعتماده. يمكنك حاليًا مشاهدة الفيديو التعريفي.</p>
       <div class="empty-state-actions"><a class="hp-btn" href="/videos/"><i class="bi bi-play-circle" aria-hidden="true"></i> شاهد الفيديو التعريفي</a><a class="hp-btn hp-btn--ghost" href="/">العودة إلى الرئيسية</a></div>
     </div></section>
   </main>
+  <script is:inline src="/photos-gallery.js?v=1" defer></script>
   <style>
     :global(body){margin:0;background:#f7f4ee;color:#334137;} .media-page{min-height:100vh;background:linear-gradient(180deg,#fbfaf7 0%,#f5f1e8 100%);font-family:var(--font-family-arabic);}
     .media-header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.96);border-bottom:1px solid rgba(102,122,82,.17);backdrop-filter:blur(12px)} .media-header-inner{max-width:1180px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}

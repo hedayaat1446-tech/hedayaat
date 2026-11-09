@@ -213,7 +213,7 @@ const HTML_CSP = [
   "object-src 'none'",
   "frame-ancestors 'self'",
   "form-action 'self'",
-  "img-src 'self' data:",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "media-src 'self'",
   "connect-src 'self'",
@@ -349,6 +349,111 @@ async function readBody(req, maxBytes = 64 * 1024) {
       if (!settled) reject(error);
     });
   });
+}
+
+// ---------- Photo gallery (uploaded from the admin panel, stored on the persistent volume) ----------
+const photosDir = process.env.PHOTOS_DIR || join(dataDir, 'photos');
+const photosIndexFile = join(dataDir, 'photos.json');
+const MAX_PHOTOS = 500;
+let photosCache = null;
+
+async function readPhotos() {
+  if (photosCache) return photosCache;
+  try {
+    const list = JSON.parse(await readFile(photosIndexFile, 'utf8'));
+    photosCache = Array.isArray(list) ? list : [];
+  } catch { photosCache = []; }
+  return photosCache;
+}
+
+async function writePhotos(list) {
+  await mkdir(dirname(photosIndexFile), { recursive: true });
+  const tmp = `${photosIndexFile}.${process.pid}.tmp`;
+  await writeFile(tmp, JSON.stringify(list, null, 2));
+  await rename(tmp, photosIndexFile);
+  photosCache = list;
+}
+
+function sortedPublicPhotos(list) {
+  return [...list]
+    .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.createdAt || '').localeCompare(String(a.createdAt || '')))
+    .map(({ id, file, thumb, width, height, caption, captionEn, date }) => ({
+      id, src: `/uploads/photos/${file}`, thumb: `/uploads/photos/${thumb}`, width, height, caption, captionEn, date
+    }));
+}
+
+// Accepts a data URL produced by the admin page (already resized in the browser) and
+// returns the decoded JPEG/WebP/PNG bytes after checking the file signature.
+function decodeImageDataUrl(value, maxBytes) {
+  const m = /^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$/.exec(String(value || ''));
+  if (!m) return null;
+  const buf = Buffer.from(m[2], 'base64');
+  if (!buf.length || buf.length > maxBytes) return null;
+  const isJpeg = buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff;
+  const isPng = buf.slice(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+  const isWebp = buf.slice(0, 4).toString('ascii') === 'RIFF' && buf.slice(8, 12).toString('ascii') === 'WEBP';
+  const ext = isJpeg ? '.jpg' : isPng ? '.png' : isWebp ? '.webp' : '';
+  return ext ? { buf, ext } : null;
+}
+
+async function servePhotoFile(req, res, pathname) {
+  const name = pathname.slice('/uploads/photos/'.length);
+  if (!/^[a-f0-9-]{36}(-t)?\.(jpg|png|webp)$/.test(name)) throw requestError('bad photo path', 404);
+  const file = join(photosDir, name);
+  const s = await stat(file);
+  const ext = extname(name);
+  const headers = {
+    ...BASE_SECURITY_HEADERS,
+    'Content-Type': types[ext] || 'application/octet-stream',
+    // File names are unique per upload, so they can be cached for a long time.
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    'Content-Length': String(s.size),
+    'Last-Modified': s.mtime.toUTCString()
+  };
+  res.writeHead(200, headers);
+  if (req.method === 'HEAD') { res.end(); return; }
+  createReadStream(file).on('error', () => res.destroy()).pipe(res);
+}
+
+// ---------- News (published from the admin panel, stored on the persistent volume) ----------
+const newsIndexFile = join(dataDir, 'news.json');
+const MAX_NEWS = 1000;
+let newsCache = null;
+
+async function readNews() {
+  if (newsCache) return newsCache;
+  try {
+    const list = JSON.parse(await readFile(newsIndexFile, 'utf8'));
+    newsCache = Array.isArray(list) ? list : [];
+  } catch { newsCache = []; }
+  return newsCache;
+}
+
+async function writeNews(list) {
+  await mkdir(dirname(newsIndexFile), { recursive: true });
+  const tmp = `${newsIndexFile}.${process.pid}.tmp`;
+  await writeFile(tmp, JSON.stringify(list, null, 2));
+  await rename(tmp, newsIndexFile);
+  newsCache = list;
+}
+
+function publicNews(list) {
+  return [...list]
+    .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.createdAt || '').localeCompare(String(a.createdAt || '')))
+    .map(({ id, title, titleEn, body, bodyEn, date, image, thumb, width, height }) => ({
+      id, title, titleEn, body, bodyEn, date, width, height,
+      image: image ? `/uploads/photos/${image}` : '',
+      thumb: thumb ? `/uploads/photos/${thumb}` : ''
+    }));
+}
+
+function cleanLongText(value, max) {
+  return String(value ?? '').replace(/\u0000/g, '').replace(/\r\n?/g, '\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, max);
+}
+
+async function removeNewsImages(item) {
+  if (item?.image) await rm(join(photosDir, item.image), { force: true });
+  if (item?.thumb) await rm(join(photosDir, item.thumb), { force: true });
 }
 
 function parseRequestBody(req, text) {
@@ -1343,6 +1448,153 @@ async function handleAdminApi(req, res, pathname) {
     return true;
   }
 
+  if (pathname === '/api/admin/photos' && req.method === 'GET') {
+    json(res, 200, { ok: true, data: sortedPublicPhotos(await readPhotos()), persistentStorage: Boolean(process.env.DATA_DIR) });
+    return true;
+  }
+
+  if (pathname === '/api/admin/photos' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 14 * 1024 * 1024)); }
+    catch (error) {
+      json(res, error?.statusCode === 413 ? 413 : 400, { ok: false, message: error?.statusCode === 413 ? 'حجم الصورة كبير جدًا.' : 'طلب غير صالح.' });
+      return true;
+    }
+    const image = decodeImageDataUrl(body.image, 8 * 1024 * 1024);
+    const thumb = decodeImageDataUrl(body.thumb, 2 * 1024 * 1024);
+    if (!image || !thumb) { json(res, 422, { ok: false, message: 'الملف ليس صورة صالحة (JPG أو PNG أو WebP).' }); return true; }
+    const caption = cleanText(body.caption, 200);
+    const captionEn = cleanText(body.captionEn, 200);
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(String(body.date || '')) ? String(body.date) : new Date().toISOString().slice(0, 10);
+    const width = Math.max(0, Math.min(10000, Number.parseInt(body.width, 10) || 0));
+    const height = Math.max(0, Math.min(10000, Number.parseInt(body.height, 10) || 0));
+    try {
+      const list = await readPhotos();
+      if (list.length >= MAX_PHOTOS) { json(res, 422, { ok: false, message: `وصل المعرض للحد الأعلى (${MAX_PHOTOS} صورة). احذفي صورًا قديمة أولًا.` }); return true; }
+      const id = randomUUID();
+      await mkdir(photosDir, { recursive: true });
+      const file = `${id}${image.ext}`;
+      const thumbFile = `${id}-t${thumb.ext}`;
+      await writeFile(join(photosDir, file), image.buf);
+      await writeFile(join(photosDir, thumbFile), thumb.buf);
+      const record = { id, file, thumb: thumbFile, width, height, caption, captionEn, date, createdAt: new Date().toISOString() };
+      await writePhotos([...list, record]);
+      json(res, 200, { ok: true, message: 'تم نشر الصورة.', data: sortedPublicPhotos([record])[0] });
+    } catch (error) {
+      console.error('photo upload error:', error?.message || error);
+      json(res, 500, { ok: false, message: 'تعذر حفظ الصورة حاليًا.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/photos/update' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 8 * 1024)); }
+    catch { json(res, 400, { ok: false, message: 'طلب غير صالح.' }); return true; }
+    const id = cleanText(body.id, 40);
+    const list = await readPhotos();
+    const index = list.findIndex((p) => p.id === id);
+    if (index < 0) { json(res, 404, { ok: false, message: 'الصورة غير موجودة.' }); return true; }
+    const next = { ...list[index], caption: cleanText(body.caption, 200), captionEn: cleanText(body.captionEn, 200) };
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(body.date || ''))) next.date = String(body.date);
+    const updated = [...list]; updated[index] = next;
+    try { await writePhotos(updated); json(res, 200, { ok: true, message: 'تم حفظ التعديل.' }); }
+    catch { json(res, 500, { ok: false, message: 'تعذر حفظ التعديل.' }); }
+    return true;
+  }
+
+  if (pathname === '/api/admin/photos/delete' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 4 * 1024)); }
+    catch { json(res, 400, { ok: false, message: 'طلب غير صالح.' }); return true; }
+    const id = cleanText(body.id, 40);
+    const list = await readPhotos();
+    const photo = list.find((p) => p.id === id);
+    if (!photo) { json(res, 404, { ok: false, message: 'الصورة غير موجودة أو تم حذفها مسبقًا.' }); return true; }
+    try {
+      await writePhotos(list.filter((p) => p.id !== id));
+      await rm(join(photosDir, photo.file), { force: true });
+      await rm(join(photosDir, photo.thumb), { force: true });
+      json(res, 200, { ok: true, message: 'تم حذف الصورة.' });
+    } catch { json(res, 500, { ok: false, message: 'تعذر حذف الصورة.' }); }
+    return true;
+  }
+
+  if (pathname === '/api/admin/news' && req.method === 'GET') {
+    json(res, 200, { ok: true, data: publicNews(await readNews()), persistentStorage: Boolean(process.env.DATA_DIR) });
+    return true;
+  }
+
+  // Create a news item, or update it when an existing id is sent. The image is optional.
+  if (pathname === '/api/admin/news' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 14 * 1024 * 1024)); }
+    catch (error) {
+      json(res, error?.statusCode === 413 ? 413 : 400, { ok: false, message: error?.statusCode === 413 ? 'حجم الصورة كبير جدًا.' : 'طلب غير صالح.' });
+      return true;
+    }
+    const title = cleanText(body.title, 200);
+    const text = cleanLongText(body.body, 20000);
+    if (!title || !text) { json(res, 422, { ok: false, message: 'العنوان ونص الخبر بالعربي مطلوبين.' }); return true; }
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(String(body.date || '')) ? String(body.date) : new Date().toISOString().slice(0, 10);
+    let image = null, thumb = null;
+    if (body.image) {
+      image = decodeImageDataUrl(body.image, 8 * 1024 * 1024);
+      thumb = decodeImageDataUrl(body.thumb, 2 * 1024 * 1024);
+      if (!image || !thumb) { json(res, 422, { ok: false, message: 'الملف ليس صورة صالحة (JPG أو PNG أو WebP).' }); return true; }
+    }
+    try {
+      const list = await readNews();
+      const id = cleanText(body.id, 40);
+      const index = id ? list.findIndex((n) => n.id === id) : -1;
+      if (id && index < 0) { json(res, 404, { ok: false, message: 'الخبر غير موجود.' }); return true; }
+      if (index < 0 && list.length >= MAX_NEWS) { json(res, 422, { ok: false, message: 'وصل عدد الأخبار للحد الأعلى.' }); return true; }
+      const prev = index >= 0 ? list[index] : null;
+      const record = {
+        ...(prev || { id: randomUUID(), createdAt: new Date().toISOString() }),
+        title, titleEn: cleanText(body.titleEn, 200), body: text, bodyEn: cleanLongText(body.bodyEn, 20000), date,
+        updatedAt: new Date().toISOString()
+      };
+      if (image) {
+        await mkdir(photosDir, { recursive: true });
+        const fileId = randomUUID();
+        record.image = `${fileId}${image.ext}`;
+        record.thumb = `${fileId}-t${thumb.ext}`;
+        record.width = Math.max(0, Math.min(10000, Number.parseInt(body.width, 10) || 0));
+        record.height = Math.max(0, Math.min(10000, Number.parseInt(body.height, 10) || 0));
+        await writeFile(join(photosDir, record.image), image.buf);
+        await writeFile(join(photosDir, record.thumb), thumb.buf);
+      } else if (body.removeImage) {
+        delete record.image; delete record.thumb; delete record.width; delete record.height;
+      }
+      const next = [...list];
+      if (index >= 0) next[index] = record; else next.push(record);
+      await writeNews(next);
+      if (prev && (image || body.removeImage)) await removeNewsImages(prev);
+      json(res, 200, { ok: true, message: index >= 0 ? 'تم حفظ التعديل.' : 'تم نشر الخبر.', data: publicNews([record])[0] });
+    } catch (error) {
+      console.error('news save error:', error?.message || error);
+      json(res, 500, { ok: false, message: 'تعذر حفظ الخبر حاليًا.' });
+    }
+    return true;
+  }
+
+  if (pathname === '/api/admin/news/delete' && req.method === 'POST') {
+    let body;
+    try { body = parseRequestBody(req, await readBody(req, 4 * 1024)); }
+    catch { json(res, 400, { ok: false, message: 'طلب غير صالح.' }); return true; }
+    const id = cleanText(body.id, 40);
+    const list = await readNews();
+    const item = list.find((n) => n.id === id);
+    if (!item) { json(res, 404, { ok: false, message: 'الخبر غير موجود أو تم حذفه مسبقًا.' }); return true; }
+    try {
+      await writeNews(list.filter((n) => n.id !== id));
+      await removeNewsImages(item);
+      json(res, 200, { ok: true, message: 'تم حذف الخبر.' });
+    } catch { json(res, 500, { ok: false, message: 'تعذر حذف الخبر.' }); }
+    return true;
+  }
+
   json(res, 404, { ok: false, message: 'المسار غير موجود.' });
   return true;
 }
@@ -1523,6 +1775,21 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/participation' && req.method === 'POST') {
       await handleParticipationRequest(req, res);
+      return;
+    }
+
+    if (pathname === '/api/news' && req.method === 'GET') {
+      json(res, 200, { ok: true, data: publicNews(await readNews()) }, { 'Cache-Control': 'no-cache' });
+      return;
+    }
+
+    if (pathname === '/api/photos' && req.method === 'GET') {
+      json(res, 200, { ok: true, data: sortedPublicPhotos(await readPhotos()) }, { 'Cache-Control': 'no-cache' });
+      return;
+    }
+
+    if (pathname.startsWith('/uploads/photos/') && (req.method === 'GET' || req.method === 'HEAD')) {
+      await servePhotoFile(req, res, pathname);
       return;
     }
 
