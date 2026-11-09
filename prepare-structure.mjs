@@ -108,6 +108,7 @@ const maps = [
   ['occasions.js', 'public/occasions.js'],
   ['photos-gallery.js', 'public/photos-gallery.js'],
   ['news-feed.js', 'public/news-feed.js'],
+  ['home-news.js', 'public/home-news.js'],
   ['dark-theme.css', 'public/styles/dark-theme.css'],
   ['offline.html', 'public/offline.html'],
   ['icon-192.png', 'public/icons/icon-192.png'],
@@ -156,6 +157,18 @@ for (const [from, to] of maps) {
   });
 
   await copyFile(src, dst);
+}
+
+// Search engine verification files (e.g. google1234abcd.html from Google Search Console):
+// any such file uploaded to the repository root is published automatically at the site root.
+{
+  const { readdir } = await import('node:fs/promises');
+  for (const name of await readdir(root)) {
+    if (/^(google[0-9a-z]+\.html|BingSiteAuth\.xml|yandex_[0-9a-z]+\.html)$/i.test(name)) {
+      await copyFile(new URL(name, root), new URL(`public/${name}`, root));
+      console.log(`Published verification file: ${name}`);
+    }
+  }
 }
 
 // تصحيح مسارات imports تلقائيًا بعد نقل الصفحات

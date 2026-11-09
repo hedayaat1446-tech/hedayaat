@@ -187,7 +187,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
     {process.env.GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={String(process.env.GOOGLE_SITE_VERIFICATION).trim().replace(/^.*content="([^"]+)".*$/s, "$1")} />}
     {isNotFound && <meta name="robots" content="noindex, nofollow" />}
 
-<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any">
+<link rel="icon" href="/favicon.ico?v=2" type="image/x-icon" sizes="any">
+    <link rel="icon" href="/icons/icon-192.png?v=2" type="image/png" sizes="192x192">
 
 
     <link rel="canonical" href={canonical} />
@@ -242,7 +243,7 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
     </script>
     <link rel="manifest" href={isAr ? "/manifest.webmanifest" : "/manifest-en.webmanifest"} />
     <meta name="theme-color" content="#16404F" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=2" />
     <meta name="apple-mobile-web-app-title" content={isAr ? "هدايات" : "Hedayat"} />
 
     <link rel="stylesheet" href="/vendor/bootstrap.min.css?v=536" />
@@ -336,8 +337,8 @@ const socials = (contactInfo.social || []).filter((x) => x.url);
       })();
     </script>
 
-    <link rel="stylesheet" href="/styles/site.css?v=70" />
-    <link rel="stylesheet" href="/styles/dark-theme.css?v=70" />
+    <link rel="stylesheet" href="/styles/site.css?v=71" />
+    <link rel="stylesheet" href="/styles/dark-theme.css?v=71" />
     <slot name="head" />
   </head>
 

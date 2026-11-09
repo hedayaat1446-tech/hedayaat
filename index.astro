@@ -114,6 +114,17 @@ const pillars = site.about.pillars || [];
       </div>
     </section>
 
+    <section id="latest-news" class="home-section home-news" data-home-news hidden>
+      <div class="home-section-inner">
+        <header class="home-head">
+          <h2>آخر الأخبار</h2>
+          <p>تابع جديد مؤسسة هدايات التعليمية وبرامجها.</p>
+        </header>
+        <div class="home-news-grid" data-home-news-grid></div>
+        <div class="home-news-more"><a class="hp-btn hp-btn--ghost" href="/news/">عرض كل الأخبار <i class="bi bi-arrow-left" aria-hidden="true"></i></a></div>
+      </div>
+    </section>
+
     <section id="contact" class="home-section">
       <div class="home-section-inner">
         <header class="home-head reveal-on-scroll">
@@ -225,4 +236,5 @@ const pillars = site.about.pillars || [];
     })();
   </script>
   <script is:inline src="/occasions.js?v=1" defer></script>
+  <script is:inline src="/home-news.js?v=1" defer></script>
 </BaseLayout>
